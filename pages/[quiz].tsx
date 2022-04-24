@@ -1,5 +1,5 @@
 const Quiz = () => (
-    <p>Quiz!</p>
+    <p>Quiz</p>
 )
 
 export default Quiz
