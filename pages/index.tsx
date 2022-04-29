@@ -4,8 +4,12 @@ const IndexPage = () => (
   <>
     <p>Wuck Finston!</p>
     <p>
-      <Link href="/page2">
-        <a>Go to Page2</a>
+      <Link href="/about">
+        <a>About</a>
+      </Link>
+      <br></br>
+      <Link href="/privacy">
+        <a>Privacy</a>
       </Link>
     </p>
   </>
