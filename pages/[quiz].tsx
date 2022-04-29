@@ -5,10 +5,14 @@ import Conclusion from '../components/Conclusion'
 
 const Quiz = ({ quizData }) => {
     const [data, setData] = useState({quizData})
+    console.log(quizData)
     return (
-        <div>
-            <Intro title={quizData.title} intro={quizData.intro}/>
-            <p>{quizData.intro}</p>
+        <div className='grid place-items-center'>
+            <div className='flex flex-col w-72 mt-20'>
+                <Intro title={quizData.title} intro={quizData.intro}/>
+                <Body info={quizData.info} images={quizData.image} />
+                <Conclusion />
+            </div>
         </div>
     )
 }
@@ -27,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=*`)
     const data = await res.json()
     const quizData = data.data.attributes
     return {
