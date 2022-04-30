@@ -95,5 +95,5 @@ const selectAnswer = (selection, value, setCorrect, button, setButton, setDisabl
         behavior: 'smooth',
     })
 }
-
+  
 export default Entry
