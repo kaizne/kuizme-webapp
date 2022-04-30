@@ -25,28 +25,28 @@ const Entry = ({ value, imageUrl, info,
                     <button onClick={(elem) => selectAnswer((elem.target as HTMLElement).innerHTML, value, setCorrect, 1, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-10 font-semibold border border-gray-200 
+                        className={`w-40 h-10 font-medium border border-gray-200 
                             ${button === 1 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 1 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 1 ? 'bg-emerald-400' : 'none'}`}>{selection[0]}</button>
                     <button onClick={(elem) => selectAnswer((elem.target as HTMLElement).innerHTML, value, setCorrect, 2, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-10 font-semibold border border-gray-200
+                        className={`w-40 h-10 font-medium border border-gray-200
                             ${button === 2 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 2 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 2 ? 'bg-emerald-400' : 'none'}`}>{selection[1]}</button>
                     <button onClick={(elem) => selectAnswer((elem.target as HTMLElement).innerHTML, value, setCorrect, 3, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-10 font-semibold border border-gray-200
+                        className={`w-40 h-10 font-medium border border-gray-200
                             ${button === 3 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 3 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 3 ? 'bg-emerald-400' : 'none'}`}>{selection[2]}</button>
                     <button onClick={(elem) => selectAnswer((elem.target as HTMLElement).innerHTML, value, setCorrect, 4, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-10 font-semibold border border-gray-200
+                        className={`w-40 h-10 font-medium border border-gray-200
                             ${button === 4 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 4 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 4 ? 'bg-emerald-400' : 'none'}`}>{selection[3]}</button>

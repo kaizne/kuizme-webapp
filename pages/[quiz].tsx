@@ -12,7 +12,7 @@ const Quiz = ({ quizData }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
 
     useEffect(() => {
-        setTotal(Object.entries(quizData.info).length + 1)
+        setTotal(Object.entries(quizData.info).length)
     }, [])
 
     return (
