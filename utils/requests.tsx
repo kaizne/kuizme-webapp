@@ -1,12 +1,4 @@
 export default {
-  trending: {
-    title: 'Trending',
-    url: '/trending'
-  },
-  toprated: {
-    title: 'Top Rated',
-    url: '/toprated'
-  },
   anime: {
     title: 'Anime',
     url: '/anime'
