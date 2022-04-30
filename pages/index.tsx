@@ -1,13 +1,12 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import Header from '../components/Header'
 import Nav from '../components/Nav'
 
 const IndexPage = () => (
   <div>
-    <Header />
     <Nav />
     <p>
+      <br></br>
       <Link href="/about">
         <a>About</a>
       </Link>
