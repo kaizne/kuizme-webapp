@@ -5,7 +5,6 @@ const Intro = ({ title, intro, setStart }) => (
         <div className='text-center mt-1'>
             <button onClick={() => setStart(true)}
             className='w-16 rounded pt-1 pb-1 bg-emerald-400 text-white font-bold'>Play</button>
-            <button className='w-16 rounded pt-1 pb-1 bg-emerald-400 text-white font-bold'>Play</button>
         </div>
     </div>
 )
