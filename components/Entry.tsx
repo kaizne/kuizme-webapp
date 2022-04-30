@@ -22,28 +22,28 @@ const Entry = ({ value, imageUrl, info,
             { imageUrl && <Image className='rounded-lg' src={imageUrl} width={90} height={90} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-2 gap-2 mt-4'>
-                    <button onClick={(elem) => selectAnswer(elem.target.innerHTML, value, setCorrect, 1, setButton, setDisable, 
+                    <button onClick={(elem) => selectAnswer((elem.target as HTMLElement).innerHTML, value, setCorrect, 1, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
                         className={`w-40 h-10 font-semibold border border-gray-200 
                             ${button === 1 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 1 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 1 ? 'bg-emerald-400' : 'none'}`}>{selection[0]}</button>
-                    <button onClick={(elem) => selectAnswer(elem.target.innerHTML, value, setCorrect, 2, setButton, setDisable, 
+                    <button onClick={(elem) => selectAnswer((elem.target as HTMLElement), value, setCorrect, 2, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
                         className={`w-40 h-10 font-semibold border border-gray-200
                             ${button === 2 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 2 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 2 ? 'bg-emerald-400' : 'none'}`}>{selection[1]}</button>
-                    <button onClick={(elem) => selectAnswer(elem.target.innerHTML, value, setCorrect, 3, setButton, setDisable, 
+                    <button onClick={(elem) => selectAnswer((elem.target as HTMLElement), value, setCorrect, 3, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
                         className={`w-40 h-10 font-semibold border border-gray-200
                             ${button === 3 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 3 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && index === 3 ? 'bg-emerald-400' : 'none'}`}>{selection[2]}</button>
-                    <button onClick={(elem) => selectAnswer(elem.target.innerHTML, value, setCorrect, 4, setButton, setDisable, 
+                    <button onClick={(elem) => selectAnswer((elem.target as HTMLElement), value, setCorrect, 4, setButton, setDisable, 
                                                     score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
                         disabled={disable}
                         className={`w-40 h-10 font-semibold border border-gray-200
