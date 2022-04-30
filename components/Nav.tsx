@@ -7,16 +7,17 @@ function Nav() {
     const router = useRouter();
     return (
         <nav className=''>
-            <div className='flex mr-10 px-10 py-5 justify-center items-end sm:px-20
-            text-2xl flex-nowrap space-x-10 sm:space-x-20 overflow-x-scroll 
-            scrollbar-hide'>
+            <div className='flex px-5 py-5 justify-center items-end sm:px-10
+            text-2xl flex-nowrap space-x-5 sm:space-x-10 md:space-x-20
+            overflow-x-scroll scrollbar-hide'>
                 <Image src='/kuizme.png' 
-                className='hover:opacity-75' width={266.5} height={48} />
+                className='hover:opacity-75 cursor-pointer' 
+                width={266.5} height={48} />
                 {Object.entries(requests).map(([key, { title, url }]) => (
                     <h2 key={key}
                     onClick={() => router.push('/about')}
                     className='cursor-pointer transition
-                    duration-10 hover:scale-150 hover:text-[#ce3131]
+                    duration-10 hover:scale-125 hover:text-[#ce3131]
                     active:text-[#ff9c00]'>{title}</h2>
                 ))}
             </div>
