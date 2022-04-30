@@ -19,7 +19,8 @@ const Quiz = ({ quizData }) => {
         <div className='grid place-items-center scroll-smooth font-Poppins'>
             <div className='flex flex-col w-72 mt-20'>
                 {start === false ?
-                    <Intro title={quizData.title} intro={quizData.intro} setStart={setStart} />
+                    <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
+                            featured={quizData.featured.data.attributes.url} />
                     : <div></div>
                 }
                 {start === true ?
@@ -30,12 +31,16 @@ const Quiz = ({ quizData }) => {
                     : <div></div>
                 }
                 {finish === true ? 
-                    <Conclusion score={score} total={total} /> : 
-                    <div></div>
+                    <Conclusion score={score} total={total} /> 
+                    : <div></div>
                 }
             </div>
         </div>
     )
+}
+
+const getFeaturedImage = () => {
+
 }
 
 export default Quiz
