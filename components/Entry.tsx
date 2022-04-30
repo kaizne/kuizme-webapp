@@ -57,6 +57,7 @@ const Entry = ({ value, imageUrl, info,
 }
 
 const generateEntries = (value: string, info: object, setIndex) => {
+    console.log('Test')
     const entries = []
     for (let i = 0; i < 4; ++i) {
         let random = Math.floor(Math.random() * Object.keys(info).length) + 1
