@@ -39,10 +39,6 @@ const Quiz = ({ quizData }) => {
     )
 }
 
-const getFeaturedImage = () => {
-
-}
-
 export default Quiz
 
 export async function getStaticPaths() {
