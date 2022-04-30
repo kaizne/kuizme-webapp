@@ -1,15 +1,12 @@
 export default {
   anime: {
-    title: 'Anime',
-    url: '/anime'
+    title: 'Anime'
   },
   movies: {
-    title: 'Movies',
-    url: '/movies'
+    title: 'Movies'
   },
   television: {
-    title: 'Television',
-    url: '/TV'
+    title: 'Television'
   }
 }
 
