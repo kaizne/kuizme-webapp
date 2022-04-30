@@ -5,6 +5,9 @@ module.exports = {
     ],
     theme: {
       extend: {
+          fontFamily: {
+              'Poppins': ['Poppins']
+          },
           animation: {
               fadeIn: 'fadeIn 1.5s',
               fadeOut: 'fadeOut 1.5',
