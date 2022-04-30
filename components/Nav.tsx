@@ -11,7 +11,7 @@ function Nav() {
             text-2xl flex-nowrap space-x-10 sm:space-x-20 overflow-x-scroll 
             scrollbar-hide'>
                 <Image src='/kuizme.png' 
-                className='hover:opacity-75' width={266.5} height={48} />
+                className='hover:opacity-75 cursor-pointer' width={266.5} height={48} />
                 {Object.entries(requests).map(([key, { title, url }]) => (
                     <h2 key={key}
                     onClick={() => router.push('/about')}
