@@ -57,12 +57,12 @@ const Entry = ({ value, imageUrl, info,
 }
 
 const generateEntries = (value: string, info: object, setIndex) => {
-    console.log('Test')
     const entries = []
     for (let i = 0; i < 4; ++i) {
         let random = Math.floor(Math.random() * Object.keys(info).length) + 1
         while (info[random] === value || entries.includes(info[random]))
             random = Math.floor(Math.random() * Object.keys(info).length) + 1
+            
         entries.push(info[random])
     }
     let random = Math.floor(Math.random() * 4)
