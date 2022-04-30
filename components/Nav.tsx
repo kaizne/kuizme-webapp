@@ -7,7 +7,7 @@ function Nav() {
     const router = useRouter();
     return (
         <nav className=''>
-            <div className='flex mr-10 px-10 py-5 justify-center items-end sm:px-20
+            <div className='flex px-10 py-5 justify-center items-end sm:px-20
             text-2xl flex-nowrap space-x-10 sm:space-x-20 overflow-x-scroll 
             scrollbar-hide'>
                 <Image src='/kuizme.png' 
