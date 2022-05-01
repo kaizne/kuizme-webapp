@@ -1,15 +1,14 @@
 import Link from 'next/link'
+import Footer from '../components/Footer'
 
-const about = () => (
+const About = () => (
   <>
     <p>
       We are a small indie company
       <br></br>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
     </p>
+    <Footer />
   </>
 )
 
-export default about
+export default About

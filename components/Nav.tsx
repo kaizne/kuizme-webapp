@@ -20,7 +20,7 @@ function Nav() {
                     onClick={() => router.push(`/${key}`)}
                     className='cursor-pointer transition
                     duration-10 hover:scale-125 hover:text-[#ce3131]
-                    active:text-[#ff9c00]'>{title}</h2>
+                    active:text-[#ff9c00] font-Poppins'>{title}</h2>
                 ))}
             </div>
             <div className='absolute top-0 right-0 bg-gradient-to-l

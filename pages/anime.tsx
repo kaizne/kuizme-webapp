@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Head from 'next/head'
 import Nav from '../components/Nav'
+import Footer from '../components/Footer'
 
 const Anime = () => (
   <div>
@@ -11,6 +11,7 @@ const Anime = () => (
         <a>Guess the Demon Slayer Character Quiz</a>
       </Link>
     </p>
+    <Footer />
   </div>
 )
 
