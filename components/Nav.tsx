@@ -22,7 +22,7 @@ function Nav() {
                               active:text-[#ff9c00]'>{title}</div>))}
                 </div>
             <div className='absolute top-0 right-0 bg-gradient-to-l
-                          from-[#ffffff] h-10 w-1/12'></div>
+            from-[#ffffff] h-10 w-1/12'></div>
         </nav>
     )
 }

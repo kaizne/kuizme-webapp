@@ -2,11 +2,11 @@ import Image from 'next/image'
 
 const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='' }) => {
     return (
-    <div className='flex flex-col place-content-center place-items-center h-80 mt-4'>
+    <div className='fixed w-full h-full bg-opacity-95 bg-[#505050] justify-center bottom-0 left-0'>
         <>
         { type === 0 ? 
             <>
-            <div>Your score is {score} out of {total}.</div>
+            <h1 className='text-center'>Your score is {score} out of {total}.</h1>
             </>
             : 
             <>
