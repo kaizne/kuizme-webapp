@@ -7,7 +7,7 @@ const Anime = ({ animeName, quizData }) => {
         <div>
             <Nav />
             <div className='text-lg font-bold mt-4 ml-4 md:ml-8'>{animeName}</div>
-            <div className='flex flex-col md:flex-row flex-wrap md:gap-x-2 gap-y-2
+            <div className='flex flex-col md:flex-row flex-wrap md:gap-x-4 gap-y-2
                             ml-3 md:ml-8 mr-3 mt-1'>
             { quizData.map((elem, index) => 
                 <Preview key={index} 
