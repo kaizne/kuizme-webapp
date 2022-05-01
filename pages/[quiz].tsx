@@ -1,5 +1,6 @@
 import Intro from '../components/Intro'
 import Body from '../components/Body'
+import Nav from '../components/Nav'
 import Conclusion from '../components/Conclusion'
 import { useState, useEffect } from 'react'
 
@@ -20,30 +21,33 @@ const Quiz = ({ quizData }) => {
     }, [])
 
     return (
-        <div className='grid place-items-center scroll-smooth font-Poppins'>
-            <div className='flex flex-col w-72 mt-20'>
-                {start === false ?
-                    <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
-                            featured={quizData.featured.data.attributes.url} />
-                    : <div></div>
-                }
-                {start === true ?
-                    <Body info={quizData.info} images={quizData.image} 
-                          score={score} setScore={setScore} 
-                          setFinish={setFinish}
-                          currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
-                          type={quizData.type}
-                          entries={quizData.entry}
-                          setTally={setTally}
-                          tally={tally} />
-                    : <div></div>
-                }
-                {finish === true ? 
-                    <Conclusion type={quizData.type} score={score} total={total} 
-                                character={calculateTally(tally, quizData.info)} 
-                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)} /> 
-                    : <div></div>
-                }
+        <div>
+            <Nav />
+            <div className='grid place-items-center scroll-smooth font-Poppins'>
+                <div className='flex flex-col w-72 mt-20'>
+                    {start === false ?
+                        <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
+                                featured={quizData.featured.data.attributes.url} />
+                        : <div></div>
+                    }
+                    {start === true ?
+                        <Body info={quizData.info} images={quizData.image} 
+                            score={score} setScore={setScore} 
+                            setFinish={setFinish}
+                            currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
+                            type={quizData.type}
+                            entries={quizData.entry}
+                            setTally={setTally}
+                            tally={tally} />
+                        : <div></div>
+                    }
+                    {finish === true ? 
+                        <Conclusion type={quizData.type} score={score} total={total} 
+                                    character={calculateTally(tally, quizData.info)} 
+                                    characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)} /> 
+                        : <div></div>
+                    }
+                </div>
             </div>
         </div>
     )
