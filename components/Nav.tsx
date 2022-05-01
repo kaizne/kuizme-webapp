@@ -7,14 +7,12 @@ import Link from 'next/link'
 function Nav() {
     const router = useRouter()
     return (
-        <nav className='relative'>
-            <div className='flex px-5 py-5 justify-center items-end sm:px-10
-            text-2xl flex-nowrap space-x-5 sm:space-x-10 md:space-x-20
-            overflow-x-scroll scrollbar-hide'>
+        <nav className='flex flex-col md:flex-row ml-3 md:ml-8 mt-4 overflow-x-scroll scrollbar-hide'>
                 <Link href='/'>
-                    <a className='font-Montserrate text-5xl font-extrabold
+                    <a className='w-32 md:w-44 font-Montserrate text-3xl md:text-5xl font-extrabold
                     text-[#1BA5E4]'>KUIZME</a>
                 </Link> 
+                <div className='flex flex-row md:ml-4 md:mt-3 gap-x-4'>
                 {Object.entries(requests).map(([key, { title }]) => (
                 <div key={key}
                      onClick={() => router.push(`/${key}`)}
