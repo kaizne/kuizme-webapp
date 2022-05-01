@@ -1,20 +1,11 @@
 import Link from 'next/link'
-import Head from 'next/head'
 import Nav from '../components/Nav'
+import Footer from '../components/Footer'
 
 const IndexPage = () => (
   <div>
     <Nav />
-    <p>
-      <br></br>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-      <br></br>
-      <Link href="/privacy">
-        <a>Privacy</a>
-      </Link>
-    </p>
+    <Footer />
   </div>
 )
 

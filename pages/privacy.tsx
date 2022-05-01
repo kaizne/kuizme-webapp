@@ -1,15 +1,13 @@
 import Link from 'next/link'
+import Footer from '../components/Footer'
 
-const privacy = () => (
+const Privacy = () => (
   <>
     <p>
       We will be good
-      <br></br>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
     </p>
+    <Footer />
   </>
 )
 
-export default privacy
+export default Privacy

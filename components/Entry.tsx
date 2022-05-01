@@ -34,7 +34,7 @@ const Entry = ({ value=null,
             ${currentQuestion == question ? 'animate-fadeIn' : 'none'} flex-col items-center scroll-smooth mt-8`}>
         { type === 0 ? 
             <>
-                <p className='font-semibold text-lg mb-1'>Who is this character?</p>
+                <p className='w-80 text-center font-semibold text-lg mb-1'>Who is this character?</p>
                 { imageUrl && <Image className='rounded-lg' src={imageUrl} width={120} height={120} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
@@ -70,7 +70,8 @@ const Entry = ({ value=null,
                 </div>
             </> : 
             <>
-            <p className='font-semibold text-lg mb-1'>{entry.question}</p>
+            <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
+            { entry.mediaUrl[1] && <Image className='rounded-lg' src={entry.mediaUrl[1]} width={120} height={120} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-1 gap-2 mt-4'>
                     <button className={`w-80 h-14 font-medium border border-gray-200
