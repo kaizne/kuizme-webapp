@@ -7,12 +7,12 @@ import Link from 'next/link'
 function Nav() {
     const router = useRouter()
     return (
-        <nav className='flex flex-col md:flex-row ml-3 md:ml-8 mt-4 overflow-x-scroll scrollbar-hide'>
+        <nav className='flex flex-col md:flex-row ml-3 md:ml-8 mt-4 h-full scrollbar-hide'>
                 <Link href='/'>
                     <a className='w-32 md:w-44 font-Montserrate text-3xl md:text-5xl font-extrabold
                     text-[#1BA5E4]'>KUIZME</a>
                 </Link> 
-                <div className='flex flex-row md:ml-4 md:mt-3 gap-x-4'>
+                <div className='flex flex-row md:ml-8 md:mt-4 gap-x-6 font-Poppins'>
                 {Object.entries(requests).map(([key, { title }]) => (
                 <div key={key}
                      onClick={() => router.push(`/${key}`)}
@@ -20,7 +20,7 @@ function Nav() {
                               active:text-[#ff9c00]'>{title}</div>))}
                 </div>
             <div className='absolute top-0 right-0 bg-gradient-to-l
-                          from-[#ffffff] h-10 w-1/12'></div>
+            from-[#ffffff] h-10 w-1/12'></div>
         </nav>
     )
 }
