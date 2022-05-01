@@ -2,19 +2,19 @@ import { Router } from 'next/router'
 import requests from '../utils/requests'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import Link from 'next/link'
 
 function Nav() {
     const router = useRouter()
     return (
-        <nav className='flex flex-col md:flex-row gap-x-4 font-Poppins mt-4
-                        overflow-x-scroll scrollbar-hide'>
-                <div className='ml-4 md:ml-8'>
-                <Image src='/kuizme.png' 
-                       className='hover:opacity-75 cursor-pointer' 
-                       width={110} height={30} 
-                       onClick={() => router.push(`/`)}/>
-                </div>
-                <div className='flex gap-x-4 ml-4 mt-1'>
+        <nav className='relative'>
+            <div className='flex px-5 py-5 justify-center items-end sm:px-10
+            text-2xl flex-nowrap space-x-5 sm:space-x-10 md:space-x-20
+            overflow-x-scroll scrollbar-hide'>
+                <Link href='/'>
+                    <a className='font-Montserrate text-5xl font-extrabold
+                    text-[#1BA5E4]'>KUIZME</a>
+                </Link> 
                 {Object.entries(requests).map(([key, { title }]) => (
                 <div key={key}
                      onClick={() => router.push(`/${key}`)}
