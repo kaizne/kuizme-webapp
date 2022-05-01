@@ -9,7 +9,7 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
         text = 'Better luck next time.'
     }
     else if (percentage < 40) {
-        text = 'You\'re on the right track!'
+        text = 'Better than zero!'
     }
     else if (percentage < 60) {
         text = 'Not bad!'
