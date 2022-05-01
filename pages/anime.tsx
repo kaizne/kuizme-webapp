@@ -1,22 +1,26 @@
+import anime from '../utils/anime'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import Image from 'next/image'
+import Category from '../components/Category'
 
-const Anime = ({ quizData }) => (
-  <div>
-    <Nav />
-    <div className='ml-3 md:ml-8 mt-4 font-Poppins'>
-        <h1 className='text-xl mb-2 font-semibold'>Categories</h1>
-        <div className='flex flex-col items-center w-40 h-40 border rounded-lg'>
-            <div className='mt-1'>
-                <Image className='rounded-lg' src={'/category/naruto.png'} width={120} height={120} />
+const Anime = ({ quizData }) => {
+    console.log(anime)
+    return (
+    <div>
+        <Nav />
+        <div className='ml-3 md:ml-8 mt-4 font-Poppins'>
+            <h1 className='text-xl mb-2 font-semibold'>Categories</h1>
+            <div className='flex flex-row flex-wrap gap-x-4 md:gap-x-8 gap-y-2
+                            mr-3 mt-1'>
+            {Object.values(anime).map((elem, index) => 
+                <Category key={index} category={elem.category} slug={elem.slug} title={elem.title} />
+            )}
             </div>
-            <div className='text-xl -mt-1 font-bold'>Naruto</div>
         </div>
+        <Footer />
     </div>
-    <Footer />
-  </div>
-)
+    )
+}
 
 export default Anime
 
