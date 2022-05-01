@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Preview = ({ slug, title, thumbnail }) => {
     return (
-        <Link href={slug}>
+        <Link href={`/${slug}`}>
             <div className='md:w-80 hover:bg-gray-300 cursor-pointer rounded border shadow'>
             <div className='font-Poppins h-32 flex flex-row'>
                 <div className='w-32 mt-1 ml-1'>
