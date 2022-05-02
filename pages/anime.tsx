@@ -8,7 +8,7 @@ const Anime = ({ quizData }) => {
     return (
     <div>
         <Nav />
-        <div className='ml-3 md:ml-8 mt-4 font-Poppins'>
+        <div className='ml-3 md:ml-8 mt-4 font-Poppins min-h-screen'>
             <h1 className='text-xl mb-2 font-semibold'>Categories</h1>
             <div className='flex flex-row flex-wrap gap-x-4 md:gap-x-8 gap-y-2
                             mr-3 mt-1'>
