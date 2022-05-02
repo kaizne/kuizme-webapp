@@ -22,7 +22,7 @@ const Body = ({ images, info, score, setScore, setFinish,
     }, [])
      
     return (
-        <div>
+        <div className='pb-20'>
             {type === 0 ? 
                 data.map(([key, value], index) =>
                     <Entry key={key} value={value} score={score} setScore={setScore} setFinish={setFinish}
