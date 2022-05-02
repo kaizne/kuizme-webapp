@@ -31,7 +31,7 @@ const Entry = ({ value=null,
     return (
         <div className={`flex 
             ${currentQuestion >= question ? 'none' : 'invisible'} 
-            ${currentQuestion == question ? 'animate-fadeIn' : 'none'} flex-col items-center scroll-smooth mt-8`}>
+            ${currentQuestion == question ? 'animate-fadeIn' : 'none'} flex-col items-center scroll-smooth mt-16`}>
         { type === 0 ? 
             <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>Who is this character?</p>
@@ -149,7 +149,7 @@ const selectAnswerZero = (selection, value, setCorrect, button, setButton, setDi
         })
     } else {
         window.scrollBy({
-            top: 250,
+            top: 350,
             left: 0,
             behavior: 'smooth',
         })
@@ -172,7 +172,7 @@ const selectAnswerOne = (selection, setTally, tally, setIndex, index, size, setC
         })
     } else {
         window.scrollBy({
-            top: 300,
+            top: 500,
             left: 0,
             behavior: 'smooth',
         })
