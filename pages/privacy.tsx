@@ -7,11 +7,11 @@ const Privacy = () => (
       <h1 className='text-2xl md:text-6xl font-bold'>Privacy Policy</h1>
       <br></br>
       <a>At&nbsp;</a>
-      <a href='https://www.kuizme.com/' className='text-blue-600'>kuizme.com</a>
+      <a href='https://www.kuizme.com/' className='text-blue-500'>kuizme.com</a>
       <a>,&nbsp;the privacy of our visitors is of imperative. 
       This Privacy Policy outlines the information 
       that is collected and recorded by&nbsp;</a>
-      <a href='https://www.kuizme.com/' className='text-blue-600'>kuizme.com</a>
+      <a href='https://www.kuizme.com/' className='text-blue-500'>kuizme.com</a>
       <a>,&nbsp;and how we use it. If you have any questions or require additional 
       information about our Privacy Policy, please do not hesitate to contact us.</a>
       <br></br><br></br>
