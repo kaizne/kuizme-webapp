@@ -10,8 +10,8 @@ module.exports = {
               'Montserrat': ['Montserrat']
           },
           animation: {
-              fadeIn: 'fadeIn 1.5s',
-              fadeOut: 'fadeOut 1.5',
+              fadeIn: 'fadeIn 1.2s',
+              fadeOut: 'fadeOut 1.2s',
           },
           keyframes: {
               fadeIn: {
