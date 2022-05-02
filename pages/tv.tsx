@@ -1,9 +1,9 @@
-import movies from '../utils/movies'
+import tv from '../utils/tv'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Category from '../components/Category'
 
-const Movies = ({ quizData }) => {
+const TV = ({ quizData }) => {
     return (
     <div>
         <Nav />
@@ -11,7 +11,7 @@ const Movies = ({ quizData }) => {
             <h1 className='text-xl mb-2 font-semibold'>Categories</h1>
             <div className='flex flex-row flex-wrap gap-x-4 md:gap-x-8 gap-y-2
                             mr-3 mt-1'>
-            {Object.values(movies).map((elem, index) => 
+            {Object.values(tv).map((elem, index) => 
                 <Category key={index} category={elem.category} slug={elem.slug} title={elem.title} />
             )}
             </div>
@@ -21,7 +21,7 @@ const Movies = ({ quizData }) => {
     )
 }
 
-export default Movies
+export default TV
 
 export async function getStaticProps({ params }) {
     const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?populate=*`)
