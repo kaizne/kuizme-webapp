@@ -5,8 +5,8 @@ export default {
   movies: {
     title: 'Movies'
   },
-  television: {
-    title: 'Television'
+  tv: {
+    title: 'TV Shows'
   }
 }
 
