@@ -8,7 +8,9 @@ const IndexPage = ({ quizData }) => {
     return (
     <div>
         <Nav />
-        <New quizData={quizData} />
+        <div className='min-h-screen'>
+          <New quizData={quizData}/>
+        </div>
         <Footer />
     </div>
     )
