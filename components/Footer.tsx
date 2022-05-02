@@ -3,6 +3,10 @@ import React from 'react'
 import Link from 'next/link'
 
 function Footer() {
+    var positionText = 'relative'
+    {/*if (window.outerHeight > window.innerHeight) {
+        positionText = 'relative'
+    }*/}
     return (
         <div className='fixed bottom-0 w-full'>
             <div className='bg-black text-white grid grid-cols-2 
