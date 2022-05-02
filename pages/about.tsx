@@ -4,12 +4,7 @@ import Footer from '../components/Footer'
 
 const About = () => (
   <>
-    <div className='flex justify-center pt-20 pb-2'>
-      <Image src='/3.jpeg' width={1211.65} height={608.3} />
-    </div>
-    <div className='pb-12 md:px-40 font-Poppins'>Kuizme co-founders. From left to right:
-    James Wilmer, William Wei, Winston Shiu.</div>
-    <h1 className='px-6 md:px-40 font-Poppins text-4xl font-bold'>About Us</h1>
+    <h1 className='px-6 md:px-40 font-Poppins text-4xl font-bold mt-20'>About Us</h1>
     <br></br>
     <div className='text-justify px-6 md:px-20 md:px-40 py-4 md:text-xl font-Poppins'>
       <a>
