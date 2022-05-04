@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 
 const Privacy = () => (  
   <>
-    <div className='text-justify px-8 py-10 md:px-20 md:py-10 font-Poppins'>
+    <div className='text-justify px-8 py-10 md:px-20 md:py-10 font-Poppins min-h-screen'>
       <h1 className='text-2xl md:text-6xl font-bold'>Privacy Policy</h1>
       <br></br>
       <a>At&nbsp;</a>
