@@ -13,7 +13,7 @@ const About = () => (
           on the web and mobile devices. Kuizme has dozens of quizzes on 
           a variety of topics, ranging from films to video games, that have been 
           played hundreds of times. Kuizme is a privately held company headquartered 
-          in Vancouver, Canada, with several remote offices around the country. 
+          in Canada, with several remote offices around the country. 
           For inquiries and questions, find our contact information at&nbsp;
           <Link href='/contact'>
             <a className='font-Poppins md:text-xl text-blue-500'>kuizme.com/contact</a>

@@ -15,8 +15,6 @@ const Body = ({ images, info, score, setScore, setFinish,
             newData = entries.map(value => ({ value, sort: Math.random() }))
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
-
-            console.log(newData)
         }
         setData(newData)
     }, [])
