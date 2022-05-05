@@ -13,11 +13,9 @@ const Quiz = ({ quizData }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
 
-    console.log(quizData)
 
     useEffect(() => {
         setTotal(Object.entries(quizData.info).length)
-        console.log(tally)
     }, [])
 
     return (

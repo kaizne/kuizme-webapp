@@ -4,7 +4,6 @@ import Footer from '../components/Footer'
 import Category from '../components/Category'
 
 const Anime = ({ quizData }) => {
-    console.log(anime)
     return (
     <div>
         <Nav />

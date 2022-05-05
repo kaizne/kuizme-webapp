@@ -4,7 +4,6 @@ import New from '../components/New'
 import Footer from '../components/Footer'
 
 const IndexPage = ({ quizData }) => {
-    console.log(quizData)
     return (
     <div>
         <Nav />
