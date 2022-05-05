@@ -1,4 +1,9 @@
 const anime = {
+    'any-anime': {
+        category: 'anime',
+        slug: 'any-anime',
+        title: 'Any'
+    },
     'attack-on-titan': {
         category: 'anime',
         slug: 'attack-on-titan',
