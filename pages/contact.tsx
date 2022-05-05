@@ -11,9 +11,10 @@ const contact = () => (
       </div>
       <div className='flex basis-full justify-center space-x-20'>
         <div>
-          <Link href='https://www.instagram.com/kuiz.me/'>
+          {/*<Link href='https://www.instagram.com/kuiz.me/'>
             <Image src='/instagram.png' width={62} height={62} className='cursor-pointer'></Image>
-          </Link>
+          </Link>*/}
+          <Image src='/instagram.png' width={62} height={62} className='cursor-pointer'></Image>
         </div>
         <div>
           <Link href='https://twitter.com/kuiz_me'>

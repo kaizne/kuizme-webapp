@@ -1,7 +1,6 @@
 import Preview from './Preview'
 
 const New = ({ quizData }) => {
-    console.log(quizData)
     return (
         <div className='font-Poppins'>
             <div className='text-lg font-bold mt-4 ml-4 md:ml-8'>NEW</div>
