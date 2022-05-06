@@ -46,28 +46,28 @@ const Entry = ({ value=null,
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-2 gap-2 mt-4'>
                     <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 1, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
+                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
                         disabled={disable}
                         className={`w-40 h-12 font-medium border border-gray-200 rounded 
                             ${button === 1 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 1 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && choice === 1 ? 'bg-emerald-400' : 'none'}`}>{selection[0]}</button>
                     <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 2, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
+                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
                         disabled={disable}
                         className={`w-40 h-12 font-medium border border-gray-200 rounded
                             ${button === 2 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 2 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && choice === 2 ? 'bg-emerald-400' : 'none'}`}>{selection[1]}</button>
                     <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 3, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
+                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
                         disabled={disable}
                         className={`w-40 h-12 font-medium border border-gray-200 rounded
                             ${button === 3 && correct === 1 ? 'bg-emerald-400' : 'none'}
                             ${button === 3 && correct === 2 ? 'bg-red-400' : 'none'}
                             ${disable === true && choice === 3 ? 'bg-emerald-400' : 'none'}`}>{selection[2]}</button>
                     <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 4, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion)}
+                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
                         disabled={disable}
                         className={`w-40 h-12 font-medium border border-gray-200 rounded
                             ${button === 4 && correct === 1 ? 'bg-emerald-400' : 'none'}
@@ -118,7 +118,7 @@ const generateEntries = (value: string, info: object, setIndex) => {
 
 const selectAnswerZero = (selection, value, setCorrect, button, setButton, setDisable, 
                           score, setScore, question, size, setFinish,
-                          currentQuestion, setCurrentQuestion) => {
+                          currentQuestion, setCurrentQuestion, setHide) => {
     setDisable(true)
     setButton(button)
     if (selection === value) {
@@ -128,17 +128,11 @@ const selectAnswerZero = (selection, value, setCorrect, button, setButton, setDi
         setCorrect(2)
     }
 
-    if (question + 1 === size) {
+    if (question + 1 === size)
         setFinish(true)
-    } 
 
-    window.scrollBy({
-        top: 360,
-        left: 0,
-        behavior: 'smooth',
-    })
-
-    setTimeout(() => setCurrentQuestion(currentQuestion + 1), 100) 
+    setTimeout(() => setCurrentQuestion(currentQuestion + 1), 750) 
+    setTimeout(() => setHide(true), 750)
 }
 
 const selectAnswerOne = (selection, setTally, tally, setIndex, index, size, setCurrentQuestion, 
