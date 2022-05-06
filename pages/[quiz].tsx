@@ -1,11 +1,10 @@
+import { useState, useEffect } from 'react'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Nav from '../components/Nav'
 import Conclusion from '../components/Quiz/Conclusion'
-import { useState, useEffect } from 'react'
 
 const Quiz = ({ quizData }) => {
-    const [data, setData] = useState({quizData})
     const [score, setScore] = useState(0)
     const [total, setTotal] = useState(0)
     const [start, setStart] = useState(false)
@@ -21,21 +20,21 @@ const Quiz = ({ quizData }) => {
         <div>
             <Nav />
             <div className='grid place-items-center scroll-smooth font-Poppins'>
-                <div className='flex flex-col w-72 mt-20'>
+                <div className='flex flex-col w-72 mt-10 md:mt-16'>
                     {start === false ?
                         <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
-                                featured={quizData.featured.data.attributes.url} />
+                               featured={quizData.featured.data.attributes.url} />
                         : <div></div>
                     }
                     {start === true ?
                         <Body info={quizData.info} images={quizData.image} 
-                            score={score} setScore={setScore} 
-                            setFinish={setFinish}
-                            currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
-                            type={quizData.type}
-                            entries={quizData.entry}
-                            setTally={setTally}
-                            tally={tally} />
+                              score={score} setScore={setScore} 
+                              setFinish={setFinish}
+                              currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
+                              type={quizData.type}
+                              entries={quizData.entry}
+                              setTally={setTally}
+                              tally={tally} />
                         : <div></div>
                     }
                     {finish === true ? 
