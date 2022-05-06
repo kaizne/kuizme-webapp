@@ -1,7 +1,7 @@
-import Intro from '../components/Intro'
-import Body from '../components/Body'
+import Intro from '../components/Quiz/Intro'
+import Body from '../components/Quiz/Body'
 import Nav from '../components/Nav'
-import Conclusion from '../components/Conclusion'
+import Conclusion from '../components/Quiz/Conclusion'
 import { useState, useEffect } from 'react'
 
 const Quiz = ({ quizData }) => {
@@ -12,7 +12,6 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
-
 
     useEffect(() => {
         setTotal(Object.entries(quizData.info).length)

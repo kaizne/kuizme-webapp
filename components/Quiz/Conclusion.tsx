@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useLocation } from 'react-router-dom'
 
 const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='' }) => {
     const percentage = Percentage(score, total)

@@ -1,7 +1,7 @@
 import Nav from '../components/Nav'
-import Section from '../components/Section'
+import Section from '../components/Home/Section'
 import Footer from '../components/Footer'
-import Trending from '../components/Trending'
+import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, trending }) => {
     console.log(trending)
