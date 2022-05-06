@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Kuizme</title>
         <link rel='shortcut icon' href='/favicon.png?' />
       </Head>
-
       <Component {...pageProps} />
     </>
   );
