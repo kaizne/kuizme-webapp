@@ -1,4 +1,4 @@
-import PreviewTwo from './PreviewTwo'
+import PreviewTwo from '../PreviewTwo'
 
 const Trending = ({ quizData }) => {
     return (
