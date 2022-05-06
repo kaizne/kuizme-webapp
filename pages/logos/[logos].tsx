@@ -24,7 +24,7 @@ export default Logos
 
 export async function getStaticPaths() {
     const paths = []
-    Object.keys(anime).forEach(elem => paths.push({ params: { anime: elem } }))
+    Object.keys(anime).forEach(elem => paths.push({ params: { logos: elem } }))
     return {
         paths: paths,
         fallback: false
