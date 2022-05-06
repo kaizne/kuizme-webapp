@@ -1,4 +1,4 @@
-import anime from '../../utils/anime'
+import logos from '../../utils/logos'
 import Nav from '../../components/Nav'
 import Preview from '../../components/Preview'
 
@@ -24,7 +24,7 @@ export default Logos
 
 export async function getStaticPaths() {
     const paths = []
-    Object.keys(anime).forEach(elem => paths.push({ params: { logos: elem } }))
+    Object.keys(logos).forEach(elem => paths.push({ params: { logo: elem } }))
     return {
         paths: paths,
         fallback: false
@@ -32,13 +32,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[subcategory][$eq]=${params.anime}&populate=*`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[subcategory][$eq]=${params.logo}&populate=*`)
     const data = await res.json()
     const quizData = data.data
-    const animeName = anime[params.anime].title
+    const logoName = logos[params.logo].title
     return {
         props: {
-            animeName,
+            logoName,
             quizData
         }  
     }
