@@ -7,6 +7,9 @@ export default {
   },
   tv: {
     title: 'TV Shows'
+  },
+  logos: {
+    title: 'Logos'
   }
 }
 
