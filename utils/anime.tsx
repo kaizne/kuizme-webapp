@@ -1,8 +1,8 @@
 const anime = {
-    'any-anime': {
+    'general': {
         category: 'anime',
-        slug: 'any-anime',
-        title: 'Any'
+        slug: 'general',
+        title: 'General'
     },
     'attack-on-titan': {
         category: 'anime',
