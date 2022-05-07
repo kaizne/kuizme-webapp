@@ -17,9 +17,8 @@ const Quiz = ({ quizData }) => {
     }, [])
 
     return (
-        <div>
-            <Nav />
-            <div className='grid place-items-center scroll-smooth font-Poppins'>
+        <div className='min-h-screen'>
+            <div className='grid place-items-center scroll-smooth'>
                 <div className='flex flex-col w-72 mt-10 md:mt-16'>
                     {start === false ?
                         <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}

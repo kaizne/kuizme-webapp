@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-const Entry = ({ value=null, 
+const Entry = ({ answer=null, 
                  imageUrl=null, 
                  info=null, 
                  score=null, 
@@ -18,77 +18,90 @@ const Entry = ({ value=null,
                 }) => {  
 
     const [selection, setSelection] = useState([])
-    const [button, setButton] = useState(0)
-    const [correct, setCorrect] = useState(0)
     const [disable, setDisable] = useState(false)
+    const [correct, setCorrect] = useState(0)
+    
+    const [colors, setColors] = 
+        useState(['bg-white', 'bg-white', 'bg-white', 'bg-white']) 
+        
+    // Personality
     const [choice, setChoice] = useState(0)
-    const [hide, setHide] = useState(false)
 
     useEffect(() => {
         if (type === 0)
-            setSelection(generateEntries(value, info, setChoice))
+            setSelection(generateEntries(answer, info, setCorrect))
     }, [])
 
     return (
-        <div className={`flex
+        <div className={`flex mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
-            ${disable === true ? 'animate-fadeOut' : 'none'}
-            ${hide === true ? 'hidden' : 'none'} flex-col items-center scroll-smooth`}>
-            <p className='w-20 text-center font-medium text-lg mb-2 border-b-2'>
+            ${// currentQuestion === question ? 'animate-fadeIn' : 'none'
+                 currentQuestion === question ? 'none' : 'none'}
+            ${// disable === true ? 'animate-fadeOut' : 'none'
+                 disable === true ? 'none' : 'none'}
+            flex-col items-center scroll-smooth`}>
+            <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
                 <span className='text-sky-500'>{question + 1}</span>
                 <span className='font-normal'> / </span> 
                 {size}
             </p>
         { type === 0 ? 
             <>
-            { imageUrl && <Image className='rounded-lg' src={imageUrl} width={120} height={120} /> }
+            { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-2 gap-2 mt-4'>
-                    <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 1, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
+                    <button onClick={(elem) => 
+                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
+                                         colors, setColors, 0, correct, setDisable, 
+                                         score, setScore, question, size, setFinish,
+                                         currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-12 font-medium border border-gray-200 rounded 
-                            ${button === 1 && correct === 1 ? 'bg-emerald-400' : 'none'}
-                            ${button === 1 && correct === 2 ? 'bg-red-400' : 'none'}
-                            ${disable === true && choice === 1 ? 'bg-emerald-400' : 'none'}`}>{selection[0]}</button>
-                    <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 2, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
+                        className={`w-40 h-16
+                                    text-lg font-medium rounded ${colors[0]}
+                                    border border-gray-200`}>{selection[0]}</button>
+                    <button onClick={(elem) => 
+                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
+                                         colors, setColors, 1, correct, setDisable, 
+                                         score, setScore, question, size, setFinish,
+                                         currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-12 font-medium border border-gray-200 rounded
-                            ${button === 2 && correct === 1 ? 'bg-emerald-400' : 'none'}
-                            ${button === 2 && correct === 2 ? 'bg-red-400' : 'none'}
-                            ${disable === true && choice === 2 ? 'bg-emerald-400' : 'none'}`}>{selection[1]}</button>
-                    <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 3, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
+                        className={`w-40 h-16
+                                    text-lg font-medium rounded ${colors[1]}
+                                    border border-gray-200`}>{selection[1]}</button>
+                    <button onClick={(elem) => 
+                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
+                                        colors, setColors, 2, correct, setDisable, 
+                                        score, setScore, question, size, setFinish,
+                                        currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-12 font-medium border border-gray-200 rounded
-                            ${button === 3 && correct === 1 ? 'bg-emerald-400' : 'none'}
-                            ${button === 3 && correct === 2 ? 'bg-red-400' : 'none'}
-                            ${disable === true && choice === 3 ? 'bg-emerald-400' : 'none'}`}>{selection[2]}</button>
-                    <button onClick={(elem) => selectAnswerZero((elem.target as HTMLElement).innerHTML, value, setCorrect, 4, setButton, setDisable, 
-                                                    score, setScore, question, size, setFinish, currentQuestion, setCurrentQuestion, setHide)}
+                        className={`w-40 h-16
+                                    text-lg font-medium rounded ${colors[2]}
+                                    border border-gray-200`}>{selection[2]}</button>
+                    <button onClick={(elem) => 
+                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
+                                         colors, setColors, 3, correct, setDisable, 
+                                         score, setScore, question, size, setFinish,
+                                         currentQuestion, setCurrentQuestion)}
                         disabled={disable}
-                        className={`w-40 h-12 font-medium border border-gray-200 rounded
-                            ${button === 4 && correct === 1 ? 'bg-emerald-400' : 'none'}
-                            ${button === 4 && correct === 2 ? 'bg-red-400' : 'none'}
-                            ${disable === true && choice === 4 ? 'bg-emerald-400' : 'none'}`}>{selection[3]}</button>
+                        className={`w-40 h-16
+                                    text-lg font-medium rounded ${colors[3]}
+                                    border border-gray-200`}>{selection[3]}</button>
                 </div>
             </div>
             </> : 
             <>
             <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-            { entry.mediaUrl[1] && <Image className='rounded-lg' src={entry.mediaUrl[1]} width={120} height={120} /> }
+            { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={120} height={120} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-1 gap-2 mt-4'>
                     { Object.keys(entry.content).map((elem, index) => {
                         return (
                             <button className={`w-80 h-14 font-medium border border-gray-200 rounded
-                                                ${choice === index && disable ? 'bg-emerald-400' : 'none'}`}
+                                                ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
                                         selectAnswerOne(elem, setTally, tally, setChoice, index, size,
                                                         setCurrentQuestion, currentQuestion, 
-                                                        setDisable, setFinish, setHide)}
+                                                        setDisable, setFinish)}
                                     disabled={disable}>
                                     {entry.content[elem]}
                             </button>
@@ -101,59 +114,65 @@ const Entry = ({ value=null,
     )
 }
 
-const generateEntries = (value: string, info: object, setIndex) => {
+const generateEntries = (answer: string, info: object, setCorrect: any) => {
     const entries = []
     for (let i = 0; i < 4; ++i) {
         let random = Math.floor(Math.random() * Object.keys(info).length) + 1
-        while (info[random] === value || entries.includes(info[random]))
-            random = Math.floor(Math.random() * Object.keys(info).length) + 1
-            
+        while (info[random] === answer || entries.includes(info[random]))
+            random = Math.floor(Math.random() * Object.keys(info).length) + 1    
         entries.push(info[random])
     }
     let random = Math.floor(Math.random() * 4)
-    entries[random] = value
-    setIndex(random + 1)
+    entries[random] = answer
+    setCorrect(random)
     return entries
 }
 
-const selectAnswerZero = (selection, value, setCorrect, button, setButton, setDisable, 
-                          score, setScore, question, size, setFinish,
-                          currentQuestion, setCurrentQuestion, setHide) => {
-    setDisable(true)
-    setButton(button)
-    if (selection === value) {
-        setCorrect(1)
+const selectCharacter = (selection, answer, color, setColor, button, correct,
+                         setDisable, score, setScore, question, size, setFinish,
+                         currentQuestion, setCurrentQuestion) => {
+    if (selection === answer) {
+        color[button] = 'bg-emerald-400'
         setScore(score+1)
     } else {
-        setCorrect(2)
+        color[button] = 'bg-red-400'
+        color[correct] = 'bg-emerald-400'
     }
-
+    setColor(color)
+    
     if (question + 1 === size)
         setFinish(true)
 
-    setTimeout(() => setCurrentQuestion(currentQuestion + 1), 750) 
-    setTimeout(() => setHide(true), 750)
+    setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1)
+        window.scrollBy({
+            top: 580,
+            left: 0,
+            behavior: 'smooth',
+        })
+    }, 100)
+
+    setDisable(true)
 }
 
 const selectAnswerOne = (selection, setTally, tally, setIndex, index, size, setCurrentQuestion, 
-                         currentQuestion, setDisable, setFinish, setHide) => {
+                         currentQuestion, setDisable, setFinish) => {
     tally[selection]++
     setTally(tally)
     setIndex(index)
-
-    /*
-    window.scrollBy({
-        top: 650,
-        left: 0,
-        behavior: 'smooth',
-    })
-    */
     
-    if (currentQuestion + 1 === size) {
+    if (currentQuestion + 1 === size)
         setFinish(true)
-    }
-    setTimeout(() => setCurrentQuestion(currentQuestion + 1), 750)
-    setTimeout(() => setHide(true), 750)
+
+    setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1)
+        window.scrollBy({
+            top: 715,
+            left: 0,
+            behavior: 'smooth',
+        })
+    }, 100)
+
     setDisable(true)
 }  
 

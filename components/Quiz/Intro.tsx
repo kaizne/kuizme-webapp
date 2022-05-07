@@ -7,7 +7,9 @@ const Intro = ({ title, intro, setStart, featured }) => (
         <p className='text-justify mt-4'>{intro}</p>
         <div className='text-center mt-4'>
             <button onClick={() => setStart(true)}
-            className='w-16 rounded pt-1 pb-1 bg-emerald-400 text-white font-bold'>Play</button>
+            className='w-20 h-10
+                       text-xl 
+                       rounded pt-1 pb-1 bg-sky-400 text-white font-bold'>Play</button>
         </div>
     </div>
 )
