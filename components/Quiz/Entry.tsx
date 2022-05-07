@@ -15,6 +15,7 @@ const Entry = ({ answer=null,
                  entry=null,
                  setTally=null,
                  tally=[],
+                 scroll=null,
                 }) => {  
 
     const [selection, setSelection] = useState([])
@@ -33,7 +34,7 @@ const Entry = ({ answer=null,
     }, [])
 
     return (
-        <div className={`flex mb-60
+        <div className={`flex pt-10 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${// currentQuestion === question ? 'animate-fadeIn' : 'none'
                  currentQuestion === question ? 'none' : 'none'}
@@ -53,8 +54,8 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 0, correct, setDisable, 
-                                         score, setScore, question, size, setFinish,
-                                         currentQuestion, setCurrentQuestion)}
+                                         score, setScore, size, setFinish,
+                                         currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
                                     text-lg font-medium rounded ${colors[0]}
@@ -62,8 +63,8 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 1, correct, setDisable, 
-                                         score, setScore, question, size, setFinish,
-                                         currentQuestion, setCurrentQuestion)}
+                                         score, setScore, size, setFinish,
+                                         currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
                                     text-lg font-medium rounded ${colors[1]}
@@ -71,8 +72,8 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                         colors, setColors, 2, correct, setDisable, 
-                                        score, setScore, question, size, setFinish,
-                                        currentQuestion, setCurrentQuestion)}
+                                        score, setScore, size, setFinish,
+                                        currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
                                     text-lg font-medium rounded ${colors[2]}
@@ -80,8 +81,8 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 3, correct, setDisable, 
-                                         score, setScore, question, size, setFinish,
-                                         currentQuestion, setCurrentQuestion)}
+                                         score, setScore, size, setFinish,
+                                         currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
                                     text-lg font-medium rounded ${colors[3]}
@@ -96,12 +97,12 @@ const Entry = ({ answer=null,
                 <div className='grid grid-cols-1 gap-2 mt-4'>
                     { Object.keys(entry.content).map((elem, index) => {
                         return (
-                            <button className={`w-80 h-14 font-medium border border-gray-200 rounded
+                            <button className={`w-80 h-16 font-medium border border-gray-200 rounded p-2
                                                 ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
-                                        selectAnswerOne(elem, setTally, tally, setChoice, index, size,
-                                                        setCurrentQuestion, currentQuestion, 
-                                                        setDisable, setFinish)}
+                                        selectPersonality(elem, setTally, tally, setChoice, index, size,
+                                                          setCurrentQuestion, currentQuestion, 
+                                                          setDisable, setFinish, scroll)}
                                     disabled={disable}>
                                     {entry.content[elem]}
                             </button>
@@ -129,8 +130,9 @@ const generateEntries = (answer: string, info: object, setCorrect: any) => {
 }
 
 const selectCharacter = (selection, answer, color, setColor, button, correct,
-                         setDisable, score, setScore, question, size, setFinish,
-                         currentQuestion, setCurrentQuestion) => {
+                         setDisable, score, setScore, size, setFinish,
+                         currentQuestion, setCurrentQuestion, scroll) => {
+
     if (selection === answer) {
         color[button] = 'bg-emerald-400'
         setScore(score+1)
@@ -138,25 +140,21 @@ const selectCharacter = (selection, answer, color, setColor, button, correct,
         color[button] = 'bg-red-400'
         color[correct] = 'bg-emerald-400'
     }
-    setColor(color)
     
-    if (question + 1 === size)
-        setFinish(true)
-
+    setColor(color)
+    setDisable(true)   
+    
     setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1)
-        window.scrollBy({
-            top: 580,
-            left: 0,
-            behavior: 'smooth',
-        })
-    }, 100)
-
-    setDisable(true)
+        scroll(currentQuestion + 1)
+        if (currentQuestion + 1 === size)
+            setFinish(true) 
+    }, 250)
+    
 }
 
-const selectAnswerOne = (selection, setTally, tally, setIndex, index, size, setCurrentQuestion, 
-                         currentQuestion, setDisable, setFinish) => {
+const selectPersonality = (selection, setTally, tally, setIndex, index, size, setCurrentQuestion, 
+                         currentQuestion, setDisable, setFinish, scroll) => {
     tally[selection]++
     setTally(tally)
     setIndex(index)
@@ -166,11 +164,9 @@ const selectAnswerOne = (selection, setTally, tally, setIndex, index, size, setC
 
     setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1)
-        window.scrollBy({
-            top: 715,
-            left: 0,
-            behavior: 'smooth',
-        })
+        scroll(currentQuestion + 1)
+        if (currentQuestion + 1 === size)
+            setFinish(true)
     }, 100)
 
     setDisable(true)

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
-import Nav from '../components/Nav'
 import Conclusion from '../components/Quiz/Conclusion'
 
 const Quiz = ({ quizData }) => {
