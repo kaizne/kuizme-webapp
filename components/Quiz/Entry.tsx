@@ -105,8 +105,7 @@ const Entry = ({ answer=null,
                                 onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
                                 disabled={disable}
                                 className={`w-40 h-16 pl-1 pr-1
-                                            text-lg font-medium rounded ${colors[i]}
-                                            border border-gray-200`}>
+                                            text-lg font-medium rounded shadow-sm ${colors[i]}`}>
                                 {elem}
                         </button>
                     )}
@@ -120,7 +119,8 @@ const Entry = ({ answer=null,
                 <div className='grid grid-cols-1 gap-2 mt-4'>
                     { Object.keys(entry.content).map((elem, index) => {
                         return (
-                            <button className={`w-80 h-16 font-medium border border-gray-200 rounded p-2
+                            <button className={`w-80 h-16 p-2 rounded shadow-sm
+                                                font-medium
                                                 ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
                                         selectPersonality(elem, index)}
