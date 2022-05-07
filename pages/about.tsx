@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import Footer from '../components/Footer'
 
 const About = () => (
   <>
@@ -22,7 +20,6 @@ const About = () => (
         </a>
       </div>
     </div>
-    <Footer />
   </>
 )
 

@@ -1,6 +1,4 @@
 import movies from '../utils/movies'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
 import Category from '../components/Category'
 
 const Movies = ({ quizData }) => {
@@ -15,7 +13,6 @@ const Movies = ({ quizData }) => {
             )}
             </div>
         </div>
-        <Footer />
     </div>
     )
 }

@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className='font-Poppins min-h-screen bg-gray-100'>
         <Nav />
         <Component {...pageProps} />
+        <Footer />
       </div>
     </>
   );

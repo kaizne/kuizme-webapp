@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Footer from '../components/Footer'
 import Image from 'next/image'
 
 const contact = () => (
@@ -27,7 +26,6 @@ const contact = () => (
         <a>Twitter</a>
       </div>
     </div>
-    <Footer />
   </>
 )
 

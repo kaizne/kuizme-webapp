@@ -1,5 +1,4 @@
 import Section from '../components/Home/Section'
-import Footer from '../components/Footer'
 import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, trending }) => {
@@ -9,7 +8,6 @@ const IndexPage = ({ quizData, trending }) => {
           <Trending quizData={quizData} />
           <Section title='LATEST' quizData={quizData} type={2} />
         </div>
-        <Footer />
     </div>
     )
 }
