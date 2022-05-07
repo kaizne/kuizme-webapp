@@ -13,7 +13,6 @@ const Entry = ({ answer=null,
                  type=null,
                  entry=null,
                  setTally=null,
-                 tally=[],
                  scroll=null,
                 }) => {  
 
@@ -91,7 +90,7 @@ const Entry = ({ answer=null,
             </> : 
             <>
             <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-            { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={120} height={120} /> }
+            { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-1 gap-2 mt-4'>
                     { Object.keys(entry.content).map((elem, index) => {
@@ -99,7 +98,7 @@ const Entry = ({ answer=null,
                             <button className={`w-80 h-16 font-medium border border-gray-200 rounded p-2
                                                 ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
-                                        selectPersonality(elem, setTally, tally, setChoice, index, size,
+                                        selectPersonality(elem, setTally, setChoice, index, size,
                                                           setCurrentQuestion, currentQuestion, 
                                                           setDisable, setFinish, scroll)}
                                     disabled={disable}>
@@ -152,10 +151,13 @@ const selectCharacter = (selection, answer, color, setColor, button, correct,
     
 }
 
-const selectPersonality = (selection, setTally, tally, setIndex, index, size, setCurrentQuestion, 
+const selectPersonality = (selection, setTally, setIndex, index, size, setCurrentQuestion, 
                          currentQuestion, setDisable, setFinish, scroll) => {
-    tally[selection]++
-    setTally(tally)
+    
+    setTally(tally => {
+        tally[selection]++
+        return tally
+    })
     setIndex(index)
     
     if (currentQuestion + 1 === size)
