@@ -1,6 +1,4 @@
 import anime from '../utils/anime'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
 import Category from '../components/Category'
 
 const Anime = ({ quizData }) => {
@@ -15,7 +13,6 @@ const Anime = ({ quizData }) => {
             )}
             </div>
         </div>
-        <Footer />
     </div>
     )
 }

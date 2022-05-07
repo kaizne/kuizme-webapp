@@ -1,6 +1,4 @@
 import tv from '../utils/tv'
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
 import Category from '../components/Category'
 
 const TV = ({ quizData }) => {
@@ -15,7 +13,6 @@ const TV = ({ quizData }) => {
             )}
             </div>
         </div>
-        <Footer />
     </div>
     )
 }

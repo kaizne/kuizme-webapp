@@ -1,5 +1,3 @@
-import Link from 'next/link'
-import Footer from '../components/Footer'
 
 const Privacy = () => (  
   <>
@@ -85,7 +83,6 @@ const Privacy = () => (
       &nbsp;takes reasonable measures to help protect information about you from alteration 
       and destruction, unauthorized access and misuse, disclosure, theft, and loss.
     </div>
-    <Footer />
   </>
 )
 
