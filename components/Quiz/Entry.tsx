@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 const Entry = ({ answer=null, 
                  imageUrl=null, 
                  info=null, 
-                 score=null, 
                  setScore=null, 
                  setFinish=null, 
                  question=null, 
@@ -54,7 +53,7 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 0, correct, setDisable, 
-                                         score, setScore, size, setFinish,
+                                         setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
@@ -63,7 +62,7 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 1, correct, setDisable, 
-                                         score, setScore, size, setFinish,
+                                         setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
@@ -72,7 +71,7 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                         colors, setColors, 2, correct, setDisable, 
-                                        score, setScore, size, setFinish,
+                                        setScore, size, setFinish,
                                         currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
@@ -81,7 +80,7 @@ const Entry = ({ answer=null,
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
                                          colors, setColors, 3, correct, setDisable, 
-                                         score, setScore, size, setFinish,
+                                         setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
                         className={`w-40 h-16
@@ -130,12 +129,12 @@ const generateEntries = (answer: string, info: object, setCorrect: any) => {
 }
 
 const selectCharacter = (selection, answer, color, setColor, button, correct,
-                         setDisable, score, setScore, size, setFinish,
+                         setDisable, setScore, size, setFinish,
                          currentQuestion, setCurrentQuestion, scroll) => {
 
     if (selection === answer) {
         color[button] = 'bg-emerald-400'
-        setScore(score+1)
+        setScore(score => score + 1)
     } else {
         color[button] = 'bg-red-400'
         color[correct] = 'bg-emerald-400'
