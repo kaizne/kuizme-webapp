@@ -1,7 +1,7 @@
 import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
-const Body = ({ images, info, score, setScore, setFinish, 
+const Body = ({ images, info, setScore, setFinish, 
                 currentQuestion, setCurrentQuestion, type, entries, setTally=null, tally=null }) => {
 
     const [data, setData] = useState([])
@@ -29,7 +29,7 @@ const Body = ({ images, info, score, setScore, setFinish,
                 data.map(([key, value], index) =>
                 <div key={index} ref={el => questionsRef.current[index] = el}>
                     <Entry key={key}
-                           answer={value} score={score} setScore={setScore} setFinish={setFinish}
+                           answer={value} setScore={setScore} setFinish={setFinish}
                            imageUrl={findImage(String(value), type, images)} 
                            info={info} 
                            question={index}

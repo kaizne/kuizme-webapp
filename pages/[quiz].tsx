@@ -26,7 +26,7 @@ const Quiz = ({ quizData }) => {
                     }
                     {start === true ?
                         <Body info={quizData.info} images={quizData.image} 
-                              score={score} setScore={setScore} 
+                              setScore={setScore} 
                               setFinish={setFinish}
                               currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
                               type={quizData.type}
