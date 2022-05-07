@@ -1,10 +1,8 @@
-import Nav from '../components/Nav'
 import Section from '../components/Home/Section'
 import Footer from '../components/Footer'
 import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, trending }) => {
-    console.log(trending)
     return (
     <div>
         <div className='min-h-screen'>
