@@ -3,17 +3,16 @@ import Category from '../components/Category'
 
 const TV = ({ quizData }) => {
     return (
-    <div>
-        <div className='ml-3 md:ml-8 mt-4 font-Poppins min-h-screen'>
-            <h1 className='text-xl mb-2 font-semibold'>Categories</h1>
-            <div className='flex flex-row flex-wrap gap-x-4 md:gap-x-8 gap-y-2
-                            mr-3 mt-1'>
-            {Object.values(tv).map((elem, index) => 
-                <Category key={index} category={elem.category} slug={elem.slug} title={elem.title} />
-            )}
+        <div className='min-h-screen mt-4'>
+            <div className='grid justify-items-center'>
+                <h1 className='text-2xl mb-4 font-semibold'>TV</h1>
+                <div className='grid grid-cols-2 md:grid-cols-6 gap-x-4 gap-y-4'>
+                    {Object.values(tv).map((elem, index) => 
+                    <Category key={index} category={elem.category} slug={elem.slug} title={elem.title} />
+                )}
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
