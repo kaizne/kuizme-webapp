@@ -23,14 +23,14 @@ const Body = ({ images, info, score, setScore, setFinish,
         <div className='pb-20'>
             {type === 0 ? 
                 data.map(([key, value], index) =>
-                    <Entry key={key} value={value} score={score} setScore={setScore} setFinish={setFinish}
-                        imageUrl={findImage(String(value), type, images)} 
-                        info={info} 
-                        question={index}
-                        size={Object.entries(info).length}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        type={type} />) 
+                    <Entry key={key} answer={value} score={score} setScore={setScore} setFinish={setFinish}
+                           imageUrl={findImage(String(value), type, images)} 
+                           info={info} 
+                           question={index}
+                           size={Object.entries(info).length}
+                           currentQuestion={currentQuestion}
+                           setCurrentQuestion={setCurrentQuestion}
+                           type={type} />) 
                 : 
                 data.map((entry, index) => 
                     <Entry key={index} 

@@ -7,7 +7,6 @@ const IndexPage = ({ quizData, trending }) => {
     console.log(trending)
     return (
     <div>
-        <Nav />
         <div className='min-h-screen'>
           <Trending quizData={quizData} />
           <Section title='LATEST' quizData={quizData} type={2} />

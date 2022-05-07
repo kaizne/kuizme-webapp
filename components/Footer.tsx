@@ -8,7 +8,7 @@ function Footer() {
         positionText = 'relative'
     }*/}
     return (
-        <div className='relative bottom-0 w-full'>
+        <div className='w-full h-12 bg-white mt-4'>
             <div className='border-t-2 border-[#D0D0D0] text-black grid grid-cols-2 
             sm:grid-cols-4 md:py-3 justify-center'>
                 <div className='text-center'>

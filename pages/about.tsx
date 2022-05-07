@@ -7,7 +7,7 @@ const About = () => (
     <div className='min-h-screen'>
       <h1 className='px-6 md:px-40 font-Poppins text-4xl font-bold mt-10'>About Us</h1>
       <br></br>
-      <div className='text-justify px-6 md:px-40 md:px-40 py-4 md:text-xl font-Poppins'>
+      <div className='text-justify px-6 md:px-40 py-4 md:text-xl font-Poppins'>
         <a>
           Kuizme is the leading trivia and quiz entertainment provider 
           on the web and mobile devices. Kuizme has dozens of quizzes on 
