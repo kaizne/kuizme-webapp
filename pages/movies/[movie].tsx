@@ -1,11 +1,9 @@
 import movies from '../../utils/movies'
-import Nav from '../../components/Nav'
 import Preview from '../../components/Preview'
 
 const Movie = ({ movieName, quizData }) => {
     return (
         <div>
-            <Nav />
             <div className='text-lg font-bold mt-4 ml-4 md:ml-8'>{movieName}</div>
             <div className='flex flex-col md:flex-row flex-wrap md:gap-x-4 gap-y-2
                             ml-3 md:ml-8 mr-3 mt-1'>
