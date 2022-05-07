@@ -28,16 +28,67 @@ const Entry = ({ answer=null,
 
     useEffect(() => {
         if (type === 0)
-            setSelection(generateEntries(answer, info, setCorrect))
+            setSelection(generateEntries())
     }, [])
+
+    const generateEntries = () => {
+        const entries = []
+        for (let i = 0; i < 4; ++i) {
+            let random = Math.floor(Math.random() * Object.keys(info).length) + 1
+            while (info[random] === answer || entries.includes(info[random]))
+                random = Math.floor(Math.random() * Object.keys(info).length) + 1    
+            entries.push(info[random])
+        }
+        let random = Math.floor(Math.random() * 4)
+        entries[random] = answer
+        setCorrect(random)
+        return entries
+    }
+
+    const selectCharacter = (choice, button) => {
+        if (choice === answer) {
+            setColors(colors => {
+                colors[button] = 'bg-emerald-400'
+                return colors
+            })
+            setScore(score => score + 1)
+        } else {
+            setColors(colors => {
+                colors[button] = 'bg-red-400'
+                colors[correct] = 'bg-emerald-400'
+                return colors
+            })
+        }
+        setDisable(true)   
+        setTimeout(() => {
+            setCurrentQuestion(currentQuestion + 1)
+            scroll(currentQuestion + 1)
+            if (currentQuestion + 1 === size)
+                setFinish(true) 
+        }, 250)    
+    }
+
+    const selectPersonality = (selection, index) => {
+        setTally(tally => {
+            tally[selection]++
+            return tally
+        })
+        setChoice(index)
+        if (currentQuestion + 1 === size)
+            setFinish(true)
+        setTimeout(() => {
+            setCurrentQuestion(currentQuestion + 1)
+            scroll(currentQuestion + 1)
+            if (currentQuestion + 1 === size)
+                setFinish(true)
+        }, 100)
+        setDisable(true)
+    }
 
     return (
         <div className={`flex pt-10 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${// currentQuestion === question ? 'animate-fadeIn' : 'none'
-                 currentQuestion === question ? 'none' : 'none'}
-            ${// disable === true ? 'animate-fadeOut' : 'none'
-                 disable === true ? 'none' : 'none'}
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
             flex-col items-center scroll-smooth`}>
             <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
                 <span className='text-sky-500'>{question + 1}</span>
@@ -49,42 +100,16 @@ const Entry = ({ answer=null,
             { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
                 <div className='grid grid-cols-2 gap-2 mt-4'>
-                    <button onClick={(elem) => 
-                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         setColors, 0, correct, setDisable, 
-                                         setScore, size, setFinish,
-                                         currentQuestion, setCurrentQuestion, scroll)}
-                        disabled={disable}
-                        className={`w-40 h-16
-                                    text-lg font-medium rounded ${colors[0]}
-                                    border border-gray-200`}>{selection[0]}</button>
-                    <button onClick={(elem) => 
-                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         setColors, 1, correct, setDisable, 
-                                         setScore, size, setFinish,
-                                         currentQuestion, setCurrentQuestion, scroll)}
-                        disabled={disable}
-                        className={`w-40 h-16
-                                    text-lg font-medium rounded ${colors[1]}
-                                    border border-gray-200`}>{selection[1]}</button>
-                    <button onClick={(elem) => 
-                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                        setColors, 2, correct, setDisable, 
-                                        setScore, size, setFinish,
-                                        currentQuestion, setCurrentQuestion, scroll)}
-                        disabled={disable}
-                        className={`w-40 h-16
-                                    text-lg font-medium rounded ${colors[2]}
-                                    border border-gray-200`}>{selection[2]}</button>
-                    <button onClick={(elem) => 
-                        selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         setColors, 3, correct, setDisable, 
-                                         setScore, size, setFinish,
-                                         currentQuestion, setCurrentQuestion, scroll)}
-                        disabled={disable}
-                        className={`w-40 h-16
-                                    text-lg font-medium rounded ${colors[3]}
-                                    border border-gray-200`}>{selection[3]}</button>
+                    { selection.map((elem, i) =>
+                        <button key={i}
+                                onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
+                                disabled={disable}
+                                className={`w-40 h-16 pl-1 pr-1
+                                            text-lg font-medium rounded ${colors[i]}
+                                            border border-gray-200`}>
+                                {elem}
+                        </button>
+                    )}
                 </div>
             </div>
             </> : 
@@ -98,9 +123,7 @@ const Entry = ({ answer=null,
                             <button className={`w-80 h-16 font-medium border border-gray-200 rounded p-2
                                                 ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
-                                        selectPersonality(elem, setTally, setChoice, index, size,
-                                                          setCurrentQuestion, currentQuestion, 
-                                                          setDisable, setFinish, scroll)}
+                                        selectPersonality(elem, index)}
                                     disabled={disable}>
                                     {entry.content[elem]}
                             </button>
@@ -112,70 +135,5 @@ const Entry = ({ answer=null,
         </div>
     )
 }
-
-const generateEntries = (answer: string, info: object, setCorrect: any) => {
-    const entries = []
-    for (let i = 0; i < 4; ++i) {
-        let random = Math.floor(Math.random() * Object.keys(info).length) + 1
-        while (info[random] === answer || entries.includes(info[random]))
-            random = Math.floor(Math.random() * Object.keys(info).length) + 1    
-        entries.push(info[random])
-    }
-    let random = Math.floor(Math.random() * 4)
-    entries[random] = answer
-    setCorrect(random)
-    return entries
-}
-
-const selectCharacter = (selection, answer, setColors, button, correct,
-                         setDisable, setScore, size, setFinish,
-                         currentQuestion, setCurrentQuestion, scroll) => {
-
-    if (selection === answer) {
-        setColors(colors => {
-            colors[button] = 'bg-emerald-400'
-            return colors
-        })
-        setScore(score => score + 1)
-    } else {
-        setColors(colors => {
-            colors[button] = 'bg-red-400'
-            colors[correct] = 'bg-emerald-400'
-            return colors
-        })
-    }
-    
-    setDisable(true)   
-    
-    setTimeout(() => {
-        setCurrentQuestion(currentQuestion + 1)
-        scroll(currentQuestion + 1)
-        if (currentQuestion + 1 === size)
-            setFinish(true) 
-    }, 250)
-    
-}
-
-const selectPersonality = (selection, setTally, setIndex, index, size, setCurrentQuestion, 
-                         currentQuestion, setDisable, setFinish, scroll) => {
-    
-    setTally(tally => {
-        tally[selection]++
-        return tally
-    })
-    setIndex(index)
-    
-    if (currentQuestion + 1 === size)
-        setFinish(true)
-
-    setTimeout(() => {
-        setCurrentQuestion(currentQuestion + 1)
-        scroll(currentQuestion + 1)
-        if (currentQuestion + 1 === size)
-            setFinish(true)
-    }, 100)
-
-    setDisable(true)
-}  
 
 export default Entry
