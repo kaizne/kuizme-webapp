@@ -2,7 +2,7 @@ import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
 const Body = ({ images, info, setScore, setFinish, 
-                currentQuestion, setCurrentQuestion, type, entries, setTally=null, tally=null }) => {
+                currentQuestion, setCurrentQuestion, type, entries, setTally=null }) => {
 
     const [data, setData] = useState([])
     const questionsRef = useRef([])
@@ -50,7 +50,6 @@ const Body = ({ images, info, setScore, setFinish,
                             size={data.length}
                             setFinish={setFinish}
                             setTally={setTally}
-                            tally={tally}
                             scroll={scroll} />
                     </div>
                 )

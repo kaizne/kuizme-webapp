@@ -31,8 +31,7 @@ const Quiz = ({ quizData }) => {
                               currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
                               type={quizData.type}
                               entries={quizData.entry}
-                              setTally={setTally}
-                              tally={tally} />
+                              setTally={setTally} />
                         : <div></div>
                     }
                     {finish === true ? 
