@@ -51,7 +51,7 @@ const Entry = ({ answer=null,
                 <div className='grid grid-cols-2 gap-2 mt-4'>
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         colors, setColors, 0, correct, setDisable, 
+                                         setColors, 0, correct, setDisable, 
                                          setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
@@ -60,7 +60,7 @@ const Entry = ({ answer=null,
                                     border border-gray-200`}>{selection[0]}</button>
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         colors, setColors, 1, correct, setDisable, 
+                                         setColors, 1, correct, setDisable, 
                                          setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
@@ -69,7 +69,7 @@ const Entry = ({ answer=null,
                                     border border-gray-200`}>{selection[1]}</button>
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                        colors, setColors, 2, correct, setDisable, 
+                                        setColors, 2, correct, setDisable, 
                                         setScore, size, setFinish,
                                         currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
@@ -78,7 +78,7 @@ const Entry = ({ answer=null,
                                     border border-gray-200`}>{selection[2]}</button>
                     <button onClick={(elem) => 
                         selectCharacter((elem.target as HTMLElement).innerHTML, answer,
-                                         colors, setColors, 3, correct, setDisable, 
+                                         setColors, 3, correct, setDisable, 
                                          setScore, size, setFinish,
                                          currentQuestion, setCurrentQuestion, scroll)}
                         disabled={disable}
@@ -127,19 +127,24 @@ const generateEntries = (answer: string, info: object, setCorrect: any) => {
     return entries
 }
 
-const selectCharacter = (selection, answer, color, setColor, button, correct,
+const selectCharacter = (selection, answer, setColors, button, correct,
                          setDisable, setScore, size, setFinish,
                          currentQuestion, setCurrentQuestion, scroll) => {
 
     if (selection === answer) {
-        color[button] = 'bg-emerald-400'
+        setColors(colors => {
+            colors[button] = 'bg-emerald-400'
+            return colors
+        })
         setScore(score => score + 1)
     } else {
-        color[button] = 'bg-red-400'
-        color[correct] = 'bg-emerald-400'
+        setColors(colors => {
+            colors[button] = 'bg-red-400'
+            colors[correct] = 'bg-emerald-400'
+            return colors
+        })
     }
     
-    setColor(color)
     setDisable(true)   
     
     setTimeout(() => {
