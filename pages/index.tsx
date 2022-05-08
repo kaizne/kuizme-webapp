@@ -3,7 +3,7 @@ import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, trending }) => {
     return (
-    <div>
+    <div className='min-h-screen'>
         <Trending quizData={quizData} />
         <Section title='LATEST' quizData={quizData} type={2} />
     </div>
