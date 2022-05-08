@@ -70,7 +70,10 @@ const Entry = ({ answer=null,
 
     const selectPersonality = (selection, index) => {
         setTally(tally => {
-            tally[selection]++
+            let selectionArray = selection.split(',')
+            for (let value of selectionArray) {
+                tally[value - 1]++
+            }
             return tally
         })
         setChoice(index)
