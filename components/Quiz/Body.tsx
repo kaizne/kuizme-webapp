@@ -38,8 +38,7 @@ const Body = ({ images, info, setScore, setFinish,
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}
                            scroll={scroll} />
-                </div>)
-                : 
+                </div>) : 
                 data.map((entry, index) => 
                     <div key={index} ref={el => questionsRef.current[index] = el}>
                         <Entry key={index} 

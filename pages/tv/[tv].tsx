@@ -1,5 +1,4 @@
 import tv from '../../utils/tv'
-import Nav from '../../components/Nav'
 import Preview from '../../components/Preview'
 
 const TV = ({ tvName, quizData }) => {

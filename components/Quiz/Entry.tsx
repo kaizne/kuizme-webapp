@@ -86,10 +86,9 @@ const Entry = ({ answer=null,
     }
 
     return (
-        <div className={`flex pt-10 mb-60
+        <div className={`flex flex-col items-center scroll-smooth pt-20 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
-            flex-col items-center scroll-smooth`}>
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
             <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
                 <span className='text-sky-500'>{question + 1}</span>
                 <span className='font-normal'> / </span> 
@@ -98,7 +97,7 @@ const Entry = ({ answer=null,
         { type === 0 ? 
             <>
             { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
-            <div className='flex flex-col w-96 justify-center items-center'>
+            <div className='flex flex-col justify-center items-center'>
                 <div className='grid grid-cols-2 gap-2 mt-4'>
                     { selection.map((elem, i) =>
                         <button key={i}
