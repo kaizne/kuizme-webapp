@@ -16,32 +16,28 @@ const Quiz = ({ quizData }) => {
     }, [])
 
     return (
-        <div className='min-h-screen'>
-            <div className='grid place-items-center scroll-smooth'>
-                <div className='flex flex-col w-72 mt-10 md:mt-16'>
-                    {start === false ?
-                        <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
-                               featured={quizData.featured.data.attributes.url} />
-                        : <div></div>
-                    }
-                    {start === true ?
-                        <Body info={quizData.info} images={quizData.image} 
-                              setScore={setScore} 
-                              setFinish={setFinish}
-                              currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
-                              type={quizData.type}
-                              entries={quizData.entry}
-                              setTally={setTally} />
-                        : <div></div>
-                    }
-                    {finish === true ? 
-                        <Conclusion type={quizData.type} score={score} total={total} 
-                                    character={calculateTally(tally, quizData.info)} 
-                                    characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)} /> 
-                        : <div></div>
-                    }
-                </div>
-            </div>
+        <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
+            {start === false ?
+                <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
+                       featured={quizData.featured.data.attributes.url} />
+                : <></>
+            }
+            {start === true ?
+                <Body info={quizData.info} images={quizData.image} 
+                        setScore={setScore} 
+                        setFinish={setFinish}
+                        currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
+                        type={quizData.type}
+                        entries={quizData.entry}
+                        setTally={setTally} />
+                : <></>
+            }
+            {finish === true ? 
+                <Conclusion type={quizData.type} score={score} total={total} 
+                            character={calculateTally(tally, quizData.info)} 
+                            characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)} /> 
+                : <></>
+            }
         </div>
     )
 }

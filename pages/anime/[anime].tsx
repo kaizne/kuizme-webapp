@@ -1,5 +1,4 @@
 import anime from '../../utils/anime'
-import Nav from '../../components/Nav'
 import Preview from '../../components/Preview'
 
 const Anime = ({ animeName, quizData }) => {
