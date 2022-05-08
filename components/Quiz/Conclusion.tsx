@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='' }) => {
+const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='',
+                    conclusion='' }) => {
     const percentage = Percentage(score, total)
-    var text = ''
+    let text = 'Nice.'
     if (percentage == 0) {
         text = 'At least you tried...'
     }
@@ -66,6 +67,9 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                 </div>
                 <div>
                     <div className='text-2xl text-[#b19aff]'>{character}</div>
+                </div>
+                <div>
+                    <div className='text-2xl text-white'>{conclusion}</div>
                 </div>
                 <div>
                     <h1 className='text-xl text-center text-white'>

@@ -34,7 +34,8 @@ const Quiz = ({ quizData }) => {
             {finish === true ? 
                 <Conclusion type={quizData.type} score={score} total={total} 
                             character={calculateTally(tally, quizData.info)} 
-                            characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)} /> 
+                            characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
+                            conclusion={calculateConclusionTally(tally, quizData.conclusion)} /> 
                 : <></>
             }
         </div>
@@ -52,6 +53,15 @@ const calculateTally = (tally, info) => {
     const max = Math.max(...tally)
     const index = tally.indexOf(max) + 1
     return info[index]
+}
+
+const calculateConclusionTally = (tally, conclusion) => {
+    if (conclusion !== null) {
+        const max = Math.max(...tally)
+        const index = tally.indexOf(max) + 1
+        return conclusion[index] 
+    }
+    return
 }
 
 const findImage = (name: string, images) => {
