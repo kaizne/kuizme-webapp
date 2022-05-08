@@ -65,7 +65,7 @@ const Entry = ({ answer=null,
             scroll(currentQuestion + 1)
             if (currentQuestion + 1 === size)
                 setFinish(true) 
-        }, 250)    
+        }, 100)    
     }
 
     const selectPersonality = (selection, index) => {
