@@ -86,7 +86,7 @@ const Entry = ({ answer=null,
     }
 
     return (
-        <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-24 md:pt-32 mb-60
+        <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-24 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
             <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
