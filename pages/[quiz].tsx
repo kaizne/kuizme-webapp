@@ -17,11 +17,10 @@ const Quiz = ({ quizData }) => {
 
     return (
         <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
-            {start === false ?
+                <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
                        featured={quizData.featured.data.attributes.url} />
-                : <></>
-            }
+                </div>
             {start === true ?
                 <Body info={quizData.info} images={quizData.image} 
                         setScore={setScore} 

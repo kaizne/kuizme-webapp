@@ -24,7 +24,7 @@ const Body = ({ images, info, setScore, setFinish,
     }, [])
      
     return (
-        <div className='pb-20'>
+        <div className='-mt-20 pb-20'>
             {type === 0 ? 
                 data.map(([key, value], index) =>
                 <div key={index} ref={el => questionsRef.current[index] = el}>
