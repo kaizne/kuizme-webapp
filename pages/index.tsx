@@ -1,9 +1,14 @@
+import Head from 'next/head'
 import Section from '../components/Home/Section'
 import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, trending }) => {
     return (
     <div className='min-h-screen'>
+        <Head>
+            <title>Kuizme - </title>
+            <meta name='description' content=''></meta>
+        </Head>
         <Trending quizData={quizData} />
         <Section title='LATEST' quizData={quizData} type={2} />
     </div>
