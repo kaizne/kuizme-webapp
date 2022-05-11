@@ -22,13 +22,13 @@ const Quiz = ({ quizData }) => {
     } 
     quizData.type === 0 ?
     <>
-        <title>{quizData.title}</title>
+        <title>{quizData.title} Quiz</title>
         <meta name='description' content={`How well do you know ${animeTitle}? Play the
         ${quizData.title} quiz to find out now!`}/>
     </>
     :
     <>
-        <title>{quizData.title}</title>
+        <title>{quizData.title} Quiz</title>
         <meta name='description' content={`Have you ever wondered which ${animeTitle} character
         you are? Take the ${quizData.title} quiz to find out now!`}/>
     </>
