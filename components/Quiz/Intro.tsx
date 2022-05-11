@@ -2,10 +2,10 @@ import Image from 'next/image'
 
 const Intro = ({ title, intro, setStart, plays, incrementPlay, featured }) => (
     <div className='flex flex-col items-center z-100'>
-        <h1 className='text-center text-xl font-semibold w-80 mb-4'>{title}</h1>
+        <h1 className='text-center text-xl font-semibold w-80 md:w-96 mb-4'>{title}</h1>
         { featured && <Image className='rounded-lg' src={featured} width={200} height={200} /> }
         <div className='flex flex-row justify-start w-80 md:w-96 border-b border-gray-300 mt-4'>
-            <div className='ml-4 text-sm'>
+            <div className='text-sm'>
                 <span className='font-semibold'>{plays} </span> 
                 Plays
             </div>
