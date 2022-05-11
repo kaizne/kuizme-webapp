@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
@@ -10,14 +11,45 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+
+    const findAnimeTitle = () => {
+        const animeTitleArray = quizData.subcategory.split('-')
+        let animeTitle = ''
+        for (let i = 0; i < animeTitleArray.length; i++) {
+            if (animeTitleArray[i] === 'on' || animeTitleArray === 'x')
+                animeTitle =  animeTitle + ' ' + animeTitleArray[i]
+            else 
+                animeTitle=  animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
+        } 
+        return animeTitle
+    }
+
     useEffect(() => {
         setTotal(Object.entries(quizData.info).length)
     }, [])
 
+    const incrementPlay = () => {
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/play`, {
+            method: 'PATCH',
+        })
+    }
+
     return (
+        <>
+        <Head>
+            <title>{quizData.title} Quiz - Kuizme</title>
+            { quizData.type === 0 ? 
+                <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
+                </meta>
+                :
+                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} character you are? Take the ${quizData.title} quiz to find out now!`}>
+                </meta>
+            }  
+        </Head>
         <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
+                       plays={quizData.plays} incrementPlay ={incrementPlay}
                        featured={quizData.featured.data.attributes.url} />
                 </div>
             {start === true ?
@@ -34,10 +66,13 @@ const Quiz = ({ quizData }) => {
                 <Conclusion type={quizData.type} score={score} total={total} 
                             character={calculateTally(tally, quizData.info)} 
                             characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
-                            conclusion={calculateConclusionTally(tally, quizData.conclusion)} /> 
+                            conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                            category={quizData.category}
+                            subcategory={quizData.subcategory} /> 
                 : <></>
             }
         </div>
+        </>
     )
 }
 
@@ -93,6 +128,7 @@ export async function getStaticProps({ params }) {
     return {
         props: {
             quizData
-        }
+        },
+        revalidate: 10,
     }
 }
