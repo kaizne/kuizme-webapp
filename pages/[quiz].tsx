@@ -36,10 +36,17 @@ const Quiz = ({ quizData }) => {
         setTotal(Object.entries(quizData.info).length)
     }, [])
 
+    const incrementPlay = () => {
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/play`, {
+            method: 'PATCH',
+        })
+    }
+
     return (
         <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
+                       plays={quizData.plays} incrementPlay ={incrementPlay}
                        featured={quizData.featured.data.attributes.url} />
                 </div>
             {start === true ?
@@ -117,6 +124,7 @@ export async function getStaticProps({ params }) {
     return {
         props: {
             quizData
-        }
+        },
+        revalidate: 10,
     }
 }
