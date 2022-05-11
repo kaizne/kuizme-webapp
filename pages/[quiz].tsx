@@ -1,5 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
@@ -11,6 +11,11 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    const conclusionRef = useRef(null)
+
+    useEffect(() => {
+        setTotal(Object.entries(quizData.info).length)
+    }, [])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
@@ -19,14 +24,12 @@ const Quiz = ({ quizData }) => {
             if (animeTitleArray[i] === 'on' || animeTitleArray === 'x')
                 animeTitle =  animeTitle + ' ' + animeTitleArray[i]
             else 
-                animeTitle=  animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
+                animeTitle =  animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
         } 
         return animeTitle
     }
 
-    useEffect(() => {
-        setTotal(Object.entries(quizData.info).length)
-    }, [])
+    const scrollConclusion = () => conclusionRef.current?.scrollIntoView({ behavior: 'smooth' })
 
     const incrementPlay = () => {
         fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/play`, {
@@ -53,23 +56,25 @@ const Quiz = ({ quizData }) => {
                        featured={quizData.featured.data.attributes.url} />
                 </div>
             {start === true ?
-                <Body info={quizData.info} images={quizData.image} 
-                        setScore={setScore} 
-                        setFinish={setFinish}
-                        currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} 
-                        type={quizData.type}
-                        entries={quizData.entry}
-                        setTally={setTally} />
+                <Body info={quizData.info} images={quizData.image}
+                      setScore={setScore}
+                      setFinish={setFinish}
+                      currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
+                      type={quizData.type}
+                      entries={quizData.entry}
+                      setTally={setTally} scrollConclusion={scrollConclusion} />
                 : <></>
             }
             {finish === true ? 
-                <Conclusion type={quizData.type} score={score} total={total} 
-                            character={calculateTally(tally, quizData.info)} 
-                            characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
-                            conclusion={calculateConclusionTally(tally, quizData.conclusion)}
-                            category={quizData.category}
-                            subcategory={quizData.subcategory} /> 
-                : <></>
+                <div ref={conclusionRef}> 
+                    <Conclusion type={quizData.type} score={score} total={total} 
+                                character={calculateTally(tally, quizData.info)} 
+                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
+                                conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                                category={quizData.category}
+                                subcategory={quizData.subcategory} /> 
+                </div>
+                : <></>  
             }
         </div>
         </>

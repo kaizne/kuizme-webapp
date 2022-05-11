@@ -2,7 +2,7 @@ import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
 const Body = ({ images, info, setScore, setFinish, 
-                currentQuestion, setCurrentQuestion, type, entries, setTally=null }) => {
+                currentQuestion, setCurrentQuestion, type, entries, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
     const questionsRef = useRef([])
@@ -37,7 +37,8 @@ const Body = ({ images, info, setScore, setFinish,
                            currentQuestion={currentQuestion}
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}
-                           scroll={scroll} />
+                           scroll={scroll}
+                           scrollConclusion={scrollConclusion} />
                 </div>) : 
                 data.map((entry, index) => 
                     <div key={index} ref={el => questionsRef.current[index] = el}>
@@ -49,7 +50,8 @@ const Body = ({ images, info, setScore, setFinish,
                             size={data.length}
                             setFinish={setFinish}
                             setTally={setTally}
-                            scroll={scroll} />
+                            scroll={scroll}
+                            scrollConclusion={scrollConclusion} />
                     </div>
                 )
             }
