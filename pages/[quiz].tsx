@@ -46,7 +46,7 @@ const Quiz = ({ quizData }) => {
                 </meta>
             }  
         </Head>
-        <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
+        <div className='min-h-screen flex flex-col mt-6 md:mt-12 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
                        plays={quizData.plays} incrementPlay ={incrementPlay}
