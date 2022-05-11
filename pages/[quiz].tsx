@@ -10,6 +10,28 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    let animeTitleArray = quizData.subcategory.split('-')
+    let animeTitle  = ''
+    for (let i = 0; i < animeTitleArray.length; i++) {
+        if (animeTitleArray[i] === 'on' || animeTitleArray === 'x') {
+            animeTitle = animeTitle + ' ' + animeTitleArray[i]
+        }
+        else {
+            animeTitle = animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
+        }
+    } 
+    quizData.type === 0 ?
+    <>
+        <title>{quizData.title}</title>
+        <meta name='description' content={`How well do you know ${animeTitle}? Play the
+        ${quizData.title} quiz to find out now!`}/>
+    </>
+    :
+    <>
+        <title>{quizData.title}</title>
+        <meta name='description' content={`Have you ever wondered which ${animeTitle} character
+        you are? Take the ${quizData.title} quiz to find out now!`}/>
+    </>
     useEffect(() => {
         setTotal(Object.entries(quizData.info).length)
     }, [])
@@ -34,7 +56,9 @@ const Quiz = ({ quizData }) => {
                 <Conclusion type={quizData.type} score={score} total={total} 
                             character={calculateTally(tally, quizData.info)} 
                             characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
-                            conclusion={calculateConclusionTally(tally, quizData.conclusion)} /> 
+                            conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                            category={quizData.category}
+                            subcategory={quizData.subcategory} /> 
                 : <></>
             }
         </div>

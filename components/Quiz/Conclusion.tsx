@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='',
-                    conclusion='' }) => {
+                    conclusion='', category='', subcategory='' }) => {
     const percentage = Percentage(score, total)
     let text = 'Nice.'
     if (percentage == 0) {
@@ -46,9 +46,9 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                 <br></br><br></br><br></br>
                 <a className='cursor-pointer text-4xl font-semibold
                 text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
-                onClick={() => location.reload()}>Try Again</a>
+                onClick={() => location.reload()}>Play Again</a>
                 <br></br><br></br>
-                <Link href='/'><a className='cursor-pointer text-4xl font-semibold
+                <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-4xl font-semibold
                 text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
                 <br></br><br></br>
                 <Link href='/'><a className='cursor-pointer text-4xl font-semibold
@@ -76,9 +76,9 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                     <br></br>
                     <a className='cursor-pointer text-4xl font-semibold
                     text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
-                    onClick={() => location.reload()}>Try Again</a>
+                    onClick={() => location.reload()}>Play Again</a>
                     <br></br><br></br>
-                    <Link href='/'><a className='cursor-pointer text-4xl font-semibold
+                    <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-4xl font-semibold
                     text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
                     <br></br><br></br>
                     <Link href='/'><a className='cursor-pointer text-4xl font-semibold
