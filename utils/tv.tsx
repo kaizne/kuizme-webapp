@@ -1,8 +1,23 @@
 const tv = {
-    'drama': {
+    'breaking-bad': {
         category: 'tv',
-        slug: 'drama',
-        title: 'Drama'
+        slug: 'breaking-bad',
+        title: 'Breaking Bad'
+    },
+    'euphoria': {
+        category: 'tv',
+        slug: 'euphoria',
+        title: 'Euphoria'
+    },
+    'game-of-thrones': {
+        category: 'tv',
+        slug: 'game-of-thrones',
+        title: 'Game of Thrones'
+    },
+    'the-walking-dead': {
+        category: 'tv',
+        slug: 'the-walking-dead',
+        title: 'The Walking Dead'
     },
 }
  
