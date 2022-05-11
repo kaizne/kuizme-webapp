@@ -6,8 +6,9 @@ const IndexPage = ({ quizData, trending }) => {
     return (
     <div className='min-h-screen'>
         <Head>
-            <title>Kuizme - </title>
-            <meta name='description' content=''></meta>
+            <title>Kuizme - The Home of Quizzes </title>
+            <meta name='description' content='Test your knowledge of your favourite animes, 
+            TV series, and movies, or find out which character you are. Visit Kuizme for more!'></meta>
         </Head>
         <Trending quizData={quizData} />
         <Section title='LATEST' quizData={quizData} type={2} />

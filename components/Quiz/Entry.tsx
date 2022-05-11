@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const Entry = ({ answer=null, 
                  imageUrl=null, 
@@ -14,6 +14,7 @@ const Entry = ({ answer=null,
                  entry=null,
                  setTally=null,
                  scroll=null,
+                 scrollConclusion=null,
                 }) => {  
 
     const [selection, setSelection] = useState([])
@@ -62,9 +63,12 @@ const Entry = ({ answer=null,
         setDisable(true)   
         setTimeout(() => {
             setCurrentQuestion(currentQuestion + 1)
-            scroll(currentQuestion + 1)
-            if (currentQuestion + 1 === size)
+            if (currentQuestion + 1 === size) {
                 setFinish(true) 
+                scrollConclusion()
+            } else {
+                scroll(currentQuestion + 1)
+            }     
         }, 100)    
     }
 
@@ -77,19 +81,20 @@ const Entry = ({ answer=null,
             return tally
         })
         setChoice(index)
-        if (currentQuestion + 1 === size)
-            setFinish(true)
         setTimeout(() => {
             setCurrentQuestion(currentQuestion + 1)
-            scroll(currentQuestion + 1)
-            if (currentQuestion + 1 === size)
+            if (currentQuestion + 1 === size) {
                 setFinish(true)
+                scrollConclusion()
+            } else {
+                scroll(currentQuestion + 1)
+            }  
         }, 100)
         setDisable(true)
     }
 
     return (
-        <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-24 mb-60
+        <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
             <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
@@ -106,7 +111,7 @@ const Entry = ({ answer=null,
                         <button key={i}
                                 onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
                                 disabled={disable}
-                                className={`w-40 h-16 pl-1 pr-1
+                                className={`w-40 h-16 p-1
                                             text-lg font-medium rounded shadow-sm ${colors[i]}`}>
                                 {elem}
                         </button>
@@ -118,11 +123,11 @@ const Entry = ({ answer=null,
             <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
             { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
             <div className='flex flex-col w-96 justify-center items-center'>
-                <div className='grid grid-cols-1 gap-2 mt-4'>
+                <div className='grid grid-cols-1 gap-y-2 mt-4'>
                     { Object.keys(entry.content).map((elem, index) => {
                         return (
-                            <button className={`w-80 h-16 p-2 rounded shadow-sm
-                                                font-medium
+                            <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                text-md font-medium
                                                 ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                     onClick={() => 
                                         selectPersonality(elem, index)}

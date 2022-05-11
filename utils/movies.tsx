@@ -9,6 +9,11 @@ const movies = {
         slug: 'marvel',
         title: 'Marvel'
     },
+    'the-maze-runner': {
+        category: 'movies',
+        slug: 'the-maze-runner',
+        title: 'The Maze Runner'
+    },
 }
 
   
