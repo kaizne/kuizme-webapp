@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
@@ -10,28 +11,19 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
-    let animeTitleArray = quizData.subcategory.split('-')
-    let animeTitle  = ''
-    for (let i = 0; i < animeTitleArray.length; i++) {
-        if (animeTitleArray[i] === 'on' || animeTitleArray === 'x') {
-            animeTitle = animeTitle + ' ' + animeTitleArray[i]
-        }
-        else {
-            animeTitle = animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
-        }
-    } 
-    quizData.type === 0 ?
-    <>
-        <title>{quizData.title} Quiz</title>
-        <meta name='description' content={`How well do you know ${animeTitle}? Play the
-        ${quizData.title} quiz to find out now!`}/>
-    </>
-    :
-    <>
-        <title>{quizData.title} Quiz</title>
-        <meta name='description' content={`Have you ever wondered which ${animeTitle} character
-        you are? Take the ${quizData.title} quiz to find out now!`}/>
-    </>
+
+    const findAnimeTitle = () => {
+        const animeTitleArray = quizData.subcategory.split('-')
+        let animeTitle = ''
+        for (let i = 0; i < animeTitleArray.length; i++) {
+            if (animeTitleArray[i] === 'on' || animeTitleArray === 'x')
+                animeTitle =  animeTitle + ' ' + animeTitleArray[i]
+            else 
+                animeTitle=  animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
+        } 
+        return animeTitle
+    }
+
     useEffect(() => {
         setTotal(Object.entries(quizData.info).length)
     }, [])
@@ -43,6 +35,17 @@ const Quiz = ({ quizData }) => {
     }
 
     return (
+        <>
+        <Head>
+            <title>{quizData.title} Quiz - Kuizme</title>
+            { quizData.type === 0 ? 
+                <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
+                </meta>
+                :
+                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} character you are? Take the ${quizData.title} quiz to find out now!`}>
+                </meta>
+            }  
+        </Head>
         <div className='min-h-screen flex flex-col mt-10 md:mt-16 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
@@ -69,6 +72,7 @@ const Quiz = ({ quizData }) => {
                 : <></>
             }
         </div>
+        </>
     )
 }
 
