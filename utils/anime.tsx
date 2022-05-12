@@ -39,6 +39,11 @@ const anime = {
         slug: 'the-seven-deadly-sins',
         title: 'The Seven Deadly Sins'
     },
+    'tokyo-revengers': {
+        category: 'anime',
+        slug: 'tokyo-revengers',
+        title: 'Tokyo Revengers'
+    },
 }
 
   
