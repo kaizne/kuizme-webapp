@@ -40,13 +40,36 @@ const Quiz = ({ quizData }) => {
     return (
         <>
         <Head>
-            <title>{quizData.title} Quiz - Kuizme</title>
-            { quizData.type === 0 ? 
+]           { quizData.type === 0 ?
+                <>
+                <title>{quizData.title} Quiz - Kuizme</title> 
                 <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
                 </meta>
+                </>
                 :
+                <>
+                <title>{quizData.title} - Kuizme</title>
+                { quizData.title.includes('Breathing') || quizData.title.includes('friend') ?
+                <>
+                { quizData.title.includes('Boyfriend') ? 
+                <>
+                <meta name='description' content={`Who would your boyfriend be in ${findAnimeTitle()}? Take the ${quizData.title} quiz to find out now!`}>
+                </meta> 
+                </>
+                :
+                <>
+                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} breathing style you would use? Take the ${quizData.title} quiz to find out now!`}>
+                </meta> 
+                </>
+                }
+                </>
+                :
+                <>
                 <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} character you are? Take the ${quizData.title} quiz to find out now!`}>
                 </meta>
+                </> 
+                }
+                </>
             }  
         </Head>
         <div className='min-h-screen flex flex-col mt-6 md:mt-12 scroll-smooth'>
