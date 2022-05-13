@@ -58,7 +58,7 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
             </>
             : 
             <>
-            <div className='flex flex-col h-screen justify-center items-center'>
+            <div className='flex flex-col min-h-screen justify-center items-center'>
                 <div>
                     <div className='mt-2 text-black text-xl'>You got</div>
                 </div>
@@ -69,7 +69,7 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                     <div className='text-2xl text-[#b19aff]'>{character}</div>
                 </div>
                 <div>
-                    <div className='text-2xl text-black'>{conclusion}</div>
+                    <div className={`text-2xl text-black text-center max-w-[25%] relative top-1/2 left-[37.5%]`}>{conclusion}</div>
                 </div>
                 <div>
                     <h1 className='text-xl text-center text-black'>
