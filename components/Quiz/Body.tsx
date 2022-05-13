@@ -1,7 +1,7 @@
 import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
-const Body = ({ images, info, setScore, setFinish, 
+const Body = ({ images, info, infoCopy, setScore, setFinish, 
                 currentQuestion, setCurrentQuestion, type, entries, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
@@ -11,10 +11,10 @@ const Body = ({ images, info, setScore, setFinish,
     useEffect(() => {
         let newData
         if (type === 0) {
-            newData = Object.entries(info)
-                            .map(value => ({ value, sort: Math.random() }))
-                            .sort((a, b) => a.sort - b.sort)
-                            .map(({ value }) => value )
+            newData = infoCopy
+                        .map(value => ({ value, sort: Math.random() }))
+                        .sort((a, b) => a.sort - b.sort)
+                        .map(({ value }) => value )
         } else if (type === 1) {
             newData = entries.map(value => ({ value, sort: Math.random() }))
                              .sort((a, b) => a.sort - b.sort)
@@ -22,7 +22,7 @@ const Body = ({ images, info, setScore, setFinish,
         }
         setData(newData)
     }, [])
-     
+
     return (
         <div className='-mt-20 pb-20'>
             {type === 0 ? 
@@ -33,7 +33,7 @@ const Body = ({ images, info, setScore, setFinish,
                            imageUrl={findImage(String(value), type, images)} 
                            info={info} 
                            question={index}
-                           size={Object.entries(info).length}
+                           size={10}
                            currentQuestion={currentQuestion}
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}

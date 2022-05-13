@@ -62,7 +62,7 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
             </>
             : 
             <>
-            <div className='flex flex-col min-h-screen justify-center items-center'>
+            <div className='flex flex-col min-h-screen justify-center items-center px-2 md:px-0'>
                 <div>
                     <div className='mt-2 text-black text-3xl'>You {endText}</div>
                 </div>
@@ -74,7 +74,8 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                 </div>
                 <div>
                     <br></br>
-                    <div className={`rounded-lg bg-gray-200 border-solid border-gray-600 ring-4 ring-offset-1 ring-violet-900 border-2 text-2xl text-black text-center max-w-[25%] relative top-1/2 left-[37.5%]`}>{conclusion}</div>
+                    <div className={`rounded-lg bg-gray-200 border-solid border-gray-600 ring-4 ring-offset-1 ring-violet-900 
+                    border-2 text-2xl text-black text-center md:max-w-[25%] md:relative md:top-1/2 md:left-[37.5%]`}>{conclusion}</div>
                 </div>
                 <div>
                     <h1 className='text-xl text-center text-black'>
