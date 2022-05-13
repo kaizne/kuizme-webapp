@@ -7,13 +7,13 @@ function Nav() {
     return (
         <nav className='sticky top-0 z-50 flex flex-row justify-between h-14 md:h-16 w-screen pt-2 pb-2
                       bg-white border-b shadow-sm'>
-                <div className='flex flex-row'>
+                <div className='flex flex-row items-center'>
                 <Link href='/'>
-                    <a className='w-32 md:w-44 mt-1 ml-4
-                                  text-3xl md:text-4xl font-extrabold text-sky-500 md:hover:text-sky-300
+                    <a className='w-16 md:w-44 mt-1 ml-4
+                                  text-sm md:text-4xl font-extrabold text-sky-500 md:hover:text-sky-300
                                   cursor-pointer'>KUIZME</a>
                 </Link> 
-                <div className='hidden md:flex flex-row md:mt-3 gap-x-6'>
+                <div className='flex flex-row gap-x-2 md:mt-3 md:gap-x-6'>
                 {Object.entries(requests).map(([key, { title }]) => (
                 <div key={key}
                     onClick={() => router.push(`/${key}`)}
@@ -23,7 +23,7 @@ function Nav() {
                              active:text-orange-400'>{title}</div>))}
                 </div>
                 </div>
-                <button className='w-16 h-8 mt-1 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
+                <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
                                    text-sm text-white font-semibold bg-sky-400 rounded'>
                     Sign In
                 </button>
