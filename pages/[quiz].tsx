@@ -14,7 +14,7 @@ const Quiz = ({ quizData }) => {
     const conclusionRef = useRef(null)
 
     useEffect(() => {
-        setTotal(Object.entries(quizData.info).length)
+        setTotal(10)
     }, [])
 
     const findAnimeTitle = () => {
@@ -36,6 +36,19 @@ const Quiz = ({ quizData }) => {
             method: 'PATCH',
         })
     }
+    let infoCopy = []
+    if (quizData.type === 0) {
+        infoCopy = JSON.parse(JSON.stringify(Object.entries(quizData.info)))
+    }
+    let count = 0
+    if (infoCopy.length === Object.entries(quizData.info).length) {
+        infoCopy.forEach(entry => {
+            if (entry[0] > 10) {
+                count++
+            }
+        })
+    }
+    infoCopy.splice(10, count)
 
     return (
         <>
@@ -79,7 +92,9 @@ const Quiz = ({ quizData }) => {
                        featured={quizData.featured.data.attributes.url} />
                 </div>
             {start === true ?
-                <Body info={quizData.info} images={quizData.image}
+                <Body info={quizData.info} 
+                      infoCopy={infoCopy}
+                      images={quizData.image}
                       setScore={setScore}
                       setFinish={setFinish}
                       currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
