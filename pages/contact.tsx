@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 const contact = () => (
   <>
-    <div className='flex flex-col flex-wrap min-h-screen w-full justify-center content-center space-y-2'>
-      <div className='flex basis-full justify-center'>
+    <div className='flex flex-col flex-wrap min-h-screen py-[25%] content-center space-y-2'>
+      <div className='flex basis-full'>
         <div className='font-Poppins text-2xl'>Reach us at&nbsp;</div>
         <div className='font-Poppins text-2xl text-[#E1341E]'>contact@kuizme.com</div> 
       </div>
@@ -22,8 +22,8 @@ const contact = () => (
         </div>
       </div>
       <div className='flex basis-full justify-center space-x-20 font-Poppins'>
-        <a>Instagram</a>
-        <a>Twitter</a>
+        <div>Instagram</div>
+        <div>Twitter</div>
       </div>
     </div>
   </>
