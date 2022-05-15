@@ -23,10 +23,12 @@ function Nav() {
                              active:text-orange-400'>{title}</div>))}
                 </div>
                 </div>
+                <Link href='/signup'>
                 <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
                                    text-sm text-white font-semibold bg-sky-400 rounded'>
                     Sign In
                 </button>
+                </Link>
         </nav>
     )
 }
