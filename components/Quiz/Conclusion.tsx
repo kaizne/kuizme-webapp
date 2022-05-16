@@ -8,6 +8,9 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
     if (character.includes('Breathing')) {
         endText = 'got'
     }
+    else if (character.includes('Kin')) {
+        endText = 'kin'
+    }
     let text = 'Nice.'
     if (percentage == 0) {
         text = 'At least you tried...'
