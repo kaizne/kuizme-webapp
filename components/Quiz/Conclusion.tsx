@@ -5,7 +5,6 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                     conclusion='', category='', subcategory='', title='' }) => {
     const percentage = Percentage(score, total)
     let endText = 'You are'
-    console.log(character)
     if (title.includes('Breathing')) {
         endText = 'You got'
     }
