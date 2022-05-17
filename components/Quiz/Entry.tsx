@@ -93,6 +93,24 @@ const Entry = ({ answer=null,
         setDisable(true)
     }
 
+    const selectTrivia = (selection, index) => {
+        setTally(tally => {
+            tally[selection - 1]++
+            return tally
+        })
+        setChoice(index)
+        setTimeout(() => {
+            setCurrentQuestion(currentQuestion + 1)
+            if (currentQuestion + 1 === size) {
+                setFinish(true)
+                scrollConclusion()
+            } else {
+                scroll(currentQuestion + 1)
+            }  
+        }, 100)
+        setDisable(true)  
+    }
+
     return (
         <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
@@ -102,43 +120,71 @@ const Entry = ({ answer=null,
                 <span className='font-normal'> / </span> 
                 {size}
             </p>
-        { type === 0 ? 
-            <>
-            { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
-            <div className='flex flex-col justify-center items-center'>
-                <div className='grid grid-cols-2 gap-2 mt-4'>
-                    { selection.map((elem, i) =>
-                        <button key={i}
-                                onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
-                                disabled={disable}
-                                className={`w-40 h-16 p-1
-                                            text-lg font-medium rounded shadow-sm ${colors[i]}`}>
-                                {elem}
-                        </button>
-                    )}
-                </div>
-            </div>
-            </> : 
-            <>
-            <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-            { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
-            <div className='flex flex-col w-96 justify-center items-center'>
-                <div className='grid grid-cols-1 gap-y-2 mt-4'>
-                    { Object.keys(entry.content).map((elem, index) => {
-                        return (
-                            <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
-                                                text-md font-medium
-                                                ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
-                                    onClick={() => 
-                                        selectPersonality(elem, index)}
-                                    disabled={disable}>
-                                    {entry.content[elem]}
+            { type === 0 ? 
+                <>
+                { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
+                <div className='flex flex-col justify-center items-center'>
+                    <div className='grid grid-cols-2 gap-2 mt-4'>
+                        { selection.map((elem, i) =>
+                            <button key={i}
+                                    onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
+                                    disabled={disable}
+                                    className={`w-40 h-16 p-1
+                                                text-lg font-medium rounded shadow-sm ${colors[i]}`}>
+                                    {elem}
                             </button>
-                        )
-                    }) }
+                        )}
+                    </div>
                 </div>
-            </div>
-            </> } 
+                </> 
+                : 
+                <>
+                { type === 1 ?
+                <>
+                <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
+                <div className='flex flex-col w-96 justify-center items-center'>
+                    <div className='grid grid-cols-1 gap-y-2 mt-4'>
+                        { Object.keys(entry.content).map((elem, index) => {
+                            return (
+                                <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                    text-md font-medium
+                                                    ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
+                                        onClick={() => 
+                                            selectPersonality(elem, index)}
+                                        disabled={disable}>
+                                        {entry.content[elem]}
+                                </button>
+                            )
+                        }) }
+                    </div>
+                </div>
+                </>
+                :
+                <>
+                <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
+                <div className='flex flex-col w-96 justify-center items-center'>
+                    <div className='grid grid-cols-1 gap-y-2 mt-4'>
+                        { Object.keys(entry.content).map((elem, index) => {
+                            let color = 'bg-red-400'
+                            if (elem === '1') { color = 'bg-emerald-400' }
+                            return (
+                                <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                    text-md font-medium
+                                                    ${choice === index && disable ? `${color}` : 'bg-white'}`}
+                                        onClick={() => 
+                                            selectTrivia(elem, index)}
+                                        disabled={disable}>
+                                        {entry.content[elem]}
+                                </button>
+                            )
+                        }) }
+                    </div>
+                </div>
+                </> }
+                </>
+            }
         </div>
     )
 }

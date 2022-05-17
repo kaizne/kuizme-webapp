@@ -14,7 +14,12 @@ const Quiz = ({ quizData }) => {
     const conclusionRef = useRef(null)
 
     useEffect(() => {
-        setTotal(10)
+        if (quizData.limit !== null) { 
+            setTotal(quizData.limit) 
+        }
+        else { 
+            setTotal(10)
+        }
     }, [])
 
     const findAnimeTitle = () => {
@@ -111,7 +116,8 @@ const Quiz = ({ quizData }) => {
                                 conclusion={calculateConclusionTally(tally, quizData.conclusion)}
                                 category={quizData.category}
                                 subcategory={quizData.subcategory}
-                                title={quizData.title} /> 
+                                title={quizData.title}
+                                triviaScore={calculateTriviaTally(tally)} /> 
                 </div>
                 : <></>  
             }
@@ -140,6 +146,10 @@ const calculateConclusionTally = (tally, conclusion) => {
         return conclusion[index] 
     }
     return
+}
+
+const calculateTriviaTally = (tally) => {
+    return tally[0]
 }
 
 const findImage = (name: string, images) => {
