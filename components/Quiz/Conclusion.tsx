@@ -2,14 +2,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='',
-                    conclusion='', category='', subcategory='' }) => {
+                    conclusion='', category='', subcategory='', title='' }) => {
     const percentage = Percentage(score, total)
-    let endText = 'are'
-    if (character.includes('Breathing')) {
-        endText = 'got'
+    let endText = 'You are'
+    if (title.includes('Breathing')) {
+        endText = 'You got'
     }
-    else if (character.includes('Kin')) {
-        endText = 'kin'
+    else if (title.includes('Kin')) {
+        endText = 'You kin'
+    }
+    else if (title.includes('Boyfriend')) {
+        endText = 'Your boyfriend is'
     }
     let text = 'Nice.'
     if (percentage == 0) {
@@ -67,7 +70,7 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
             <>
             <div className='flex flex-col min-h-screen justify-center items-center px-2 md:px-0'>
                 <div>
-                    <div className='mt-2 text-black text-3xl'>You {endText}</div>
+                    <div className='mt-2 text-black text-3xl'>{endText}</div>
                 </div>
                 <div>
                     { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={imgWidth} height={imgHeight} /> }
