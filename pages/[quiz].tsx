@@ -110,7 +110,8 @@ const Quiz = ({ quizData }) => {
                                 characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
                                 conclusion={calculateConclusionTally(tally, quizData.conclusion)}
                                 category={quizData.category}
-                                subcategory={quizData.subcategory} /> 
+                                subcategory={quizData.subcategory}
+                                title={quizData.title} /> 
                 </div>
                 : <></>  
             }
