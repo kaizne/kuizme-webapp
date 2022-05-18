@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
+import anime from '../utils/anime'
 
 const Quiz = ({ quizData }) => {
     const [score, setScore] = useState(0)
@@ -33,6 +34,7 @@ const Quiz = ({ quizData }) => {
         } 
         return animeTitle
     }
+    const animeTitle = findAnimeTitle()
 
     const scrollConclusion = () => conclusionRef.current?.scrollIntoView({ behavior: 'smooth' })
 
@@ -68,41 +70,12 @@ const Quiz = ({ quizData }) => {
     else {
         infoCopy.splice(10, count)
     }
+    const titleAndMeta = returnTitleAndMeta( quizData.type, quizData.title, animeTitle )
 
     return (
         <>
         <Head>
-            { quizData.type === 0 ?
-                <>
-                <title>{quizData.title} Quiz - Kuizme</title> 
-                <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
-                </meta>
-                </>
-                :
-                <>
-                <title>{quizData.title} - Kuizme</title>
-                { quizData.title.includes('Breathing') || quizData.title.includes('friend') ?
-                <>
-                { quizData.title.includes('Boyfriend') ? 
-                <>
-                <meta name='description' content={`Who would your boyfriend be in ${findAnimeTitle()}? Take the ${quizData.title} quiz to find out now!`}>
-                </meta> 
-                </>
-                :
-                <>
-                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} breathing style you would use? Take the ${quizData.title} quiz to find out now!`}>
-                </meta> 
-                </>
-                }
-                </>
-                :
-                <>
-                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} character you are? Take the ${quizData.title} quiz to find out now!`}>
-                </meta>
-                </> 
-                }
-                </>
-            }  
+            {titleAndMeta}
         </Head>
         <div className='min-h-screen flex flex-col mt-6 md:mt-12 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
@@ -175,6 +148,65 @@ const findImage = (name: string, images) => {
             return image.attributes.url
     }
     return ''
+}
+
+function returnTitleAndMeta(type, title, animeTitle) {
+    switch (type) {
+        case 0:
+            return (
+            <>
+            <title>{title} Quiz - Kuizme</title> 
+            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}></meta>
+            </>
+            )
+        case 1:
+            if (title.includes('Character')) { 
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Have you ever wondered which ${animeTitle} character you are? Take the ${title} quiz to find out now!`}></meta> 
+                </>
+                )
+            }
+            else if (title.includes('Boyfriend')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                </>
+                )
+            }
+            else if (title.includes('Boyfriend')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                </>
+                )
+            }
+            else if (title.includes('Breathing')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Have you ever wondered which ${animeTitle} breathing style you would use? Take the ${title} quiz to find out now!`}></meta> 
+                </>
+                )
+            }
+            return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Try the ${title} quiz now if you love ${animeTitle}, or visit Kuizme for more quizzes like this one!`}></meta> 
+                </>
+            )
+        case 2:
+            return (
+            <>
+            <title>{title} Quiz - Kuizme</title> 
+            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}>
+            </meta>
+            </>
+            )
+    }
 }
 
 export default Quiz
