@@ -48,12 +48,26 @@ const Quiz = ({ quizData }) => {
     let count = 0
     if (infoCopy.length === Object.entries(quizData.info).length) {
         infoCopy.forEach(entry => {
-            if (entry[0] > 10) {
-                count++
+            if (quizData.limit !== null) {
+                if (entry[0] > quizData.limit) {
+                    count++
+                }
+            }
+            else {
+                if (entry[0] > 10) {
+                    count++
+                } 
             }
         })
     }
-    infoCopy.splice(10, count)
+    let numQuestions = 10
+    if (quizData.limit !== null) {
+        infoCopy.splice(quizData.limit, count)
+        numQuestions = quizData.limit
+    }
+    else {
+        infoCopy.splice(10, count)
+    }
 
     return (
         <>
@@ -100,6 +114,7 @@ const Quiz = ({ quizData }) => {
                 <Body info={quizData.info} 
                       infoCopy={infoCopy}
                       images={quizData.image}
+                      size={numQuestions}
                       setScore={setScore}
                       setFinish={setFinish}
                       currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}

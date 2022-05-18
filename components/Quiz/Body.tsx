@@ -1,7 +1,7 @@
 import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
-const Body = ({ images, info, infoCopy, setScore, setFinish, 
+const Body = ({ images, info, infoCopy, setScore, setFinish, size,
                 currentQuestion, setCurrentQuestion, type, entries, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
@@ -38,7 +38,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish,
                            imageUrl={findImage(String(value), type, images)} 
                            info={info} 
                            question={index}
-                           size={10}
+                           size={size}
                            currentQuestion={currentQuestion}
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}
