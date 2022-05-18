@@ -111,17 +111,23 @@ const Entry = ({ answer=null,
         setDisable(true)  
     }
 
-    return (
-        <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+    return ( returnEntry( type, currentQuestion, question, size, imageUrl, selection, disable, 
+        colors, entry, choice, selectCharacter, selectPersonality, selectTrivia ) )
+}
+
+function returnEntry ( type, currentQuestion, question, size, imageUrl, selection, disable, colors,
+    entry, choice, selectCharacter, selectPersonality, selectTrivia ) {
+    switch (type) {
+        case 0:
+            return (
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
-            <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                <span className='text-sky-500'>{question + 1}</span>
-                <span className='font-normal'> / </span> 
-                {size}
-            </p>
-            { type === 0 ? 
-                <>
+                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
+                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='font-normal'> / </span> 
+                    {size}
+                </p>
                 { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
@@ -136,11 +142,18 @@ const Entry = ({ answer=null,
                         )}
                     </div>
                 </div>
-                </> 
-                : 
-                <>
-                { type === 1 ?
-                <>
+            </div>
+            )
+        case 1:
+            return (
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+            ${currentQuestion >= question ? 'none' : 'hidden'} 
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
+                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
+                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='font-normal'> / </span> 
+                    {size}
+                </p>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
                 { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
@@ -159,9 +172,18 @@ const Entry = ({ answer=null,
                         }) }
                     </div>
                 </div>
-                </>
-                :
-                <>
+            </div>
+            )
+        case 2:
+            return (
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+            ${currentQuestion >= question ? 'none' : 'hidden'} 
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
+                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
+                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='font-normal'> / </span> 
+                    {size}
+                </p>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
                 { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
@@ -182,11 +204,9 @@ const Entry = ({ answer=null,
                         }) }
                     </div>
                 </div>
-                </> }
-                </>
-            }
-        </div>
-    )
+            </div>
+            )
+    }
 }
 
 export default Entry
