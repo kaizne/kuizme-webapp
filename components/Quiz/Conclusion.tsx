@@ -4,8 +4,8 @@ import Link from 'next/link'
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='' }) => {
     let percentage = 0
-    if (type === 0) { percentage = Percentage(score, total) }
-    else if (type === 2) { percentage = Percentage(triviaScore, total) }
+    if (type === 0) { percentage = calculatePercentage(score, total) }
+    else if (type === 2) { percentage = calculatePercentage(triviaScore, total) }
     let endText = 'You are'
     if (title.includes('Breathing')) { endText = 'You got' }
     else if (title.includes('Kin')) { endText = 'You kin' }
@@ -25,18 +25,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         imgWidth = 360
         imgHeight = imgWidth
     }
-    
-    return ( ReturnConclusion(type=type, score=score, triviaScore=triviaScore, total=total,
+
+    return ( returnConclusion(type=type, score=score, triviaScore=triviaScore, total=total,
         text=text, category=category, subcategory=subcategory, endText=endText, character=character,
         characterImageUrl=characterImageUrl, imgWidth=imgWidth, imgHeight=imgHeight, conclusion=conclusion) )
 }
 
-function Percentage(score=0, total=0) {
+function calculatePercentage(score=0, total=0) {
     const percentage = 100*score/total
     return percentage
 }
 
-function ReturnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
+function returnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
     character, characterImageUrl, imgWidth, imgHeight, conclusion) {
     switch (type) {
         case 0:
