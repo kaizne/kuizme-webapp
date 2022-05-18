@@ -50,7 +50,8 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size,
                     <div key={index} ref={el => questionsRef.current[index] = el}>
                         <Entry key={index} 
                             entry={entry} 
-                            question={index} 
+                            question={index}
+                            type={type} 
                             currentQuestion={currentQuestion}
                             setCurrentQuestion={setCurrentQuestion}
                             size={data.length}
@@ -66,6 +67,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size,
                     <Entry key={index} 
                         entry={entry} 
                         question={index} 
+                        type={type}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                         size={data.length}

@@ -5,51 +5,42 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     conclusion='', category='', subcategory='', title='' }) => {
     let percentage = 0
     if (type === 0) { percentage = Percentage(score, total) }
-    if (type === 2) { percentage = Percentage(triviaScore, total) }
+    else if (type === 2) { percentage = Percentage(triviaScore, total) }
     let endText = 'You are'
-    if (title.includes('Breathing')) {
-        endText = 'You got'
-    }
-    else if (title.includes('Kin')) {
-        endText = 'You kin'
-    }
-    else if (title.includes('Boyfriend')) {
-        endText = 'Your boyfriend is'
-    }
+    if (title.includes('Breathing')) { endText = 'You got' }
+    else if (title.includes('Kin')) { endText = 'You kin' }
+    else if (title.includes('Boyfriend')) { endText = 'Your boyfriend is' }
     let text = 'Nice.'
-    if (percentage == 0) {
-        text = 'At least you tried...'
-    }
-    else if (percentage < 20) {
-        text = 'Better than zero...'
-    }
-    else if (percentage < 40) {
-        text = 'Better luck next time.'
-    }
-    else if (percentage < 60) {
-        text = 'Not bad!'
-    }
-    else if (percentage < 80) {
-        text = 'Nice job!'
-    }
-    else if (percentage < 100) {
-        text = 'Brilliant!'
-    }
-    else {
-        text = 'Perfect!'
-    }
+    if (percentage == 0) { text = 'At least you tried...' }
+    else if (percentage < 20) { text = 'Better than zero...' }
+    else if (percentage < 40) { text = 'Better luck next time.' }
+    else if (percentage < 60) { text = 'Not bad!' }
+    else if (percentage < 80) { text = 'Nice job!' }
+    else if (percentage < 100) { text = 'Brilliant!' }
+    else { text = 'Perfect!' }
     const width = screen.width
-    var imgWidth = 120
-    var imgHeight = 120
+    let imgWidth = 120
+    let imgHeight = 120
     if (width > 640) {
         imgWidth = 360
         imgHeight = imgWidth
     }
-    return (
-    <div>
-        <>
-        { type === 0 ? 
-            <>
+    
+    return ( ReturnConclusion(type=type, score=score, triviaScore=triviaScore, total=total,
+        text=text, category=category, subcategory=subcategory, endText=endText, character=character,
+        characterImageUrl=characterImageUrl, imgWidth=imgWidth, imgHeight=imgHeight, conclusion=conclusion) )
+}
+
+function Percentage(score=0, total=0) {
+    const percentage = 100*score/total
+    return percentage
+}
+
+function ReturnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
+    character, characterImageUrl, imgWidth, imgHeight, conclusion) {
+    switch (type) {
+        case 0:
+            return (
             <div className='flex h-screen justify-center items-center'>
                 <h1 className='text-4xl text-center text-black'>
                 You scored {score}/{total}.
@@ -67,10 +58,9 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                 text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
                 </h1>
             </div>
-            </>
-            : 
-            <>
-            { type === 1 ?
+            )
+        case 1:
+            return ( 
             <>
             <div className='flex flex-col min-h-screen justify-center items-center px-2 md:px-0'>
                 <div>
@@ -103,7 +93,9 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                 </div>
             </div>
             </>
-            :
+            )
+        case 2:
+            return (
             <>
             <div className='flex h-screen justify-center items-center'>
                 <h1 className='text-4xl text-center text-black'>
@@ -122,17 +114,9 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                 text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
                 </h1>
             </div>
-            </> }
             </>
-        }
-        </>
-    </div>
-    )
-}
-
-function Percentage(score=0, total=0) {
-    const percentage = 100*score/total
-    return percentage
+            )
+    }
 }
 
 export default Conclusion

@@ -72,7 +72,7 @@ const Quiz = ({ quizData }) => {
     return (
         <>
         <Head>
-]           { quizData.type === 0 ?
+            { quizData.type === 0 ?
                 <>
                 <title>{quizData.title} Quiz - Kuizme</title> 
                 <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
