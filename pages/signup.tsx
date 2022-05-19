@@ -11,13 +11,13 @@ const Signup = () => {
 
     useEffect(() => {
         setFormErrors(validate(formValues))
+        setIsDisable(enable(formValues, formErrors))
     }, [formValues])
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormValues({...formValues, [name]: value})
-        setFormErrors(validate(formValues))
-        setIsDisable(enable(formValues, formErrors))
+        setFormErrors(validate({...formValues, [name]: value}))
     }
 
     const handleSubmit = async (e) => {
@@ -37,7 +37,7 @@ const Signup = () => {
     }
 
     const validate = (values) => {
-        const errors: any = {}
+        const errors: any = {email: '', password: '', _password: '', username: ''}
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const usernameRegex = /^[a-z0-9]+$/i
         if (values.email && !emailRegex.test(values.email)) 
@@ -53,7 +53,7 @@ const Signup = () => {
 
     const enable = (values, errors) => {
         if (values.email !== '' && values.password !== '' && values._password !== '' && values.username !== ''
-         && Object.keys(errors).length === 0)
+         && formErrors.email === '' && formErrors.password === '' && formErrors._password === '' && formErrors.username === '')
             return true
         return false
     }
@@ -97,13 +97,13 @@ const Signup = () => {
                 </div>
                 <button className={`w-80 h-10 mt-3 rounded text-white 
                                    ${isDisable ? 'bg-sky-500 hover:bg-sky-600 hover:cursor-pointer' 
-                                              : 'bg-gray-300'}`}
+                                               : 'bg-gray-300'}`}
                         disabled={!isDisable}>
                                 Sign up</button>
                 <div className='w-80 mt-4 ml-1 text-sm'>
                     By signing up, you are agreeing to the  
-                    <span className='text-sky-500 hover:text-sky-600'><Link href='/terms-of-service'> Terms of Conditions </Link></span> and 
-                    <span className='text-sky-500 hover:text-sky-600'><Link href='/privacy'> Privacy Policy</Link></span>.
+                    <span className='text-sky-500'><Link href='/terms-of-service'> Terms of Conditions </Link></span> and 
+                    <span className='text-sky-500'><Link href='/privacy'> Privacy Policy</Link></span>.
                 </div>
             </form>
         </div>
