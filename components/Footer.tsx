@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function Footer() {
-    var positionText = 'relative'
-    {/*if (window.outerHeight > window.innerHeight) {
-        positionText = 'relative'
-    }*/}
+    const router = useRouter()
+    const asPath = router.asPath
     return (
+        <>
+        {(asPath !== '/signup' && asPath !== '/signin') &&
         <div className='w-full h-12 bg-white mt-4'>
             <div className='border-t-2 border-[#D0D0D0] text-black grid grid-cols-2 
             sm:grid-cols-4 md:py-3 justify-center'>
@@ -32,7 +33,8 @@ function Footer() {
                     </Link> 
                 </div>
             </div>
-        </div>
+        </div> }
+        </>
     )
 }
 
