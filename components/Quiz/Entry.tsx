@@ -32,9 +32,8 @@ const Entry = ({ answer=null,
         colorArray = ['bg-white', 'bg-white', 'bg-white', 'bg-white']
     }
     const [colors, setColors] = useState(colorArray)
-        //useState(['bg-white', 'bg-white', 'bg-white', 'bg-white']) 
         
-    // Personality
+    // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {

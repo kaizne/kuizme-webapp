@@ -3,21 +3,13 @@ import Link from 'next/link'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='' }) => {
-    let percentage = 0
-    if (type === 0) { percentage = calculatePercentage(score, total) }
-    else if (type === 2) { percentage = calculatePercentage(triviaScore, total) }
+    let text = 'Nice.'
+    if (type === 0) { text = calculatePercentageText(score, total) }
+    else if (type === 2) { text = calculatePercentageText(triviaScore, total) }
     let endText = 'You are'
     if (title.includes('Breathing')) { endText = 'You got' }
     else if (title.includes('Kin')) { endText = 'You kin' }
     else if (title.includes('Boyfriend')) { endText = 'Your boyfriend is' }
-    let text = 'Nice.'
-    if (percentage == 0) { text = 'At least you tried...' }
-    else if (percentage < 20) { text = 'Better than zero...' }
-    else if (percentage < 40) { text = 'Better luck next time.' }
-    else if (percentage < 60) { text = 'Not bad!' }
-    else if (percentage < 80) { text = 'Nice job!' }
-    else if (percentage < 100) { text = 'Brilliant!' }
-    else { text = 'Perfect!' }
     const width = screen.width
     let imgWidth = 120
     let imgHeight = 120
@@ -31,9 +23,17 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         characterImageUrl=characterImageUrl, imgWidth=imgWidth, imgHeight=imgHeight, conclusion=conclusion) )
 }
 
-function calculatePercentage(score=0, total=0) {
+function calculatePercentageText(score=0, total=0) {
     const percentage = 100*score/total
-    return percentage
+    let text = 'Nice.'
+    if (percentage == 0) { text = 'At least you tried...' }
+    else if (percentage < 20) { text = 'Better than zero...' }
+    else if (percentage < 40) { text = 'Better luck next time.' }
+    else if (percentage < 60) { text = 'Not bad!' }
+    else if (percentage < 80) { text = 'Nice job!' }
+    else if (percentage < 100) { text = 'Brilliant!' }
+    else { text = 'Perfect!' }
+    return text
 }
 
 function returnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
@@ -118,5 +118,7 @@ function returnConclusion (type, score, triviaScore, total, text, category, subc
             )
     }
 }
+
+
 
 export default Conclusion
