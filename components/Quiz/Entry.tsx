@@ -20,6 +20,7 @@ const Entry = ({ answer=null,
     const [selection, setSelection] = useState([])
     const [disable, setDisable] = useState(false)
     const [correct, setCorrect] = useState(0)
+    const [shuffled, setShuffled] = useState(false)
     
     const [colors, setColors] = 
         useState(['bg-white', 'bg-white', 'bg-white', 'bg-white']) 
@@ -95,7 +96,7 @@ const Entry = ({ answer=null,
 
     const selectTrivia = (selection, index) => {
         setTally(tally => {
-            tally[selection - 1]++
+            if (selection === 'a') { tally[0]++ }
             return tally
         })
         setChoice(index)
@@ -109,6 +110,12 @@ const Entry = ({ answer=null,
             }  
         }, 100)
         setDisable(true)  
+    }
+    if (!shuffled && type == 2) {
+        entry.content = Object.entries(entry.content)
+        entry.content = shuffleArray(entry.content)
+        entry.content = Object.fromEntries(entry.content)
+        setShuffled(true)
     }
 
     return ( returnEntry( type, currentQuestion, question, size, imageUrl, selection, disable, 
@@ -190,7 +197,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
                         { Object.keys(entry.content).map((elem, index) => {
                             let color = 'bg-red-400'
-                            if (elem === '1') { color = 'bg-emerald-400' }
+                            if (elem === 'a') { color = 'bg-emerald-400' }
                             return (
                                 <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
                                                     text-md font-medium
@@ -207,6 +214,16 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             </div>
             )
     }
+}
+
+function shuffleArray (array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array
 }
 
 export default Entry

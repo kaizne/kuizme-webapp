@@ -100,7 +100,7 @@ const Quiz = ({ quizData }) => {
                 <div ref={conclusionRef}> 
                     <Conclusion type={quizData.type} score={score} total={total} 
                                 character={calculateTally(tally, quizData.info)} 
-                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
+                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
                                 conclusion={calculateConclusionTally(tally, quizData.conclusion)}
                                 category={quizData.category}
                                 subcategory={quizData.subcategory}
@@ -140,12 +140,14 @@ const calculateTriviaTally = (tally) => {
     return tally[0]
 }
 
-const findImage = (name: string, images) => {
-    const searchName = name.toLowerCase().replace(/ /g, '-')
-    for (let image of images.data) {
-        const imageName = image.attributes.name.split('.', 1)[0]
-        if (searchName === imageName)
-            return image.attributes.url
+const findImage = (name: string, images, type) => {
+    if (type !== 0 && type !== 2) {
+        const searchName = name.toLowerCase().replace(/ /g, '-')
+        for (let image of images.data) {
+            const imageName = image.attributes.name.split('.', 1)[0]
+            if (searchName === imageName)
+                return image.attributes.url
+        }
     }
     return ''
 }
