@@ -203,7 +203,7 @@ function returnTitleAndMeta(type, title, animeTitle) {
         case 2:
             return (
             <>
-            <title>{title} Quiz - Kuizme</title> 
+            <title>{title} - Kuizme</title> 
             <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}>
             </meta>
             </>
