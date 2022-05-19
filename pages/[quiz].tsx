@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
+import anime from '../utils/anime'
 
 const Quiz = ({ quizData }) => {
     const [score, setScore] = useState(0)
@@ -14,7 +15,12 @@ const Quiz = ({ quizData }) => {
     const conclusionRef = useRef(null)
 
     useEffect(() => {
-        setTotal(10)
+        if (quizData.limit !== null) { 
+            setTotal(quizData.limit) 
+        }
+        else { 
+            setTotal(10)
+        }
     }, [])
 
     const findAnimeTitle = () => {
@@ -28,6 +34,7 @@ const Quiz = ({ quizData }) => {
         } 
         return animeTitle
     }
+    const animeTitle = findAnimeTitle()
 
     const scrollConclusion = () => conclusionRef.current?.scrollIntoView({ behavior: 'smooth' })
 
@@ -43,47 +50,32 @@ const Quiz = ({ quizData }) => {
     let count = 0
     if (infoCopy.length === Object.entries(quizData.info).length) {
         infoCopy.forEach(entry => {
-            if (entry[0] > 10) {
-                count++
+            if (quizData.limit !== null) {
+                if (entry[0] > quizData.limit) {
+                    count++
+                }
+            }
+            else {
+                if (entry[0] > 10) {
+                    count++
+                } 
             }
         })
     }
-    infoCopy.splice(10, count)
+    let numQuestions = 10
+    if (quizData.limit !== null) {
+        infoCopy.splice(quizData.limit, count)
+        numQuestions = quizData.limit
+    }
+    else {
+        infoCopy.splice(10, count)
+    }
+    const titleAndMeta = returnTitleAndMeta( quizData.type, quizData.title, animeTitle )
 
     return (
         <>
         <Head>
-]           { quizData.type === 0 ?
-                <>
-                <title>{quizData.title} Quiz - Kuizme</title> 
-                <meta name='description' content={`How well do you know ${findAnimeTitle()}? Play the ${quizData.title} quiz to find out now!`}>
-                </meta>
-                </>
-                :
-                <>
-                <title>{quizData.title} - Kuizme</title>
-                { quizData.title.includes('Breathing') || quizData.title.includes('friend') ?
-                <>
-                { quizData.title.includes('Boyfriend') ? 
-                <>
-                <meta name='description' content={`Who would your boyfriend be in ${findAnimeTitle()}? Take the ${quizData.title} quiz to find out now!`}>
-                </meta> 
-                </>
-                :
-                <>
-                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} breathing style you would use? Take the ${quizData.title} quiz to find out now!`}>
-                </meta> 
-                </>
-                }
-                </>
-                :
-                <>
-                <meta name='description' content={`Have you ever wondered which ${findAnimeTitle()} character you are? Take the ${quizData.title} quiz to find out now!`}>
-                </meta>
-                </> 
-                }
-                </>
-            }  
+            {titleAndMeta}
         </Head>
         <div className='min-h-screen flex flex-col mt-6 md:mt-12 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
@@ -95,6 +87,7 @@ const Quiz = ({ quizData }) => {
                 <Body info={quizData.info} 
                       infoCopy={infoCopy}
                       images={quizData.image}
+                      size={numQuestions}
                       setScore={setScore}
                       setFinish={setFinish}
                       currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
@@ -107,11 +100,12 @@ const Quiz = ({ quizData }) => {
                 <div ref={conclusionRef}> 
                     <Conclusion type={quizData.type} score={score} total={total} 
                                 character={calculateTally(tally, quizData.info)} 
-                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image)}
+                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
                                 conclusion={calculateConclusionTally(tally, quizData.conclusion)}
                                 category={quizData.category}
                                 subcategory={quizData.subcategory}
-                                title={quizData.title} /> 
+                                title={quizData.title}
+                                triviaScore={calculateTriviaTally(tally)} /> 
                 </div>
                 : <></>  
             }
@@ -142,14 +136,79 @@ const calculateConclusionTally = (tally, conclusion) => {
     return
 }
 
-const findImage = (name: string, images) => {
-    const searchName = name.toLowerCase().replace(/ /g, '-')
-    for (let image of images.data) {
-        const imageName = image.attributes.name.split('.', 1)[0]
-        if (searchName === imageName)
-            return image.attributes.url
+const calculateTriviaTally = (tally) => {
+    return tally[0]
+}
+
+const findImage = (name: string, images, type) => {
+    if (type !== 0 && type !== 2) {
+        const searchName = name.toLowerCase().replace(/ /g, '-')
+        for (let image of images.data) {
+            const imageName = image.attributes.name.split('.', 1)[0]
+            if (searchName === imageName)
+                return image.attributes.url
+        }
     }
     return ''
+}
+
+function returnTitleAndMeta(type, title, animeTitle) {
+    switch (type) {
+        case 0:
+            return (
+            <>
+            <title>{title} Quiz - Kuizme</title> 
+            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}></meta>
+            </>
+            )
+        case 1:
+            if (title.includes('Character')) { 
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Have you ever wondered which ${animeTitle} character you are? Take the ${title} quiz to find out now!`}></meta> 
+                </>
+                )
+            }
+            else if (title.includes('Boyfriend')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                </>
+                )
+            }
+            else if (title.includes('Boyfriend')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                </>
+                )
+            }
+            else if (title.includes('Breathing')) {
+                return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Have you ever wondered which ${animeTitle} breathing style you would use? Take the ${title} quiz to find out now!`}></meta> 
+                </>
+                )
+            }
+            return (
+                <>
+                <title>{title} - Kuizme</title>
+                <meta name='description' content={`Try the ${title} quiz now if you love ${animeTitle}, or visit Kuizme for more quizzes like this one!`}></meta> 
+                </>
+            )
+        case 2:
+            return (
+            <>
+            <title>{title} Quiz - Kuizme</title> 
+            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}>
+            </meta>
+            </>
+            )
+    }
 }
 
 export default Quiz

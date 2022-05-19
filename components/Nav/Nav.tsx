@@ -4,7 +4,10 @@ import Link from 'next/link'
 
 function Nav() {
     const router = useRouter()
+    const asPath = router.asPath
     return (
+        <>
+        {(asPath !== '/signup' && asPath !== '/signin') &&
         <nav className='sticky top-0 z-50 flex flex-row justify-between h-14 md:h-16 w-screen pt-2 pb-2
                       bg-white border-b shadow-sm'>
                 <div className='flex flex-row items-center'>
@@ -23,13 +26,14 @@ function Nav() {
                              active:text-orange-400'>{title}</div>))}
                 </div>
                 </div>
-                <Link href='/signup'>
+                <Link href='/signin'>
                 <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
                                    text-sm text-white font-semibold bg-sky-400 rounded'>
                     Sign In
                 </button>
                 </Link>
-        </nav>
+        </nav> }
+        </>
     )
 }
 

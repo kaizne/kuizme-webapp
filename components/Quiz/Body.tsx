@@ -1,7 +1,7 @@
 import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
-const Body = ({ images, info, infoCopy, setScore, setFinish, 
+const Body = ({ images, info, infoCopy, setScore, setFinish, size,
                 currentQuestion, setCurrentQuestion, type, entries, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
@@ -19,7 +19,12 @@ const Body = ({ images, info, infoCopy, setScore, setFinish,
             newData = entries.map(value => ({ value, sort: Math.random() }))
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
+        } else if (type === 2) {
+            newData = entries.map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value )
         }
+
         setData(newData)
     }, [])
 
@@ -33,18 +38,20 @@ const Body = ({ images, info, infoCopy, setScore, setFinish,
                            imageUrl={findImage(String(value), type, images)} 
                            info={info} 
                            question={index}
-                           size={10}
+                           size={size}
                            currentQuestion={currentQuestion}
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}
                            scroll={scroll}
                            scrollConclusion={scrollConclusion} />
-                </div>) : 
+                </div>) :
+                type === 1 ? 
                 data.map((entry, index) => 
                     <div key={index} ref={el => questionsRef.current[index] = el}>
                         <Entry key={index} 
                             entry={entry} 
-                            question={index} 
+                            question={index}
+                            type={type} 
                             currentQuestion={currentQuestion}
                             setCurrentQuestion={setCurrentQuestion}
                             size={data.length}
@@ -53,6 +60,22 @@ const Body = ({ images, info, infoCopy, setScore, setFinish,
                             scroll={scroll}
                             scrollConclusion={scrollConclusion} />
                     </div>
+                )
+                :
+                data.map((entry, index) => 
+                <div key={index} ref={el => questionsRef.current[index] = el}>
+                    <Entry key={index} 
+                        entry={entry} 
+                        question={index} 
+                        type={type}
+                        currentQuestion={currentQuestion}
+                        setCurrentQuestion={setCurrentQuestion}
+                        size={data.length}
+                        setFinish={setFinish}
+                        setTally={setTally}
+                        scroll={scroll}
+                        scrollConclusion={scrollConclusion} />
+                </div>
                 )
             }
         </div>

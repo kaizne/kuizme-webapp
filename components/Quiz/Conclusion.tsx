@@ -1,53 +1,46 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl='',
+const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='' }) => {
-    const percentage = Percentage(score, total)
-    let endText = 'You are'
-    if (title.includes('Breathing')) {
-        endText = 'You got'
-    }
-    else if (title.includes('Kin')) {
-        endText = 'You kin'
-    }
-    else if (title.includes('Boyfriend')) {
-        endText = 'Your boyfriend is'
-    }
     let text = 'Nice.'
-    if (percentage == 0) {
-        text = 'At least you tried...'
-    }
-    else if (percentage < 20) {
-        text = 'Better than zero...'
-    }
-    else if (percentage < 40) {
-        text = 'Better luck next time.'
-    }
-    else if (percentage < 60) {
-        text = 'Not bad!'
-    }
-    else if (percentage < 80) {
-        text = 'Nice job!'
-    }
-    else if (percentage < 100) {
-        text = 'Brilliant!'
-    }
-    else {
-        text = 'Perfect!'
-    }
+    if (type === 0) { text = calculatePercentageText(score, total) }
+    else if (type === 2) { text = calculatePercentageText(triviaScore, total) }
+    let endText = 'You are'
+    if (title.includes('Breathing')) { endText = 'You got' }
+    else if (title.includes('Kin')) { endText = 'You kin' }
+    else if (title.includes('Boyfriend')) { endText = 'Your boyfriend is' }
     const width = screen.width
-    var imgWidth = 120
-    var imgHeight = 120
+    let imgWidth = 120
+    let imgHeight = 120
     if (width > 640) {
         imgWidth = 360
         imgHeight = imgWidth
     }
-    return (
-    <div>
-        <>
-        { type === 0 ? 
-            <>
+
+    return ( returnConclusion(type=type, score=score, triviaScore=triviaScore, total=total,
+        text=text, category=category, subcategory=subcategory, endText=endText, character=character,
+        characterImageUrl=characterImageUrl, imgWidth=imgWidth, imgHeight=imgHeight, conclusion=conclusion) )
+}
+
+function calculatePercentageText(score=0, total=0) {
+    const percentage = 100*score/total
+    let text = 'Nice.'
+    if (percentage == 0) { text = 'At least you tried...' }
+    else if (percentage < 20) { text = 'Better than zero...' }
+    else if (percentage < 40) { text = 'Better luck next time.' }
+    else if (percentage < 60) { text = 'Not bad!' }
+    else if (percentage < 80) { text = 'Nice job!' }
+    else if (percentage < 100) { text = 'Brilliant!' }
+    else { text = 'Perfect!' }
+    return text
+}
+
+function returnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
+    character, characterImageUrl, imgWidth, imgHeight, conclusion) {
+    switch (type) {
+        case 0:
+            return (
             <div className='flex h-screen justify-center items-center'>
                 <h1 className='text-4xl text-center text-black'>
                 You scored {score}/{total}.
@@ -65,8 +58,9 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                 text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
                 </h1>
             </div>
-            </>
-            : 
+            )
+        case 1:
+            return ( 
             <>
             <div className='flex flex-col min-h-screen justify-center items-center px-2 md:px-0'>
                 <div>
@@ -99,15 +93,32 @@ const Conclusion = ({ type=0, score=0, total=0, character='', characterImageUrl=
                 </div>
             </div>
             </>
-        }
-        </>
-    </div>
-    )
+            )
+        case 2:
+            return (
+            <>
+            <div className='flex h-screen justify-center items-center'>
+                <h1 className='text-4xl text-center text-black'>
+                You scored {triviaScore}/{total}.
+                <br></br>
+                <a className='text-3xl text-[#b19aff]'>{text}</a>
+                <br></br><br></br>
+                <a className='cursor-pointer text-2xl font-semibold
+                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
+                onClick={() => location.reload()}>Play Again</a>
+                <br></br>
+                <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-2xl font-semibold
+                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
+                <br></br>
+                <Link href='/'><a className='cursor-pointer text-2xl font-semibold
+                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
+                </h1>
+            </div>
+            </>
+            )
+    }
 }
 
-function Percentage(score=0, total=0) {
-    const percentage = 100*score/total
-    return percentage
-}
+
 
 export default Conclusion
