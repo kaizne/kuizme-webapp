@@ -22,8 +22,17 @@ const Entry = ({ answer=null,
     const [correct, setCorrect] = useState(0)
     const [shuffled, setShuffled] = useState(false)
     
-    const [colors, setColors] = 
-        useState(['bg-white', 'bg-white', 'bg-white', 'bg-white']) 
+    let colorArray = []
+    if (type === 2) {
+        for (let i = 0; i < Object.keys(entry.content).length; i++) {
+            colorArray.push('bg-white')
+        }
+    }
+    else {
+        colorArray = ['bg-white', 'bg-white', 'bg-white', 'bg-white']
+    }
+    const [colors, setColors] = useState(colorArray)
+        //useState(['bg-white', 'bg-white', 'bg-white', 'bg-white']) 
         
     // Personality
     const [choice, setChoice] = useState(0)
@@ -95,6 +104,19 @@ const Entry = ({ answer=null,
     }
 
     const selectTrivia = (selection, index) => {
+        const correct = Object.keys(entry.content).indexOf('a')
+        if (selection === 'a') {
+            setColors(colors => {
+                colors[index] = 'bg-emerald-400'
+                return colors
+            })
+        } else {
+            setColors(colors => {
+                colors[index] = 'bg-red-400'
+                colors[correct] = 'bg-emerald-400'
+                return colors
+            })
+        }
         setTally(tally => {
             if (selection === 'a') { tally[0]++ }
             return tally
@@ -200,8 +222,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                             if (elem === 'a') { color = 'bg-emerald-400' }
                             return (
                                 <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
-                                                    text-md font-medium
-                                                    ${choice === index && disable ? `${color}` : 'bg-white'}`}
+                                                    text-md font-medium ${colors[index]}`}
                                         onClick={() => 
                                             selectTrivia(elem, index)}
                                         disabled={disable}>
@@ -215,6 +236,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             )
     }
 }
+// ${choice === index && disable ? `${color}` : 'bg-white'}`
 
 function shuffleArray (array) {
     for (var i = array.length - 1; i > 0; i--) {
