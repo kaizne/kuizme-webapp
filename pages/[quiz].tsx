@@ -155,6 +155,14 @@ const findImage = (name: string, images, type) => {
 function returnTitleAndMeta(type, title, animeTitle) {
     switch (type) {
         case 0:
+            if (title.includes('Quiz')) {
+                return (
+                <>
+                <title>{title}- Kuizme</title> 
+                <meta name='description' content={`How well do you know the characters from ${animeTitle}? Play the ${title} to find out now!`}></meta>
+                </>
+                )
+            }
             return (
             <>
             <title>{title} Quiz - Kuizme</title> 

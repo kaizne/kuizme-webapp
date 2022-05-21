@@ -19,6 +19,11 @@ const tv = {
         slug: 'the-walking-dead',
         title: 'The Walking Dead'
     },
+    'heartstopper': {
+        category: 'tv',
+        slug: 'heartstopper',
+        title: 'Heartstopper'
+    },
 }
  
 export default tv
