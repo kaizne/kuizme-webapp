@@ -11,7 +11,7 @@ function Footer() {
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
         <div className='w-full h-12 bg-white mt-4'>
             <div className='border-t-2 border-[#D0D0D0] text-black grid grid-cols-2 
-            sm:grid-cols-4 md:py-3 justify-center'>
+            md:grid-cols-5 md:py-3 justify-center'>
                 <div className='text-center'>
                     <Link href='/'>
                         <a className='font-Poppins text-xs md:text-lg'>Home</a>
@@ -30,6 +30,11 @@ function Footer() {
                 <div className='text-center'>
                     <Link href='/privacy'>
                         <a className='font-Poppins text-xs md:text-lg'>Privacy</a>
+                    </Link> 
+                </div>
+                <div className='text-center'>
+                    <Link href='/tos'>
+                        <a className='font-Poppins text-xs md:text-lg'>Terms of Service</a>
                     </Link> 
                 </div>
             </div>
