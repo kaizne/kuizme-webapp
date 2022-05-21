@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 const Signup = () => {
-    const initialValues = { email: '', password: '', username: '' }
-    const initialErrors = { email: '', password: '', username: '' }
+    const initialValues = { email: '', password: '' }
+    const initialErrors = { email: '', password: '' }
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [isDisable, setIsDisable] = useState(false)
@@ -21,30 +21,29 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        /*
-        const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', { 
+        const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/', { 
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: formValues.email,
                 password: formValues.password,
-                username: formValues.username,
             }),
             method: 'POST',   
         })
-        */
+        console.log(response)
     }
 
     const validate = (values) => {
         const errors: any = {}
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        const usernameRegex = /^[a-z0-9]+$/i
+        if (values.email && !emailRegex.test(values.email)) 
+            errors.email = 'Please enter a valid email.'
         return errors
     }
 
     const enable = (values, errors) => {
-        if (values.email !== '' && values.password !== '' && values._password !== '' && values.username !== ''
+        if (values.email !== '' && values.password !== ''
          && Object.keys(errors).length === 0)
             return true
         return false
