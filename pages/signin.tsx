@@ -21,7 +21,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/', { 
+        await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/', { 
             headers: {
                 'Content-Type': 'application/json',
             },
