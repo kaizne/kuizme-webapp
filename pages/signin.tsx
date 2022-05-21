@@ -21,7 +21,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/', { 
+        const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local', { 
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -30,8 +30,8 @@ const Signup = () => {
                 password: formValues.password,
             }),
             method: 'POST',   
-        }).then(response => console.log(response.json()) )
-          .then(data => console.log(data) )
+        })
+        console.log(response.json())
     }
 
     const validate = (values) => {
