@@ -7,7 +7,7 @@ function Nav() {
     const asPath = router.asPath
     return (
         <>
-        {(asPath !== '/signup' && asPath !== '/signin') &&
+        {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
         <nav className='sticky top-0 z-50 flex flex-row justify-between h-14 md:h-16 w-screen pt-2 pb-2
                       bg-white border-b shadow-sm'>
                 <div className='flex flex-row items-center'>
