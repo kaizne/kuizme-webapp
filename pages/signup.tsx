@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -23,6 +24,8 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsSubmit(true)
+
+        /*
         const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', { 
             headers: {
                 'Content-Type': 'application/json',
@@ -33,6 +36,15 @@ const Signup = () => {
                 username: formValues.username,
             }),
             method: 'POST',   
+        })
+        */
+
+        axios.post('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', {
+            email: formValues.username,
+            password: formValues.password,
+            username: formValues.password,
+        }).catch(error => {
+            console.error('An error occured:', error.response)
         })
     }
 

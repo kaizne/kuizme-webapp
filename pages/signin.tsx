@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import Router, { useRouter } from 'next/router' 
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Signup = () => {
     const initialValues = { email: '', password: '' }
@@ -8,30 +10,31 @@ const Signup = () => {
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [isDisable, setIsDisable] = useState(false)
 
+    const router = useRouter()
+
     useEffect(() => {
         setFormErrors(validate(formValues))
+        setIsDisable(enable(formValues, formErrors))
     }, [formValues])
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormValues({...formValues, [name]: value})
-        setFormErrors(validate(formValues))
-        setIsDisable(enable(formValues, formErrors))
+        setFormErrors(validate({...formValues, [name]: value})) 
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local', { 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: formValues.email,
-                password: formValues.password,
-            }),
-            method: 'POST',   
+        axios.post('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local', {
+            identifier: formValues.email,
+            password: formValues.password,
+        }).then(response => {
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
+            router.push('/')
+        }).catch(error => {
+            setFormErrors({...formErrors, email: 'The email or password is not correct.'})
         })
-        console.log(response.json())
     }
 
     const validate = (values) => {
@@ -76,7 +79,7 @@ const Signup = () => {
                 </div>
                 <button className={`w-80 h-10 mt-3 rounded text-white 
                                    ${isDisable ? 'bg-sky-500 hover:bg-sky-600 hover:cursor-pointer' 
-                                              : 'bg-gray-300'}`}
+                                               : 'bg-gray-300'}`}
                         disabled={!isDisable}>
                                 Sign in</button>
                 <div className='w-80 mt-4 ml-1 text-sm'>
