@@ -1,10 +1,39 @@
 import requests from '../../utils/requests'
-import { useRouter } from 'next/router'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
 
-function Nav() {
+const Nav = () => {
     const router = useRouter()
     const asPath = router.asPath
+
+    const [profile, setProfile] = useState(false)
+    const [dropDown, setDropDown] = useState(false)
+
+    const ref = useRef(null)
+
+    useEffect(() => {
+        if (localStorage.getItem('jwt')) {
+            setProfile(true)
+            document.addEventListener('click', handleClickOutside, true)
+        } else {
+            setProfile(false)
+        }
+    })
+
+    const handleClickOutside = (e) => {
+        if (ref.current && !ref.current.contains(e.target))
+            setDropDown(false)
+    }
+
+    const signOut = () => {
+        localStorage.clear()
+        setProfile(false)
+        setDropDown(false)
+        router.push('/')
+    }
+
     return (
         <>
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
@@ -26,12 +55,29 @@ function Nav() {
                              active:text-orange-400'>{title}</div>))}
                 </div>
                 </div>
-                <Link href='/signin'>
-                <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
-                                   text-sm text-white font-semibold bg-sky-400 rounded'>
-                    Sign In
-                </button>
-                </Link>
+                { !profile ? 
+                    <Link href='/signin'>
+                        <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
+                                        text-sm text-white font-semibold bg-sky-400 rounded'>
+                            Sign In
+                        </button>
+                    </Link> :
+                    <div ref={ref} className='relative w-28 h-28'>
+                        <button className='w-10 mt-2 ml-14 mr-4 md:mr-4 rounded md:hover:bg-gray-300'
+                                onClick={() => setDropDown(!dropDown)}>
+                            <Image src='/profile.svg' width={30} height={30} />
+                        </button>
+                        <div className={`flex flex-col gap-y-1 w-24 h-16 bg-white shadow rounded
+                                        ${dropDown ? 'none' : 'hidden'}`}>
+                            <Link href='/profile'>
+                            <button className='ml-1 mt-2 w-20 text-left text-base
+                                            md:hover:bg-gray-200'>My Profile</button>
+                            </Link>
+                            <button onClick={() => signOut()}
+                                    className='ml-1 w-20 text-left text-base
+                                             md:hover:bg-gray-200'>Sign Out</button>
+                        </div>
+                    </div> }        
         </nav> }
         </>
     )
