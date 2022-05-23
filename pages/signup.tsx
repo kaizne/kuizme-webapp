@@ -40,9 +40,9 @@ const Signup = () => {
         */
 
         axios.post('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', {
-            email: formValues.username,
+            email: formValues.email,
             password: formValues.password,
-            username: formValues.password,
+            username: formValues.username,
         }).catch(error => {
             console.error('An error occured:', error.response)
         })
