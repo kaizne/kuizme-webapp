@@ -1,8 +1,18 @@
+import { setDefaultResultOrder } from 'dns'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
-                    conclusion='', category='', subcategory='', title='' }) => {
+                    conclusion='', category='', subcategory='', title='', incrementLike }) => {
+    const [profile, setProfile] = useState(false)
+    const [like, setLike] = useState(false)
+    const [error, setError] = useState(false)
+    useEffect(() => {
+        if (localStorage.getItem('jwt')) setProfile(true)
+        else setProfile(false)
+    })
+                        
     let text = 'Nice.'
     if (type === 0) { text = calculatePercentageText(score, total) }
     else if (type === 2) { text = calculatePercentageText(triviaScore, total) }
@@ -10,17 +20,98 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     if (title.includes('Breathing')) { endText = 'You got' }
     else if (title.includes('Kin')) { endText = 'You kin' }
     else if (title.includes('Boyfriend')) { endText = 'Your boyfriend is' }
-    const width = screen.width
-    let imgWidth = 120
-    let imgHeight = 120
-    if (width > 640) {
-        imgWidth = 360
-        imgHeight = imgWidth
-    }
 
-    return ( returnConclusion(type=type, score=score, triviaScore=triviaScore, total=total,
-        text=text, category=category, subcategory=subcategory, endText=endText, character=character,
-        characterImageUrl=characterImageUrl, imgWidth=imgWidth, imgHeight=imgHeight, conclusion=conclusion) )
+    const router = useRouter()
+
+    const likeQuiz = () => {
+        if (profile) {
+            if (!like) incrementLike()
+            setLike(!like)
+        } else {
+            setError(true)
+            setTimeout(() => setError(false), 2000)
+        }
+    }
+    
+    switch (type) {
+        case 0:
+            return (
+                <div className='flex flex-col h-screen justify-center items-center'>
+                    <div className='text-4xl text-center'>
+                        You scored {score}/{total}.
+                    </div>
+                    <div className='text-3xl text-violet-600'>{text}</div>
+                    <div className='flex flex-col items-center mt-4'>
+                        <button onClick={() => router.reload()}
+                                className='text-xl font-semibold md:hover:text-red-600'>
+                            Play Again
+                        </button>
+                        <div className='flex flex-row mt-2'>
+                            <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
+                            <button onClick={() => likeQuiz()}
+                                    className='ml-1 text-xl font-semibold md:hover:text-red-600'>
+                                Like This Quiz
+                            </button>
+                        </div>
+                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
+                            Please sign in to like this quiz.
+                        </div>
+                    </div>
+                </div>
+            )
+        case 1:
+            return ( 
+                <div className='flex flex-col min-h-screen justify-center items-center mt-4 md:mt-0'>
+                    <div className='mt-2 text-black text-3xl'>{endText}</div>
+                    { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} /> }
+                    <div className='text-3xl mt-2 text-violet-600'>{character}</div>
+                    <div className='w-80 md:w-96 mt-2 p-2 rounded 
+                                    text-lg text-center bg-white shadow'>
+                        {conclusion}
+                    </div>
+                    <div className='flex flex-col items-center mt-4'>
+                        <button onClick={() => router.reload()}
+                                className='text-xl font-semibold md:hover:text-red-600'>
+                            Play Again
+                        </button>
+                        <div className='flex flex-row mt-2'>
+                            <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
+                            <button onClick={() => likeQuiz()}
+                                    className='ml-1 text-xl font-semibold md:hover:text-red-600'>
+                                Like This Quiz
+                            </button>
+                        </div>
+                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
+                            Please sign in to like this quiz.
+                        </div>
+                    </div>
+                </div>
+            )
+        case 2:
+            return (
+                <div className='flex flex-col h-screen justify-center items-center'>
+                    <div className='text-4xl text-center'>
+                        You scored {triviaScore}/{total}.</div>
+                    <div className='text-3xl text-violet-600'>{text}</div>
+                    <div className='flex flex-col mt-4'>
+                        <button onClick={() => router.reload()}
+                                className='text-xl font-semibold md:hover:text-red-600'>
+                            Play Again
+                        </button>
+                        <div className='flex flex-row items-center mt-2'>
+                            <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
+                            <button onClick={() => likeQuiz()}
+                                    className='ml-1 text-xl font-semibold md:hover:text-red-600'>
+                                Like This Quiz
+                            </button>
+                        </div>
+                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
+                            Please sign in to like this quiz.
+                        </div>
+                    </div>
+                </div>
+            )
+    }
 }
 
 function calculatePercentageText(score=0, total=0) {
@@ -35,90 +126,5 @@ function calculatePercentageText(score=0, total=0) {
     else { text = 'Perfect!' }
     return text
 }
-
-function returnConclusion (type, score, triviaScore, total, text, category, subcategory, endText,
-    character, characterImageUrl, imgWidth, imgHeight, conclusion) {
-    switch (type) {
-        case 0:
-            return (
-            <div className='flex h-screen justify-center items-center'>
-                <h1 className='text-4xl text-center text-black'>
-                You scored {score}/{total}.
-                <br></br>
-                <a className='text-3xl text-[#b19aff]'>{text}</a>
-                <br></br><br></br>
-                <a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
-                onClick={() => location.reload()}>Play Again</a>
-                <br></br>
-                <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
-                <br></br>
-                <Link href='/'><a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
-                </h1>
-            </div>
-            )
-        case 1:
-            return ( 
-            <>
-            <div className='flex flex-col min-h-screen justify-center items-center px-2 md:px-0'>
-                <div>
-                    <div className='mt-2 text-black text-3xl'>{endText}</div>
-                </div>
-                <div>
-                    { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={imgWidth} height={imgHeight} /> }
-                </div>
-                <div>
-                    <div className='text-3xl text-[#b19aff]'>{character}</div>
-                </div>
-                <div>
-                    <br></br>
-                    <div className={`rounded-lg bg-gray-200 border-solid border-gray-600 ring-4 ring-offset-1 ring-violet-900 
-                    border-2 text-2xl text-black text-center md:max-w-[25%] md:relative md:top-1/2 md:left-[37.5%]`}>{conclusion}</div>
-                </div>
-                <div>
-                    <h1 className='text-xl text-center text-black'>
-                    <br></br>
-                    <a className='cursor-pointer text-2xl font-semibold
-                    text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
-                    onClick={() => location.reload()}>Play Again</a>
-                    <br></br>
-                    <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-2xl font-semibold
-                    text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
-                    <br></br>
-                    <Link href='/'><a className='cursor-pointer text-2xl font-semibold
-                    text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
-                    </h1>
-                </div>
-            </div>
-            </>
-            )
-        case 2:
-            return (
-            <>
-            <div className='flex h-screen justify-center items-center'>
-                <h1 className='text-4xl text-center text-black'>
-                You scored {triviaScore}/{total}.
-                <br></br>
-                <a className='text-3xl text-[#b19aff]'>{text}</a>
-                <br></br><br></br>
-                <a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'
-                onClick={() => location.reload()}>Play Again</a>
-                <br></br>
-                <Link href={`/${category}/${subcategory}`}><a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Try Other Quizzes</a></Link>
-                <br></br>
-                <Link href='/'><a className='cursor-pointer text-2xl font-semibold
-                text-black md:hover:text-[#ce3131] active:text-[#ff9c00]'>Home</a></Link>
-                </h1>
-            </div>
-            </>
-            )
-    }
-}
-
-
 
 export default Conclusion

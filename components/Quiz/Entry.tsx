@@ -159,12 +159,12 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                 { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
-                        { selection.map((elem, i) =>
-                            <button key={i}
-                                    onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, i)}
+                        { selection.map((elem, index) =>
+                            <button key={index}
+                                    onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, index)}
                                     disabled={disable}
                                     className={`w-40 h-16 p-1
-                                                text-lg font-medium rounded shadow-sm ${colors[i]}`}>
+                                                text-lg font-medium rounded shadow-sm ${colors[index]}`}>
                                     {elem}
                             </button>
                         )}
@@ -188,7 +188,8 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
                         { Object.keys(entry.content).map((elem, index) => {
                             return (
-                                <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                <button key={index}
+                                        className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
                                                     text-md font-medium
                                                     ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
                                         onClick={() => 
@@ -220,7 +221,8 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                             let color = 'bg-red-400'
                             if (elem === 'a') { color = 'bg-emerald-400' }
                             return (
-                                <button className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                <button key={index}
+                                        className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
                                                     text-md font-medium ${colors[index]}`}
                                         onClick={() => 
                                             selectTrivia(elem, index)}

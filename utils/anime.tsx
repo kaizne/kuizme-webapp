@@ -44,8 +44,12 @@ const anime = {
         slug: 'tokyo-revengers',
         title: 'Tokyo Revengers'
     },
+    'one-punch-man': {
+        category: 'anime',
+        slug: 'one-punch-man',
+        title: 'One Punch Man'
+    }
 }
 
-  
 export default anime
   
