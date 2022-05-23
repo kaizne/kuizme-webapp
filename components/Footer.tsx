@@ -33,7 +33,7 @@ function Footer() {
                     </Link> 
                 </div>
                 <div className='text-center'>
-                    <Link href='/tos'>
+                    <Link href='/terms-of-service'>
                         <a className='font-Poppins text-xs md:text-lg'>Terms of Service</a>
                     </Link> 
                 </div>
