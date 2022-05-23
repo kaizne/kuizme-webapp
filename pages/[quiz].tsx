@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
-import anime from '../utils/anime'
 
 const Quiz = ({ quizData }) => {
     const [score, setScore] = useState(0)
@@ -43,10 +42,19 @@ const Quiz = ({ quizData }) => {
             method: 'PATCH',
         })
     }
+
+    const incrementLike = () => {
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/like`, {
+            method: 'PATCH',
+        })
+    }
+
     let infoCopy = []
+
     if (quizData.type === 0) {
         infoCopy = JSON.parse(JSON.stringify(Object.entries(quizData.info)))
     }
+
     let count = 0
     if (infoCopy.length === Object.entries(quizData.info).length) {
         infoCopy.forEach(entry => {
@@ -62,7 +70,9 @@ const Quiz = ({ quizData }) => {
             }
         })
     }
+
     let numQuestions = 10
+
     if (quizData.limit !== null) {
         infoCopy.splice(quizData.limit, count)
         numQuestions = quizData.limit
@@ -70,7 +80,15 @@ const Quiz = ({ quizData }) => {
     else {
         infoCopy.splice(10, count)
     }
-    const titleAndMeta = returnTitleAndMeta( quizData.type, quizData.title, animeTitle )
+
+    const titleAndMeta = returnTitleAndMeta(quizData.type, quizData.title, animeTitle)
+
+    const parseDate = (d: string) => {
+        const date = new Date(d)
+        const dateStr = date.toDateString().slice(3)
+        const newDateStr = dateStr.slice(0, 7) + ',' + dateStr.slice(7)
+        return newDateStr
+    }
 
     return (
         <>
@@ -80,7 +98,8 @@ const Quiz = ({ quizData }) => {
         <div className='min-h-screen flex flex-col mt-6 md:mt-12 scroll-smooth'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
-                       plays={quizData.plays} incrementPlay ={incrementPlay}
+                       plays={quizData.plays} likes={quizData.likes} publishedAt={parseDate(quizData.publishedAt)} 
+                       incrementPlay={incrementPlay}
                        featured={quizData.featured.data.attributes.url} />
                 </div>
             {start === true ?
@@ -105,7 +124,8 @@ const Quiz = ({ quizData }) => {
                                 category={quizData.category}
                                 subcategory={quizData.subcategory}
                                 title={quizData.title}
-                                triviaScore={calculateTriviaTally(tally)} /> 
+                                triviaScore={calculateTriviaTally(tally)}
+                                incrementLike={incrementLike} /> 
                 </div>
                 : <></>  
             }
