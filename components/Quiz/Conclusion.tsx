@@ -117,7 +117,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     <div className='text-4xl text-center'>
                         You scored {triviaScore}/{total}.</div>
                     <div className='text-3xl text-violet-600'>{text}</div>
-                    <div className='flex flex-col mt-4'>
+                    <div className='flex flex-col items-center mt-4'>
                         <button onClick={() => router.reload()}
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
