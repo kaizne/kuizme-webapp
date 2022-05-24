@@ -18,7 +18,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         else setProfile(false)
         if (localStorage.getItem('user')) {
             const library = JSON.parse(localStorage.getItem('user')).library
-            if (library.includes(slug)) {
+            if (library && library.includes(slug)) {
                 setLikeText('Remove from library')
                 setLike(true)
             }
