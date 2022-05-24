@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
+import axios from 'axios'
 
 const Quiz = ({ quizData }) => {
     const [score, setScore] = useState(0)
@@ -43,9 +44,50 @@ const Quiz = ({ quizData }) => {
         })
     }
 
-    const incrementLike = () => {
+    const incrementLike = async () => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
         fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/like`, {
             method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            }
+        })
+    }
+
+    const decrementLike = async () => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/dislike`, {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            }
+        })
+    }
+
+    const updateLibrary = async () => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/updateLibrary', {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${jwt}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: quizData.slug }),
+        })
+        
+    }
+
+    const updateUser = () => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/me', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${jwt}`,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('user', data)
         })
     }
 
@@ -125,7 +167,10 @@ const Quiz = ({ quizData }) => {
                                 subcategory={quizData.subcategory}
                                 title={quizData.title}
                                 triviaScore={calculateTriviaTally(tally)}
-                                incrementLike={incrementLike} /> 
+                                incrementLike={incrementLike}
+                                decrementLike={decrementLike}
+                                updateLibrary={updateLibrary} 
+                                slug={quizData.slug} /> 
                 </div>
                 : <></>  
             }
