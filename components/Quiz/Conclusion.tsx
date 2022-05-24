@@ -4,14 +4,26 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
-                    conclusion='', category='', subcategory='', title='', incrementLike }) => {
+                    conclusion='', category='', subcategory='', title='', 
+                    incrementLike, decrementLike, updateLibrary, slug }) => {
+
     const [profile, setProfile] = useState(false)
     const [like, setLike] = useState(false)
     const [error, setError] = useState(false)
+    const [likeText, setLikeText] = useState('Add to library')
+    const [likeButton, setLikeButton] = useState(false)
+    
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
-    })
+        if (localStorage.getItem('user')) {
+            const library = JSON.parse(localStorage.getItem('user')).library
+            if (library.includes(slug)) {
+                setLikeText('Remove from library')
+                setLike(true)
+            }
+        }
+    }, [])
                         
     let text = 'Nice.'
     if (type === 0) { text = calculatePercentageText(score, total) }
@@ -25,8 +37,20 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
 
     const likeQuiz = () => {
         if (profile) {
-            if (!like) incrementLike()
-            setLike(!like)
+            setLikeButton(true)
+            setTimeout(() => setLikeButton(false), 2000)
+            if (!like) {
+                incrementLike() 
+                updateLibrary()
+                setLikeText('Remove from library')
+                setLike(true)
+            }
+            else if (like) {
+                decrementLike() 
+                updateLibrary() 
+                setLikeText('Add to library')
+                setLike(false)
+            }  
         } else {
             setError(true)
             setTimeout(() => setError(false), 2000)
@@ -50,11 +74,11 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
-                                Like This Quiz
+                                {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
-                            Please sign in to like this quiz.
+                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                            Please sign in to add to library.
                         </div>
                     </div>
                 </div>
@@ -76,13 +100,13 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         </button>
                         <div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
-                            <button onClick={() => likeQuiz()}
+                            <button onClick={() => likeQuiz()} disabled={likeButton}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
-                                Like This Quiz
+                                {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
-                            Please sign in to like this quiz.
+                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                            Please sign in to add to library.
                         </div>
                     </div>
                 </div>
@@ -102,11 +126,11 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
-                                Like This Quiz
+                                {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'hidden' } mt-1 text-red-500`}>
-                            Please sign in to like this quiz.
+                        <div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
+                            Please sign in to add to library.
                         </div>
                     </div>
                 </div>
