@@ -38,7 +38,7 @@ const Profile = () => {
                     <h1 className='text-center text-xl'>My Profile</h1>
                     <div className='mt-1 text-center'>{user.username}</div>
                     <div className='mt-1 text-center font-semibold'>Liked Quizzes</div>
-                    {user.library.map((elem, index) => 
+                    {user.library && user.library.map((elem, index) => 
                         <div key={index} className='text-center'>{elem}</div>
                     )}
                 </div> 
