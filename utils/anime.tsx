@@ -48,6 +48,11 @@ const anime = {
         category: 'anime',
         slug: 'one-punch-man',
         title: 'One Punch Man'
+    },
+    'death-note': {
+        category: 'anime',
+        slug: 'death-note',
+        title: 'Death Note'
     }
 }
 
