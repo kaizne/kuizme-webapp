@@ -1,9 +1,18 @@
 import Image from 'next/image'
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => (
-    <div className='flex flex-col items-center z-100'>
-        <h1 className='text-center text-xl font-semibold w-80 md:w-1/2 md:h-12 mb-4'>{title}</h1>
-        { featured && <Image className='rounded-lg' src={featured} width={200} height={200} /> }
+    <div className='flex flex-col items-center z-100 md:mt-6'>
+        <div className='flex flex-col items-center w-full md:w-2/5
+                        md:rounded-lg bg-sky-400'>
+            <h1 className='w-80 md:w-full md:h-16 mb-4 md:mb-0 pt-4
+                           text-center text-2xl font-medium text-white'>{title}</h1>
+            { featured && <Image className='md:rounded-b-lg' src={featured} width={600} height={400} /> }
+        </div>
+        <div className='text-center mt-4 mb-4'>
+                <button onClick={() => {setStart(true), incrementPlay()}}
+                        className='w-80 h-12 pt-1 pb-1
+                                   text-xl font-bold text-white rounded bg-sky-400'>Play</button>
+            </div>
         <div className='flex flex-col justify-start gap-x-3 md:gap-x-4 w-80 md:w-96 mt-4
                         border-b border-gray-300'>
             <div className='flex flex-row gap-x-4'>
@@ -24,12 +33,7 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
             </div>
             </div>
         </div>
-        <p className='w-80 md:w-96 text-justify mt-4'>{intro}</p>
-        <div className='text-center mt-4'>
-            <button onClick={() => {setStart(true), incrementPlay()}}
-            className='w-20 h-10 pt-1 pb-1
-                       text-xl font-bold text-white rounded bg-sky-400'>Play</button>
-        </div>
+        <div className='w-80 md:w-96 text-justify mt-4'>{intro}</div>
     </div>
 )
 
