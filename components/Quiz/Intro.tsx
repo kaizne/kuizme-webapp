@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => (
     <div className='flex flex-col items-center z-100 md:mt-6'>
-        <div className='flex flex-col items-center w-full md:w-2/5
+        <div className='flex flex-col items-center w-full md:w-auto
                         md:rounded-lg bg-sky-400'>
             <h1 className='w-80 md:w-full md:h-16 mb-4 md:mb-0 pt-4
                            text-center text-2xl font-medium text-white'>{title}</h1>
