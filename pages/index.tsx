@@ -10,8 +10,6 @@ const IndexPage = ({ quizData, trending }) => {
             <meta name='description' content='Test your knowledge of your favourite animes, 
             TV series, and movies, or find out which character you are. Visit Kuizme for more!'></meta>
         </Head>
-        <Trending quizData={quizData} />
-        <Section title='LATEST' quizData={quizData} type={2} />
     </div>
     )
 }
