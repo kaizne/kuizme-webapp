@@ -7,7 +7,8 @@ module.exports = {
       extend: {
           fontFamily: {
               'Poppins': ['Poppins'],
-              'Montserrat': ['Montserrat']
+              'Montserrat': ['Montserrat'],
+              'universal': ['universal']
           },
           animation: {
               fadeIn: 'fadeIn 1s',
