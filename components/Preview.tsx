@@ -9,7 +9,7 @@ const Preview = ({ slug, title, thumbnail }) => {
                 <div className='w-32'>
                 { thumbnail && <Image className='rounded' src={thumbnail} width={200} height={200} /> }
                 </div>
-                <div className='w-40 mt-8 ml-4 font-universal'>{title}</div>
+                <div className='w-40 mt-8 ml-4'>{title}</div>
             </div>
             </div>
         </Link>
