@@ -8,11 +8,9 @@ const About = () => (
       <div className='text-justify px-6 md:px-40 py-4 md:text-xl font-Poppins'>
         <a>
           Kuizme is the leading anime, movie, and TV trivia and quiz entertainment provider 
-          on the web and mobile devices. Kuizme has dozens of quizzes on 
-          a variety of topics, ranging from Naruto to Harry Potter to Breaking Bad, that have been 
-          played thousands of times. Kuizme is a privately held company headquartered 
-          in Canada, with several remote offices around the country. 
-          For inquiries and questions, find our contact information at&nbsp;
+          on the web and mobile devices. Kuizme has quizzes on 
+          a variety of topics - ranging from Naruto to Harry Potter to Breaking Bad - that have been 
+          played thousands of times. For inquiries and questions, find our contact information at&nbsp;
           <Link href='/contact'>
             <a className='font-Poppins md:text-xl text-blue-500'>kuizme.com/contact</a>
           </Link> 
