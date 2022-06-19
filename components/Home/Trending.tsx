@@ -1,18 +1,21 @@
 import PreviewTwo from '../PreviewTwo'
+import PreviewThree from '../PreviewThree'
 
-const Trending = ({ quizData }) => {
+const Trending = ({ title, quizData }) => {
     return (
-        <div className='flex flex-col'>
-            <div className='text-center text-2xl font-semibold mt-4 mb-4'>TRENDING</div>
-            <div className='grid justify-items-center'>
-            <div className='grid grid-cols-2 md:grid-cols-5 gap-y-4 justify-items-center
-                            w-full md:w-2/3'>
-            { quizData.slice(0,10).map((elem, index) => 
-                <PreviewTwo key={index} 
-                            slug={elem.attributes.slug}
-                            title={elem.attributes.title} 
-                            thumbnail={elem.attributes.featured.data.attributes.url} />) }
-            </div>
+        <div className='flex flex-col items-center mb-4'>
+            <div className='flex flex-col'>
+                <div className='mt-4 mb-4 text-2xl md:text-3xl font-semibold bg-red-400'>{title}</div>
+                <div className='flex flex-col md:flex-row'>
+                <div className='grid md:grid-cols-4 md:grid-rows-2
+                                md:gap-x-1 gap-y-1'>
+                { quizData.slice(4, 12).map((elem, index) => 
+                    <PreviewTwo key={index} 
+                                slug={elem.attributes.slug}
+                                title={elem.attributes.title} 
+                                thumbnail={elem.attributes.featured.data.attributes.url} />) }
+                </div>
+                </div>
             </div>
         </div>
     )
