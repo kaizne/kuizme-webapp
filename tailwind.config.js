@@ -8,7 +8,8 @@ module.exports = {
           fontFamily: {
               'Poppins': ['Poppins'],
               'Montserrat': ['Montserrat'],
-              'universal': ['universal']
+              'universal': ['universal'],
+              'Roboto': ['Roboto']
           },
           animation: {
               fadeIn: 'fadeIn 1s',
