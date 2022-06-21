@@ -8,7 +8,7 @@ const Category = ({category, slug, title}) => {
                       bg-white rounded shadow 
                       hover:bg-gray-300 cursor-pointer'>
             <div className='relative w-80 h-48'>
-                <Image className='rounded-t' src={`/category/${slug}.png`} layout='fill' />
+                <Image className='rounded-t' src={`/category/${slug}.jpg`} layout='fill' />
             </div>
             <div className='flex h-12 place-items-center'>
                 <div className='text-md font-medium text-center'>{title}</div>
