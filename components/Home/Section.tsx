@@ -9,9 +9,9 @@ const Section = ({ title, quizData }) => {
                                 md:gap-x-12 gap-y-4'>
                 { quizData.slice(0, 4).map((elem, index) => 
                     <Preview key={index} 
-                            slug={elem.attributes.slug}
-                            title={elem.attributes.title} 
-                            thumbnail={elem.attributes.featured.data.attributes.url} />) }
+                             slug={elem.attributes.slug}
+                             title={elem.attributes.title} 
+                             thumbnail={elem.attributes.featured.data.attributes.url} />) }
                 </div>
             </div>
         </div>
