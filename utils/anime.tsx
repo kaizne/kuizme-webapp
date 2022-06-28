@@ -53,7 +53,32 @@ const anime = {
         category: 'anime',
         slug: 'death-note',
         title: 'Death Note'
-    }
+    },
+    'my-hero-academia': {
+        category: 'anime',
+        slug: 'my-hero-academia',
+        title: 'My Hero Academia'
+    },
+    'cowboy-bebop': {
+        category: 'anime',
+        slug: 'cowboy-bebop',
+        title: 'Cowboy Bebop'
+    },
+    'tokyo-ghoul': {
+        category: 'anime',
+        slug: 'tokyo-ghoul',
+        title: 'Tokyo Ghoul'
+    },
+    'one-piece': {
+        category: 'anime',
+        slug: 'one-piece',
+        title: 'One Piece'
+    },
+    'sailor-moon': {
+        category: 'anime',
+        slug: 'sailor-moon',
+        title: 'Sailor Moon'
+    },
 }
 
 export default anime
