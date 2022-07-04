@@ -11,7 +11,7 @@ export default function Document() {
         <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap' rel='stylesheet' />
         <script defer data-domain='kuizme.com' src='https://plausible.io/js/plausible.js' />
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS}`} />
-        <script>
+        <script
           dangerouslySetInnerHTML={{
             __html: 
               `window.dataLayer = window.dataLayer || []
@@ -20,7 +20,7 @@ export default function Document() {
                gtag('config', '${process.env.GOOGLE_ANALYTICS}')
             })`,
           }}
-        </script>
+        />
       </Head>
       <body>
         <Main />
