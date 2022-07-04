@@ -2,12 +2,13 @@ export default {
   anime: {
     title: 'Anime'
   },
-  movies: {
+  /*movies: {
     title: 'Movies'
   },
   tv: {
     title: 'TV Shows'
   }
+  */
 }
 
 
