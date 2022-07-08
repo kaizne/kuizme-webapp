@@ -9,21 +9,21 @@ import difficulty from '../../utils/difficulty';
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => {
     const difficultyList = ['Easy', 'Medium', 'Hard', 'Advanced', 'Expert', 'Master']
-    const colourList = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-indigo-600', 'bg-violet-800', 'bg-slate-800']
+    const colourList = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-cyan-500', 'bg-violet-800', 'bg-slate-800']
     let [difficultyCounter, setDifficultyCounter] = useState(0)
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center w-auto
-                        md:rounded-lg bg-sky-400'>
+                        md:rounded-lg bg-indigo-600'>
             <h1 className='w-80 md:w-full md:h-16 mb-4 md:mb-0 pt-4
                            text-center text-2xl font-medium text-white'>{title}</h1>
-            { featured && <Image className='md:rounded-b-lg' src={featured} width={600} height={400} /> }
+            { featured && <Image className='md:rounded-b-lg' src={featured} width={600} height={338} /> }
         </div>
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
                     <button onClick={() => {setStart(true), incrementPlay()}}
                             className='w-80 h-12 pt-1 pb-1
-                                    text-xl font-bold text-white rounded bg-sky-400'>Play</button>
+                                    text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>
             <div className='text-center relative z-10'>
                     <button onClick={() => {if (difficultyCounter >= 5) setDifficultyCounter(0)

@@ -58,7 +58,7 @@ const Nav = () => {
                 { !profile ? 
                     <Link href='/signin'>
                         <button className='w-16 h-8 md:mt-2 mr-4 md:mr-8 pl-1 pr-1
-                                        text-sm text-white font-semibold bg-sky-400 rounded'>
+                                        text-sm text-white font-semibold bg-indigo-600 rounded md:hover:bg-indigo-400'>
                             Sign In
                         </button>
                     </Link> :
