@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Scroll from '../components/Home/Scroll'
 import Section from '../components/Home/Section'
-import Trending from '../components/Home/Trending'
 
 const IndexPage = ({ quizData, tokyoData, demonData }) => {
     return (
@@ -12,11 +11,8 @@ const IndexPage = ({ quizData, tokyoData, demonData }) => {
             TV series, and movies, or find out which character you are. Visit Kuizme for more!'></meta>
         </Head>
         <div className='flex flex-col items-center'>
-        <Scroll />
-        <Trending title='Trending' quizData={quizData} />
-        <Section title='Latest' quizData={quizData} />
-        <Section title='Tokyo Revengers' quizData={tokyoData} />
-        <Section title='Demon Slayer' quizData={demonData} />
+            <Scroll />
+            <Section title='Trending' entries={demonData}/>
         </div>
     </div>
     )

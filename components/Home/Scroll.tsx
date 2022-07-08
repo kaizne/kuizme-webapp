@@ -25,8 +25,8 @@ const Scroll = () => {
     })
 
     return (
-        <div className='flex flex-col w-5/6 overflow-hidden'>
-            <div className='mt-4 mb-2 text-lg font-semibold'>Categories</div>
+        <div className='flex flex-col w-11/12 overflow-hidden'>
+            <div className='mt-4 mb-2 text-sm md:text-lg font-semibold'>Categories</div>
             <div className='flex flex-row gap-x-3' 
                  style={{marginLeft: `${marginLeft}rem`, transition: transition}}>
                 {categories.map((elem, i) => 
