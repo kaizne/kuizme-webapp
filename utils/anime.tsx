@@ -24,6 +24,11 @@ const anime = {
         slug: 'hunter-x-hunter',
         title: 'Hunter x Hunter'
     },
+    'jujutsu-kaisen': {
+        category: 'anime',
+        slug: 'jujutsu-kaisen',
+        title: 'Jujutsu Kaisen'
+    },
     'naruto': {
         category: 'anime',
         slug: 'naruto',
