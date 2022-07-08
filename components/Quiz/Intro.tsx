@@ -4,7 +4,6 @@ import {
     ChevronUpIcon,
     ChevronDownIcon
 } from '@heroicons/react/outline'
-import difficulty from '../../utils/difficulty';
 
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => {
