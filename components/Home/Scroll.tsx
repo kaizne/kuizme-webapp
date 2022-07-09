@@ -31,7 +31,7 @@ const Scroll = () => {
         return () => {
             clearInterval(marginInterval)
         }
-    }, [width])
+    }, [hover, width])
 
     return (
         <div className='flex flex-col w-11/12 overflow-hidden'>
