@@ -60,13 +60,13 @@ const Nav = () => {
                   */ 
                 }
                 </div>
-                <div className='absolute mt-4 md:ml-48'>
+                <div className='absolute mt-3 md:mt-4 ml-28 md:ml-48'>
                 <Link href='/browse'>
                     <a className='text-lg md:text-2xl font-bold text-black md:hover:text-indigo-600
                     cursor-pointer'>Browse</a>
                 </Link>
                 </div>
-                <div className='flex flex-box absolute right-1/3 mr-4 md:right-1/3 md:mr-[9.6rem] mt-3 md:mt-4
+                <div className='flex flex-box absolute right-1/4 mr-[0.5rem] md:right-1/3 md:mr-[9.6rem] mt-3 md:mt-4
                 gap-x-0.5'>
                     <input type='text' placeholder='Search' className='w-4 md:w-64 h-[1.7rem] bg-gray-300 border-2 border-gray-300 
                     rounded-l hover:border-gray-500 focus:bg-white indent-2 placeholder:text-gray-500 focus:border-indigo-600 

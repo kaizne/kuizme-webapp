@@ -1,7 +1,7 @@
 import anime from '../utils/anime'
 import Category from '../components/Category'
 
-const Browse = ({ quizData }) => {
+const Anime = ({ quizData }) => {
     return (
         <div className='min-h-screen w-vh mt-4'>
             <div className='grid justify-items-center'>
@@ -16,7 +16,7 @@ const Browse = ({ quizData }) => {
     )
 }
 
-export default Browse
+export default Anime
 
 export async function getStaticProps({ params }) {
     const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?populate=*`)
