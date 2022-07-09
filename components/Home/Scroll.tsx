@@ -10,7 +10,7 @@ const Scroll = () => {
     useEffect(() => {
         const marginInterval = setInterval(() => {
             setMarginLeft(marginLeft => {
-                if (marginLeft <= -(Categories.length * 10.75)) {
+                if (marginLeft <= -(Categories.length * 9.75)) {
                     setTransition('')
                     return 0
                 }
@@ -26,7 +26,7 @@ const Scroll = () => {
 
     return (
         <div className='flex flex-col w-11/12 overflow-hidden'>
-            <div className='mt-4 mb-2 text-sm md:text-lg font-semibold'>Categories</div>
+            <div className='mt-4 mb-2 text-md md:text-lg font-semibold'>Categories</div>
             <div className='flex flex-row gap-x-3' 
                  style={{marginLeft: `${marginLeft}rem`, transition: transition}}>
                 {categories.map((elem, i) => 
