@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Scroll from '../components/Home/Scroll'
 import Section from '../components/Home/Section'
 
-const IndexPage = ({ quizData, tokyoData, demonData }) => {
+const IndexPage = ({ quizData, tokyoData, demonSlayer, trending }) => {
     return (
     <div className='min-h-screen'>
         <Head>
@@ -12,7 +12,8 @@ const IndexPage = ({ quizData, tokyoData, demonData }) => {
         </Head>
         <div className='flex flex-col items-center'>
             <Scroll />
-            <Section title='Trending' entries={demonData}/>
+            <Section title='Trending' category={''} entries={trending}  />
+            <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
         </div>
     </div>
     )
@@ -29,9 +30,13 @@ export async function getStaticProps({ params }) {
     const tokyo = await tokyoRes.json()
     const tokyoData = tokyo.data
 
-    const demonRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[subcategory]=demon-slayer&populate=*')
-    const demon = await demonRes.json()
-    const demonData = demon.data
+    const demonSlayerRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[subcategory]=demon-slayer&populate=*')
+    const demonSlayerData = await demonSlayerRes.json()
+    const demonSlayer = demonSlayerData.data
+
+    const trendingRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[label]=trending&populate=*')
+    const trendingData = await trendingRes.json()
+    const trending = trendingData.data
     
     /*
     const trendingUrl = 'https://plausible.io/api/v1/stats/breakdown?site_id=kuizme.com&period=6mo&property=event:page&limit=5'
@@ -50,7 +55,8 @@ export async function getStaticProps({ params }) {
         props: {
             quizData,
             tokyoData,
-            demonData,
+            demonSlayer,
+            trending,
         }
     }
 }
