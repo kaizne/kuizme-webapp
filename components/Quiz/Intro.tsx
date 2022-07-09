@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 import Image from 'next/image'
-import {
-    ChevronUpIcon,
-    ChevronDownIcon
-} from '@heroicons/react/outline'
-
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => {
     const difficultyList = ['Easy', 'Medium', 'Hard', 'Advanced', 'Expert', 'Master']

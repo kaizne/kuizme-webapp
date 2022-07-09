@@ -9,7 +9,7 @@ const ScrollEntry = ({ category, image, link }) => {
                     <Image src={`/category/${image}.jpg`} layout='fill' 
                            className='hover:-translate-y-1.5'/>
                 </div>
-                <div className='mt-1 font-semibold text-sm truncate'>{category}</div>
+                <div className='mt-1 font-semibold text-sm truncate overflow-hidden w-36'>{category}</div>
             </div>
         </Link>
     )
