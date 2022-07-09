@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Scroll from '../components/Home/Scroll'
 import Section from '../components/Home/Section'
 
-const IndexPage = ({ quizData, tokyoData, demonSlayer, trending }) => {
+const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular }) => {
     return (
     <div className='min-h-screen'>
         <Head>
@@ -13,6 +13,7 @@ const IndexPage = ({ quizData, tokyoData, demonSlayer, trending }) => {
         <div className='flex flex-col items-center'>
             <Scroll />
             <Section title='Trending' category={''} entries={trending}  />
+            <Section title='Popular' category={''} entries={popular}  />
             <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
         </div>
     </div>
@@ -37,6 +38,10 @@ export async function getStaticProps({ params }) {
     const trendingRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[label]=trending&populate=*')
     const trendingData = await trendingRes.json()
     const trending = trendingData.data
+
+    const popularRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[label]=popular&populate=*')
+    const popularData = await popularRes.json()
+    const popular = popularData.data
     
     /*
     const trendingUrl = 'https://plausible.io/api/v1/stats/breakdown?site_id=kuizme.com&period=6mo&property=event:page&limit=5'
@@ -57,6 +62,7 @@ export async function getStaticProps({ params }) {
             tokyoData,
             demonSlayer,
             trending,
+            popular,
         }
     }
 }
