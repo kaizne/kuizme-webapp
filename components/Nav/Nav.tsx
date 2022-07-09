@@ -61,7 +61,7 @@ const Nav = () => {
                 }
                 </div>
                 <div className='absolute mt-3 md:mt-4 ml-28 md:ml-48'>
-                <Link href='/browse'>
+                <Link href='/anime'>
                     <a className='text-lg md:text-2xl font-bold text-black md:hover:text-indigo-600
                     cursor-pointer'>Browse</a>
                 </Link>
