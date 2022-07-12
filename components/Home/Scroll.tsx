@@ -43,7 +43,7 @@ const Scroll = () => {
         <div className='flex flex-col w-11/12 overflow-hidden static'>
             <div className='flex flex-row items-center gap-x-2'>
                 <div className='mt-8 mb-4 text-md md:text-lg text-indigo-600 font-semibold'>Categories</div>
-                <div className='flex flex-row items-center gap-x-2'>
+                <div className='flex-row items-center gap-x-2 hidden md:flex'>
                     <button className='h-8 mt-4 hover:bg-gray-200'
                             onClick={() => { 
                                 if (marginLeft < 0) setMarginLeft(marginLeft + 10)}
