@@ -16,13 +16,13 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
                     <button onClick={() => {setStart(true), incrementPlay()}}
-                            className='w-80 h-12 pt-1 pb-1
+                            className='w-52 md:w-80 h-12 pt-1 pb-1
                                     text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>
             <div className='text-center relative z-10'>
                     <button onClick={() => {if (difficultyCounter >= 5) setDifficultyCounter(0)
                                             else setDifficultyCounter(++difficultyCounter)}}
-                            className={`w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded 
+                            className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded animate-pulse
                                         ${colourList[difficultyCounter]}`}>{difficultyList[difficultyCounter]}</button>
             </div>
         </div>
