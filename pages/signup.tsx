@@ -76,8 +76,8 @@ const Signup = () => {
         <div className='min-h-screen'>
             <form onSubmit={handleSubmit} className='flex flex-col items-center'>
                 <Link href='/'>
-                    <button className='mt-8 md:mt-12 text-center
-                                       text-2xl font-semibold text-sky-500'>Kuizme</button>
+                    <button className='mt-8 md:mt-12 text-center hover:text-indigo-400
+                                       text-2xl font-semibold text-indigo-600'>Kuizme</button>
                 </Link>
                 <h1 className='mt-2 text-center
                                text-xl font-semibold'>Sign Up</h1>
