@@ -10,6 +10,12 @@
     }
 }
 
+@layer utilities {
+    .pause {
+        animation-play-state: paused;
+    }
+}
+
 @font-face {
     font-family: 'universal';
     src: url('/fonts/universal.otf');
