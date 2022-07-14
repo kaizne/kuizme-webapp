@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import {
+    MenuAlt1Icon,
     SearchIcon,
 } from '@heroicons/react/outline'
 
@@ -13,6 +14,7 @@ const Nav = () => {
 
     const [profile, setProfile] = useState(false)
     const [dropDown, setDropDown] = useState(false)
+    const [drop, setDrop] = useState(false)
 
     const ref = useRef(null)
 
@@ -42,16 +44,22 @@ const Nav = () => {
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
         <nav className='sticky top-0 z-50 flex flex-row h-14 w-vh justify-between
                     bg-white shadow-lg'>
-                <div className='flex flex-row mt-3.5 md:mt-2 ml-[1rem] w-42 md:w-64'>
+                <div className='flex flex-row mt-3.5 md:mt-2 ml-[1rem]'>
+                    <div className='mt-[0.15rem]'>
                     <Link href='/'>
-                        <a className='text-2xl md:text-4xl font-extrabold text-indigo-600 md:hover:text-indigo-400
+                        <a className='text-xl md:text-4xl font-extrabold text-indigo-600 md:hover:text-indigo-400
                         cursor-pointer'>KUIZME</a>
-                    </Link>
-                    <div className='flex flex-row mt-[0.2rem] md:mt-[0.5rem] ml-[1rem]'>
+                    </Link>    
+                    </div>
+                    <div className='mt-[0.2rem] md:mt-[0.5rem] ml-[1rem]'>
                     <Link href='/anime'>
                         <a className='text-lg md:text-2xl font-bold text-black md:hover:text-indigo-600
                         cursor-pointer'>Browse</a>
                     </Link>
+                    </div>
+                    <div className='ml-[1rem] md:mt-[0.4rem]'>
+                    <MenuAlt1Icon className='h-8 w-8 hover:cursor-pointer hover:stroke-indigo-600' 
+                                    onClick={() => setDrop(!drop)}/>
                     </div>
                 </div>
                 { /*
@@ -104,7 +112,26 @@ const Nav = () => {
                                     className='ml-1 w-20 text-left text-base
                                              md:hover:bg-gray-200'>Sign Out</button>
                         </div>
-                    </div> }        
+                    </div> }
+                <div className={`flex flex-col gap-y-1 w-40 h-40 bg-white shadow-lg rounded absolute left-0
+                                pl-3 py-2 ml-[10rem] sm:ml-[16rem] mt-[3rem] ${drop ? 'none' : 'hidden'}`}>
+                    <Link href='/about'>
+                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                    md:hover:bg-gray-200 md:hover:rounded'>About</button>    
+                    </Link>
+                    <Link href='/contact'>
+                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                    md:hover:bg-gray-200 md:hover:rounded'>Contact</button>    
+                    </Link>
+                    <Link href='/privacy'>
+                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                    md:hover:bg-gray-200 md:hover:rounded'>Privacy</button>    
+                    </Link>
+                    <Link href='/terms-of-service'>
+                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                    md:hover:bg-gray-200 md:hover:rounded'>Terms of Service</button>    
+                    </Link>
+                </div>        
         </nav> }
         </>
     )
