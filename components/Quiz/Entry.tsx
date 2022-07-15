@@ -148,7 +148,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
     switch (type) {
         case 0:
             return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
                 <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
@@ -174,11 +174,11 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             )
         case 1:
             return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
                 <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='text-indigo-600'>{question + 1}</span>
                     <span className='font-normal'> / </span> 
                     {size}
                 </p>
@@ -191,7 +191,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                                 <button key={index}
                                         className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
                                                     text-md font-medium
-                                                    ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
+                                                    ${choice === index && disable ? 'bg-indigo-500' : 'bg-white'}`}
                                         onClick={() => 
                                             selectPersonality(elem, index)}
                                         disabled={disable}>
@@ -205,11 +205,11 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             )
         case 2:
             return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20  mb-60
+            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
                 <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='text-indigo-600'>{question + 1}</span>
                     <span className='font-normal'> / </span> 
                     {size}
                 </p>
@@ -237,7 +237,6 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             )
     }
 }
-// ${choice === index && disable ? `${color}` : 'bg-white'}`
 
 function shuffleArray (array) {
     for (var i = array.length - 1; i > 0; i--) {

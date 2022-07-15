@@ -137,7 +137,7 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
         </Head>
-        <div className='min-h-screen flex flex-col scroll-smooth'>
+        <div className='min-h-screen flex flex-col scroll-smooth bg-slate-50'>
                 <div className={`${start === false ? 'none' : 'hidden'}`}>
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
                        plays={quizData.plays} likes={quizData.likes} publishedAt={parseDate(quizData.publishedAt)} 
