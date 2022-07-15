@@ -14,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className='font-Poppins min-w-screen min-h-screen'>
         <Nav />
         <Component {...pageProps} />
-        <Footer />
+        {
+        //<Footer />
+        }
       </div>
     </>
   );
