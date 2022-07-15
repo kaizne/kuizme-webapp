@@ -13,7 +13,8 @@ module.exports = {
           },
           animation: {
               fadeIn: 'fadeIn 1s',
-              fadeOut: 'fadeOut 0.75s',
+              fadeOut: 'fadeOut 1s',
+              fade: 'fade 3s infinite',
           },
           keyframes: {
               fadeIn: {
@@ -23,7 +24,12 @@ module.exports = {
               fadeOut: {
                 '0%': { opacity: '100%' },
                 '100%': { opacity: '0%', display: 'none'},
-            }
+              },
+              fade: {
+                '0%': { opacity: '100%' },
+                '50%': { opacity: '0%', display: 'none'},
+                '100%': { opacity: '100%' },
+              },
           }
       },
     },

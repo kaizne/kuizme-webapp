@@ -22,8 +22,10 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
             <div className='text-center relative z-10'>
                     <button onClick={() => {if (difficultyCounter >= 5) setDifficultyCounter(0)
                                             else setDifficultyCounter(++difficultyCounter)}}
-                            className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded animate-pulse
-                                        ${colourList[difficultyCounter]}`}>{difficultyList[difficultyCounter]}</button>
+                            className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded
+                                        ${colourList[difficultyCounter]}`}>
+                                        <div className='animate-fade'>{difficultyList[difficultyCounter]}</div>
+                    </button>
             </div>
         </div>
         <div className='flex flex-col justify-start gap-x-3 md:gap-x-4 w-80 md:w-96 mt-4
