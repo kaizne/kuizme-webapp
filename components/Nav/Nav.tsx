@@ -75,13 +75,13 @@ const Nav = () => {
                   </div>
                   */ 
                 }
-                <div className='flex flex-row mt-[1.1rem] md:mt-4 gap-x-0.5'>
-                    <input type='text' placeholder='Search' className='w-4 md:w-64 h-[1.7rem] bg-gray-300 border-2 border-gray-300 
-                    rounded-l hover:border-gray-500 focus:bg-white indent-2 placeholder:text-gray-500 focus:border-indigo-600 
+                <div className='flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5'>
+                    <input type='text' placeholder='Search' className='w-4 md:w-64 h-[2.3rem] bg-gray-200 border-2 border-gray-200 
+                    rounded-l hover:border-gray-300 focus:bg-white indent-2 placeholder:text-gray-700 focus:border-indigo-600 
                     focus:outline-none hidden md:block'>
                     </input>
-                    <div className='w-[1.7rem] h-[1.7rem] bg-gray-400 border-2 border-gray-400 rounded-r hidden md:block'>
-                        <SearchIcon className='w-4 h-4 mt-[0.2rem] ml-[0.2rem]'/>
+                    <div className='w-[2.3rem] h-[2.3rem] bg-gray-100 border-2 border-gray-100 rounded-r hidden md:block'>
+                        <SearchIcon className='w-5 h-5 mt-[0.4rem] ml-[0.4rem]'/>
                     </div>
                     <div className='w-6 h-6 md:hidden mr-[0.1rem]' 
                         onClick={() => router.push('/search')}>
