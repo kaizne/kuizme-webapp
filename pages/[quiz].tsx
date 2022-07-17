@@ -142,7 +142,8 @@ const Quiz = ({ quizData }) => {
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
                        plays={quizData.plays} likes={quizData.likes} publishedAt={parseDate(quizData.publishedAt)} 
                        incrementPlay={incrementPlay}
-                       featured={quizData.featured.data.attributes.url} />
+                       featured={quizData.featured.data.attributes.url}
+                       section={quizData.section} />
                 </div>
             {start === true ?
                 <Body info={quizData.info} 
