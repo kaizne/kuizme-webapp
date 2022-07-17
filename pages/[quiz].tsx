@@ -13,9 +13,6 @@ const Quiz = ({ quizData }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const conclusionRef = useRef(null)
-    console.log(quizData.section)
-    console.log(quizData.section[0].entry)
-    console.log(quizData.section[0].difficulty)
     useEffect(() => {
         if (quizData.limit !== null) { 
             setTotal(quizData.limit) 
