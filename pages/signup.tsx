@@ -124,10 +124,12 @@ const Signup = () => {
         : 
         <div className='min-h-screen flex justify-center'>
             <div>
-                <Link href='/'>
-                    <button className='mt-8 md:mt-12 text-center
-                                       text-2xl font-semibold text-sky-500'>Kuizme</button>
-                </Link>
+                <div className='text-center'>
+                    <Link href='/'>
+                        <button className='mt-8 md:mt-12
+                                        text-2xl font-semibold text-indigo-600'>Kuizme</button>
+                    </Link>
+                </div>
                 <h1 className='mt-2 text-center
                                 text-xl font-semibold'>Sign Up</h1>
                 <div className='mt-4 ml-2 mr-2 text-center'>

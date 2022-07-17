@@ -13,7 +13,6 @@ const Quiz = ({ quizData }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const conclusionRef = useRef(null)
-
     useEffect(() => {
         if (quizData.limit !== null) { 
             setTotal(quizData.limit) 
@@ -142,7 +141,8 @@ const Quiz = ({ quizData }) => {
                 <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
                        plays={quizData.plays} likes={quizData.likes} publishedAt={parseDate(quizData.publishedAt)} 
                        incrementPlay={incrementPlay}
-                       featured={quizData.featured.data.attributes.url} />
+                       featured={quizData.featured.data.attributes.url}
+                       section={quizData.section} />
                 </div>
             {start === true ?
                 <Body info={quizData.info} 
@@ -154,6 +154,7 @@ const Quiz = ({ quizData }) => {
                       currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
                       type={quizData.type}
                       entries={quizData.entry}
+                      sectionEntries={quizData.section[global.difficultyIdx].entry}
                       setTally={setTally} scrollConclusion={scrollConclusion} />
                 : <></>
             }
@@ -298,7 +299,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=*&[section][populate]=*`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry,section.entry`)
     const data = await res.json()
     const quizData = data.data.attributes
     return {

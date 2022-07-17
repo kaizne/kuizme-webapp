@@ -1,8 +1,8 @@
 import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
-const Body = ({ images, info, infoCopy, setScore, setFinish, size,
-                currentQuestion, setCurrentQuestion, type, entries, setTally=null, scrollConclusion }) => {
+const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
+                type, entries, sectionEntries, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
     const questionsRef = useRef([])
@@ -20,7 +20,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size,
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
         } else if (type === 2) {
-            newData = entries.map(value => ({ value, sort: Math.random() }))
+            newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value )
         }

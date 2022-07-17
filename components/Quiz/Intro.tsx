@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 
-const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured }) => {
-    const difficultyList = ['Easy', 'Medium', 'Hard', 'Advanced', 'Expert', 'Master']
-    const colourList = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-cyan-500', 'bg-violet-800', 'bg-slate-800']
-    let [difficultyCounter, setDifficultyCounter] = useState(0)
+const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section }) => {
+
+    const [difficultyCounter, setDifficultyCounter] = useState(0)
+    const [difficultyList, setDifficultyList] = useState([])
+
+    useEffect(() => {
+        for (let idx in section)
+            setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
+    }, [])
+
+    const difficultyTypes = ['easy', 'medium', 'hard', 'advanced', 'expert', 'master']
+    const colourTypes = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-cyan-500', 'bg-violet-800', 'bg-slate-800']
+
+    let colourList = []
+    for (let idx in difficultyTypes) {
+        if (difficultyList.indexOf(difficultyTypes[idx]) > -1) {
+            colourList.push(colourTypes[idx])
+        }
+    }
+    
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center w-auto
@@ -15,18 +31,22 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         </div>
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
-                    <button onClick={() => {setStart(true), incrementPlay()}}
+                    <button onClick={() => {global.difficultyIdx = difficultyCounter, setStart(true), incrementPlay()}}
                             className='w-52 md:w-80 h-12 pt-1 pb-1
                                     text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>
-            <div className='text-center relative z-10'>
-                    <button onClick={() => {if (difficultyCounter >= 5) setDifficultyCounter(0)
-                                            else setDifficultyCounter(++difficultyCounter)}}
+            {section.length > 0 ? <div className='text-center relative z-10'>
+                    <button onClick={() => {if (difficultyCounter >= difficultyList.length - 1) setDifficultyCounter(0)
+                                            else setDifficultyCounter(difficultyCounter + 1)}}
                             className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded
                                         ${colourList[difficultyCounter]}`}>
-                                        <div className='animate-fade'>{difficultyList[difficultyCounter]}</div>
+                                        <div className='animate-fade'>
+                                            {difficultyList[difficultyCounter] ? difficultyList[difficultyCounter].toUpperCase() 
+                                                                               + difficultyList[difficultyCounter].substring(1) 
+                                            : <></>}
+                                        </div>
                     </button>
-            </div>
+            </div> : <></> }
         </div>
         <div className='flex flex-col justify-start gap-x-3 md:gap-x-4 w-80 md:w-96 mt-4
                         border-b border-gray-300'>
