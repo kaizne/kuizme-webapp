@@ -41,7 +41,7 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
                             className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded
                                         ${colourList[difficultyCounter]}`}>
                                         <div className='animate-fade'>
-                                            {difficultyList[difficultyCounter] ? difficultyList[difficultyCounter].toUpperCase() 
+                                            {difficultyList[difficultyCounter] ? difficultyList[difficultyCounter][0].toUpperCase() 
                                                                                + difficultyList[difficultyCounter].substring(1) 
                                             : <></>}
                                         </div>
