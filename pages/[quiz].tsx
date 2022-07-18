@@ -145,6 +145,7 @@ const Quiz = ({ quizData }) => {
                        section={quizData.section} />
                 </div>
             {start === true ?
+                quizData.section.length > 0 ?
                 <Body info={quizData.info} 
                       infoCopy={infoCopy}
                       images={quizData.image}
@@ -156,6 +157,18 @@ const Quiz = ({ quizData }) => {
                       entries={quizData.entry}
                       sectionEntries={quizData.section[global.difficultyIdx].entry}
                       setTally={setTally} scrollConclusion={scrollConclusion} />
+                :
+                <Body info={quizData.info} 
+                infoCopy={infoCopy}
+                images={quizData.image}
+                size={numQuestions}
+                setScore={setScore}
+                setFinish={setFinish}
+                currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
+                type={quizData.type}
+                entries={quizData.entry}
+                sectionEntries={quizData.section}
+                setTally={setTally} scrollConclusion={scrollConclusion} />
                 : <></>
             }
             {finish === true ? 

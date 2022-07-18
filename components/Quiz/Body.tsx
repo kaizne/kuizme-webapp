@@ -20,9 +20,14 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
         } else if (type === 2) {
+            sectionEntries.length > 0 ?
             newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value )
+            .map(({ value }) => value ) 
+            :
+            newData = entries.map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value ) 
         }
 
         setData(newData)
