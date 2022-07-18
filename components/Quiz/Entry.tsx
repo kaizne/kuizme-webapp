@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 const Entry = ({ answer=null, 
                  imageUrl=null, 
+                 imageSize=null,
                  info=null, 
                  setScore=null, 
                  setFinish=null, 
@@ -139,12 +140,17 @@ const Entry = ({ answer=null,
         setShuffled(true)
     }
 
-    return ( returnEntry( type, currentQuestion, question, size, imageUrl, selection, disable, 
+    return ( returnEntry( type, currentQuestion, question, size, imageUrl, imageSize, selection, disable, 
         colors, entry, choice, selectCharacter, selectPersonality, selectTrivia ) )
 }
 
-function returnEntry ( type, currentQuestion, question, size, imageUrl, selection, disable, colors,
+function returnEntry ( type, currentQuestion, question, size, imageUrl, imageSize, selection, disable, colors,
     entry, choice, selectCharacter, selectPersonality, selectTrivia ) {
+    let typeZeroImgWidth = 150
+    let typeZeroImgHeight = 150
+    if (type === 0) {
+        if (imageSize[0]/imageSize[1] > 1.5) typeZeroImgWidth = typeZeroImgHeight * 16 / 9
+    }
     switch (type) {
         case 0:
             return (
@@ -152,11 +158,11 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
                 <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-sky-500'>{question + 1}</span>
+                    <span className='text-indigo-600'>{question + 1}</span>
                     <span className='font-normal'> / </span> 
                     {size}
                 </p>
-                { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
+                { imageUrl && <Image className='rounded' src={imageUrl} width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
                         { selection.map((elem, index) =>
@@ -214,7 +220,7 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                     {size}
                 </p>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={267} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
                         { Object.keys(entry.content).map((elem, index) => {

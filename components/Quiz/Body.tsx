@@ -7,7 +7,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
     const [data, setData] = useState([])
     const questionsRef = useRef([])
     const scroll = (index) => questionsRef.current[index]?.scrollIntoView({behavior: 'smooth'})
-    
+
     useEffect(() => {
         let newData
         if (type === 0) {
@@ -41,6 +41,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                     <Entry key={key}
                            answer={value} setScore={setScore} setFinish={setFinish}
                            imageUrl={findImage(String(value), type, images)} 
+                           imageSize={findSize(String(value), type, images)}
                            info={info} 
                            question={index}
                            size={size}
@@ -97,6 +98,15 @@ const findImage = (name: string, type, images) => {
         }
     } else if (type === 1) {
         return null
+    }
+}
+
+const findSize= (name: string, type, images) => {
+    const searchName = name.toLowerCase().replace(/ /g, '-')
+    for (let image of images.data) {
+        const imageName = image.attributes.name.split('.', 1)[0]
+        if (searchName === imageName)
+            return [image.attributes.width,image.attributes.height]
     }
 }
 
