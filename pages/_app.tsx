@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Kuizme</title>
         <link rel='shortcut icon' href='/favicon.png?' />
       </Head>
-      <div className='font-Poppins min-w-screen min-h-screen'>
+      <div className='flex flex-col min-w-screen min-h-screen font-Poppins '>
         <Nav />
         <Component {...pageProps} />
         {

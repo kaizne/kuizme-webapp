@@ -19,28 +19,24 @@ const Entry = ({ answer=null,
                 }) => {  
 
     const [selection, setSelection] = useState([])
+    const [colors, setColors] = useState([])
     const [disable, setDisable] = useState(false)
     const [correct, setCorrect] = useState(0)
     const [shuffled, setShuffled] = useState(false)
     
-    let colorArray = []
-    if (type === 2) {
-        for (let i = 0; i < Object.keys(entry.content).length; i++) {
-            colorArray.push('bg-white')
-        }
-    }
-    else {
-        colorArray = ['bg-white', 'bg-white', 'bg-white', 'bg-white']
-    }
-    const [colors, setColors] = useState(colorArray)
-        
     // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
-        if (type === 0)
-            setSelection(generateEntries())
+        if (type === 0) setSelection(generateEntries())
+        if (type === 2) {
+            for (let i = 0; i < Object.keys(entry.content).length; i++)
+                setColors(colors => [...colors, 'bg-white'])
+        }
+        else setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
     }, [])
+
+    useEffect(() => {}, [colors])
 
     const generateEntries = () => {
         const entries = []
@@ -60,26 +56,26 @@ const Entry = ({ answer=null,
         if (choice === answer) {
             setColors(colors => {
                 colors[button] = 'bg-emerald-400'
-                return colors
+                return [...colors]
             })
             setScore(score => score + 1)
         } else {
             setColors(colors => {
                 colors[button] = 'bg-red-400'
                 colors[correct] = 'bg-emerald-400'
-                return colors
+                return [...colors]
             })
         }
-        setDisable(true)   
         setTimeout(() => {
             setCurrentQuestion(currentQuestion + 1)
+            setDisable(true)
             if (currentQuestion + 1 === size) {
                 setFinish(true) 
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }     
-        }, 100)    
+        }, 1000)          
     }
 
     const selectPersonality = (selection, index) => {
@@ -93,14 +89,14 @@ const Entry = ({ answer=null,
         setChoice(index)
         setTimeout(() => {
             setCurrentQuestion(currentQuestion + 1)
+            setDisable(true)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }  
-        }, 100)
-        setDisable(true)
+        }, 1000)
     }
 
     const selectTrivia = (selection, index) => {
@@ -124,14 +120,14 @@ const Entry = ({ answer=null,
         setChoice(index)
         setTimeout(() => {
             setCurrentQuestion(currentQuestion + 1)
+            setDisable(true)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }  
-        }, 100)
-        setDisable(true)  
+        }, 1000)
     }
     if (!shuffled && type == 2) {
         entry.content = Object.entries(entry.content)
@@ -154,9 +150,10 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, imageSiz
     switch (type) {
         case 0:
             return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
+            <div className={`flex flex-col items-center scroll-smooth
             ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
+            ${disable ? 'hidden' : 'none'}`}>
                 <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
                     <span className='text-indigo-600'>{question + 1}</span>
                     <span className='font-normal'> / </span> 

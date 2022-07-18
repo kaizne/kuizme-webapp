@@ -4,7 +4,7 @@ import Section from '../components/Home/Section'
 
 const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular }) => {
     return (
-    <div className='min-h-screen'>
+        <>
         <Head>
             <title>Kuizme - The Home of Quizzes</title>
             <meta name='description' content='Test your knowledge of your favourite animes, 
@@ -16,7 +16,7 @@ const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular }) => {
             <Section title='Popular' category={''} entries={popular}  />
             <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
         </div>
-    </div>
+        </>
     )
 }
 
