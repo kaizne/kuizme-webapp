@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 const Entry = ({ answer=null, 
                  imageUrl=null, 
+                 imageSize=null,
                  info=null, 
                  setScore=null, 
                  setFinish=null, 
@@ -10,7 +11,7 @@ const Entry = ({ answer=null,
                  size=null,
                  currentQuestion=null, 
                  setCurrentQuestion=null, 
-                 type=null,
+                 type=0,
                  entry=null,
                  setTally=null,
                  scroll=null,
@@ -18,28 +19,25 @@ const Entry = ({ answer=null,
                 }) => {  
 
     const [selection, setSelection] = useState([])
+    const [colors, setColors] = useState([])
     const [disable, setDisable] = useState(false)
     const [correct, setCorrect] = useState(0)
     const [shuffled, setShuffled] = useState(false)
+    const [click, setClick] = useState(false)
     
-    let colorArray = []
-    if (type === 2) {
-        for (let i = 0; i < Object.keys(entry.content).length; i++) {
-            colorArray.push('bg-white')
-        }
-    }
-    else {
-        colorArray = ['bg-white', 'bg-white', 'bg-white', 'bg-white']
-    }
-    const [colors, setColors] = useState(colorArray)
-        
     // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
-        if (type === 0)
-            setSelection(generateEntries())
+        if (type === 0) setSelection(generateEntries())
+        if (type === 2) {
+            for (let i = 0; i < Object.keys(entry.content).length; i++)
+                setColors(colors => [...colors, 'bg-white'])
+        }
+        else setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
     }, [])
+
+    useEffect(() => {}, [colors])
 
     const generateEntries = () => {
         const entries = []
@@ -56,32 +54,34 @@ const Entry = ({ answer=null,
     }
 
     const selectCharacter = (choice, button) => {
+        setDisable(true)
         if (choice === answer) {
             setColors(colors => {
                 colors[button] = 'bg-emerald-400'
-                return colors
+                return [...colors]
             })
             setScore(score => score + 1)
         } else {
             setColors(colors => {
                 colors[button] = 'bg-red-400'
                 colors[correct] = 'bg-emerald-400'
-                return colors
+                return [...colors]
             })
         }
-        setDisable(true)   
         setTimeout(() => {
+            setClick(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true) 
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }     
-        }, 100)    
+        }, 1000)          
     }
 
     const selectPersonality = (selection, index) => {
+        setDisable(true)
         setTally(tally => {
             let selectionArray = selection.split(',')
             for (let value of selectionArray) {
@@ -91,18 +91,19 @@ const Entry = ({ answer=null,
         })
         setChoice(index)
         setTimeout(() => {
+            setClick(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }  
-        }, 100)
-        setDisable(true)
+        }, 1000)
     }
 
     const selectTrivia = (selection, index) => {
+        setDisable(true)
         const correct = Object.keys(entry.content).indexOf('a')
         if (selection === 'a') {
             setColors(colors => {
@@ -122,15 +123,15 @@ const Entry = ({ answer=null,
         })
         setChoice(index)
         setTimeout(() => {
+            setClick(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
                 scrollConclusion()
             } else {
-                scroll(currentQuestion + 1)
+                // scroll(currentQuestion + 1)
             }  
-        }, 100)
-        setDisable(true)  
+        }, 1000)
     }
     if (!shuffled && type == 2) {
         entry.content = Object.entries(entry.content)
@@ -139,24 +140,27 @@ const Entry = ({ answer=null,
         setShuffled(true)
     }
 
-    return ( returnEntry( type, currentQuestion, question, size, imageUrl, selection, disable, 
-        colors, entry, choice, selectCharacter, selectPersonality, selectTrivia ) )
-}
+    let typeZeroImgWidth = 150
+    let typeZeroImgHeight = 150
 
-function returnEntry ( type, currentQuestion, question, size, imageUrl, selection, disable, colors,
-    entry, choice, selectCharacter, selectPersonality, selectTrivia ) {
-    switch (type) {
-        case 0:
-            return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
+    if (type === 0) {
+        if (imageSize[0]/imageSize[1] > 1.5) typeZeroImgWidth = typeZeroImgHeight * 16 / 9
+    }
+
+    return (
+        <>
+        <div className={`flex flex-col items-center scroll-smooth
             ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
-                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-sky-500'>{question + 1}</span>
-                    <span className='font-normal'> / </span> 
-                    {size}
-                </p>
-                { imageUrl && <Image className='rounded' src={imageUrl} width={150} height={150} /> }
+            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
+            ${click ? 'hidden' : 'none'}`}>
+            <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
+                <span className='text-indigo-600'>{question + 1}</span>
+                <span className='font-normal'> / </span> 
+                {size}
+            </p>
+            { type === 0 ? 
+                <>
+                { imageUrl && <Image className='rounded' src={imageUrl} width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
                         { selection.map((elem, index) =>
@@ -170,72 +174,52 @@ function returnEntry ( type, currentQuestion, question, size, imageUrl, selectio
                         )}
                     </div>
                 </div>
-            </div>
-            )
-        case 1:
-            return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
-            ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
-                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-indigo-600'>{question + 1}</span>
-                    <span className='font-normal'> / </span> 
-                    {size}
-                </p>
+                </>
+            : <></> }
+            { type === 1 ? 
+                <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
                 { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
-                        { Object.keys(entry.content).map((elem, index) => {
-                            return (
-                                <button key={index}
-                                        className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
-                                                    text-md font-medium
-                                                    ${choice === index && disable ? 'bg-indigo-500' : 'bg-white'}`}
-                                        onClick={() => 
-                                            selectPersonality(elem, index)}
-                                        disabled={disable}>
-                                        {entry.content[elem]}
-                                </button>
-                            )
-                        }) }
+                        { Object.keys(entry.content).map((elem, index) => 
+                            <button key={index}
+                                    className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                text-md font-medium
+                                                ${choice === index && disable ? 'bg-emerald-400' : 'bg-white'}`}
+                                    onClick={() => selectPersonality(elem, index)}
+                                    disabled={disable}>
+                                    {entry.content[elem]}
+                            </button>   
+                        )}
                     </div>
                 </div>
-            </div>
-            )
-        case 2:
-            return (
-            <div className={`min-h-screen flex flex-col items-center scroll-smooth pt-20 mb-60
-            ${currentQuestion >= question ? 'none' : 'hidden'} 
-            ${currentQuestion === question ? 'animate-fadeIn' : 'none'}`}>
-                <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
-                    <span className='text-indigo-600'>{question + 1}</span>
-                    <span className='font-normal'> / </span> 
-                    {size}
-                </p>
+                </>
+            : <></> }
+            { type === 2 ? 
+                <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
+                <div className='relative w-80 h-44'>
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} layout='fill' /> }
+                </div>
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
-                        { Object.keys(entry.content).map((elem, index) => {
-                            let color = 'bg-red-400'
-                            if (elem === 'a') { color = 'bg-emerald-400' }
-                            return (
-                                <button key={index}
-                                        className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
-                                                    text-md font-medium ${colors[index]}`}
-                                        onClick={() => 
-                                            selectTrivia(elem, index)}
-                                        disabled={disable}>
-                                        {entry.content[elem]}
-                                </button>
-                            )
-                        }) }
+                        { Object.keys(entry.content).map((elem, index) => 
+                            <button key={index}
+                                    className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                text-md font-medium ${colors[index]}`}
+                                    onClick={() => selectTrivia(elem, index)}
+                                    disabled={disable}>
+                                    {entry.content[elem]}
+                            </button>
+                        )}
                     </div>
                 </div>
+                </>
+            : <></> }
             </div>
-            )
-    }
+        </>
+    )
 }
 
 function shuffleArray (array) {

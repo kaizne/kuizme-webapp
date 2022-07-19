@@ -12,6 +12,7 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
     useEffect(() => {
         if (quizData.limit !== null) { 
@@ -136,45 +137,47 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
         </Head>
-        <div className='min-h-screen flex flex-col scroll-smooth bg-slate-50'>
-                <div className={`${start === false ? 'none' : 'hidden'}`}>
-                <Intro title={quizData.title} intro={quizData.intro} setStart={setStart}
-                       plays={quizData.plays} likes={quizData.likes} publishedAt={parseDate(quizData.publishedAt)} 
-                       incrementPlay={incrementPlay}
-                       featured={quizData.featured.data.attributes.url}
-                       section={quizData.section} />
-                </div>
-            {start === true ?
-                <Body info={quizData.info} 
-                      infoCopy={infoCopy}
-                      images={quizData.image}
-                      size={numQuestions}
-                      setScore={setScore}
-                      setFinish={setFinish}
-                      currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
-                      type={quizData.type}
-                      entries={quizData.entry}
-                      sectionEntries={quizData.section[global.difficultyIdx].entry}
-                      setTally={setTally} scrollConclusion={scrollConclusion} />
-                : <></>
-            }
-            {finish === true ? 
-                <div ref={conclusionRef}> 
-                    <Conclusion type={quizData.type} score={score} total={total} 
-                                character={calculateTally(tally, quizData.info)} 
-                                characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
-                                conclusion={calculateConclusionTally(tally, quizData.conclusion)}
-                                category={quizData.category}
-                                subcategory={quizData.subcategory}
-                                title={quizData.title}
-                                triviaScore={calculateTriviaTally(tally)}
-                                incrementLike={incrementLike}
-                                decrementLike={decrementLike}
-                                updateLibrary={updateLibrary} 
-                                slug={quizData.slug} /> 
-                </div>
-                : <></>  
-            }
+        <div className={`flex flex-col flex-1 bg-slate-50 
+                        ${!start ? 'none' : 'hidden'}`}>
+            <Intro title={quizData.title} 
+                    intro={quizData.intro} 
+                    setStart={setStart}
+                    plays={quizData.plays} 
+                    likes={quizData.likes} 
+                    publishedAt={parseDate(quizData.publishedAt)} 
+                    incrementPlay={incrementPlay}
+                    featured={quizData.featured.data.attributes.url}
+                    section={quizData.section}
+                    difficulty={difficulty} setDifficulty={setDifficulty} />
+        </div>
+        <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
+                        ${start ? 'none' : 'hidden'}`}>                
+            <Body info={quizData.info} 
+                    infoCopy={infoCopy}
+                    images={quizData.image}
+                    size={numQuestions}
+                    setScore={setScore}
+                    setFinish={setFinish}
+                    currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
+                    type={quizData.type}
+                    entries={quizData.entry}
+                    sections={quizData.section}
+                    setTally={setTally} scrollConclusion={scrollConclusion}
+                    difficulty={difficulty} setDifficulty={setDifficulty} />
+        </div>
+        <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
+            <Conclusion type={quizData.type} score={score} total={total} 
+                        character={calculateTally(tally, quizData.info)} 
+                        characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
+                        conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                        category={quizData.category}
+                        subcategory={quizData.subcategory}
+                        title={quizData.title}
+                        triviaScore={calculateTriviaTally(tally)}
+                        incrementLike={incrementLike}
+                        decrementLike={decrementLike}
+                        updateLibrary={updateLibrary} 
+                        slug={quizData.slug} /> 
         </div>
         </>
     )
