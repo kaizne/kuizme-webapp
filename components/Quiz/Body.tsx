@@ -2,11 +2,15 @@ import Entry from './Entry'
 import { useEffect, useRef, useState } from 'react'
 
 const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
-                type, entries, sectionEntries, setTally=null, scrollConclusion }) => {
+                type, entries, sections, setTally=null, scrollConclusion }) => {
 
     const [data, setData] = useState([])
     const questionsRef = useRef([])
     const scroll = (index) => questionsRef.current[index]?.scrollIntoView({behavior: 'smooth'})
+    let sectionEntries = []
+    if (sections.length > 0 && Number.isFinite(global.difficultyIdx)) {
+        sectionEntries = sections[global.difficultyIdx].entry
+    }
 
     useEffect(() => {
         let newData
