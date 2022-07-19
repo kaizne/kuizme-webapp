@@ -136,7 +136,7 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
         </Head>
-        <div className={`flex flex-col flex-1 md:justify-center md:-mt-60 bg-slate-50 
+        <div className={`flex flex-col flex-1 bg-slate-50 
                         ${!start ? 'none' : 'hidden'}`}>
             <Intro title={quizData.title} 
                     intro={quizData.intro} 
@@ -148,7 +148,7 @@ const Quiz = ({ quizData }) => {
                     featured={quizData.featured.data.attributes.url}
                     section={quizData.section} />
         </div>
-        <div className={`flex flex-col flex-1 justify-center -mt-40 md:-mt-60 bg-slate-50 
+        <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start ? 'none' : 'hidden'}`}>                
         { quizData.section.length > 0 ?
             <Body info={quizData.info} 
