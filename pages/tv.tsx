@@ -1,5 +1,5 @@
 import tv from '../utils/tv'
-import Category from '../components/Category'
+import Category from '../components/Category2'
 
 const TV = ({ quizData }) => {
     return (

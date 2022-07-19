@@ -1,17 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Category = ({category, slug, title}) => {
+const Category = ({ category, image, link }) => {    
     return (
-        <Link href={`${category}/${slug}`}>
-        <div className='w-80 h-52 flex flex-col items-center 
-                      bg-white rounded shadow 
-                      hover:bg-gray-300 cursor-pointer'>
-            <div className='relative w-80 h-48'>
-                <Image className='rounded-t' src={`/category/${slug}.jpg`} layout='fill' />
+        <Link href={`/anime/${link}`}>
+            <div className='flex flex-col hover:cursor-pointer'>
+                <div className='relative w-40 h-52 flex-none rounded-md md:hover:bg-indigo-600'>
+                    <Image src={`/category/${image}.jpg`} layout='fill' 
+                           className='rounded-md md:hover:-translate-y-1.5'/>
+                </div>
+                <div className='mt-1 font-semibold text-sm truncate overflow-hidden w-36'>{category}</div>
             </div>
-            <div className='text-md font-medium text-left mt-1'>{title}</div>
-        </div>
         </Link>
     )
 }

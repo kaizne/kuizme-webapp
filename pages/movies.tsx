@@ -1,5 +1,5 @@
 import movies from '../utils/movies'
-import Category from '../components/Category'
+import Category from '../components/Category2'
 
 const Movies = ({ quizData }) => {
     return (

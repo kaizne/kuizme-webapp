@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/solid'
 import Categories from '../../utils/categories'
-import ScrollEntry from '../ScrollEntry'
+import Category from '../Category'
 
 const Scroll = () => {
     const [categories, setCategories] = useState(Categories)
@@ -21,7 +21,7 @@ const Scroll = () => {
         const marginInterval = setInterval(() => {
             if (!hover) {
                 setMarginLeft(marginLeft => {
-                    if (marginLeft <= -(Categories.length * 9.75)) {
+                    if (marginLeft <= -(Categories.length * 10.75)) {
                         setTransition('')
                         return 0
                     }
@@ -70,7 +70,7 @@ const Scroll = () => {
                 style={{marginLeft: `${marginLeft}rem`, transition: transition}}
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 {categories.map((elem, i) => 
-                    <ScrollEntry key={i} category={elem.category} image={elem.image} link={elem.link} />)}
+                    <Category key={i} category={elem.category} image={elem.image} link={elem.link} />)}
             </div>
         </div>
     )

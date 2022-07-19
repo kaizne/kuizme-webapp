@@ -1,4 +1,4 @@
-import anime from '../utils/anime'
+import Categories from '../utils/categories'
 import Category from '../components/Category'
 
 const Anime = ({ quizData }) => {
@@ -6,10 +6,9 @@ const Anime = ({ quizData }) => {
         <div className='min-h-screen w-vh mt-4'>
             <div className='grid justify-items-center'>
                 <h1 className='text-2xl mb-4 font-semibold'>Anime</h1>
-                <div className='grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-4'>
-                    {Object.values(anime).map((elem, index) => 
-                    <Category key={index} category={elem.category} slug={elem.slug} title={elem.title} />
-                )}
+                <div className='grid grid-cols-2 md:grid-cols-6 gap-x-4 gap-y-4'>
+                {Categories.map((elem, i) => 
+                    <Category key={i} category={elem.category} image={elem.image} link={elem.link} />)}
                 </div>
             </div>
         </div>
