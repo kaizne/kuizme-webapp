@@ -150,7 +150,6 @@ const Quiz = ({ quizData }) => {
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start ? 'none' : 'hidden'}`}>                
-        { quizData.section.length > 0 ?
             <Body info={quizData.info} 
                     infoCopy={infoCopy}
                     images={quizData.image}
@@ -160,19 +159,8 @@ const Quiz = ({ quizData }) => {
                     currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
                     type={quizData.type}
                     entries={quizData.entry}
-                    sectionEntries={quizData.section[global.difficultyIdx].entry}
-                    setTally={setTally} scrollConclusion={scrollConclusion} /> :
-            <Body info={quizData.info} 
-                    infoCopy={infoCopy}
-                    images={quizData.image}
-                    size={numQuestions}
-                    setScore={setScore}
-                    setFinish={setFinish}
-                    currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
-                    type={quizData.type}
-                    entries={quizData.entry}
-                    sectionEntries={quizData.section}
-                    setTally={setTally} scrollConclusion={scrollConclusion} /> }
+                    sections={quizData.section}
+                    setTally={setTally} scrollConclusion={scrollConclusion} />
         </div>
         <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 

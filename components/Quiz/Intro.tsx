@@ -32,7 +32,7 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         </div>
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
-                    <button onClick={() => {global.difficultyIdx = difficultyCounter, console.log(global.difficultyIdx), setStart(true), incrementPlay()}}
+                    <button onClick={() => {global.difficultyIdx = difficultyCounter, setStart(true), incrementPlay()}}
                             className='w-52 md:w-80 h-12 pt-1 pb-1
                                     text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>
