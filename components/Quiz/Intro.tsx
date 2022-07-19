@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 
-const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section }) => {
+const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
+                 difficulty, setDifficulty }) => {
 
     const [difficultyCounter, setDifficultyCounter] = useState(0)
     const [difficultyList, setDifficultyList] = useState([])
-    global.difficultyIdx = 0
 
     useEffect(() => {
         for (let idx in section)
@@ -32,7 +32,7 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         </div>
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
-                    <button onClick={() => {global.difficultyIdx = difficultyCounter, setStart(true), incrementPlay()}}
+                    <button onClick={() => {setDifficulty(difficultyCounter), setStart(true), incrementPlay()}}
                             className='w-52 md:w-80 h-12 pt-1 pb-1
                                     text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>

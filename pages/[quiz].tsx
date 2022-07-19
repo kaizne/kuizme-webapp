@@ -12,6 +12,7 @@ const Quiz = ({ quizData }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
     useEffect(() => {
         if (quizData.limit !== null) { 
@@ -146,7 +147,8 @@ const Quiz = ({ quizData }) => {
                     publishedAt={parseDate(quizData.publishedAt)} 
                     incrementPlay={incrementPlay}
                     featured={quizData.featured.data.attributes.url}
-                    section={quizData.section} />
+                    section={quizData.section}
+                    difficulty={difficulty} setDifficulty={setDifficulty} />
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start ? 'none' : 'hidden'}`}>                
@@ -160,7 +162,8 @@ const Quiz = ({ quizData }) => {
                     type={quizData.type}
                     entries={quizData.entry}
                     sections={quizData.section}
-                    setTally={setTally} scrollConclusion={scrollConclusion} />
+                    setTally={setTally} scrollConclusion={scrollConclusion}
+                    difficulty={difficulty} setDifficulty={setDifficulty} />
         </div>
         <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 
