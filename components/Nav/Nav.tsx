@@ -75,7 +75,7 @@ const Nav = () => {
                   </div>
                   */ 
                 }
-                <div className='flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5'>
+                { /* <div className='flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5'>
                     <input type='text' placeholder='Search' className='w-4 md:w-64 h-[2.3rem] bg-gray-200 border-2 border-gray-200 
                     rounded-l hover:border-gray-300 focus:bg-white indent-2 placeholder:text-gray-700 focus:border-indigo-600 
                     focus:outline-none hidden md:block'>
@@ -88,6 +88,8 @@ const Nav = () => {
                         <SearchIcon className='w-6 h-6'/>
                     </div>
                 </div>
+                */
+                }
                 { !profile ?
                     <div className='flex flex-row mt-[0.7rem] md:mt-3 relative right-0 mr-[1rem] md:w-20 lg:w-64 justify-end'>
                         <Link href='/signin'>
