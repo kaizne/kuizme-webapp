@@ -1,7 +1,7 @@
 
 const Privacy = () => (  
   <>
-    <div className='text-left px-5 py-8 md:px-20 md:py-10 font-Poppins min-h-screen'>
+    <div className='text-left px-5 py-8 md:px-20 md:py-10 font-Poppins min-h-vh'>
       <h1 className='text-3xl md:text-6xl font-bold pb-4'>Privacy Policy</h1>
       <p className='pb-4 italic'>Last updated July 17, 2022</p>
       <p>

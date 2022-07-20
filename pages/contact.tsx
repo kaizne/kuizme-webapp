@@ -1,7 +1,3 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import 'remixicon/fonts/remixicon.css'
-
 const contact = () => {
   return (
   <>
@@ -33,10 +29,6 @@ const contact = () => {
     </div>
     <div className='flex flex-row h-20v sm:h-20v 
     justify-center items-start gap-x-8 md:gap-x-16'>
-      {
-      //<i className='ri-twitter-fill ri-5x hover:cursor-pointer mr-16' />
-      //<i className='ri-instagram-fill ri-5x hover:cursor-pointer ml-16' />
-      }
       <img src='/facebook.svg' className='hover:cursor-pointer w-[3.5rem] h-[3.5rem]
       md:w-[5rem] md:h-[5rem]'/>
       <img src='/instagram.svg' className='hover:cursor-pointer w-[3.5rem] h-[3.5rem]

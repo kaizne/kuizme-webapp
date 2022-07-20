@@ -84,8 +84,10 @@ const Signup = () => {
                                 Sign in</button>
                 <div className='w-80 mt-4 ml-1 text-sm'>
                     By signing in, you are agreeing to the  
-                    <span className='text-sky-500 hover:text-sky-600'><Link href='/terms-of-service'> Terms of Conditions </Link></span> and 
-                    <span className='text-sky-500 hover:text-sky-600'><Link href='/privacy'> Privacy Policy</Link></span>.
+                    <span className='text-sky-500 hover:text-sky-600'><a href='https://www.kuizme.com/terms-of-service'
+                    target='_blank'> Terms of Conditions </a></span> and 
+                    <span className='text-sky-500 hover:text-sky-600'><a href='https://www.kuizme.com/privacy'
+                    target='_blank'> Privacy Policy</a></span>.
                 </div>
             </form>
         </div>
