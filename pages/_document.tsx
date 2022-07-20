@@ -20,6 +20,8 @@ export default function Document() {
             `,
           }}
         />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6765404626601198"
+                crossOrigin="anonymous"></script>
       </Head>
       <body>
         <Main />
