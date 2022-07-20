@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/solid'
 import Categories from '../../utils/categories'
 import Category from '../Category'
+import Link from 'next/link'
 
 const Scroll = () => {
     const [categories, setCategories] = useState(Categories)
@@ -42,7 +43,10 @@ const Scroll = () => {
     return (
         <div className='flex flex-col w-11/12 overflow-hidden static'>
             <div className='flex flex-row items-center gap-x-2'>
-                <div className='mt-8 mb-4 text-md md:text-lg text-indigo-600 font-semibold'>Categories</div>
+                <Link href='/anime'>
+                    <a className='mt-8 mb-4 text-md md:text-lg text-indigo-600 
+                    font-semibold hover:cursor-pointer md:hover:text-indigo-400'>Categories</a>
+                </Link>
                 <div className='flex-row items-center gap-x-2 hidden md:flex'>
                     <button className='h-8 mt-4 hover:bg-gray-200'
                             onClick={() => { 
