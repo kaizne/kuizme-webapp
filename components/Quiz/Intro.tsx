@@ -4,7 +4,6 @@ import Image from 'next/image'
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
                  difficulty, setDifficulty }) => {
 
-    const [difficultyCounter, setDifficultyCounter] = useState(0)
     const [difficultyList, setDifficultyList] = useState([])
 
     useEffect(() => {
@@ -32,18 +31,18 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         </div>
         <div className='flex flex-row justify-center gap-x-1 md:gap-x-2 w-80 md:w-96 mt-4'>
             <div className='text-center'>
-                    <button onClick={() => {setDifficulty(difficultyCounter), setStart(true), incrementPlay()}}
+                    <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
                             className='w-52 md:w-80 h-12 pt-1 pb-1
                                     text-xl font-bold text-white rounded bg-indigo-600'>Play</button>
                 </div>
             {section.length > 0 ? <div className='text-center relative z-10'>
-                    <button onClick={() => {if (difficultyCounter >= difficultyList.length - 1) setDifficultyCounter(0)
-                                            else setDifficultyCounter(difficultyCounter + 1)}}
+                    <button onClick={() => {if (difficulty >= difficultyList.length - 1) setDifficulty(0)
+                                            else setDifficulty(difficulty + 1)}}
                             className={`w-32 md:w-40 h-12 pt-1 pb-1 text-xl font-bold text-white rounded
-                                        ${colourList[difficultyCounter]}`}>
+                                        ${colourList[difficulty]}`}>
                                         <div className='animate-fade'>
-                                            {difficultyList[difficultyCounter] ? difficultyList[difficultyCounter][0].toUpperCase() 
-                                                                               + difficultyList[difficultyCounter].substring(1) 
+                                            {difficultyList[difficulty] ? difficultyList[difficulty][0].toUpperCase() 
+                                                                               + difficultyList[difficulty].substring(1) 
                                             : <></>}
                                         </div>
                     </button>
