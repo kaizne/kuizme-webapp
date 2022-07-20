@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Scroll from '../components/Home/Scroll'
 import Section from '../components/Home/Section'
 
-const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular }) => {
+const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular, trivia }) => {
     return (
         <>
         <Head>
@@ -15,6 +15,7 @@ const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular }) => {
             <Section title='Trending' category={''} entries={trending}  />
             <Section title='Popular' category={''} entries={popular}  />
             <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
+            <Section title='Trivia' category={''} entries={trivia} />
         </div>
         </>
     )
@@ -42,6 +43,10 @@ export async function getStaticProps({ params }) {
     const popularRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[label]=popular&populate=*')
     const popularData = await popularRes.json()
     const popular = popularData.data
+
+    const triviaRes = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?filters[group]=trivia&populate=*')
+    const triviaData = await triviaRes.json()
+    const trivia = triviaData.data
     
     /*
     const trendingUrl = 'https://plausible.io/api/v1/stats/breakdown?site_id=kuizme.com&period=6mo&property=event:page&limit=5'
@@ -63,6 +68,7 @@ export async function getStaticProps({ params }) {
             demonSlayer,
             trending,
             popular,
+            trivia,
         }
     }
 }

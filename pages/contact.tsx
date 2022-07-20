@@ -36,8 +36,8 @@ const contact = () => {
       <img src='/twitter.svg' className='hover:cursor-pointer w-[3.5rem] h-[3.5rem]
       md:w-[5rem] md:h-[5rem]'/>
     </div>
-    <div className='flex row items-center justify-center h-7v sticky bg-gray-900 
-    absolute bottom-0 text-white text-center text-sm md:text-base lg:text-2xl'>
+    <div className='flex row items-center justify-center h-7.5v sticky bg-gray-900 
+     bottom-0 text-white text-center text-sm md:text-base lg:text-2xl'>
       <p className='w-4/5 md:w-11/12'>Sign up to receive updates on the latest content!
       </p>
     </div>
