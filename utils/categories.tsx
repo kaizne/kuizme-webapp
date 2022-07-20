@@ -6,6 +6,7 @@ const Categories = [
     {category: 'General', image: 'general', link: 'general'},
     {category: 'Haikyuu', image: 'haikyuu', link: 'haikyuu'},
     {category: 'Hunter x Hunter', image: 'hunter-x-hunter', link: 'hunter-x-hunter'},
+    {category: 'Jujutsu Kaisen', image: 'jujutsu-kaisen', link: 'jujutsu-kaisen'},
     {category: 'My Hero Academia', image: 'my-hero-academia', link: 'my-hero-academia'},
     {category: 'Naruto', image: 'naruto', link: 'naruto'},
     {category: 'One Piece', image: 'one-piece', link: 'one-piece'},
@@ -14,6 +15,7 @@ const Categories = [
     {category: 'Sword Art Online', image: 'sword-art-online', link: 'sword-art-online'},
     {category: 'The Seven Deadly Sins', image: 'the-seven-deadly-sins', link: 'the-seven-deadly-sins'},
     {category: 'Tokyo Revengers', image: 'tokyo-revengers', link: 'tokyo-revengers'},
+    {category: 'Tokyo Ghoul', image: 'tokyo-ghoul', link: 'tokyo-ghoul'},
 ]
 
 export default Categories

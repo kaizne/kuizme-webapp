@@ -9,7 +9,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
     const questionsRef = useRef([])
     const scroll = (index) => questionsRef.current[index]?.scrollIntoView({behavior: 'smooth'})
     let sectionEntries = []
-    if (sections.length > 0 && Number.isFinite(difficulty)) {
+    if (sections.length > 0) {
         sectionEntries = sections[difficulty].entry
     }
 
