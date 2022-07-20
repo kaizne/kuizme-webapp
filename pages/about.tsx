@@ -43,7 +43,7 @@ const about = () => {
         What can you find on Kuizme?
       </p>
     </div>
-    <div className='flex flex-row h-10v sm:h-12.5v bg-black 
+    <div className='flex flex-row h-10v sm:h-32 bg-black 
     justify-center gap-x-8 sm:gap-x-16 md:gap-x-32 lg:gap-x-48'>
       <div className='flex flex-col sm:mt-2'>
         <p className='text-xl sm:text-3xl md:text-4xl lg:text-5xl text-rose-500 text-center font-bold'>
