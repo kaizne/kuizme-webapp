@@ -8,10 +8,6 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
     const [data, setData] = useState([])
     const questionsRef = useRef([])
     const scroll = (index) => questionsRef.current[index]?.scrollIntoView({behavior: 'smooth'})
-    let sectionEntries = []
-    if (sections.length > 0) {
-        sectionEntries = sections[difficulty].entry
-    }
 
     useEffect(() => {
         let newData
@@ -25,6 +21,10 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
         } else if (type === 2) {
+            let sectionEntries = []
+            if (sections.length > 0) {
+                sectionEntries = sections[difficulty].entry
+            }
             sectionEntries.length > 0 ?
             newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
@@ -36,7 +36,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
         }
 
         setData(newData)
-    }, [])
+    }, [difficulty])
 
     return (
         <div className=''>
