@@ -38,9 +38,7 @@ const contact = () => {
     </div>
     <div className='flex row items-center justify-center h-7v sticky bg-gray-900 
     absolute bottom-0 text-white text-center text-sm md:text-base lg:text-2xl'>
-      <p className='w-4/5 md:w-11/12'>Click <a href='https://www.kuizme.com/' 
-      className='text-pink-500 font-bold hover:text-rose-300 hover:cursor-pointer'>
-      here</a> and enter your email to receive updates on the latest content!
+      <p className='w-4/5 md:w-11/12'>Sign up to receive updates on the latest content!
       </p>
     </div>
   </> )
