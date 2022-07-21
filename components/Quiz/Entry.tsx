@@ -77,7 +77,7 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }     
-        }, 1000)          
+        }, 500)          
     }
 
     const selectPersonality = (selection, index) => {
@@ -99,7 +99,7 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }  
-        }, 1000)
+        }, 500)
     }
 
     const selectTrivia = (selection, index) => {
@@ -131,7 +131,7 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }  
-        }, 1000)
+        }, 500)
     }
     if (!shuffled && type == 2) {
         entry.content = Object.entries(entry.content)
