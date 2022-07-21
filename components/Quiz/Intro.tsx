@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
-                 difficulty, setDifficulty }) => {
+                 difficulty, setDifficulty, introText }) => {
 
     const [difficultyList, setDifficultyList] = useState([])
 
@@ -68,7 +68,24 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
             </div>
             </div>
         </div>
-        <div className='w-80 md:w-96 text-justify mt-4'>{intro}</div>
+        <div className='w-[21.3rem] md:w-[30.5rem] py-2 bg-violet-600 mt-4 text-center rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>Quiz Description</p>
+        </div> 
+        <div className='w-[19.5rem] md:w-[29rem] py-2 text-justify rounded'>
+            <p className='text-black md:text-lg'>{ introText.description }</p>
+        </div>
+        <div className='w-[21.3rem] md:w-[30.5rem] py-2 bg-violet-600 mt-2 text-center rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>How to Play</p>
+        </div>
+        <div className='w-[19.5rem] md:w-[29rem] py-2 text-justify rounded'>
+            <p className='text-black md:text-lg'>{ introText.instructions }</p>
+        </div>
+        <div className='w-[21.3rem] md:w-[30.5rem] py-2 bg-violet-600 mt-2 text-center rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>{ introText.anime }</p>
+        </div>
+        <div className='w-[19.5rem] md:w-[29rem] py-2 text-justify rounded'>
+            <p className='text-black md:text-lg'>{ introText.title }</p>
+        </div>
     </div>
 )}
 

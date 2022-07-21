@@ -148,7 +148,8 @@ const Quiz = ({ quizData }) => {
                     incrementPlay={incrementPlay}
                     featured={quizData.featured.data.attributes.url}
                     section={quizData.section}
-                    difficulty={difficulty} setDifficulty={setDifficulty} />
+                    difficulty={difficulty} setDifficulty={setDifficulty}
+                    introText={quizData.introText} />
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start ? 'none' : 'hidden'}`}>                
