@@ -14,7 +14,7 @@ const Section = ({ title, category, entries }) => {
                     : <span>{title}</span> 
                 }
             </div>
-            <div className='flex flex-row gap-x-2 overflow-y-auto scrollbar-hide'>
+            <div className='flex flex-row gap-x-2.5 overflow-y-auto scrollbar-hide'>
                 {entries.map((entry, i) => 
                     <SectionEntry key={i} slug={entry.attributes.slug}
                                   title={entry.attributes.title}
