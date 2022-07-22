@@ -23,7 +23,8 @@ const Entry = ({ answer=null,
     const [disable, setDisable] = useState(false)
     const [correct, setCorrect] = useState(0)
     const [shuffled, setShuffled] = useState(false)
-    const [click, setClick] = useState(false)
+    const [hide, setHide] = useState(false)
+    const [animation, setAnimation] = useState(false)
     
     // Type 1
     const [choice, setChoice] = useState(0)
@@ -37,7 +38,7 @@ const Entry = ({ answer=null,
         else setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
     }, [])
 
-    useEffect(() => {}, [colors])
+    useEffect(() => {}, [colors, animation])
 
     const generateEntries = () => {
         const entries = []
@@ -55,6 +56,8 @@ const Entry = ({ answer=null,
 
     const selectCharacter = (choice, button) => {
         setDisable(true)
+        setTimeout(() => setAnimation(true), 500)
+
         if (choice === answer) {
             setColors(colors => {
                 colors[button] = 'bg-emerald-400'
@@ -69,7 +72,8 @@ const Entry = ({ answer=null,
             })
         }
         setTimeout(() => {
-            setClick(true)
+            setAnimation(false)
+            setHide(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true) 
@@ -77,11 +81,13 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }     
-        }, 500)          
+        }, 900)          
     }
 
     const selectPersonality = (selection, index) => {
         setDisable(true)
+        setTimeout(() => setAnimation(true), 500)
+
         setTally(tally => {
             let selectionArray = selection.split(',')
             for (let value of selectionArray) {
@@ -91,7 +97,8 @@ const Entry = ({ answer=null,
         })
         setChoice(index)
         setTimeout(() => {
-            setClick(true)
+            setAnimation(false)
+            setHide(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
@@ -99,11 +106,13 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }  
-        }, 500)
+        }, 900)
     }
 
     const selectTrivia = (selection, index) => {
         setDisable(true)
+        setTimeout(() => setAnimation(true), 500)
+
         const correct = Object.keys(entry.content).indexOf('a')
         if (selection === 'a') {
             setColors(colors => {
@@ -123,7 +132,8 @@ const Entry = ({ answer=null,
         })
         setChoice(index)
         setTimeout(() => {
-            setClick(true)
+            setAnimation(false)
+            setHide(true)
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
@@ -131,7 +141,7 @@ const Entry = ({ answer=null,
             } else {
                 // scroll(currentQuestion + 1)
             }  
-        }, 500)
+        }, 900)
     }
     if (!shuffled && type == 2) {
         entry.content = Object.entries(entry.content)
@@ -152,7 +162,8 @@ const Entry = ({ answer=null,
         <div className={`flex flex-col items-center scroll-smooth
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
-            ${click ? 'hidden' : 'none'}`}>
+            ${animation ? 'animate-fadeOut' : 'none'}
+            ${hide ? 'hidden' : 'none'}`}>
             <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
                 <span className='text-indigo-600'>{question + 1}</span>
                 <span className='font-normal'> / </span> 
