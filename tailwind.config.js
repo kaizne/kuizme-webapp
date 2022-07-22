@@ -12,8 +12,8 @@ module.exports = {
               'Roboto': ['Roboto']
           },
           animation: {
-              fadeIn: 'fadeIn 1s',
-              fadeOut: 'fadeOut 1s',
+              fadeIn: 'fadeIn 0.5s',
+              fadeOut: 'fadeOut 0.5s',
               fade: 'fade 3s infinite',
           },
           keyframes: {
@@ -23,7 +23,7 @@ module.exports = {
               },
               fadeOut: {
                 '0%': { opacity: '100%' },
-                '100%': { opacity: '0%', display: 'none'},
+                '100%': { opacity: '0%'},
               },
               fade: {
                 '0%': { opacity: '100%' },
