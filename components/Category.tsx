@@ -6,7 +6,7 @@ const Category = ({ category, image, link }) => {
         <Link href={`/anime/${link}`}>
             <div className='flex flex-col hover:cursor-pointer'>
                 <div className='relative w-40 h-52 flex-none 
-                                rounded-md overflow-hidden md:hover:bg-indigo-600'>
+                                rounded overflow-hidden md:hover:bg-indigo-600'>
                     <Image src={`/category/${image}.jpg`} layout='fill' 
                            className='md:hover:-translate-y-1.5'/>
                 </div>
