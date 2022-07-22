@@ -22,7 +22,7 @@ const Scroll = () => {
         const marginInterval = setInterval(() => {
             if (!hover) {
                 setMarginLeft(marginLeft => {
-                    if (marginLeft <= -(Categories.length * 10.75)) {
+                    if (marginLeft <= -(Categories.length * 10.625)) {
                         setTransition('')
                         return 0
                     }
@@ -70,7 +70,7 @@ const Scroll = () => {
                     </button>
                 </div>
             </div>
-            <div className='flex flex-row gap-x-3 overflow-x-auto scrollbar-hide'
+            <div className='flex flex-row gap-x-2.5 overflow-x-auto scrollbar-hide'
                 style={{marginLeft: `${marginLeft}rem`, transition: transition}}
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 {categories.map((elem, i) => 
