@@ -4,8 +4,8 @@ import SectionEntry from './SectionEntry'
 
 const Section = ({ title, category, entries }) => {
     return (
-        <div className='w-11/12'>
-            <div className='mt-8 mb-2 text-md md:text-lg font-semibold'>
+        <div className='w-11/12 mt-6 pb-6 border-b-2 border-gray-200'>
+            <div className='mb-1 text-md md:text-lg font-semibold'>
                 { category !== '' ? 
                     <div className='mb-1'>Recommended 
                         <Link href={`/anime/${category}`}>

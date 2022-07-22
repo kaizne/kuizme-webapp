@@ -41,7 +41,7 @@ const Scroll = () => {
     })
 
     return (
-        <div className='flex flex-col w-11/12 overflow-hidden static'>
+        <div className='flex flex-col w-11/12 overflow-hidden static pb-6 border-b-2 border-gray-200'>
             <div className='flex flex-row items-center gap-x-2'>
                 <Link href='/anime'>
                     <a className='mt-8 mb-4 text-md md:text-lg text-indigo-600 

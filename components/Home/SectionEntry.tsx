@@ -7,7 +7,7 @@ const SectionEntry = ({ slug, title, image }) => {
         <Link href={`/${slug}`}>
                 <div className='flex flex-col cursor-pointer'>
                     <div className='relative w-56 md:w-72 h-36 md:h-44 
-                                    rounded-md overflow-hidden md:hover:bg-indigo-600'>
+                                    rounded overflow-hidden md:hover:bg-indigo-600'>
                     { image && <Image src={image} layout='fill'
                                       className='md:hover:-translate-y-1.5'/> }
                     </div>
