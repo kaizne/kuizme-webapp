@@ -46,15 +46,15 @@ const Nav = () => {
         <nav className='sticky top-0 z-50 h-14 flex flex-row justify-center w-screen bg-white shadow-lg'>
                 <div className='w-11/12 flex flex-row justify-between'>
                 <div className='flex flex-row mt-3.5 md:mt-2'>
-                    <div className='mt-[0.15rem]'>
+                    <div className='mt-1'>
                     <Link href='/'>
-                        <a className='text-xl md:text-4xl font-extrabold text-indigo-600 md:hover:text-indigo-400
+                        <a className='text-xl md:text-3xl font-extrabold text-indigo-600 md:hover:text-indigo-400
                         cursor-pointer'>KUIZME</a>
                     </Link>    
                     </div>
-                    <div className='mt-[0.2rem] md:mt-[0.5rem] ml-[1rem]'>
+                    <div className='mt-1 md:mt-2 ml-4'>
                     <Link href='/anime'>
-                        <a className='text-lg md:text-2xl font-bold text-black sm:hover:text-indigo-600
+                        <a className='text-lg md:text-xl font-semibold text-black sm:hover:text-indigo-600
                         cursor-pointer'>Browse</a>
                     </Link>
                     </div>
