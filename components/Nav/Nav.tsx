@@ -43,9 +43,9 @@ const Nav = () => {
     return (
         <>
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
-        <nav className='sticky top-0 z-50 flex flex-row h-14 w-vh justify-between
-                    bg-white shadow-lg'>
-                <div className='flex flex-row mt-3.5 md:mt-2 ml-[1rem]'>
+        <nav className='sticky top-0 z-50 h-14 flex flex-row justify-center w-screen bg-white shadow-lg'>
+                <div className='w-11/12 flex flex-row justify-between'>
+                <div className='flex flex-row mt-3.5 md:mt-2'>
                     <div className='mt-[0.15rem]'>
                     <Link href='/'>
                         <a className='text-xl md:text-4xl font-extrabold text-indigo-600 md:hover:text-indigo-400
@@ -91,7 +91,7 @@ const Nav = () => {
                 */
                 }
                 { !profile ?
-                    <div className='flex flex-row mt-[0.7rem] md:mt-3 relative right-0 mr-[1rem] md:w-20 lg:w-64 justify-end'>
+                    <div className='flex flex-row mt-[0.7rem] md:mt-3 relative right-0 md:w-20 lg:w-64 justify-end'>
                         <Link href='/signin'>
                             <button className='w-16 h-8 text-sm text-white font-semibold bg-indigo-600 rounded 
                             md:hover:bg-indigo-400'>
@@ -137,7 +137,8 @@ const Nav = () => {
                     <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
                                     md:hover:bg-gray-200 md:hover:rounded'>Terms of Service</button>    
                     </Link>
-                </div>        
+                </div> 
+                </div>       
         </nav> }
         </>
     )
