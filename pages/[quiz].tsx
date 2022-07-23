@@ -14,9 +14,7 @@ const Quiz = ({ quizData }) => {
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
-    //const introTextPlaceholder = { 'anime': 'Demon Slayer', 'title': 'Demon Slayer follows the story of a young boy named Tanjiro.', 'description': 
-    //'How well do you know the characters from Death Note? Can you recall the names of the characters based on their appearance?',
-    //'instructions': 'For each question, select the name of the character you think matches the image shown. Guess every question correctly to get a perfect score! If you are feeling confident, click the button next to Play to adjust the quiz difficulty. Good luck!' }
+    
     useEffect(() => {
         if (quizData.limit !== null) { 
             setTotal(quizData.limit) 
@@ -143,7 +141,8 @@ const Quiz = ({ quizData }) => {
         <div className={`flex flex-col flex-1 bg-slate-50 
                         ${!start ? 'none' : 'hidden'}`}>
             <Intro title={quizData.title} 
-                    intro={quizData.intro} 
+                    intro={quizData.intro}
+                    introText={quizData.introText} 
                     setStart={setStart}
                     plays={quizData.plays} 
                     likes={quizData.likes} 
