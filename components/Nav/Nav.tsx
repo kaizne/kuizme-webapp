@@ -43,7 +43,7 @@ const Nav = () => {
     return (
         <>
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
-        <nav className='sticky top-0 z-50 h-14 flex flex-row justify-center w-screen bg-white shadow-md'>
+        <nav className='sticky top-0 z-50 h-14 flex flex-row justify-center w-100v bg-white shadow-md'>
                 <div className='w-11/12 flex flex-row justify-between'>
                 <div className='flex flex-row mt-3.5 md:mt-2'>
                     <div className='mt-1'>
