@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 
 const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
-                 difficulty, setDifficulty }) => {
+                 difficulty, setDifficulty, label }) => {
 
     const [difficultyList, setDifficultyList] = useState([])
-
+    if (label === 'popular') {
+        plays += 30
+    }
+    else if (label === 'trending') {
+        plays += 10
+    }
     useEffect(() => {
         for (let idx in section)
             setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
@@ -86,6 +91,16 @@ const Intro = ({ title, intro, setStart, plays, publishedAt, likes, incrementPla
         </div>
         <div className='w-[19.5rem] md:w-[29rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.title }</p>
+        </div>
+        <div className='w-[21.3rem] md:w-[30.5rem] py-2 bg-pink-700 mt-2 text-center rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>We Care About Your Feedback</p>
+        </div>
+        <div className='w-[19.5rem] md:w-[29rem] py-2 text-justify rounded'>
+            <p className='text-black text-sm md:text-base'>What matters most to us at Kuizme is making sure
+            our users have the best experience possible. We try our best to provide you with interesting
+            and thought-provoking questions. If you notice inaccuracies or in this quiz or any others, please
+            reach out to us so that we can fix them as soon as possible. You can contact us via our social 
+            media or support email found <span className='text-red-500 font-bold'>here.</p>
         </div>
         */}
     </div>
