@@ -128,8 +128,15 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         */}
                     </div>
                     <div className='flex flex-col items-center mt-2'>
-                        <Link href={`/${subcategory}`}>
-                            <p>Try Other {animeTitle} Quizzes</p>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
                         </Link>
                     </div>
                 </div>
@@ -157,6 +164,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             Please sign in to add to library.
                         </div>
                         */}
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
+                        </Link>
                     </div>
                 </div>
             )
