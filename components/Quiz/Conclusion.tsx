@@ -70,16 +70,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row mt-2'>
+                        {/*<div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
                     </div>
                 </div>
             )
@@ -98,16 +100,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row mt-2'>
+                        {/*<div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()} disabled={likeButton}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
                     </div>
                 </div>
             )
@@ -122,16 +126,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row items-center mt-2'>
+                        {/*<div className='flex flex-row items-center mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
                     </div>
                 </div>
             )
