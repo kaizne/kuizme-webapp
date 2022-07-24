@@ -14,29 +14,33 @@ const Nav = () => {
     const asPath = router.asPath
 
     const [profile, setProfile] = useState(false)
-    const [dropDown, setDropDown] = useState(false)
-    const [drop, setDrop] = useState(false)
+    const [dropDownProfile, setDropDownProfile] = useState(false)
+    const [dropDownMenu, setDropDownMenu] = useState(false)
 
-    const ref = useRef(null)
-
+    const refProfile = useRef(null)
+    const refMenu = useRef(null)
     useEffect(() => {
+        document.addEventListener('click', handleClickOutsideMenu, true)
         if (localStorage.getItem('jwt')) {
             setProfile(true)
-            document.addEventListener('click', handleClickOutside, true)
+            document.addEventListener('click', handleClickOutsideProfile, true)
         } else {
             setProfile(false)
         }
     })
 
-    const handleClickOutside = (e) => {
-        if (ref.current && !ref.current.contains(e.target))
-            setDropDown(false)
+    const handleClickOutsideProfile = (e) => {
+        if (refProfile.current && !refProfile.current.contains(e.target))
+            setDropDownProfile(false)
     }
-
+    const handleClickOutsideMenu = (e) => {
+        if (refMenu.current && !refMenu.current.contains(e.target))
+            setDropDownMenu(false)
+    }
     const signOut = () => {
         localStorage.clear()
         setProfile(false)
-        setDropDown(false)
+        setDropDownProfile(false)
         router.push('/')
     }
     const size = 43
@@ -58,9 +62,28 @@ const Nav = () => {
                         cursor-pointer'>Browse</a>
                     </Link>
                     </div>
-                    <div className='ml-[1rem] md:mt-[0.4rem]'>
-                    <MenuAlt1Icon className='h-8 w-8 hover:cursor-pointer sm:hover:stroke-indigo-600' 
-                                    onClick={() => setDrop(!drop)}/>
+                    <div ref={refMenu} className='ml-[1rem] md:mt-[0.4rem] w-8'>
+                        <MenuAlt1Icon className='h-8 w-8 hover:cursor-pointer sm:hover:stroke-indigo-600' 
+                                    onClick={() => setDropDownMenu(!dropDownMenu)} />
+                        <div className={`flex flex-col gap-y-1 w-[8.7rem] h-[9.5rem] bg-white shadow-lg rounded relative left-0
+                                    pl-2 py-2 mr-[1rem] ${dropDownMenu ? 'none' : 'hidden'}`}>
+                            <Link href='/about'>
+                            <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                            md:hover:bg-gray-200 md:hover:rounded'>About</button>    
+                            </Link>
+                            <Link href='/contact'>
+                            <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                            md:hover:bg-gray-200 md:hover:rounded'>Contact</button>    
+                            </Link>
+                            <Link href='/privacy'>
+                            <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                            md:hover:bg-gray-200 md:hover:rounded'>Privacy</button>    
+                            </Link>
+                            <Link href='/terms-of-service'>
+                            <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
+                                            md:hover:bg-gray-200 md:hover:rounded'>Terms of Service</button>    
+                            </Link>
+                        </div>  
                     </div>
                 </div>
                 { /*
@@ -100,16 +123,15 @@ const Nav = () => {
                         </Link>
                     </div> 
                     :
-                    <div ref={ref} className='flex flex-row md:mt-[0.1rem] relative right-0 mr-[1rem] 
-                                            md:w-20 lg:w-64 justify-end'>
+                    <div ref={refProfile} className='flex flex-row md:mt-[0.1rem] relative right-0 justify-end'>
                         <button className=''
-                                onClick={() => setDropDown(!dropDown)}>
+                                onClick={() => setDropDownProfile(!dropDownProfile)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:hover:fill-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                             </svg>
                         </button>
-                        <div className={`flex flex-col gap-y-1 w-32 h-20 bg-white shadow-lg rounded absolute
-                                        pl-3 py-2 right-0 sm:ml-[10rem] mt-[3rem] ${dropDown ? 'none' : 'hidden'}`}>
+                        <div className={`flex flex-col gap-y-1 w-[7rem] h-[5rem] bg-white shadow-lg rounded absolute
+                                        pl-2 py-2 right-0 mt-[3rem] items-start ${dropDownProfile ? 'none' : 'hidden'}`}>
                             <Link href='/profile'>
                             <button className='text-left text-sm w-[6rem] pl-1 py-1.5
                                             md:hover:bg-gray-200 md:hover:rounded'>My Profile</button>
@@ -118,26 +140,7 @@ const Nav = () => {
                                     className='text-left text-sm w-[6rem] pl-1 py-1.5
                                              md:hover:bg-gray-200 md:hover:rounded'>Sign Out</button>
                         </div>
-                    </div> }
-                <div className={`flex flex-col gap-y-1 w-40 h-40 bg-white shadow-lg rounded absolute left-0
-                                pl-3 py-2 ml-[10rem] sm:ml-[16rem] mt-[3rem] ${drop ? 'none' : 'hidden'}`}>
-                    <Link href='/about'>
-                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
-                                    md:hover:bg-gray-200 md:hover:rounded'>About</button>    
-                    </Link>
-                    <Link href='/contact'>
-                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
-                                    md:hover:bg-gray-200 md:hover:rounded'>Contact</button>    
-                    </Link>
-                    <Link href='/privacy'>
-                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
-                                    md:hover:bg-gray-200 md:hover:rounded'>Privacy</button>    
-                    </Link>
-                    <Link href='/terms-of-service'>
-                    <button className='text-left text-sm w-[7.7rem] pl-1 py-1.5
-                                    md:hover:bg-gray-200 md:hover:rounded'>Terms of Service</button>    
-                    </Link>
-                </div> 
+                    </div> } 
                 </div>       
         </nav> }
         </>
