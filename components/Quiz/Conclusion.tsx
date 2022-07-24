@@ -1,5 +1,6 @@
 import { setDefaultResultOrder } from 'dns'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -12,7 +13,8 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [error, setError] = useState(false)
     const [likeText, setLikeText] = useState('Add to library')
     const [likeButton, setLikeButton] = useState(false)
-    
+    const animeTitle = getAnimeTitle(subcategory)
+
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
@@ -70,16 +72,30 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row mt-2'>
+                        {/*<div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
+                        </Link>
                     </div>
                 </div>
             )
@@ -98,16 +114,30 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row mt-2'>
+                        {/*<div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()} disabled={likeButton}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
+                        </Link>
                     </div>
                 </div>
             )
@@ -122,16 +152,30 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
                         </button>
-                        <div className='flex flex-row items-center mt-2'>
+                        {/*<div className='flex flex-row items-center mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        <div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
                             Please sign in to add to library.
                         </div>
+                        */}
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
+                        </Link>
                     </div>
                 </div>
             )
@@ -141,14 +185,22 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
 function calculatePercentageText(score=0, total=0) {
     const percentage = 100*score/total
     let text = 'Nice.'
-    if (percentage == 0) { text = 'At least you tried...' }
-    else if (percentage < 20) { text = 'Better than zero...' }
-    else if (percentage < 40) { text = 'Better luck next time.' }
+    if (percentage == 0) { text = 'Don\'t worry. We all struggle sometimes.' }
+    else if (percentage < 20) { text = 'You just need a little more practice.' }
+    else if (percentage < 40) { text = 'You\'re on the right track.' }
     else if (percentage < 60) { text = 'Not bad!' }
     else if (percentage < 80) { text = 'Nice job!' }
-    else if (percentage < 100) { text = 'Brilliant!' }
-    else { text = 'Perfect!' }
+    else if (percentage < 100) { text = 'Brilliant! You know just about everything!' }
+    else { text = 'Perfect! Your knowledge is impressive.' }
     return text
+}
+
+function getAnimeTitle(subcat='') {
+    let animeTitleArray = subcat.split('-')
+    for (let i = 0; i < animeTitleArray.length; i++) {
+        animeTitleArray[i] = animeTitleArray[i][0].toUpperCase() + animeTitleArray[i].substring(1)
+    }
+    return animeTitleArray.join(' ')
 }
 
 export default Conclusion
