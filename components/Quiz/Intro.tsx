@@ -31,9 +31,11 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center w-auto
                         md:rounded-lg bg-indigo-600'>
-            <h1 className='w-80 md:w-full md:h-16 mb-4 md:mb-0 pt-4
+            <h1 className='w-80 md:w-[37.5rem] md:h-16 mb-4 md:mb-0 pt-4
                            text-center text-2xl font-medium text-white'>{title}</h1>
-            { featured && <Image className='md:rounded-b-lg' src={featured} width={600} height={338} /> }
+                <div className='relative w-screen h-56 md:w-[37.5rem] md:h-[21.1rem]'>
+                { featured && <Image className='md:rounded-b-lg' src={featured} layout='fill' /> }
+                </div>
         </div>
         <div className='text-center mt-3'>
                 <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
