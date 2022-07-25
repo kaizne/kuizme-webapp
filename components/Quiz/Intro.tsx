@@ -30,7 +30,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center md:rounded-lg bg-indigo-600'>
-            <h1 className='w-96 md:w-[37.5rem] md:h-16 mb-4 md:mb-0 pt-4
+            <h1 className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl md:h-16 mb-4 md:mb-0 pt-4
                            text-center text-2xl font-medium text-white'>{title}</h1>
             <div className='relative w-screen max-w-sm h-56 
                             md:max-w-2xl md:w-[37.5rem] md:h-[21.1rem]'>
@@ -54,8 +54,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                                     </div>
                 </button>
         </div> : <></> }
-        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 w-80 md:w-96 mt-3
-                        border-b border-gray-300'> 
+        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3 border-b border-gray-300'> 
             <div className='flex flex-row gap-x-4'>
                 <div className='flex flex-row text-sm md:text-base'>
                     <Image src='/play.svg' width={20} height={20} />
@@ -76,7 +75,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         </div>
         {/*<div className='w-80 md:w-96 text-justify mt-4'>{intro}</div>
         */}
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+        <div className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl
                         py-2 bg-violet-600 mt-4 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>Quiz Description</p>
         </div> 
