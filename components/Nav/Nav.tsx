@@ -1,5 +1,9 @@
 import requests from '../../utils/requests'
 import Image from 'next/image'
+import categories from '../../utils/categories'
+import slugs from '../../utils/slugs'
+import titles from '../../utils/titles'
+import slugcategories from '../../utils/slugcategories'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
@@ -19,8 +23,17 @@ const Nav = () => {
 
     const refProfile = useRef(null)
     const refMenu = useRef(null)
+    const refSearch = useRef(null)
+    const [search, setSearch] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const categoriesArray = categories.map(element => element.category)
+    const linksArray = categories.map(element => element.link)
+    const titlesAndCategories = titles.concat(categoriesArray)
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutsideMenu, true)
+        document.addEventListener('click', handleClickOutsideSearch, true)
         if (localStorage.getItem('jwt')) {
             setProfile(true)
             document.addEventListener('click', handleClickOutsideProfile, true)
@@ -36,6 +49,10 @@ const Nav = () => {
     const handleClickOutsideMenu = (e) => {
         if (refMenu.current && !refMenu.current.contains(e.target))
             setDropDownMenu(false)
+    }
+    const handleClickOutsideSearch = (e) => {
+        if (refMenu.current && !refMenu.current.contains(e.target))
+            setSearch(false)
     }
     const signOut = () => {
         localStorage.clear()
@@ -62,7 +79,7 @@ const Nav = () => {
                         cursor-pointer'>Browse</a>
                     </Link>
                     </div>
-                    <div ref={refMenu} className='ml-[1rem] md:mt-[0.4rem] w-8'>
+                    <div ref={refMenu} className='ml-[1rem] mt-[0.05rem] md:mt-[0.4rem] w-8'>
                         <MenuAlt1Icon className='h-8 w-8 hover:cursor-pointer sm:hover:stroke-indigo-600' 
                                     onClick={() => setDropDownMenu(!dropDownMenu)} />
                         <div className={`flex flex-col gap-y-1 w-[8.7rem] h-[9.5rem] bg-white shadow-lg rounded relative left-0
@@ -98,23 +115,67 @@ const Nav = () => {
                   </div>
                   */ 
                 }
-                { /* <div className='flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5'>
-                    <input type='text' placeholder='Search' className='w-4 md:w-64 h-[2.3rem] bg-gray-200 border-2 border-gray-200 
-                    rounded-l hover:border-gray-300 focus:bg-white indent-2 placeholder:text-gray-700 focus:border-indigo-600 
-                    focus:outline-none hidden md:block'>
-                    </input>
-                    <div className='w-[2.3rem] h-[2.3rem] bg-gray-100 border-2 border-gray-100 rounded-r hidden md:block'>
-                        <SearchIcon className='w-5 h-5 mt-[0.4rem] ml-[0.4rem]'/>
+                <div ref={refSearch} className='flex flex-col items-center'>
+                    <div className={`flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5 
+                    ${search ? 'md:bg-white md:px-[0.3rem] md:pt-[0.3rem] md:shadow-xl md:mt-[0.3rem]' : 'none'}`}>
+                        <input type='text' placeholder='Search' className='w-4 md:w-64 h-[2.3rem] bg-gray-200 border-2 border-gray-200 
+                        rounded-l hover:border-gray-300 focus:bg-white indent-2 placeholder:text-gray-700 focus:border-indigo-600 
+                        focus:outline-none hidden md:block' 
+                        onChange={(event) => { 
+                            setSearchTerm(event.target.value)
+                            if  (event.target.value === '') { setSearch(false) }
+                            else { setSearch(true) }
+                        }}/>
+                        <div className='w-[2.3rem] h-[2.3rem] bg-gray-100 border-2 border-gray-100 rounded-r hidden md:block'>
+                            <SearchIcon className='w-5 h-5 mt-[0.4rem] ml-[0.4rem]'/>
+                        </div>
+                        <div className='w-6 h-6 md:hidden mr-[0.1rem] hover:cursor-pointer' 
+                            onClick={() => router.push('/search')}>
+                            <SearchIcon className='w-6 h-6'/>
+                        </div>
                     </div>
-                    <div className='w-6 h-6 md:hidden mr-[0.1rem]' 
-                        onClick={() => router.push('/search')}>
-                        <SearchIcon className='w-6 h-6'/>
+                    <div className={`hidden ${search ? 'md:block md:bg-white md:shadow-xl md:rounded-b md:w-[19.1rem]' : 'none'}`}>
+                            <div className='mt-2.5'></div>
+                            { titlesAndCategories.filter(element => element.substring(0,searchTerm.length).toLowerCase() === searchTerm.toLowerCase()).sort()
+                                .map((element, index) => {
+                                let titlesIndex = null
+                                let categoriesIndex = null
+                                if (titles.includes(element)) { 
+                                    titlesIndex = titles.indexOf(element)
+                                    return (
+                                    <Link href={`/${slugs[titlesIndex]}`} key={index}>
+                                        <div className='flex flex-row gap-x-2 pr-2 pl-2.5 items-center md:hover:cursor-pointer font-medium mb-2.5'>
+                                            <img src={`/category/${slugcategories[titlesIndex]}.jpg`} className='w-[1.8rem] h-[2.4rem]'/>
+                                            <p className='text-sm'>
+                                                {element[0] + element.substring(1,searchTerm.length)}
+                                                <span className='font-bold'>{element.substring(searchTerm.length)}</span>
+                                            </p>
+                                        </div>
+                                    </Link>) 
+                                }
+                                else {
+                                    categoriesIndex = categoriesArray.indexOf(element)
+                                    return (
+                                    <Link href={`/anime/${linksArray[categoriesIndex]}`} key={index}>
+                                        <div className='flex flex-row gap-x-2 pr-2 pl-2.5 items-center md:hover:cursor-pointer font-medium mb-2.5'>
+                                            <img src={`/category/${linksArray[categoriesIndex]}.jpg`} className='w-[1.8rem] h-[2.4rem]'/>
+                                            <p className='text-sm'>
+                                                {element[0] + element.substring(1,searchTerm.length)}
+                                                <span className='font-bold'>{element.substring(searchTerm.length)}</span>
+                                            </p>
+                                        </div>
+                                    </Link>)
+                                } })}
                     </div>
                 </div>
-                */
+                <div className='flex flex-row'>
+                { !profile ? 
+                <div className='w-0 lg:w-[12rem]'></div>
+                :
+                <div className='w-0 lg:w-[13.8rem]'></div>
                 }
                 { !profile ?
-                    <div className='flex flex-row mt-[0.7rem] md:mt-3 relative right-0 md:w-20 lg:w-64 justify-end'>
+                    <div className='flex flex-row mt-[0.7rem] md:mt-3 relative justify-end'>
                         <Link href='/signin'>
                             <button className='w-16 h-8 text-sm text-white font-semibold bg-indigo-600 rounded 
                             md:hover:bg-indigo-400'>
@@ -140,8 +201,9 @@ const Nav = () => {
                                     className='text-left text-sm w-[6rem] pl-1 py-1.5
                                              md:hover:bg-gray-200 md:hover:rounded'>Sign Out</button>
                         </div>
-                    </div> } 
-                </div>       
+                    </div> }
+                </div>
+                </div>
         </nav> }
         </>
     )
