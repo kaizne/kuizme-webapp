@@ -29,19 +29,19 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
     
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
-        <div className='flex flex-col items-center w-auto
-                        md:rounded-lg bg-indigo-600'>
-            <h1 className='w-80 md:w-full md:h-16 mb-4 md:mb-0 pt-4
+        <div className='flex flex-col items-center md:rounded-lg bg-indigo-600'>
+            <h1 className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl md:h-16 mb-4 md:mb-0 pt-4
                            text-center text-2xl font-medium text-white'>{title}</h1>
-            { featured && <Image className='md:rounded-b-lg' src={featured} width={600} height={338} /> }
-        </div>
-        <div className='text-center mt-3'>
-                <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
-                        className='w-[21.3rem] md:w-[37.5rem] h-12 pt-1 pb-1
-                                text-xl font-bold text-white rounded bg-indigo-600 hover:cursor-pointer
-                                hover:bg-indigo-800'>
-                                    Play</button>
+            <div className='relative w-screen max-w-sm h-56 
+                            md:max-w-2xl md:w-[37.5rem] md:h-[21.1rem]'>
+                { featured && <Image src={featured} layout='fill' /> }
             </div>
+            <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
+                    className='w-screen max-w-sm h-12 md:w-[37.5rem] md:max-w-none pt-1 pb-1
+                               text-xl font-bold text-white md:rounded-b bg-indigo-600 hover:cursor-pointer
+                             hover:bg-indigo-800'>
+                                Play</button>
+        </div>
         {section.length > 0 ? <div className='text-center relative z-10 mt-2'>
                 <button onClick={() => {if (difficulty >= difficultyList.length - 1) setDifficulty(0)
                                         else setDifficulty(difficulty + 1)}}
@@ -54,8 +54,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                                     </div>
                 </button>
         </div> : <></> }
-        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 w-80 md:w-96 mt-3
-                        border-b border-gray-300'> 
+        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3 border-b border-gray-300'> 
             <div className='flex flex-row gap-x-4'>
                 <div className='flex flex-row text-sm md:text-base'>
                     <Image src='/play.svg' width={20} height={20} />
@@ -76,25 +75,29 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         </div>
         {/*<div className='w-80 md:w-96 text-justify mt-4'>{intro}</div>
         */}
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 bg-violet-600 mt-4 text-center rounded'>
+        <div className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl
+                        py-2 bg-violet-600 mt-4 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>Quiz Description</p>
         </div> 
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.description }</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 bg-violet-600 mt-2 text-center rounded'>
+        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>How to Play</p>
         </div>
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.instructions }</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 bg-violet-600 mt-2 text-center rounded'>
+        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>{ introText.anime }</p>
         </div>
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.title }</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 bg-pink-700 mt-2 text-center rounded'>
+        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>We Care About Your Feedback</p>
         </div>
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
