@@ -7,6 +7,7 @@ const Categories = [
     {category: 'Haikyuu', image: 'haikyuu', link: 'haikyuu'},
     {category: 'Hunter x Hunter', image: 'hunter-x-hunter', link: 'hunter-x-hunter'},
     {category: 'Jujutsu Kaisen', image: 'jujutsu-kaisen', link: 'jujutsu-kaisen'},
+    {category: 'Kabaneri of the Iron Fortress', image: 'kabaneri-of-the-iron-fortress', link: 'kabaneri-of-the-iron-fortress'},
     {category: 'My Hero Academia', image: 'my-hero-academia', link: 'my-hero-academia'},
     {category: 'Naruto', image: 'naruto', link: 'naruto'},
     {category: 'One Piece', image: 'one-piece', link: 'one-piece'},
