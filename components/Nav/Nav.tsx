@@ -26,12 +26,19 @@ const Nav = () => {
     const refSearch = useRef(null)
     const [search, setSearch] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
+    const [searchPageOpen, setSearchPageOpen] = useState(false)
 
     const categoriesArray = categories.map(element => element.category)
     const linksArray = categories.map(element => element.link)
     const titlesAndCategories = titles.concat(categoriesArray)
 
     useEffect(() => {
+        if (asPath === '/search') {
+            setSearchPageOpen(true)
+        }
+        else {
+            setSearchPageOpen(false)
+        }
         document.addEventListener('click', handleClickOutsideMenu, true)
         document.addEventListener('click', handleClickOutsideSearch, true)
         if (localStorage.getItem('jwt')) {
@@ -116,8 +123,9 @@ const Nav = () => {
                   */ 
                 }
                 <div ref={refSearch} className='flex flex-col items-center'>
-                    <div className={`flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5 
-                    ${search ? 'md:bg-white md:px-[0.3rem] md:pt-[0.3rem] md:shadow-xl md:mt-[0.3rem]' : 'none'}`}>
+                        { !searchPageOpen ?  
+                        <div className={`flex flex-row mt-[1.1rem] md:mt-[0.6rem] gap-x-0.5 
+                        ${search ? 'md:bg-white md:px-[0.3rem] md:pt-[0.3rem] md:shadow-xl md:mt-[0.3rem]' : 'none'}`}>
                         <input type='text' placeholder='Search' className='w-4 md:w-64 h-[2.3rem] bg-gray-200 border-2 border-gray-200 
                         rounded-l hover:border-gray-300 focus:bg-white indent-2 placeholder:text-gray-700 focus:border-indigo-600 
                         focus:outline-none hidden md:block' 
@@ -127,13 +135,16 @@ const Nav = () => {
                             else { setSearch(true) }
                         }}/>
                         <div className='w-[2.3rem] h-[2.3rem] bg-gray-100 border-2 border-gray-100 rounded-r hidden md:block'>
-                            <SearchIcon className='w-5 h-5 mt-[0.4rem] ml-[0.4rem]'/>
+                        <SearchIcon className='w-5 h-5 mt-[0.4rem] ml-[0.4rem]'/>
                         </div>
-                        <div className='w-6 h-6 md:hidden mr-[0.1rem] hover:cursor-pointer' 
+                        </div>
+                        :
+                        <div></div>
+                        }
+                        <div className={`w-6 h-6 md:hidden mr-[0.1rem] hover:cursor-pointer ${searchPageOpen ? 'mt-[1.1rem]' : 'none'}`}
                             onClick={() => router.push('/search')}>
                             <SearchIcon className='w-6 h-6'/>
                         </div>
-                    </div>
                     <div className={`hidden ${search ? 'md:block md:bg-white md:shadow-xl md:rounded-b md:w-[19.1rem]' : 'none'}`}>
                             <div className='mt-2.5'></div>
                             { titlesAndCategories.filter(element => element.substring(0,searchTerm.length).toLowerCase() === searchTerm.toLowerCase()).sort()
