@@ -14,7 +14,20 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [likeText, setLikeText] = useState('Add to library')
     const [likeButton, setLikeButton] = useState(false)
     const animeTitle = getAnimeTitle(subcategory)
+    const jsonCharactersPh = {'1':'Light','2':'Near','3':'Mello','4':'L','5':'Rem',
+    '6':'Ryuk','7':'Mikami','8':'Matsuda','9':'Soichiro','10':'Misa'}
+    const jsonStatsPh = {'1':152,'2':141,'3':100,'4':151,'5':165,'6':71,
+    '7':26,'8':137,'9':46,'10':107}
 
+    const jsonStatsArray = []
+    for (let i in jsonStatsPh) {
+        jsonStatsArray.push(jsonStatsPh[i]);
+    }
+    const statsTotal = jsonStatsArray.reduce((partialSum, a) => partialSum + a, 0)
+
+    const colourArray = ['bg-indigo-800','bg-indigo-600','bg-sky-700','bg-cyan-600','bg-purple-600',
+    'bg-fuchsia-700','bg-pink-700','bg-pink-600','bg-rose-600','bg-red-500','bg-orange-500',
+    'bg-amber-500','bg-yellow-400']
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
@@ -139,6 +152,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
+                    <div className='flex flex-col w-1/2 items-start space-y-1 mt-4'>
+                        {jsonStatsArray.map((element, index) => {
+                        const width = (element/statsTotal)*100
+                        return (
+                            <div key={index} className='flex flex-col w-full'>
+                            <div className={`h-[2rem]
+                            ${colourArray[index]}`} style={{'width': `${width}%`}}></div>
+                            <p className=''>{jsonCharactersPh[index+1]}</p>
+                            </div>    
+                        )})}
+                    </div>
+                    
                 </div>
             )
         case 2:
