@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', 
@@ -14,20 +15,23 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [likeText, setLikeText] = useState('Add to library')
     const [likeButton, setLikeButton] = useState(false)
     const animeTitle = getAnimeTitle(subcategory)
+
     const jsonCharactersPh = {'1':'Light','2':'Near','3':'Mello','4':'L','5':'Rem',
     '6':'Ryuk','7':'Mikami','8':'Matsuda','9':'Soichiro','10':'Misa'}
     const jsonStatsPh = {'1':152,'2':141,'3':100,'4':151,'5':165,'6':71,
     '7':26,'8':137,'9':46,'10':107}
 
-    const jsonStatsArray = []
-    for (let i in jsonStatsPh) {
-        jsonStatsArray.push(jsonStatsPh[i]);
-    }
-    const statsTotal = jsonStatsArray.reduce((partialSum, a) => partialSum + a, 0)
+    let statsArray = Object.values(jsonStatsPh)
+    let charactersArray = Object.values(jsonCharactersPh)
+    const keys = Array.from(statsArray.keys()).sort((a, b) => statsArray[b] - statsArray[a])
+    const sortedStats = keys.map(i => statsArray[i])
+    const sortedCharacters = keys.map(i => charactersArray[i])
+    const statsTotal = statsArray.reduce((partialSum, a) => partialSum + a, 0)
 
     const colourArray = ['bg-indigo-800','bg-indigo-600','bg-sky-700','bg-cyan-600','bg-purple-600',
     'bg-fuchsia-700','bg-pink-700','bg-pink-600','bg-rose-600','bg-red-500','bg-orange-500',
     'bg-amber-500','bg-yellow-400']
+
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
@@ -49,6 +53,8 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     else if (title.includes('Boyfriend')) { endText = 'Your boyfriend is' }
 
     const router = useRouter()
+    const postUrl = router.asPath 
+    const postTitle = 'Head over to kuizme.com for the best anime quizzes!'
 
     const likeQuiz = () => {
         if (profile) {
@@ -122,7 +128,24 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                     text-lg text-center bg-white shadow'>
                         {conclusion}
                     </div>
-                    <div className='flex flex-col items-center mt-4'>
+                    <div className='mt-6 text-lg'>Share Your Result</div>
+                    <div className='flex flex-row w-[21rem] h-[2rem] justify-center gap-x-1'>
+                        <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
+                        className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <FacebookIcon className='h-[1.3rem] w-[1.3rem] fill-white'/>
+                            <p className='text-white'>Facebook</p>
+                        </a>
+                        <a href={`https://twitter.com/share?url=https://www.kuizme.com${postUrl}&text=${postTitle}`} target='_blank' 
+                        className='flex flex-row basis-[47.5%] bg-[#1DA1F2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/twitter.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <TwitterIcon className='h-[1.5rem] w-[1.5rem] fill-white'/>
+                            <p className='text-white'>Twitter</p>
+                        </a>
+                    </div>
+                    <div className='flex flex-col items-center mt-6'>
                         <button onClick={() => router.reload()}
                                 className='text-xl font-semibold md:hover:text-red-600'>
                             Play Again
@@ -152,18 +175,26 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
-                    <div className='flex flex-col w-1/2 items-start space-y-1 mt-4'>
-                        {jsonStatsArray.map((element, index) => {
-                        const width = (element/statsTotal)*100
+                    <div className='flex flex-row w-full justify-center'>
+                        <p className='mt-8 text-center w-[65%] md:w-3/4'>
+                        How do the results from other users compare to yours?</p>
+                    </div>
+                    <div className='flex flex-col w-3/5 lg:w-2/5 2xl:w-[30%] items-start space-y-1 mt-4'>
+                        {sortedStats.map((element, index) => {
+                        const percentage = (100*(element/statsTotal)).toFixed(1)
+                        const width = 100*(element/sortedStats[0])
                         return (
                             <div key={index} className='flex flex-col w-full'>
-                            <div className={`h-[2rem]
-                            ${colourArray[index]}`} style={{'width': `${width}%`}}></div>
-                            <p className=''>{jsonCharactersPh[index+1]}</p>
+                            <div className={`h-[0.25rem] ${colourArray[index]}`} 
+                            style={{'width': `${width}%`}}></div>
+                            <div className='flex flex-row items-center'>
+                                <p className='w-[2.2rem] text-gray-500 text-xs'>{percentage}%</p>
+                                <p className='ml-2'>{sortedCharacters[index]}</p>
+                            </div>
                             </div>    
                         )})}
                     </div>
-                    
+                    <div className='h-8'></div>
                 </div>
             )
         case 2:
