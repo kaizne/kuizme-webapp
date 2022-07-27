@@ -7,7 +7,8 @@ import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', 
-                    incrementLike, decrementLike, updateLibrary, slug }) => {
+                    incrementLike, decrementLike, updateLibrary, slug,
+                    conclusionStats, conclusionIndex, updateConclusionStats }) => {
 
     const [profile, setProfile] = useState(false)
     const [like, setLike] = useState(false)
@@ -42,6 +43,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                 setLike(true)
             }
         }
+        updateConclusionStats(slug, conclusionIndex)
     }, [])
                         
     let text = 'Nice.'

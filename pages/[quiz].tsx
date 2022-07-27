@@ -92,6 +92,12 @@ const Quiz = ({ quizData }) => {
         })
     }
 
+    const updateConclusionStats = async (slug, key) => {
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
+            method: 'PATCH'
+        })
+    }
+
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -180,7 +186,10 @@ const Quiz = ({ quizData }) => {
                         incrementLike={incrementLike}
                         decrementLike={decrementLike}
                         updateLibrary={updateLibrary} 
-                        slug={quizData.slug} /> 
+                        slug={quizData.slug}
+                        conclusionStats={quizData.conclusionStats}
+                        conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
+                        updateConclusionStats={updateConclusionStats} /> 
         </div>
         </>
     )
@@ -204,6 +213,15 @@ const calculateConclusionTally = (tally, conclusion) => {
         const max = Math.max(...tally)
         const index = tally.indexOf(max) + 1
         return conclusion[index] 
+    }
+    return
+}
+
+const calculateConclusionTallyIndex = (tally, conclusion) => {
+    if (conclusion !== null) {
+        const max = Math.max(...tally)
+        const index = tally.indexOf(max) + 1
+        return index
     }
     return
 }
