@@ -197,7 +197,7 @@ const Entry = ({ answer=null,
                             <button key={index}
                                     className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
                                                 text-md font-medium
-                                                ${choice === index && disable ? 'bg-sky-400' : 'bg-white'}`}
+                                                ${choice === index && disable ? 'bg-violet-300' : 'bg-white'}`}
                                     onClick={() => selectPersonality(elem, index)}
                                     disabled={disable}>
                                     {entry.content[elem]}
