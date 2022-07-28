@@ -16,6 +16,7 @@ const Entry = ({ answer=null,
                  setTally=null,
                  scroll=null,
                  scrollConclusion=null,
+                 start=true
                 }) => {  
 
     const [selection, setSelection] = useState([])
@@ -25,13 +26,16 @@ const Entry = ({ answer=null,
     const [shuffled, setShuffled] = useState(false)
     const [hide, setHide] = useState(false)
     const [animation, setAnimation] = useState(false)
+    const [muted, setMuted] = useState(false)
+    const [autoPlay, setAutoPlay] = useState(false)
     
     // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
+        playAudio()
         if (type === 0) setSelection(generateEntries())
-        if (type === 2) {
+        if (type === 2 || type === 3) {
             for (let i = 0; i < Object.keys(entry.content).length; i++)
                 setColors(colors => [...colors, 'bg-white'])
         }
@@ -143,6 +147,43 @@ const Entry = ({ answer=null,
             }  
         }, 900)
     }
+
+    const selectAudio = (selection, index) => {
+        setMuted(true)
+        setDisable(true)
+        setTimeout(() => setAnimation(true), 500)
+        
+        const correct = Object.keys(entry.content).indexOf('a')
+        if (selection === 'a') {
+            setColors(colors => {
+                colors[index] = 'bg-emerald-400'
+                return colors
+            })
+        } else {
+            setColors(colors => {
+                colors[index] = 'bg-red-400'
+                colors[correct] = 'bg-emerald-400'
+                return colors
+            })
+        }
+        setTally(tally => {
+            if (selection === 'a') { tally[0]++ }
+            return tally
+        })
+        setChoice(index)
+        setTimeout(() => {
+            setAnimation(false)
+            setHide(true)
+            setCurrentQuestion(currentQuestion + 1)
+            if (currentQuestion + 1 === size) {
+                setFinish(true)
+                scrollConclusion()
+            } else {
+                // scroll(currentQuestion + 1)
+            }  
+        }, 900)
+    }
+
     if (!shuffled && type == 2) {
         entry.content = Object.entries(entry.content)
         entry.content = shuffleArray(entry.content)
@@ -155,6 +196,12 @@ const Entry = ({ answer=null,
 
     if (type === 0) {
         if (imageSize[0]/imageSize[1] > 1.5) typeZeroImgWidth = typeZeroImgHeight * 16 / 9
+    }
+
+    const playAudio = () => {
+        if (currentQuestion === question && start) {
+            setTimeout(() => setAutoPlay(true), 500)
+        }
     }
 
     return (
@@ -227,7 +274,23 @@ const Entry = ({ answer=null,
                     </div>
                 </div>
                 </>
-            : <></> }
+            : <>
+              {currentQuestion === question && start ? playAudio() : ''}
+              <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
+              <audio controls src={entry.media.data[0].attributes.url} muted={muted} 
+                     autoPlay={autoPlay}></audio>
+              <div className='grid grid-cols-1 gap-y-2 mt-4'>
+                        { Object.keys(entry.content).map((elem, index) => 
+                            <button key={index}
+                                    className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                text-md font-medium ${colors[index]}`}
+                                    onClick={() => selectAudio(elem, index)}
+                                    disabled={disable}>
+                                    {entry.content[elem]}
+                            </button>
+                        )}
+                    </div>
+              </> }
             </div>
         </>
     )

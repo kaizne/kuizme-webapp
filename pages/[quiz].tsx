@@ -172,7 +172,8 @@ const Quiz = ({ quizData }) => {
                     entries={quizData.entry}
                     sections={quizData.section}
                     setTally={setTally} scrollConclusion={scrollConclusion}
-                    difficulty={difficulty} setDifficulty={setDifficulty} />
+                    difficulty={difficulty} setDifficulty={setDifficulty}
+                    start={start} />
         </div>
         <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 
@@ -231,7 +232,7 @@ const calculateTriviaTally = (tally) => {
 }
 
 const findImage = (name: string, images, type) => {
-    if (type !== 0 && type !== 2) {
+    if (type !== 0 && type !== 2 && type !== 3) {
         const searchName = name.toLowerCase().replace(/ /g, '-')
         for (let image of images.data) {
             const imageName = image.attributes.name.split('.', 1)[0]

@@ -237,6 +237,45 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     </div>
                 </div>
             )
+        case 3:
+            return (
+                <div className='flex flex-col h-screen justify-center items-center'>
+                    <div className='text-4xl text-center'>
+                        You scored {triviaScore}/{total}.</div>
+                    <div className='text-3xl text-violet-600'>{text}</div>
+                    <div className='flex flex-col items-center mt-4'>
+                        <button onClick={() => router.reload()}
+                                className='text-xl font-semibold md:hover:text-red-600'>
+                            Play Again
+                        </button>
+                        {/*<div className='flex flex-row items-center mt-2'>
+                            <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
+                            <button onClick={() => likeQuiz()}
+                                    className='ml-1 text-xl font-semibold md:hover:text-red-600'>
+                                {likeText}
+                            </button>
+                        </div>
+                        */}
+                        {/*<div className={`${error ? 'none' : 'invisible'} mt-1 text-red-500`}>
+                            Please sign in to add to library.
+                        </div>
+                        */}
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime/${subcategory}`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Try Other {animeTitle} Quizzes</button>
+                        </Link>
+                    </div>
+                    <div className='flex flex-col items-center mt-2'>
+                        <Link href={`/anime`}>
+                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            Browse Anime Quizzes</button>
+                        </Link>
+                    </div>
+                </div>
+            )
+            
     }
 }
 

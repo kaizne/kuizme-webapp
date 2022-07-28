@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
                 type, entries, sections, setTally=null, scrollConclusion,
-                difficulty, setDifficulty }) => {
+                difficulty, setDifficulty, start }) => {
 
     const [data, setData] = useState([])
     const questionsRef = useRef([])
@@ -16,7 +16,7 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                         .map(value => ({ value, sort: Math.random() }))
                         .sort((a, b) => a.sort - b.sort)
                         .map(({ value }) => value )
-        } else if (type === 1) {
+        } else if (type === 1 || type === 3) {
             newData = entries.map(value => ({ value, sort: Math.random() }))
                              .sort((a, b) => a.sort - b.sort)
                              .map(({ value }) => value )
@@ -71,8 +71,8 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                             scroll={scroll}
                             scrollConclusion={scrollConclusion} />
                     </div>
-                )
-                :
+                ) :
+                type === 2 ? 
                 data.map((entry, index) => 
                 <div key={index} ref={el => questionsRef.current[index] = el}>
                     <Entry key={index} 
@@ -87,7 +87,22 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                         scroll={scroll}
                         scrollConclusion={scrollConclusion} />
                 </div>
-                )
+                ) :
+                data.map((entry, index) => <div key={index} ref={el => questionsRef.current[index] = el}>
+                <Entry key={index} 
+                            entry={entry} 
+                            question={index}
+                            type={type} 
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion}
+                            size={data.length}
+                            setFinish={setFinish}
+                            setTally={setTally}
+                            scroll={scroll}
+                            scrollConclusion={scrollConclusion}
+                            start={start} />
+            </div>
+            )
             }
         </div>
     )
