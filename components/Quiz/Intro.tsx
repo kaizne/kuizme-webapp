@@ -5,13 +5,13 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                  difficulty, setDifficulty, label }) => {
 
     const [difficultyList, setDifficultyList] = useState([])
-    if (label === 'popular') {
-        plays += 30
-    }
-    else if (label === 'trending') {
-        plays += 10
-    }
     useEffect(() => {
+        if (label === 'popular') {
+            plays += 30
+        }
+        else if (label === 'trending') {
+            plays += 10
+        }
         for (let idx in section)
             if (!difficultyList.includes(section[idx].difficulty)) {
                 setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
