@@ -218,7 +218,8 @@ const Entry = ({ answer=null,
             </p>
             { type === 0 ? 
                 <>
-                { imageUrl && <Image className='rounded' src={imageUrl} width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
+                { imageUrl && <Image className='rounded' src={imageUrl} priority
+                                     width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
                         { selection.map((elem, index) =>
@@ -237,7 +238,8 @@ const Entry = ({ answer=null,
             { type === 1 ? 
                 <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} width={150} height={150} /> }
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} priority 
+                                              width={150} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
                         { Object.keys(entry.content).map((elem, index) => 
@@ -258,7 +260,8 @@ const Entry = ({ answer=null,
                 <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
                 <div className='relative w-80 h-44'>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} layout='fill' /> }
+                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} 
+                                              layout='fill' priority /> }
                 </div>
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>

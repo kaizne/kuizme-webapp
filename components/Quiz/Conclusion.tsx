@@ -124,7 +124,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
             return ( 
                 <div className='flex flex-col min-h-screen justify-center items-center bg-white'>
                     <div className='mt-2 text-black text-3xl'>{endText}</div>
-                    { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} /> }
+                    { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} priority /> }
                     <div className='text-3xl mt-2 text-violet-600'>{character}</div>
                     <div className='w-80 md:w-96 mt-2 p-2 rounded 
                                     text-lg text-center bg-white shadow'>
