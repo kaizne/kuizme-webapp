@@ -34,7 +34,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                            text-center text-2xl font-medium text-white'>{title}</h1>
             <div className='relative w-screen max-w-sm h-56 
                             md:max-w-2xl md:w-[37.5rem] md:h-[21.1rem]'>
-                { featured && <Image src={featured} layout='fill' /> }
+                { featured && <Image src={featured} layout='fill' priority /> }
             </div>
             <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
                     className='w-screen max-w-sm h-12 md:w-[37.5rem] md:max-w-none pt-1 pb-1
