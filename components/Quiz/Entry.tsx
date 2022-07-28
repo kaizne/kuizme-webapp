@@ -81,7 +81,7 @@ const Entry = ({ answer=null,
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true) 
-                scrollConclusion()
+                // scrollConclusion()
             } else {
                 // scroll(currentQuestion + 1)
             }     
@@ -106,7 +106,7 @@ const Entry = ({ answer=null,
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
-                scrollConclusion()
+                // scrollConclusion()
             } else {
                 // scroll(currentQuestion + 1)
             }  
@@ -141,7 +141,7 @@ const Entry = ({ answer=null,
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
-                scrollConclusion()
+                // scrollConclusion()
             } else {
                 // scroll(currentQuestion + 1)
             }  
@@ -177,7 +177,7 @@ const Entry = ({ answer=null,
             setCurrentQuestion(currentQuestion + 1)
             if (currentQuestion + 1 === size) {
                 setFinish(true)
-                scrollConclusion()
+                // scrollConclusion()
             } else {
                 // scroll(currentQuestion + 1)
             }  
@@ -274,23 +274,26 @@ const Entry = ({ answer=null,
                     </div>
                 </div>
                 </>
-            : <>
-              {currentQuestion === question && start ? playAudio() : ''}
-              <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-              <audio controls src={entry.media.data[0].attributes.url} muted={muted} 
-                     autoPlay={autoPlay}></audio>
-              <div className='grid grid-cols-1 gap-y-2 mt-4'>
-                        { Object.keys(entry.content).map((elem, index) => 
-                            <button key={index}
-                                    className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
-                                                text-md font-medium ${colors[index]}`}
-                                    onClick={() => selectAudio(elem, index)}
-                                    disabled={disable}>
-                                    {entry.content[elem]}
-                            </button>
-                        )}
-                    </div>
-              </> }
+            : <></> }
+            { type === 3 ? 
+                <>
+                {currentQuestion === question && start ? playAudio() : ''}
+                <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
+                <audio controls src={entry.media.data[0].attributes.url} muted={muted} 
+                        autoPlay={autoPlay}></audio>
+                <div className='grid grid-cols-1 gap-y-2 mt-4'>
+                            { Object.keys(entry.content).map((elem, index) => 
+                                <button key={index}
+                                        className={`w-80 h-14 pl-2 pr-2 pt-1 pb-1 rounded shadow-sm
+                                                    text-md font-medium ${colors[index]}`}
+                                        onClick={() => selectAudio(elem, index)}
+                                        disabled={disable}>
+                                        {entry.content[elem]}
+                                </button>
+                            )}
+                        </div>
+                </> 
+            : <></> }
             </div>
         </>
     )

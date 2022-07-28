@@ -144,7 +144,7 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
         </Head>
-        <div className={`flex flex-col flex-1 bg-slate-50 
+        <div className={`flex flex-col flex-1 bg-white
                         ${!start ? 'none' : 'hidden'}`}>
             <Intro title={quizData.title} 
                     intro={quizData.intro}
@@ -160,7 +160,7 @@ const Quiz = ({ quizData }) => {
                     label={quizData.label}/>
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
-                        ${start ? 'none' : 'hidden'}`}>                
+                        ${start && !finish ? 'none' : 'hidden'}`}>                
             <Body info={quizData.info} 
                     infoCopy={infoCopy}
                     images={quizData.image}
@@ -175,7 +175,8 @@ const Quiz = ({ quizData }) => {
                     difficulty={difficulty} setDifficulty={setDifficulty}
                     start={start} />
         </div>
-        <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
+        <div ref={conclusionRef} className={`flex flex-col flex-1 pt-10
+                                            ${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 
                         character={calculateTally(tally, quizData.info)} 
                         characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}

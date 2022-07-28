@@ -83,7 +83,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     switch (type) {
         case 0:
             return (
-                <div className='flex flex-col h-screen justify-center items-center'>
+                <div className='flex flex-col flex-1 justify-center items-center'>
                     <div className='text-4xl text-center'>
                         You scored {score}/{total}.
                     </div>
@@ -122,7 +122,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
             )
         case 1:
             return ( 
-                <div className='flex flex-col min-h-screen justify-center items-center mt-4 md:mt-0'>
+                <div className='flex flex-col min-h-screen justify-center items-center bg-white'>
                     <div className='mt-2 text-black text-3xl'>{endText}</div>
                     { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} /> }
                     <div className='text-3xl mt-2 text-violet-600'>{character}</div>
