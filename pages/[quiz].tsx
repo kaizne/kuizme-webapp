@@ -175,7 +175,7 @@ const Quiz = ({ quizData }) => {
                     difficulty={difficulty} setDifficulty={setDifficulty}
                     start={start} />
         </div>
-        <div ref={conclusionRef} className={`flex flex-col flex-1 pt-10
+        <div ref={conclusionRef} className={`flex flex-col flex-1
                                             ${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 
                         character={calculateTally(tally, quizData.info)} 

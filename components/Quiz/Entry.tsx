@@ -40,6 +40,12 @@ const Entry = ({ answer=null,
                 setColors(colors => [...colors, 'bg-white'])
         }
         else setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
+        if (!shuffled && (type === 2 || type === 3)) {
+            entry.content = Object.entries(entry.content)
+            entry.content = shuffleArray(entry.content)
+            entry.content = Object.fromEntries(entry.content)
+            setShuffled(true)
+        }
     }, [])
 
     useEffect(() => {}, [colors, animation])
@@ -182,13 +188,6 @@ const Entry = ({ answer=null,
                 // scroll(currentQuestion + 1)
             }  
         }, 900)
-    }
-
-    if (!shuffled && type == 2) {
-        entry.content = Object.entries(entry.content)
-        entry.content = shuffleArray(entry.content)
-        entry.content = Object.fromEntries(entry.content)
-        setShuffled(true)
     }
 
     let typeZeroImgWidth = 150

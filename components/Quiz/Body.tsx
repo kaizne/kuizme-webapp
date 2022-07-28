@@ -34,7 +34,6 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value ) 
         }
-
         setData(newData)
     }, [difficulty])
 
