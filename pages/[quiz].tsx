@@ -21,7 +21,6 @@ const Quiz = ({ quizData }) => {
     }
     
     useEffect(() => {
-        console.log(quizData.featured.data.attributes.url)
         if (quizData.limit !== null) { 
             setTotal(quizData.limit) 
         }
