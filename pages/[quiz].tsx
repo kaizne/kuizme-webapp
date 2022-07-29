@@ -14,6 +14,11 @@ const Quiz = ({ quizData }) => {
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
+    const imageUrlArray = []
+    if (quizData.type === 1) 
+    for (let i = 0; i < quizData.image.data.length; i++) {
+        imageUrlArray.push(findImage(quizData.info[i+1], quizData.image, quizData.type))
+    }
     
     useEffect(() => {
         if (quizData.limit !== null) { 
@@ -184,12 +189,14 @@ const Quiz = ({ quizData }) => {
                         category={quizData.category}
                         subcategory={quizData.subcategory}
                         title={quizData.title}
+                        imageUrls={imageUrlArray}
                         triviaScore={calculateTriviaTally(tally)}
                         incrementLike={incrementLike}
                         decrementLike={decrementLike}
                         updateLibrary={updateLibrary} 
                         slug={quizData.slug}
                         conclusionStats={quizData.conclusionStats}
+                        conclusionCharacters={quizData.info}
                         conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
                         updateConclusionStats={updateConclusionStats} /> 
         </div>
