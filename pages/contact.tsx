@@ -5,7 +5,7 @@ const contact = () => {
   <>
     <div className='flex flex-row h-25v sm:h-30v bg-indigo-600 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-white text-center w-4/6
+      <p className='text-sm md:text-xl lg:text-2xl text-white text-center w-4/6
       mt-8'>
         Here at Kuizme, we care about every single one of our visitors.
         We strive to ensure that our visitors are always entertained and satisfied with
@@ -14,7 +14,7 @@ const contact = () => {
     </div>
     <div className='flex flex-row h-25v sm:h-30v bg-indigo-600 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-white text-center w-4/6
+      <p className='text-sm md:text-xl lg:text-2xl text-white text-center w-4/6
       mb-8'>
         If you have any questions or concerns, find any bugs, or have
         any trouble at all, please reach out to us at 
@@ -23,7 +23,7 @@ const contact = () => {
     </div>
     <div className='flex flex-row h-25v sm:h-30v 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-black text-center w-4/6
+      <p className='text-sm md:text-xxl lg:text-2xl text-black text-center w-4/6
       mt-8'>
         For news, promotions, and all things quizzes, follow Kuizme on Facebook,
         Instagram, and Twitter!

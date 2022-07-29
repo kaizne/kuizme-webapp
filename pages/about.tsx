@@ -3,7 +3,7 @@ const about = () => {
   <>
     <div className='flex flex-row h-25v sm:h-30v bg-indigo-600 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-white text-center w-5/6 md:w-4/6
+      <p className='text-sm md:text-xl lg:text-2xl text-white text-center w-5/6 md:w-4/6
       mt-8'>
         Kuizme is a place for casual and veteran anime enjoyers alike to 
         discover their personality types, match with their kins, and
@@ -12,7 +12,7 @@ const about = () => {
     </div>
     <div className='flex flex-row h-25v sm:h-30v bg-indigo-600 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-white text-center w-5/6 md:w-4/6
+      <p className='text-sm md:text-xl lg:text-2xl text-white text-center w-5/6 md:w-4/6
       mb-8'>
         Whether you have seen two anime or two dozen, 
         and whether it has been two days since you last watched 
@@ -21,15 +21,15 @@ const about = () => {
     </div>
     <div className='flex flex-row h-25v sm:h-30v 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-black text-center w-5/6 md:w-4/6'>
-        Kuizme was founded by two friends with a shared passion for quizzes,
+      <p className='text-sm md:text-xl lg:text-2xl text-black text-center w-5/6 md:w-4/6'>
+        Kuizme was founded by three friends with a shared passion for quizzes,
         web development, and anime. Our goal at Kuizme is to provide high quality
         quizzes with a sleek user experience.
       </p>
     </div>
     <div className='flex flex-row h-25v sm:h-30v 
     justify-center items-center'>
-      <p className='text-sm md:text-2xl lg:text-4xl text-black text-center w-5/6 md:w-4/6'>
+      <p className='text-sm md:text-xl lg:text-2xl text-black text-center w-5/6 md:w-4/6'>
         We hope you will stick with us as we continue to improve your experience 
         and expand our content library. If you have any suggestions, find any bugs, 
         or notice any inaccuracies, please contact us
