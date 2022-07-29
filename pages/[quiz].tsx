@@ -21,6 +21,7 @@ const Quiz = ({ quizData }) => {
     }
     
     useEffect(() => {
+        console.log(quizData.featured.data.attributes.url)
         if (quizData.limit !== null) { 
             setTotal(quizData.limit) 
         }
@@ -149,10 +150,9 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
             <meta property='og:description' content={quizData.intro} />
-            <meta property='og:image' content={quizData.featured} />
+            <meta property='og:image' content={quizData.featured.data.attributes.url} />
             <meta property='og:image:width' content='1200' />
             <meta property='og:image:height' content='630' />
-            <meta property='og:url' content={`https://www.kuizme.com/${quizData.slug}`} />
         </Head>
         <div className={`flex flex-col flex-1 bg-white
                         ${!start ? 'none' : 'hidden'}`}>
