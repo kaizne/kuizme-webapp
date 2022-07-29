@@ -15,7 +15,7 @@ const Scroll = () => {
 
     useEffect(() => {
         setWidth(window.innerWidth)
-        if (!isMobile) setCategories(categories.concat(Categories))
+        // if (!isMobile) setCategories(categories.concat(Categories))
     }, [width])
 
     useEffect(() => {
