@@ -37,8 +37,11 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     }
     const relativePercentage = characterPercentages[score-1]*/
     let statsArray = []
-    statsArray = Object.values(conclusionStats)
-    let charactersArray = Object.values(conclusionCharacters)
+    let charactersArray = []
+    if (type === 1) {
+        statsArray = Object.values(conclusionStats)
+        charactersArray = Object.values(conclusionCharacters)
+    }
     const keys = Array.from(statsArray.keys()).sort((a, b) => statsArray[b] - statsArray[a])
     const sortedStats = keys.map(i => statsArray[i])
     const sortedCharacters = keys.map(i => charactersArray[i])
