@@ -148,7 +148,7 @@ const Nav = () => {
                     <div className={`hidden ${search ? 'md:block md:bg-white md:shadow-xl md:rounded-b md:w-[19.1rem]' : 'none'}`}>
                             <div className='mt-2.5'></div>
                             { titlesAndCategories.filter(element => element.substring(0,searchTerm.length).toLowerCase() === searchTerm.toLowerCase()).sort()
-                                .map((element, index) => {
+                                .slice(0,7).map((element, index) => {
                                 let titlesIndex = null
                                 let categoriesIndex = null
                                 if (titles.includes(element)) { 

@@ -92,6 +92,12 @@ const Quiz = ({ quizData }) => {
         })
     }
 
+    const updateConclusionStats = async (slug, key) => {
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
+            method: 'PATCH'
+        })
+    }
+
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -138,7 +144,7 @@ const Quiz = ({ quizData }) => {
         <Head>
             {titleAndMeta}
         </Head>
-        <div className={`flex flex-col flex-1 bg-slate-50 
+        <div className={`flex flex-col flex-1 bg-white
                         ${!start ? 'none' : 'hidden'}`}>
             <Intro title={quizData.title} 
                     intro={quizData.intro}
@@ -154,7 +160,7 @@ const Quiz = ({ quizData }) => {
                     label={quizData.label}/>
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
-                        ${start ? 'none' : 'hidden'}`}>                
+                        ${start && !finish ? 'none' : 'hidden'}`}>                
             <Body info={quizData.info} 
                     infoCopy={infoCopy}
                     images={quizData.image}
@@ -166,9 +172,11 @@ const Quiz = ({ quizData }) => {
                     entries={quizData.entry}
                     sections={quizData.section}
                     setTally={setTally} scrollConclusion={scrollConclusion}
-                    difficulty={difficulty} setDifficulty={setDifficulty} />
+                    difficulty={difficulty} setDifficulty={setDifficulty}
+                    start={start} />
         </div>
-        <div ref={conclusionRef} className={`${finish ? 'none' : 'hidden'}`}> 
+        <div ref={conclusionRef} className={`flex flex-col flex-1
+                                            ${finish ? 'none' : 'hidden'}`}> 
             <Conclusion type={quizData.type} score={score} total={total} 
                         character={calculateTally(tally, quizData.info)} 
                         characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
@@ -180,7 +188,10 @@ const Quiz = ({ quizData }) => {
                         incrementLike={incrementLike}
                         decrementLike={decrementLike}
                         updateLibrary={updateLibrary} 
-                        slug={quizData.slug} /> 
+                        slug={quizData.slug}
+                        conclusionStats={quizData.conclusionStats}
+                        conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
+                        updateConclusionStats={updateConclusionStats} /> 
         </div>
         </>
     )
@@ -208,12 +219,21 @@ const calculateConclusionTally = (tally, conclusion) => {
     return
 }
 
+const calculateConclusionTallyIndex = (tally, conclusion) => {
+    if (conclusion !== null) {
+        const max = Math.max(...tally)
+        const index = tally.indexOf(max) + 1
+        return index
+    }
+    return
+}
+
 const calculateTriviaTally = (tally) => {
     return tally[0]
 }
 
 const findImage = (name: string, images, type) => {
-    if (type !== 0 && type !== 2) {
+    if (type !== 0 && type !== 2 && type !== 3) {
         const searchName = name.toLowerCase().replace(/ /g, '-')
         for (let image of images.data) {
             const imageName = image.attributes.name.split('.', 1)[0]
@@ -305,7 +325,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry,section.entry`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.entry`)
     const data = await res.json()
     const quizData = data.data.attributes
     return {

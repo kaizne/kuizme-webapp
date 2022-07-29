@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
+import {
+    ChatIcon,
+    EyeIcon,
+    HeartIcon,
+    ShareIcon,
+} from '@heroicons/react/outline'
 
 const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
-                 difficulty, setDifficulty, label }) => {
+                 difficulty, setDifficulty, label, comments=0, shares=0 }) => {
 
     const [difficultyList, setDifficultyList] = useState([])
-    if (label === 'popular') {
-        plays += 30
-    }
-    else if (label === 'trending') {
-        plays += 10
-    }
     useEffect(() => {
+        if (label === 'popular') {
+            plays += 30
+        }
+        else if (label === 'trending') {
+            plays += 10
+        }
         for (let idx in section)
             if (!difficultyList.includes(section[idx].difficulty)) {
                 setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
@@ -34,7 +40,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                            text-center text-2xl font-medium text-white'>{title}</h1>
             <div className='relative w-screen max-w-sm h-56 
                             md:max-w-2xl md:w-[37.5rem] md:h-[21.1rem]'>
-                { featured && <Image src={featured} layout='fill' /> }
+                { featured && <Image src={featured} layout='fill' priority /> }
             </div>
             <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
                     className='w-screen max-w-sm h-12 md:w-[37.5rem] md:max-w-none pt-1 pb-1
@@ -54,27 +60,39 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                                     </div>
                 </button>
         </div> : <></> }
-        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3 border-b border-gray-300'> 
+        <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3'> 
             <div className='flex flex-row gap-x-4'>
-                <div className='flex flex-row text-sm md:text-base'>
-                    <Image src='/play.svg' width={20} height={20} />
-                    <span><span className='font-semibold'>&nbsp;{plays}</span> Plays</span>
+                <div className='flex flex-row text-base'>
+                    <EyeIcon className='w-6 h-6' />
+                    <span><span className='ml-1 font-semibold'>{plays} </span> 
+                          <span className='hidden md:inline'>Plays</span></span>
                 </div>
-            <div className='flex flex-row text-base'>
-                <Image src='/date.svg' width={20} height={20} />
-                <div className='text-sm md:text-base font-semibold'>
-                    {publishedAt} 
+                <div className='flex flex-row text-base'>
+                    <HeartIcon className='w-6 h-6' />
+                    <span><span className='ml-1 font-semibold'>{likes} </span> 
+                        <span className='hidden md:inline'>Likes</span></span>
                 </div>
-            </div>
-            
-            <div className='flex flex-row text-base'>
-                <Image src='/red-heart.svg' width={20} height={20} />
-                <span><span className='ml-1 font-semibold'>{likes}</span> Likes</span>
-            </div>
+                <div className='flex flex-row text-base'>
+                    <ChatIcon className='w-6 h-6' />
+                    <span><span className='ml-1 font-semibold'>{comments} </span> 
+                        <span className='hidden md:inline'>Comments</span></span>
+                </div>
+                <div className='flex flex-row text-base'>
+                    <ShareIcon className='w-6 h-6' />
+                    <span><span className='ml-1 font-semibold'>{shares} </span> 
+                        <span className='hidden md:inline'>Shares</span></span>
+                </div>
+                { /*
+                <div className='flex flex-row text-base'>
+                    <Image src='/date.svg' width={20} height={20} />
+                    <div className='text-sm md:text-base'>
+                        {publishedAt} 
+                    </div>
+                </div>
+                */ }
             </div>
         </div>
-        {/*<div className='w-80 md:w-96 text-justify mt-4'>{intro}</div>
-        */}
+        { /* <div className='w-80 md:w-96 text-justify mt-4'>{intro}</div> */ }
         <div className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl
                         py-2 bg-violet-600 mt-4 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>Quiz Description</p>

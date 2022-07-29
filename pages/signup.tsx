@@ -73,17 +73,17 @@ const Signup = () => {
     return (
         <>
         { !isSubmit ? 
-        <div className='min-h-screen'>
+        <div className='flex-1'>
             <form onSubmit={handleSubmit} className='flex flex-col items-center'>
                 <Link href='/'>
-                    <button className='mt-8 md:mt-12 text-center hover:text-indigo-400
+                    <button className='mt-8 text-center hover:text-indigo-400
                                        text-2xl font-semibold text-indigo-600'>Kuizme</button>
                 </Link>
                 <h1 className='mt-2 text-center
                                text-xl font-semibold'>Sign Up</h1>
                 <div className='text-center mt-2'>
-                    Or <span className='text-sky-500
-                                        hover:text-sky-600'>
+                    Or <span className='text-indigo-600
+                                        hover:text-indigo-400'>
                         <Link href='/signin'>sign in</Link></span> to your account</div>
                 <div className='flex flex-col w-80 h-20 mt-4 text-lg'>
                     <label className='font-medium'>Email</label>
@@ -110,21 +110,21 @@ const Signup = () => {
                     <p className='text-sm text-red-500'>{formErrors.username}</p>
                 </div>
                 <button className={`w-80 h-10 mt-3 rounded text-white 
-                                   ${isDisable ? 'bg-sky-500 hover:bg-sky-600 hover:cursor-pointer' 
+                                   ${isDisable ? 'bg-indigo-600 hover:bg-indigo-400 hover:cursor-pointer' 
                                                : 'bg-gray-300'}`}
                         disabled={!isDisable}>
                                 Sign up</button>
                 <div className='w-80 mt-4 ml-1 text-sm'>
                     By signing up, you are agreeing to the  
-                    <span className='text-sky-500 hover:text-sky-600'><a href='https://www.kuizme.com/terms-of-service'
+                    <span className='text-indigo-600 hover:text-indigo-400'><a href='https://www.kuizme.com/terms-of-service'
                     target='_blank'> Terms of Conditions </a></span> and 
-                    <span className='text-sky-500 hover:text-sky-600'><a href='https://www.kuizme.com/privacy'
+                    <span className='text-indigo-600 hover:text-indigo-400'><a href='https://www.kuizme.com/privacy'
                     target='_blank'> Privacy Policy</a></span>.
                 </div>
             </form>
         </div>
         : 
-        <div className='min-h-screen flex justify-center'>
+        <div className='flex flex-1 justify-center'>
             <div>
                 <div className='text-center'>
                     <Link href='/'>
