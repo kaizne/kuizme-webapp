@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
+import { relative } from 'node:path/win32'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
-                    conclusion='', category='', subcategory='', title='', 
+                    conclusion='', category='', subcategory='', title='', imageUrls,
                     incrementLike, decrementLike, updateLibrary, slug,
-                    conclusionStats, conclusionIndex, updateConclusionStats }) => {
+                    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats }) => {
 
     const [profile, setProfile] = useState(false)
     const [like, setLike] = useState(false)
@@ -17,21 +18,39 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [likeButton, setLikeButton] = useState(false)
     const animeTitle = getAnimeTitle(subcategory)
 
-    const jsonCharactersPh = {'1':'Light','2':'Near','3':'Mello','4':'L','5':'Rem',
-    '6':'Ryuk','7':'Mikami','8':'Matsuda','9':'Soichiro','10':'Misa'}
-    const jsonStatsPh = {'1':152,'2':141,'3':100,'4':151,'5':165,'6':71,
-    '7':26,'8':137,'9':46,'10':107}
+    // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
 
-    let statsArray = Object.values(jsonStatsPh)
-    let charactersArray = Object.values(jsonCharactersPh)
+    // variables beginning with character are for type 0 and type 2
+    /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
+    const characterTotal = characterStatsArray.reduce((partialSum, a) => partialSum + a, 0)
+    let characterPartialSums = []
+    for (let i = 0; i < characterStatsArray.length; i++) {
+        let partialSum = 0
+        for (let j = i; j >= 0; j--) {
+            partialSum += characterStatsArray[j]
+        }
+        characterPartialSums.push(partialSum)
+    }
+    const characterPercentages = []
+    for (let element of characterPartialSums) {
+        characterPercentages.push(100*(element/characterTotal))
+    }
+    const relativePercentage = characterPercentages[score-1]*/
+    let statsArray = []
+    let charactersArray = []
+    if (type === 1) {
+        statsArray = Object.values(conclusionStats)
+        charactersArray = Object.values(conclusionCharacters)
+    }
     const keys = Array.from(statsArray.keys()).sort((a, b) => statsArray[b] - statsArray[a])
     const sortedStats = keys.map(i => statsArray[i])
     const sortedCharacters = keys.map(i => charactersArray[i])
+    const sortedImageUrls = keys.map(i => imageUrls[i])
     const statsTotal = statsArray.reduce((partialSum, a) => partialSum + a, 0)
 
-    const colourArray = ['bg-indigo-800','bg-indigo-600','bg-sky-700','bg-cyan-600','bg-purple-600',
-    'bg-fuchsia-700','bg-pink-700','bg-pink-600','bg-rose-600','bg-red-500','bg-orange-500',
-    'bg-amber-500','bg-yellow-400']
+    const colourArray = ['bg-indigo-900','bg-indigo-800','bg-indigo-700','bg-indigo-600','bg-indigo-500',
+    'bg-indigo-400','bg-indigo-300','bg-violet-400','bg-violet-500','bg-violet-600','bg-violet-700',
+    'bg-violet-800','bg-violet-900']
 
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
@@ -88,6 +107,23 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         You scored {score}/{total}.
                     </div>
                     <div className='text-3xl text-violet-600'>{text}</div>
+                    <div className='mt-4 text-lg'>Share Your Score</div>
+                    <div className='flex flex-row w-[21rem] h-[2rem] justify-center gap-x-1'>
+                        <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
+                        className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <FacebookIcon className='h-[1.3rem] w-[1.3rem] fill-white'/>
+                            <p className='text-white'>Facebook</p>
+                        </a>
+                        <a href={`https://twitter.com/share?url=https://www.kuizme.com${postUrl}&text=${postTitle}`} target='_blank' 
+                        className='flex flex-row basis-[47.5%] bg-[#1DA1F2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/twitter.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <TwitterIcon className='h-[1.5rem] w-[1.5rem] fill-white'/>
+                            <p className='text-white'>Twitter</p>
+                        </a>
+                    </div>
                     <div className='flex flex-col items-center mt-4'>
                         <button onClick={() => router.reload()}
                                 className='text-xl font-semibold md:hover:text-red-600'>
@@ -185,13 +221,16 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         {sortedStats.map((element, index) => {
                         const percentage = (100*(element/statsTotal)).toFixed(1)
                         const width = 100*(element/sortedStats[0])
+                        let isCharacter = false
+                        if (characterImageUrl === sortedImageUrls[index]) isCharacter = true
                         return (
                             <div key={index} className='flex flex-col w-full'>
                             <div className={`h-[0.25rem] ${colourArray[index]}`} 
                             style={{'width': `${width}%`}}></div>
-                            <div className='flex flex-row items-center'>
-                                <p className='w-[2.2rem] text-gray-500 text-xs'>{percentage}%</p>
-                                <p className='ml-2'>{sortedCharacters[index]}</p>
+                            <div className='flex flex-row items-center mt-[0.2rem]'>
+                                <p className='w-[2rem] text-gray-500 text-xs'>{percentage}%</p>
+                                <img src={sortedImageUrls[index]} className='ml-2 h-[1.5rem] w-[1.5rem] border-black'></img>
+                                <p className={`${isCharacter ? 'font-bold text-amber-500' : 'none'} ml-1`}>{sortedCharacters[index]}</p>
                             </div>
                             </div>    
                         )})}
@@ -205,6 +244,23 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     <div className='text-4xl text-center'>
                         You scored {triviaScore}/{total}.</div>
                     <div className='text-3xl text-violet-600'>{text}</div>
+                    <div className='mt-4 text-lg'>Share Your Score</div>
+                    <div className='flex flex-row w-[21rem] h-[2rem] justify-center gap-x-1'>
+                        <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
+                        className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <FacebookIcon className='h-[1.3rem] w-[1.3rem] fill-white'/>
+                            <p className='text-white'>Facebook</p>
+                        </a>
+                        <a href={`https://twitter.com/share?url=https://www.kuizme.com${postUrl}&text=${postTitle}`} target='_blank' 
+                        className='flex flex-row basis-[47.5%] bg-[#1DA1F2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
+                            {/*<img src='/twitter.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
+                            */}
+                            <TwitterIcon className='h-[1.5rem] w-[1.5rem] fill-white'/>
+                            <p className='text-white'>Twitter</p>
+                        </a>
+                    </div>
                     <div className='flex flex-col items-center mt-4'>
                         <button onClick={() => router.reload()}
                                 className='text-xl font-semibold md:hover:text-red-600'>

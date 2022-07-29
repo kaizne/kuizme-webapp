@@ -15,22 +15,24 @@ const Scroll = () => {
 
     useEffect(() => {
         setWidth(window.innerWidth)
-        if (!isMobile) setCategories(categories.concat(Categories))
+        // if (!isMobile) setCategories(categories.concat(Categories))
     }, [width])
 
     useEffect(() => {
         const marginInterval = setInterval(() => {
+            /*
             if (!hover) {
                 setMarginLeft(marginLeft => {
                     if (marginLeft <= -(Categories.length * 10.625)) {
                         setTransition('')
                         return 0
                     }
-                    setTransition('ease all 0.1s')
+                    setTransition('ease all 1s')
                     return marginLeft - 0.5
                 })
             }
-        }, 50)
+            */
+        }, 100)
 
         if (isMobile) clearInterval(marginInterval)
         if (!slider) clearInterval(marginInterval)
@@ -48,23 +50,23 @@ const Scroll = () => {
                     font-semibold hover:cursor-pointer md:hover:text-indigo-400'>Categories</a>
                 </Link>
                 <div className='flex-row items-center gap-x-2 hidden md:flex'>
-                    <button className='h-8 mt-4 hover:bg-gray-200'
+                    <button className='h-8 mt-4 hover:bg-gray-200' hidden
                             onClick={() => { 
                                 if (marginLeft < 0) setMarginLeft(marginLeft + 10)}
                             }>
                         <ChevronLeftIcon className='w-8 h-6' />
                     </button>
                     { slider ? 
-                        <button className='h-8 mt-4 hover:bg-gray-200'
+                        <button className='h-8 mt-4 hover:bg-gray-200' hidden
                                 onClick={() => setSlider(!slider)}>
                             <PauseIcon className='w-8 h-6' />
                         </button> : 
-                        <button className='h-8 mt-4 hover:bg-gray-200'
+                        <button className='h-8 mt-4 hover:bg-gray-200' hidden
                                 onClick={() => setSlider(!slider)}>
                             <PlayIcon className='w-8 h-6' />
                         </button>
                     }
-                    <button className='h-8 mt-4  hover:bg-gray-200'
+                    <button className='h-8 mt-4  hover:bg-gray-200' hidden
                             onClick={() => setMarginLeft(marginLeft - 10)}>
                         <ChevronRightIcon className='w-8 h-6' />
                     </button>
