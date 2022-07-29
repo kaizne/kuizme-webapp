@@ -29,6 +29,11 @@ const anime = {
         slug: 'jujutsu-kaisen',
         title: 'Jujutsu Kaisen'
     },
+    'kabaneri-of-the-iron-fortress': {
+        category: 'anime',
+        slug: 'kabaneri-of-the-iron-fortress',
+        title: 'Kabaneri of the Iron Fortress'
+    },
     'naruto': {
         category: 'anime',
         slug: 'naruto',
