@@ -11,8 +11,8 @@ const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular, trivia
             TV series, and movies, or find out which character you are. Visit Kuizme for more!'></meta>
         </Head>
         <div className='flex flex-col items-center mb-4 md:mb-8'>
-            <Scroll />
             <Section title='Trending' category={''} entries={trending}  />
+            <Scroll />
             <Section title='Popular' category={''} entries={popular}  />
             <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
             <Section title='Trivia' category={''} entries={trivia} />

@@ -11,7 +11,7 @@ const Section = ({ title, category, entries }) => {
                         <Link href={`/anime/${category}`}>
                             <span className='text-indigo-600 hover:cursor-pointer'> {title}</span>
                         </Link> Quizzes</div> 
-                    : <span>{title}</span> 
+                    : <span>{title} Quizzes</span> 
                 }
             </div>
             <div className='flex flex-row gap-x-2.5 overflow-y-auto scrollbar-hide'>
