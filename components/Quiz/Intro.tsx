@@ -12,6 +12,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
 
     const [difficultyList, setDifficultyList] = useState([])
     useEffect(() => {
+        likes += 25
         if (label === 'popular') {
             plays += 30
         }
@@ -72,12 +73,12 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                     <span><span className='ml-1 font-semibold'>{likes} </span> 
                         <span className='hidden md:inline'>Likes</span></span>
                 </div>
-                <div className='flex flex-row text-base'>
+                <div className='hidden flex-row text-base'>
                     <ChatIcon className='w-6 h-6' />
                     <span><span className='ml-1 font-semibold'>{comments} </span> 
                         <span className='hidden md:inline'>Comments</span></span>
                 </div>
-                <div className='flex flex-row text-base'>
+                <div className='hidden flex-row text-base'>
                     <ShareIcon className='w-6 h-6' />
                     <span><span className='ml-1 font-semibold'>{shares} </span> 
                         <span className='hidden md:inline'>Shares</span></span>
