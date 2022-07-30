@@ -7,10 +7,10 @@ import slugcategories from '../../utils/slugcategories'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router';
 import {
     MenuAlt1Icon,
-    SearchIcon,
-    UserIcon,
+    SearchIcon
 } from '@heroicons/react/outline'
 
 const Nav = () => {
@@ -48,6 +48,11 @@ const Nav = () => {
             setProfile(false)
         }
     })
+
+    useEffect(() => {
+        setDropDownMenu(false)
+        setDropDownProfile(false)
+    },[asPath]);
 
     const handleClickOutsideProfile = (e) => {
         if (refProfile.current && !refProfile.current.contains(e.target))

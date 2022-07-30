@@ -23,7 +23,7 @@ const Privacy = () => (
       .&nbsp;
       </p>
       <h2 className='text-2xl md:text-4xl py-6 font-semibold'>Consent</h2>
-      <p>
+      <div>
       By using our website, you hereby consent to our Privacy Policy 
       and agree to its terms. The personal information that you are asked to 
       provide, and the reasons for which you are asked to provide it, will be made 
@@ -42,7 +42,7 @@ const Privacy = () => (
           to provide you with updates and other information relating to the 
           website, and for marketing and promotional purposes</li>
         </ul>
-      </p>
+      </div>
       <h2 className='text-2xl md:text-4xl py-6 font-semibold'>Visitor Data</h2>
       The visitor data collected for each unique visitor on
       <a href='https://www.kuizme.com/' className='text-blue-500'
