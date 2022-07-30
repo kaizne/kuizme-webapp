@@ -165,7 +165,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         case 1:
             return ( 
                 <div className='flex flex-col flex-1 justify-center items-center bg-white'>
-                    <div className='mt-2 text-black text-3xl'>{endText}</div>
+                    <div className='mt-3 text-black text-3xl'>{endText}</div>
                     { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} priority /> }
                     <div className='text-3xl mt-1 text-violet-600 font-semibold'>{character}</div>
                     <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 p-2 rounded 
@@ -190,9 +190,10 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         </a>
                     </div>
                     <div className='flex flex-col gap-y-3 w-full mt-6 items-center'>
-                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600 
+                    hover:cursor-pointer hover:bg-indigo-700'>
                         <button onClick={() => router.reload()}
-                                className='text-xl text-white font-bold'>
+                                className='text-xl text-white font-bold w-full'>
                             Play Again
                         </button>
                         {/*<div className='flex flex-row mt-2'>
@@ -208,20 +209,22 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         </div>
                         */}
                     </div>
-                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-rose-500'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-rose-500
+                    hover:cursor-pointer hover:bg-rose-600'>
                         <Link href={`/anime/${subcategory}`}>
-                            <button className='w-5/6 text-xl text-white font-bold md:hover:text-red-600'>
+                            <button className='w-full text-xl text-white font-bold px-2 md:px-4 2xl:px-8'>
                             Try Other {animeTitle} Quizzes</button>
                         </Link>
                     </div>
-                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600
+                    hover:cursor-pointer hover:bg-indigo-700'>
                         <Link href={`/anime`}>
-                            <button className='text-xl text-white font-bold md:hover:text-red-600'>
+                            <button className='text-xl text-white font-bold w-full'>
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
                     </div>
-                    <div className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-bold'>
+                    <div className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
                         <p className='text-center text-white w-5/6'>
                         How Do the Results From Other Users Compare to Yours?</p>
                     </div>
