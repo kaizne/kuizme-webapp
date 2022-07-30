@@ -4,7 +4,7 @@ const Tos = () => (
   <>
     <div className='text-left px-5 py-8 md:px-20 md:py-10 font-Poppins min-h-screen'>
       <h1 className='text-3xl md:text-6xl font-bold pb-4'>Terms of Service</h1>
-      <p className='pb-4 italic'>Last updated July 17, 2022</p>
+      <p className='pb-4 italic'>Effective as of July 29, 2022</p>
       <p>
       BY ACCESSING OR USING THIS WEBSITE, YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS DESCRIBED HEREIN 
       AND ALL TERMS AND CONDITIONS INCORPORATED BY REFERENCE.

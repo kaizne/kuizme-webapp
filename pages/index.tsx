@@ -1,8 +1,24 @@
 import Head from 'next/head'
 import Scroll from '../components/Home/Scroll'
 import Section from '../components/Home/Section'
+import { useEffect, useState } from 'react'
+import { XIcon } from '@heroicons/react/outline'
 
 const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular, trivia }) => {
+    
+    const consentProperty = 'cookieConsent'
+    const [showConsent, setShowConsent] = useState(false)
+    
+    const saveToLocalStorage = () => localStorage.setItem(consentProperty, 'consent')
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (checkForShowConsent(consentProperty)) {
+                setShowConsent(true)
+            }
+        }, 2000);
+    }, [])
+
     return (
         <>
         <Head>
@@ -17,11 +33,27 @@ const IndexPage = ({ quizData, tokyoData, demonSlayer, trending, popular, trivia
             <Section title='Demon Slayer' category={'demon-slayer'} entries={demonSlayer} />
             <Section title='Trivia' category={''} entries={trivia} />
         </div>
+        <div className={`flex flex-row items-center justify-center sticky bottom-0 w-full bg-indigo-600 gap-x-2 
+        sm:gap-x-4 md:gap-x-6 lg:gap-x-8 py-3 ${showConsent ? 'none' : 'hidden'}`}>
+            <p className='text-xs md:text-sm text-white w-5/6'>We and our partners use cookies to personalize your experience
+            and for analytics purposes. By using our website and services, you agree to our use of
+            cookies as described in our <a href='/privacy' 
+            className='hover:cursor-pointer font-semibold'>Privacy Policy</a>.</p>
+            <XIcon className='h-[1rem] w-[1rem] hover:cursor-pointer'
+            onClick={() => { saveToLocalStorage(); setShowConsent(false) }}></XIcon>
+        </div>
+        <div className={` ${showConsent ? 'none' : 'hidden'}`}>
+
+        </div>
         </>
     )
 }
 
 export default IndexPage
+
+function checkForShowConsent(consentProperty) {
+    return !localStorage.getItem(consentProperty)
+}
 
 export async function getStaticProps({ params }) {
     const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes?populate=*`)
