@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
-import { relative } from 'node:path/win32'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', imageUrls,
@@ -75,7 +74,14 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
 
     const router = useRouter()
     const postUrl = router.asPath 
-    const postTitle = 'Head over to kuizme.com for the best anime quizzes!'
+    let postTitle = ''
+    if (type === 0) postTitle = `I got ${score/total} on this ${subcategory} quiz... let
+    me know if you can beat my score.`
+    else if (type === 1) postTitle = `I got ${character}! Let me know what you get.`
+    else if (type === 2) postTitle = `I got ${triviaScore/total} on this ${subcategory} quiz... let
+    me know if you can beat my score.`
+    else if (type === 3) postTitle = `I got ${score/total} on this ${subcategory} quiz... let
+    me know if you can beat my score.`
 
     const likeQuiz = () => {
         if (profile) {
@@ -161,12 +167,12 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                 <div className='flex flex-col flex-1 justify-center items-center bg-white'>
                     <div className='mt-2 text-black text-3xl'>{endText}</div>
                     { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} priority /> }
-                    <div className='text-3xl mt-2 text-violet-600'>{character}</div>
-                    <div className='w-80 md:w-96 mt-2 p-2 rounded 
-                                    text-lg text-center bg-white shadow'>
+                    <div className='text-3xl mt-1 text-violet-600 font-semibold'>{character}</div>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 p-2 rounded 
+                                    text-lg text-center bg-slate-100'>
                         {conclusion}
                     </div>
-                    <div className='mt-6 text-lg'>Share Your Result</div>
+                    <div className='mt-4 text-lg'>Share Your Result</div>
                     <div className='flex flex-row w-[21rem] h-[2rem] justify-center gap-x-1'>
                         <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
                         className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
@@ -183,9 +189,10 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             <p className='text-white'>Twitter</p>
                         </a>
                     </div>
-                    <div className='flex flex-col items-center mt-6'>
+                    <div className='flex flex-col gap-y-3 w-full mt-6 items-center'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
                         <button onClick={() => router.reload()}
-                                className='text-xl font-semibold md:hover:text-red-600'>
+                                className='text-xl text-white font-bold'>
                             Play Again
                         </button>
                         {/*<div className='flex flex-row mt-2'>
@@ -201,23 +208,24 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         </div>
                         */}
                     </div>
-                    <div className='flex flex-col items-center mt-2'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-rose-500'>
                         <Link href={`/anime/${subcategory}`}>
-                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            <button className='w-5/6 text-xl text-white font-bold md:hover:text-red-600'>
                             Try Other {animeTitle} Quizzes</button>
                         </Link>
                     </div>
-                    <div className='flex flex-col items-center mt-2'>
+                    <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600'>
                         <Link href={`/anime`}>
-                            <button className='text-xl font-semibold md:hover:text-red-600'>
+                            <button className='text-xl text-white font-bold md:hover:text-red-600'>
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
-                    <div className='flex flex-row w-full justify-center'>
-                        <p className='mt-8 text-center w-[65%] md:w-3/4'>
-                        How do the results from other users compare to yours?</p>
                     </div>
-                    <div className='flex flex-col w-3/5 lg:w-2/5 2xl:w-[30%] items-start space-y-1 mt-4'>
+                    <div className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-bold'>
+                        <p className='text-center text-white w-5/6'>
+                        How Do the Results From Other Users Compare to Yours?</p>
+                    </div>
+                    <div className='flex flex-col w-4/5 md:w-3/5 xl:w-2/5 3xl:w-[30%] items-start space-y-1 mt-4'>
                         {sortedStats.map((element, index) => {
                         const percentage = (100*(element/statsTotal)).toFixed(1)
                         const width = 100*(element/sortedStats[0])
