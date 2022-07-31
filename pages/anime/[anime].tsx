@@ -3,7 +3,7 @@ import Preview from '../../components/Preview'
 
 const Anime = ({ animeName, quizData }) => {
     return (
-        <div className='min-h-vh'>
+        <div className='min-h-screen'>
             <div className='text-lg font-bold mt-4 ml-4 md:ml-8'>{animeName}</div>
             <div className='flex flex-col md:flex-row flex-wrap md:gap-x-4 gap-y-2
                             ml-3 md:ml-8 mr-3 mt-1'>
