@@ -3,7 +3,7 @@ const Privacy = () => (
   <>
     <div className='text-left px-5 py-8 md:px-20 md:py-10 font-Poppins min-h-vh'>
       <h1 className='text-3xl md:text-6xl font-bold pb-4'>Privacy Policy</h1>
-      <p className='pb-4 italic'>Last updated July 17, 2022</p>
+      <p className='pb-4 italic'>Effective as of July 29, 2022</p>
       <p>
       At Kuizme, the privacy of our visitors is imperative. 
       This Privacy Policy outlines the information 
@@ -23,7 +23,7 @@ const Privacy = () => (
       .&nbsp;
       </p>
       <h2 className='text-2xl md:text-4xl py-6 font-semibold'>Consent</h2>
-      <p>
+      <div>
       By using our website, you hereby consent to our Privacy Policy 
       and agree to its terms. The personal information that you are asked to 
       provide, and the reasons for which you are asked to provide it, will be made 
@@ -42,7 +42,7 @@ const Privacy = () => (
           to provide you with updates and other information relating to the 
           website, and for marketing and promotional purposes</li>
         </ul>
-      </p>
+      </div>
       <h2 className='text-2xl md:text-4xl py-6 font-semibold'>Visitor Data</h2>
       The visitor data collected for each unique visitor on
       <a href='https://www.kuizme.com/' className='text-blue-500'
@@ -50,12 +50,13 @@ const Privacy = () => (
       include location, browser type, operating system (OS) type, 
       date and time stamp, and entry and exit pages. 
       These data are not linked to any information that is personally identifiable. 
-      {/*<h1 className='text-xl md:text-4xl py-6'>Cookies</h1>
+      <h1 className='text-2xl md:text-4xl py-6 font-semibold'>Cookies</h1>
       <a href='https://www.kuizme.com/' className='text-blue-500'>kuizme.com</a>
       &nbsp;uses cookies, which are used to store information including visitor 
       preferences and viewed pages. The information is used to optimize user 
-      experience by customizing our web page content.
-      */} 
+      experience by customizing our web page content, and for analytics purposes.
+      By using our website and services, you agree to our use of cookies as described
+      herein.
       {/*<h1 className='text-xl md:text-4xl py-6'>Advertising Partners</h1>
       Some of advertisers on our site may use cookies. Our 
       advertising partners are listed below. Each of our advertising partners has 

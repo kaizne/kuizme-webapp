@@ -95,7 +95,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         </div>
         { /* <div className='w-80 md:w-96 text-justify mt-4'>{intro}</div> */ }
         <div className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl
-                        py-2 bg-violet-600 mt-4 text-center md:rounded'>
+                        py-2 bg-violet-600 mt-3 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>Quiz Description</p>
         </div> 
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
