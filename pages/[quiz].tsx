@@ -15,9 +15,10 @@ const Quiz = ({ quizData }) => {
     const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
     const imageUrlArray = []
-    if (quizData.type === 1) 
-    for (let i = 0; i < quizData.image.data.length; i++) {
-        imageUrlArray.push(findImage(quizData.info[i+1], quizData.image, quizData.type))
+    if (quizData.type === 1) { 
+        for (let i = 0; i < quizData.image.data.length; i++) {
+            imageUrlArray.push(findImage(quizData.info[i+1], quizData.image, quizData.type))
+        }
     }
     
     useEffect(() => {

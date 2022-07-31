@@ -2,7 +2,7 @@ import { setDefaultResultOrder } from 'dns'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
@@ -10,6 +10,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     incrementLike, decrementLike, updateLibrary, slug,
                     conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats }) => {
 
+    const refComment = useRef(null)
     const [profile, setProfile] = useState(false)
     const [like, setLike] = useState(false)
     const [error, setError] = useState(false)
@@ -63,7 +64,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         }
         updateConclusionStats(slug, conclusionIndex)
     }, [])
-                        
+                
     let text = 'Nice.'
     if (type === 0) { text = calculatePercentageText(score, total) }
     else if (type === 2) { text = calculatePercentageText(triviaScore, total) }
@@ -82,6 +83,10 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     me know if you can beat my score.`
     else if (type === 3) postTitle = `I got ${score/total} on this ${subcategory} quiz... let
     me know if you can beat my score.`
+
+    const scrollToComment = () => {
+        refComment.current.scrollIntoView({ behavior: "smooth" });
+    }
 
     const likeQuiz = () => {
         if (profile) {
@@ -225,10 +230,10 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     </div>
                     </div>
                     <div className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
-                        <p className='text-center text-white w-5/6'>
+                        <p className='text-center text-white text-lg w-5/6'>
                         How Do the Results From Other Users Compare to Yours?</p>
                     </div>
-                    <div className='flex flex-col w-4/5 md:w-3/5 xl:w-2/5 3xl:w-[30%] items-start space-y-1 mt-4'>
+                    <div className='flex flex-col w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] items-start space-y-1 mt-4'>
                         {sortedStats.map((element, index) => {
                         const percentage = (100*(element/statsTotal)).toFixed(1)
                         const width = 100*(element/sortedStats[0])
@@ -239,14 +244,28 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             <div className={`h-[0.25rem] ${colourArray[index]}`} 
                             style={{'width': `${width}%`}}></div>
                             <div className='flex flex-row items-center mt-[0.2rem]'>
-                                <p className='w-[2rem] text-gray-500 text-xs'>{percentage}%</p>
-                                <img src={sortedImageUrls[index]} className='ml-2 h-[1.5rem] w-[1.5rem] border-black'></img>
-                                <p className={`${isCharacter ? 'font-bold text-amber-500' : 'none'} ml-1`}>{sortedCharacters[index]}</p>
+                                <p className='w-[2.5rem] text-gray-500 text-sm'>{percentage}%</p>
+                                <img src={sortedImageUrls[index]} className='ml-2 h-[2rem] w-[2rem] border-black'></img>
+                                <p className={`${isCharacter ? 'font-semibold text-amber-500' : 'none'} ml-1`}>{sortedCharacters[index]}</p>
                             </div>
                             </div>    
                         )})}
                     </div>
-                    <div className='h-8'></div>
+                    {/*<textarea placeholder='Leave a comment...' rows={1} spellCheck='false' className='resize-none w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 
+                    bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
+                    focus:border-indigo-600 focus:outline-none md:block px-2 py-1 h-38px scrollbar-hide' onChange={(event) => {
+                        event.target.style.height = '38px'
+                        event.target.style.height = `${event.target.scrollHeight}px`
+                        scrollToComment()
+                    }}>
+                    </textarea>
+                    <div className='w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-1 h-[2rem]'>
+                        <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold hover:bg-indigo-700'>
+                            Post
+                        </button>
+                    </div>
+                    */}
+                    <div ref={refComment} className='h-8'></div>
                 </div>
             )
         case 2:
