@@ -47,6 +47,7 @@ const LogIn = ({ setOverlay }) => {
         }).then(response => {
             localStorage.setItem('user', JSON.stringify(response.data.user))
             localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
+            setOverlay('')
             router.push('/')
         }).catch(error => {
             setFormErrors({...formErrors, email: 'The email or password is not correct.'})
