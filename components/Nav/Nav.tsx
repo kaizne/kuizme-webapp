@@ -13,7 +13,7 @@ import {
     SearchIcon
 } from '@heroicons/react/outline'
 
-const Nav = () => {
+const Nav = ({ setOverlay }) => {
     const router = useRouter()
     const asPath = router.asPath
 
@@ -76,7 +76,7 @@ const Nav = () => {
     return (
         <>
         {(asPath !== '/signup' && asPath !== '/signin' && asPath !== '/verified') &&
-        <nav className='sticky top-0 z-50 h-14 flex flex-row justify-center w-100v bg-white shadow-md'>
+        <nav className='sticky top-0 z-40 h-14 pb-2 flex flex-row justify-center w-screen bg-white shadow-md'>
                 <div className='w-11/12 flex flex-row justify-between'>
                 <div className='flex flex-row mt-3.5 md:mt-2'>
                     <div className='mt-1'>
@@ -191,13 +191,18 @@ const Nav = () => {
                 <div className='w-0 lg:w-[13.8rem]'></div>
                 }
                 { !profile ?
-                    <div className='flex flex-row mt-[0.7rem] md:mt-3 relative justify-end'>
-                        <Link href='/signin'>
-                            <button className='w-16 h-8 text-sm text-white font-semibold bg-indigo-600 rounded 
-                            md:hover:bg-indigo-400'>
-                                Sign In
-                            </button>
-                        </Link>
+                    <div className='flex flex-row gap-x-2 mt-[0.7rem] md:mt-3 
+                                    relative justify-end'>
+                        <button className='w-16 h-8 text-sm text-black font-semibold bg-gray-200 rounded 
+                                         md:hover:bg-gray-300'
+                                onClick={() => setOverlay('logIn')}>
+                            Log In
+                        </button>
+                        <button className='w-16 h-8 text-sm text-white font-semibold bg-indigo-600 rounded 
+                                         md:hover:bg-indigo-400'
+                                onClick={() => setOverlay('signUp')}>
+                            Sign Up
+                        </button>
                     </div> 
                     :
                     <div ref={refProfile} className='flex flex-row md:mt-[0.1rem] relative right-0 justify-end'>
