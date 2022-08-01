@@ -75,7 +75,7 @@ const SignUp = ({ setOverlay }) => {
     return (
         <>
         <div className='absolute top-0 right-0 md:-mt-64'>
-            <XIcon className='h-7 w-7 mt-1 mr-1 hover:cursor-pointer hover:bg-gray-200'
+            <XIcon className='h-7 w-7 mt-1 mr-2 hover:cursor-pointer hover:bg-gray-200'
                     onClick={() => setOverlay('')} />
         </div>
         { !isSubmit ? 

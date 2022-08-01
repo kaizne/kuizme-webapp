@@ -58,7 +58,7 @@ const LogIn = ({ setOverlay }) => {
         <div className='w-screen h-screen md:w-96 md:h-96 md:-ml-48 md:-mt-48
                         rounded bg-white'>
             <div className='absolute top-0 right-0 md:-mt-48'>
-                <XIcon className='h-7 w-7 mt-1 mr-1 hover:cursor-pointer hover:bg-gray-200'
+                <XIcon className='h-7 w-7 mt-1 mr-2 hover:cursor-pointer hover:bg-gray-200'
                        onClick={() => setOverlay('')} />
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col items-center'>
