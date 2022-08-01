@@ -33,7 +33,7 @@ const Profile = () => {
     }
 
     return (
-        <div className='min-h-vh'>
+        <div className='min-h-screen'>
                 <div className={`${profile ? 'none' : 'hidden'} mt-12 flex flex-row justify-center`}>
                     <h1 className='text-xl text-rose-600'>New perks and features will be added regularly. Please check your email inbox
                         for updates on the latest content.
