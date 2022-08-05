@@ -116,16 +116,40 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
             <p className='text-black text-sm md:text-base'>{ introText.title }</p>
         </div>
         <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>Background</p>
+        </div>
+        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+            <p className='text-black text-sm md:text-base'>{ introText.background }</p>
+        </div>
+        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
+            <p className='text-white font-semibold text-lg md:text-xl'>Our Goal</p>
+        </div>
+        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+            <p className='text-black text-sm md:text-base'>What matters most to us at Kuizme is 
+            making sure our users have the best experience possible. We try our best to provide 
+            you with interesting and thought-provoking questions, which means carefully considering 
+            which questions to include and how to ask them. We strive to ask you meaningful questions 
+            in our personality, kin, and boyfriend or girlfriend quizzes for accurate assessments. 
+            We strive to ask you questions that are challenging but not impossibly so to test your 
+            knowledge. We hope everyone who visits our site has fun and wants to come back.</p>
+        </div>
+        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
                         py-2 bg-pink-700 mt-2 text-center md:rounded'>
             <p className='text-white font-semibold text-lg md:text-xl'>We Care About Your Feedback</p>
         </div>
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
-            <p className='text-black text-sm md:text-base'>What matters most to us at Kuizme is making sure
-            our users have the best experience possible. We try our best to provide you with interesting
-            and thought-provoking questions. If you notice inaccuracies or in this quiz or any others, please
-            reach out to us so that we can fix them as soon as possible. You can contact us via our social 
-            media or support email found <a href='https://www.kuizme.com/contact' target='_blank'
-            className='text-red-500 font-bold hover:cursor-pointer hover:text-red-700'>here</a>.</p>
+            <p className='text-black text-sm md:text-base'>Although we wish we could provide our users 
+            with endless content, we are only human. With such a small cast, it can be a struggle at 
+            times to keep up with the ever-expanding world of anime. If you ever find that Kuizme is 
+            missing one of your favorite series, or if you have any particular quiz in mind that you 
+            think we should make, please let us know. You can contact us via our social media or support 
+            email found <a href='https://www.kuizme.com/contact' target='_blank'
+            className='text-red-500 font-bold hover:cursor-pointer hover:text-red-700'>here</a>. 
+            And although we prioritize attention to detail and accuracy in our quizzes, 
+            we are not perfect. If you notice inaccuracies in this quiz or any others, please reach out 
+            to us so that we can fix them as soon as possible.</p>
         </div>
         <div className='h-[2rem]'></div>
     </div>
