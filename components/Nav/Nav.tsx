@@ -202,7 +202,7 @@ const Nav = ({ setOverlay }) => {
                             Log In
                         </button>
                         <button className='w-16 h-8 text-sm text-white font-semibold bg-indigo-600 rounded 
-                                         md:hover:bg-indigo-400'
+                                         md:hover:bg-indigo-700'
                                 onClick={() => setOverlay('signUp')}>
                             Sign Up
                         </button>
