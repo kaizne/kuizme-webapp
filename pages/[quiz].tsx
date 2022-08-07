@@ -5,7 +5,7 @@ import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
 import axios from 'axios'
 
-const Quiz = ({ quizData }) => {
+const Quiz = ({ quizData, id, comments }) => {
     const [score, setScore] = useState(0)
     const [total, setTotal] = useState(0)
     const [start, setStart] = useState(false)
@@ -104,6 +104,31 @@ const Quiz = ({ quizData }) => {
         })
     }
 
+    const postComment = async (content, threadOf = null) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        const getUser = async () => {
+            const response = 
+                await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/me', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${jwt}`,
+                    }})
+            return response.json()
+        }
+        const user = await getUser()
+        const author = { id: user.id, name: user.username, email: user.email, avatar: '' }
+        let data
+        if (threadOf) data = { author: author, content: content, threadOf: threadOf }
+        else data = { author: author, content: content }
+        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${jwt}`,
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -168,7 +193,8 @@ const Quiz = ({ quizData }) => {
                     featured={quizData.featured.data.attributes.url}
                     section={quizData.section}
                     difficulty={difficulty} setDifficulty={setDifficulty}
-                    label={quizData.label}/>
+                    label={quizData.label}
+                    comments={comments} postComment={postComment} />
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start && !finish ? 'none' : 'hidden'}`}>                
@@ -204,7 +230,8 @@ const Quiz = ({ quizData }) => {
                         conclusionStats={quizData.conclusionStats}
                         conclusionCharacters={quizData.info}
                         conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
-                        updateConclusionStats={updateConclusionStats} /> 
+                        updateConclusionStats={updateConclusionStats}
+                        comments={comments} postComment={postComment} /> 
         </div>
         </>
     )
@@ -341,9 +368,17 @@ export async function getStaticProps({ params }) {
     const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.entry`)
     const data = await res.json()
     const quizData = data.data.attributes
+
+    // Comments use the ID of quiz.
+    const id = data.data.id
+    const commentsRes = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`)
+    const comments = await commentsRes.json()
+    
     return {
         props: {
-            quizData
+            quizData,
+            id,
+            comments
         },
         revalidate: 10,
     }

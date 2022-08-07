@@ -8,7 +8,7 @@ import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', imageUrls,
                     incrementLike, decrementLike, updateLibrary, slug,
-                    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats }) => {
+                    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment }) => {
 
     const refComment = useRef(null)
     const [profile, setProfile] = useState(false)

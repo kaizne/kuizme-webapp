@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline'
 
 const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
-                 difficulty, setDifficulty, label, comments=0, shares=0 }) => {
+                 difficulty, setDifficulty, label, commentsNum=0, shares=0, comments, postComment }) => {
 
     const [difficultyList, setDifficultyList] = useState([])
     useEffect(() => {
@@ -75,7 +75,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                 </div>
                 <div className='hidden flex-row text-base'>
                     <ChatIcon className='w-6 h-6' />
-                    <span><span className='ml-1 font-semibold'>{comments} </span> 
+                    <span><span className='ml-1 font-semibold'>{commentsNum} </span> 
                         <span className='hidden md:inline'>Comments</span></span>
                 </div>
                 <div className='hidden flex-row text-base'>

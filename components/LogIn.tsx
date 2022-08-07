@@ -45,6 +45,7 @@ const LogIn = ({ setOverlay }) => {
             identifier: formValues.email,
             password: formValues.password,
         }).then(response => {
+            console.log(response.data.user)
             localStorage.setItem('user', JSON.stringify(response.data.user))
             localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
             setOverlay('')
