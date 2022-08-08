@@ -20,7 +20,7 @@ const Search = () => {
         <div className='flex flex-row w-screen justify-center mt-2'>
         <div className='flex flex-col basis-11/12'>
         <div className='min-h-vh flex flex-row w-full items-center justify-between'>
-            <ChevronLeftIcon className='h-5 w-5' onClick={() => history.back()}/>
+            <ChevronLeftIcon className='h-5 w-5 hover:cursor-pointer hover:stroke-indigo-600' onClick={() => history.back()}/>
             <input type='text' placeholder='Search...' className='bg-gray-200 basis-11/12 md:basis-[92.5%]
             xl:basis-[93.5%] indent-2 h-8 border-2 border-gray-400 focus:border-indigo-600 focus:outline-none 
             focus:bg-white placeholder:text-gray-700 rounded' autoFocus onChange={(event) => { 
