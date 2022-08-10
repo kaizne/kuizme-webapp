@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 import { ThumbUpIcon, MenuAlt2Icon, ChevronDownIcon, ChevronUpIcon, 
     ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/outline'
+import { Ref } from 'react'
+import { RefObject } from 'react'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', imageUrls,
@@ -32,10 +34,11 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [likeText, setLikeText] = useState('Add to library')
     const [likeButton, setLikeButton] = useState(false)
     const [characterCounter, setCharacterCounter] = useState(0)
-    const [showReplies, setShowReplies] = useState(new Array(commentsShown).fill(false))
-    const [openReplies, setOpenReplies] = useState(new Array(commentsShown).fill(false))
+    const [showReplies, setShowReplies] = useState(new Array(commentsShown).fill(false)) // array containing state of replies (shown/hidden)
+    const [openReplies, setOpenReplies] = useState(new Array(commentsShown).fill(false)) // array containing state of reply textareas (open/closed)
     const [replyCharacterCounts, setReplyCharacterCounts] = useState(new Array(commentsShown).fill(0))
-    const [repliesShown, setRepliesShown] = useState(new Array(commentsShown).fill(0))
+    const refReplyTextarea = useRef(new Array())
+    const refNestedReplyTextarea = useRef(new Array())
     const animeTitle = getAnimeTitle(subcategory)
 
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
@@ -80,14 +83,30 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     let currentDateObj = new Date(currentDate)
     const timeElapsed = currentDateObj.valueOf() - commentDateObj.valueOf() * time in milliseconds *
     */}
-    const commentsJson = {'1':{username:'pResmETa',date:`${new Date().toUTCString()}`,likes:10,replies:{'1':{username:'redblueorange',date:`${new Date().toUTCString()}`,likes:5,replies:{},
+    const commentsJson = {'1':{username:'pResmETa',date:`${new Date('Saturday August 6 2022 13:01:54 GMT-0700').toUTCString()}`,likes:10,replies:{'1':{username:'redblueorange',date:`${new Date().toUTCString()}`,likes:5,replies:{},
     text:'I am replying to your comment. This is the first reply. I am now writing additional text to test the overflow wrapping on the reply comment.'},
     '2':{username:'secondreply',date:`${new Date().toUTCString()}`,likes:2,replies:{},
     text:'I am replying to your comment. This is the second reply.'}},
     text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
     '2':{username:'fRUDIOUS',date:`${new Date('Sunday July 31 2022 21:04:00 GMT+0500').toUTCString()}`,likes:72,replies:{},
     text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    '3':{username:'uncEcApH871',date:`${new Date('Thursday June 16 2022 13:01:54 GMT-0200').toUTCString()}`,likes:14,replies:{},
+    '3':{username:'uncEcApH871',date:`${new Date().toUTCString()}`,likes:14,replies:{'1':{username:'test1',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 1'},'2':{username:'test2',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 2'},'3':{username:'test3',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 3'},'4':{username:'test4',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 4'},'5':{username:'test5',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 5'},'6':{username:'test6',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 6'},'7':{username:'test7',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 7'},'8':{username:'test8',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 8'},'9':{username:'test9',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 9'},'10':{username:'test10',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 10'},'11':{username:'test11',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 11'},'12':{username:'test12',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 12'},'13':{username:'test13',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 13'},'14':{username:'test14',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 14'},'15':{username:'test15',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 15'},'16':{username:'test16',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 16'}},
     text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
     '4':{username:'mCfresh',date:`${new Date('Friday July 22 2022 13:01:54 GMT+0200').toUTCString()}`,likes:83,replies:{},
     text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
@@ -125,6 +144,36 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     '20':{username:'chumb',date:`${new Date('Saturday July 2 2022 13:01:54 GMT+0200').toUTCString()}`,likes:10529,replies:{},
     text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'}}
     const [commentsArray, setCommentsArray] = useState(Object.values(commentsJson))
+    let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+        if (filter === 'Newest') {
+            const dateA = new Date(a.date)
+            const dateB = new Date(b.date)
+            const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+            const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+            if (timeElapsedA > timeElapsedB) return (1)
+            else return (-1)
+        }
+        else if (filter === 'Most Popular') {
+            const likesA = a.likes
+            const likesB = b.likes
+            if (likesA > likesB) return (-1)
+            else return (1)
+        }
+    }).slice(0,commentsShown)
+    let init = []
+    for (let i = 0; i < minComments; i++) {
+        init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+    }
+    const [repliesShown, setRepliesShown] = useState(init) // array containing number of replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
+    //let initNested = [...Array(commentsShown)].map(element => Array(commentsShown))
+    let initNested = []
+    let initNestedReplyCharacterCounts = []
+    for (let i = 0; i < minComments; i++) {
+        initNested.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+        initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+    }
+    const [nestedOpenReplies, setNestedOpenReplies] = useState(initNested) // array containing number of nested replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
+    const [nestedReplyCharacterCounts, setNestedReplyCharacterCounts] = useState(initNestedReplyCharacterCounts)
 
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
@@ -144,14 +193,35 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         if (refFilter.current && !refFilter.current.contains(e.target))
             setDropDownFilter(false)
     }
-    const handleClickPost = (e) => {
-        if (refTextarea.current) {
-            if (refTextarea.current.value) {
-                setCommentsArray((commentsArray) => [{username:'testName',date:new Date().toUTCString(),likes:0,replies:{},text:refTextarea.current.value},...commentsArray])
-                refTextarea.current.value = ''
-                refTextarea.current.style.height = '38px'
-                refTextarea.current.style.height = `${refTextarea.current.scrollHeight}px`
-                setCharacterCounter(refTextarea.current.value.length)
+    const handleClickPostComment = (e) => {
+        if (e.current) {
+            if (e.current.value) {
+                setCommentsArray((commentsArray) => [{username:'testName',date:new Date().toUTCString(),likes:0,replies:{},text:e.current.value},...commentsArray])
+                e.current.value = ''
+                e.current.style.height = '38px'
+                e.current.style.height = `${e.current.scrollHeight}px`
+                setCharacterCounter(e.current.value.length)
+            }
+        }
+    }
+    const handleClickPostReply = (e, index) => {
+        if (e) {
+            if (e.value) {
+                let asyncCommentsArray = commentsArray
+                asyncCommentsArray[index].replies[Object.values(asyncCommentsArray[index].replies).length+1] = {username:'testReplyUsername',date:new Date().toUTCString(),likes:3,replies:{},text:e.value}
+                setCommentsArray((commentsArray) => asyncCommentsArray)
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickCancel = (e) => {
+        if (e) {
+            if (e.value) {
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
             }
         }
     }
@@ -174,7 +244,6 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     me know if you can beat my score.`
     else if (type === 3) postTitle = `I got ${score/total} on this ${subcategory} quiz... let
     me know if you can beat my score.`
-
     const scrollToComment = () => {
         //refComment.current.scrollIntoView({ behavior: "smooth" })
         refComment.current.scrollIntoView(true)
@@ -361,7 +430,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     <div className='w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-1 h-[2rem] items-center gap-x-4'>
                         <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold hover:bg-indigo-700 py-1' onClick={() => {
                             //commentsArray.splice(0, 0, refTextarea.current.value)
-                            handleClickPost(refTextarea)
+                            handleClickPostComment(refTextarea)
                         }}>
                             Post
                         </button>
@@ -384,14 +453,78 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                 <button className='text-left ml-2 px-1 md:hover:bg-gray-300 md:hover:rounded mt-1.5' onClick={() => {
                                     setFilter('Newest')
                                     setDropDownFilter(false)
+                                    let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+                                        if (filter === 'Most Popular') { // keep in mind that these are flipped from init since sorted after filter update here
+                                            const dateA = new Date(a.date)
+                                            const dateB = new Date(b.date)
+                                            const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+                                            const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+                                            if (timeElapsedA > timeElapsedB) return (1)
+                                            else return (-1)
+                                        }
+                                        else if (filter === 'Newest') {
+                                            const likesA = a.likes
+                                            const likesB = b.likes
+                                            if (likesA > likesB) return (-1)
+                                            else return (1)
+                                        }
+                                    }).slice(0,commentsShown)
+                                    let init = []
+                                    let initNestedOpenReplies = []
+                                    let initNestedReplyCharacterCounts = []
+                                    for (let i in sortedCommmentsArray) {
+                                        init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+                                        initNestedOpenReplies.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+                                        initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+                                    }
+                                    setRepliesShown((repliesShown) => init)
+                                    setNestedOpenReplies((nestedOpenReplies) => initNestedOpenReplies)
+                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
                                     setShowReplies((showReplies) => new Array(commentsShown).fill(false))
                                     setOpenReplies((openReplies) => new Array(commentsShown).fill(false))
+                                    console.log(repliesShown)
+                                    console.log(openReplies)
+                                    console.log(showReplies)
+                                    console.log(nestedOpenReplies)
+                                    setForceRenderState(!forceRenderState)
                                 }}>Newest</button>
                                 <button className='text-left ml-2 px-1 md:hover:bg-gray-300 md:hover:rounded mb-1.5' onClick={() => {
                                     setFilter('Most Popular')
                                     setDropDownFilter(false)
+                                    let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+                                        if (filter === 'Most Popular') {
+                                            const dateA = new Date(a.date)
+                                            const dateB = new Date(b.date)
+                                            const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+                                            const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+                                            if (timeElapsedA > timeElapsedB) return (1)
+                                            else return (-1)
+                                        }
+                                        else if (filter === 'Newest') {
+                                            const likesA = a.likes
+                                            const likesB = b.likes
+                                            if (likesA > likesB) return (-1)
+                                            else return (1)
+                                        }
+                                    }).slice(0,commentsShown)
+                                    let init = []
+                                    let initNestedOpenReplies = []
+                                    let initNestedReplyCharacterCounts = []
+                                    for (let i in sortedCommmentsArray) {
+                                        init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+                                        initNestedOpenReplies.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+                                        initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+                                    }
+                                    setRepliesShown((repliesShown) => init)
+                                    setNestedOpenReplies((nestedOpenReplies) => initNestedOpenReplies)
+                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
                                     setShowReplies((showReplies) => new Array(commentsShown).fill(false))
                                     setOpenReplies((openReplies) => new Array(commentsShown).fill(false))
+                                    console.log(repliesShown)
+                                    console.log(openReplies)
+                                    console.log(showReplies)
+                                    console.log(nestedOpenReplies)
+                                    setForceRenderState(!forceRenderState)
                                 }}>Most Popular</button>
                             </div>
                         </div>
@@ -421,9 +554,8 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         if (Object.keys(element.replies).length > 0) {
                             repliesArray = Object.values(element.replies)
                         }
-                        //asyncCommentsArray = 
                         let tempRepliesShown = 0
-                        if (repliesShown[index] === 0) tempRepliesShown = repliesArray.length
+                        if (repliesShown[index] === 0) tempRepliesShown = Math.min(repliesArray.length,minReplies)
                         else tempRepliesShown = repliesShown[index]
                         return (
                             <div key={index} className='flex flex-row w-full mb-4'>
@@ -450,6 +582,10 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                             if (!tempOpenReplies[index]) {
                                                 tempOpenReplies[index] = true
                                                 setOpenReplies((openReplies) => tempOpenReplies)
+                                                console.log(repliesShown)
+                                                console.log(openReplies)
+                                                console.log(showReplies)
+                                                console.log(nestedOpenReplies)
                                                 setForceRenderState(!forceRenderState)
                                             }
                                         }}>Reply</button>
@@ -460,9 +596,9 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                 <img src='/goku.jpg' className='rounded-full'/>
                                             </div>
                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
-                                                <textarea placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                <textarea ref={(element) => refReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
                                                 bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
-                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.1rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
+                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
                                                     event.target.style.height = '33px'
                                                     event.target.style.height = `${event.target.scrollHeight}px`
                                                     if (event.target.value.length > characterLimit) {
@@ -482,9 +618,46 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                         let tempOpenReplies = openReplies
                                                         tempOpenReplies[index] = false
                                                         setOpenReplies((openReplies) => tempOpenReplies)
+                                                        let tempReplyCharacterCounts = replyCharacterCounts
+                                                        tempReplyCharacterCounts[index] = 0
+                                                        setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                        handleClickCancel(refReplyTextarea.current[index])
+                                                        console.log(repliesShown)
+                                                        console.log(openReplies)
+                                                        console.log(showReplies)
+                                                        console.log(nestedOpenReplies)
                                                         setForceRenderState(!forceRenderState)
                                                     }}>Cancel</button>
-                                                    <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0'>Post</button>
+                                                    <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                        let tempOpenReplies = openReplies
+                                                        tempOpenReplies[index] = false
+                                                        setOpenReplies((openReplies) => tempOpenReplies)
+                                                        let tempReplyCharacterCounts = replyCharacterCounts
+                                                        tempReplyCharacterCounts[index] = 0
+                                                        setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                        handleClickPostReply(refReplyTextarea.current[index], index)
+                                                        if (repliesArray.length < 1) {
+                                                            let tempShowReplies = showReplies
+                                                            tempShowReplies[index] = true
+                                                            setShowReplies((showReplies) => tempShowReplies)
+                                                        }
+                                                        let tempRepliesShown = repliesShown
+                                                        let tempNestedOpenReplies = nestedOpenReplies
+                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                        if (tempRepliesShown[index] < minReplies) {
+                                                            tempRepliesShown[index] += 1
+                                                            tempNestedOpenReplies[index].push(false)
+                                                            tempNestedReplyCharacterCounts[index].push(0)
+                                                        }
+                                                        setRepliesShown((repliesShown) => tempRepliesShown)
+                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                        console.log(repliesShown)
+                                                        console.log(openReplies)
+                                                        console.log(showReplies)
+                                                        console.log(nestedOpenReplies)
+                                                        setForceRenderState(!forceRenderState)
+                                                    }}>Post</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -495,6 +668,18 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                             let tempShowReplies = showReplies
                                             tempShowReplies[index] = !tempShowReplies[index]
                                             setShowReplies((showReplies) => tempShowReplies)
+                                            console.log(repliesShown)
+                                            console.log(openReplies)
+                                            console.log(showReplies)
+                                            console.log(nestedOpenReplies)
+                                            if (!showReplies[index]) {
+                                                let tempRS = repliesShown
+                                                let tempNestedOpenReplies = nestedOpenReplies
+                                                tempRS[index] = Math.min(repliesArray.length,minReplies)
+                                                tempNestedOpenReplies[index] = new Array(Math.min(repliesArray.length,minReplies)).fill(false)
+                                                setRepliesShown((repliesShown) => tempRS)
+                                                setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                            }
                                             setForceRenderState(!forceRenderState)
                                         }}>
                                         {!showReplies[index] ? 
@@ -513,12 +698,12 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                         const dateB = new Date(b.date)
                                         const timeElapsedA = new Date().valueOf() - dateA.valueOf()
                                         const timeElapsedB = new Date().valueOf() - dateB.valueOf()
-                                        if (timeElapsedA > timeElapsedB) return (1)
-                                        else return (-1)
-                                    }).slice(0,tempRepliesShown).map((element,index) => {
+                                        if (timeElapsedA > timeElapsedB) return (-1) // sort oldest to newest
+                                        else return (1)
+                                    }).slice(0,tempRepliesShown).map((element,nestedIndex) => {
                                         const timeSinceComment = calculateTimeSinceComment(element.date)
                                         return (
-                                            <div key={index} className='flex flex-row w-full mb-4'>
+                                            <div key={nestedIndex} className='flex flex-row w-full mb-4'>
                                                 <div className='h-[2rem] w-[2rem]'>
                                                     <img src='/goku.jpg' className='rounded-full'/>
                                                 </div>
@@ -531,9 +716,87 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                         <p className='text-sm break-all'>{ element.text }</p>
                                                     </div>
                                                     <div className='flex flex-row mt-2 items-center'>
-                                                        <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => { let aaaaa = 1 }}/>
+                                                        <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => {}}/>
                                                         <p className='text-sm text-gray-600 ml-1'>{ element.likes }</p>
-                                                        <button className='ml-4 text-sm text-gray-600 hover:text-black'>Reply</button>
+                                                        <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
+                                                            let temp = nestedOpenReplies
+                                                            if (!nestedOpenReplies[index][nestedIndex]) {
+                                                                temp[index][nestedIndex] = true
+                                                                setNestedOpenReplies((nestedOpenReplies) => temp)
+                                                            }
+                                                            console.log(repliesShown)
+                                                            console.log(openReplies)
+                                                            console.log(showReplies)
+                                                            console.log(nestedOpenReplies)
+                                                            setForceRenderState(!forceRenderState)
+                                                        }}>Reply</button>
+                                                    </div>
+                                                    <div className={`${!nestedOpenReplies[index][nestedIndex] ? 'hidden' : 'none'}`}>
+                                                        <div className='flex flex-row w-full mt-2'>
+                                                            <div className='h-[2rem] w-[2rem]'>
+                                                                <img src='/goku.jpg' className='rounded-full'/>
+                                                            </div>
+                                                            <div className='flex flex-col w-full ml-4 gap-y-1'>
+                                                                <textarea ref={(element) => refNestedReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                                bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
+                                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
+                                                                    event.target.style.height = '33px'
+                                                                    event.target.style.height = `${event.target.scrollHeight}px`
+                                                                    if (event.target.value.length > characterLimit) {
+                                                                        event.target.value = event.target.value.substring(0,characterLimit)
+                                                                    }
+                                                                    let tempCharacterCount = nestedReplyCharacterCounts
+                                                                    tempCharacterCount[index][nestedIndex] = event.target.value.length
+                                                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempCharacterCount)
+                                                                    setForceRenderState(!forceRenderState)
+                                                                }}></textarea>
+                                                                <div className='flex flex-row items-center'>
+                                                                    <p className='text-sm text-gray-600'>
+                                                                    { nestedReplyCharacterCounts[index][nestedIndex] }<span className='text-black'>/{ characterLimit }</span>
+                                                                    </p>
+                                                                    <div className='relative w-full flex justify-end'>
+                                                                    <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
+                                                                        let tempNestedOpenReplies = nestedOpenReplies
+                                                                        tempNestedOpenReplies[index][nestedIndex] = false
+                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                        tempNestedReplyCharacterCounts[index][nestedIndex] = 0
+                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                        //handleClickCancel(refNestedReplyTextarea.current[index])
+                                                                        console.log(repliesShown)
+                                                                        console.log(openReplies)
+                                                                        console.log(showReplies)
+                                                                        console.log(nestedOpenReplies)
+                                                                        setForceRenderState(!forceRenderState)
+                                                                    }}>Cancel</button>
+                                                                    <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                                        let tempNestedOpenReplies = nestedOpenReplies
+                                                                        tempNestedOpenReplies[index][nestedIndex] = false
+                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                        tempNestedReplyCharacterCounts[index][nestedIndex] = 0
+                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                        //handleClickPostReply(refReplyTextarea.current[index], index)
+                                                                        //if (repliesArray.length < 1) {
+                                                                        //   let tempShowReplies = showReplies
+                                                                        //    tempShowReplies[index] = true
+                                                                        //    setShowReplies((showReplies) => tempShowReplies)
+                                                                        //}
+                                                                        //let tempRepliesShown = repliesShown
+                                                                        //if (tempRepliesShown[index] < minReplies) {
+                                                                        //    tempRepliesShown[index] += 1
+                                                                        //}
+                                                                        //setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                        console.log(repliesShown)
+                                                                        console.log(openReplies)
+                                                                        console.log(showReplies)
+                                                                        console.log(nestedOpenReplies)
+                                                                        setForceRenderState(!forceRenderState)
+                                                                    }}>Post</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -542,7 +805,23 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                     :
                                     <></>}
                                     <div className={`flex flex-row w-full hover:cursor-pointer items-center ${(showReplies[index]) && (tempRepliesShown < repliesArray.length) ? 'none' : 'hidden'}`} onClick={() => {
-
+                                        let temp = repliesShown
+                                        let tempNestedOpenReplies = nestedOpenReplies
+                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                        for (let i = 0; i < Math.min(repliesIncrement,repliesArray.length-repliesShown[index]); i++) {
+                                            tempNestedOpenReplies[index].push(false)
+                                            tempNestedReplyCharacterCounts[index].push(0)
+                                        }
+                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                        console.log(Math.min(repliesIncrement,repliesArray.length-repliesShown[index]))
+                                        temp[index] += Math.min(repliesIncrement,repliesArray.length-repliesShown[index])
+                                        setRepliesShown((repliesShown) => temp)
+                                        console.log(repliesShown)
+                                        console.log(openReplies)
+                                        console.log(showReplies)
+                                        console.log(nestedOpenReplies)
+                                        setForceRenderState(!forceRenderState)
                                     }}>
                                         <ChevronDoubleRightIcon className='h-[1rem] stroke-blue-600'></ChevronDoubleRightIcon>
                                         <p className='ml-2 text-sm text-blue-600 text-center'>Show more replies</p>
@@ -551,10 +830,86 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             </div>
                         )
                     })}
-                    <button className='w-full py-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold text-center rounded mb-8' onClick={() => {
-                        if (commentsShown < commentsArray.length) { setCommentsShown(commentsShown + commentsIncrement); setShowReplies((showReplies) => new Array(commentsShown).fill(false));
-                            setOpenReplies((openReplies) => new Array(commentsShown).fill(false)) }
-                        else { setCommentsShown(minComments); setShowReplies((showReplies) => new Array(commentsShown).fill(false)); setOpenReplies((openReplies) => new Array(commentsShown).fill(false)); 
+                    <button className={`w-full py-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold text-center rounded mb-8
+                    ${commentsArray.length > minComments ? 'none' : 'hidden'}`} onClick={() => {
+                        let asyncCommentsShown = commentsShown + Math.min(commentsIncrement,commentsArray.length-commentsShown)
+                        if (commentsShown < commentsArray.length) { 
+                            setShowReplies((showReplies) => new Array(asyncCommentsShown).fill(false))
+                            setOpenReplies((openReplies) => new Array(asyncCommentsShown).fill(false))
+                            setReplyCharacterCounts((openReplies) => new Array(asyncCommentsShown).fill(0))
+                            let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+                                if (filter === 'Newest') {
+                                    const dateA = new Date(a.date)
+                                    const dateB = new Date(b.date)
+                                    const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+                                    const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+                                    if (timeElapsedA > timeElapsedB) return (1)
+                                    else return (-1)
+                                }
+                                else if (filter === 'Most Popular') {
+                                    const likesA = a.likes
+                                    const likesB = b.likes
+                                    if (likesA > likesB) return (-1)
+                                    else return (1)
+                                }
+                            }).slice(0,asyncCommentsShown)
+                            let init = []
+                            for (let i in sortedCommmentsArray) {
+                                init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+                            }
+                            setRepliesShown((repliesShown) => init)
+                            let initNested = []
+                            let initNestedReplyCharacterCounts = []
+                            for (let i in sortedCommmentsArray) {
+                                initNested.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+                                initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+                            }
+                            setNestedOpenReplies((nestedOpenReplies) => initNested)
+                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
+                            console.log(repliesShown)
+                            console.log(openReplies)
+                            console.log(showReplies)
+                            console.log(nestedOpenReplies)
+                            setCommentsShown(asyncCommentsShown)
+                        }
+                        else { 
+                            setShowReplies((showReplies) => new Array(minComments).fill(false))
+                            setOpenReplies((openReplies) => new Array(minComments).fill(false))
+                            setReplyCharacterCounts((openReplies) => new Array(asyncCommentsShown).fill(0))
+                            let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+                                if (filter === 'Newest') {
+                                    const dateA = new Date(a.date)
+                                    const dateB = new Date(b.date)
+                                    const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+                                    const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+                                    if (timeElapsedA > timeElapsedB) return (1)
+                                    else return (-1)
+                                }
+                                else if (filter === 'Most Popular') {
+                                    const likesA = a.likes
+                                    const likesB = b.likes
+                                    if (likesA > likesB) return (-1)
+                                    else return (1)
+                                }
+                            }).slice(0,minComments)
+                            let init = []
+                            for (let i in sortedCommmentsArray) {
+                                init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+                            }
+                            setRepliesShown((repliesShown) => init)
+                            let initNested = []
+                            let initNestedReplyCharacterCounts = []
+                            for (let i in sortedCommmentsArray) {
+                                initNested.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+                                initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+                            }
+                            setNestedOpenReplies((nestedOpenReplies) => initNested)
+                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
+                            console.log(repliesShown)
+                            console.log(openReplies)
+                            console.log(showReplies)
+                            console.log(nestedOpenReplies)
+                            setCommentsShown(minComments)
                             scrollToStats() }
                     }}>{ commentsShown < commentsArray.length ? 'Show More' : 'Hide Comments' }</button>
                     </div>
