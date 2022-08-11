@@ -38,7 +38,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const [openReplies, setOpenReplies] = useState(new Array(commentsShown).fill(false)) // array containing state of reply textareas (open/closed)
     const [replyCharacterCounts, setReplyCharacterCounts] = useState(new Array(commentsShown).fill(0))
     const refReplyTextarea = useRef(new Array())
-    const refNestedReplyTextarea = useRef(new Array())
+    let refNestedReplyTextarea = useRef([...Array(minComments)].map(e => Array()))
     const animeTitle = getAnimeTitle(subcategory)
 
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
@@ -74,6 +74,8 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const colourArray = ['bg-indigo-900','bg-indigo-800','bg-indigo-700','bg-indigo-600','bg-indigo-500',
     'bg-indigo-400','bg-indigo-300','bg-violet-400','bg-violet-500','bg-violet-600','bg-violet-700',
     'bg-violet-800','bg-violet-900']
+    const profileColours = ['bg-slate-300','bg-red-300','bg-orange-300','bg-amber-300','bg-lime-300',
+    'bg-emerald-300','bg-cyan-300','bg-blue-300','bg-indigo-300','bg-purple-300','bg-fuchsia-300','bg-pink-300']
     {/* How to save dates for time zone compatibility?
     let commentDate = new Date().toUTCString()
     *save commentDate to the comment object in Strapi
@@ -208,7 +210,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         if (e) {
             if (e.value) {
                 let asyncCommentsArray = commentsArray
-                asyncCommentsArray[index].replies[Object.values(asyncCommentsArray[index].replies).length+1] = {username:'testReplyUsername',date:new Date().toUTCString(),likes:3,replies:{},text:e.value}
+                asyncCommentsArray[index].replies[Object.values(asyncCommentsArray[index].replies).length+1] = {username:'testReply',date:new Date().toUTCString(),likes:3,replies:{},text:e.value}
                 setCommentsArray((commentsArray) => asyncCommentsArray)
                 e.value = ''
                 e.style.height = '33px'
@@ -393,6 +395,12 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
+                    <button className='bg-black rounded text-white px-6 py-2' onClick={() => {
+                        console.log(comments)
+                        postComment('Wuck Filliam')
+                    }}>
+                        Test postComment
+                    </button>
                     </div>
                     <div ref={refStats} className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
                         <p className='text-center text-white text-lg w-5/6'>
@@ -560,11 +568,12 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         return (
                             <div key={index} className='flex flex-row w-full mb-4'>
                                 <div className='h-[2.5rem] w-[2.5rem]'>
-                                    {/*<div className='rounded-full bg-indigo-600 h-[2.5rem] w-[2.5rem] flex items-center justify-center'>
-                                        <p className='text-white text-center'>A</p>
+                                    <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
+                                    h-[2.5rem] w-[2.5rem] flex items-center justify-center`}>
+                                        <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                     </div>
+                                    {/*<img src='/goku.jpg' className='rounded-full'/>
                                     */}
-                                    <img src='/goku.jpg' className='rounded-full'/>
                                 </div>
                                 <div className='flex flex-col w-full ml-4'>
                                     <div className='flex flex-row items-end'>
@@ -586,14 +595,19 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                 console.log(openReplies)
                                                 console.log(showReplies)
                                                 console.log(nestedOpenReplies)
+                                                console.log(refNestedReplyTextarea)
+                                                console.log(refReplyTextarea)
                                                 setForceRenderState(!forceRenderState)
                                             }
                                         }}>Reply</button>
                                     </div>
                                     <div className={`${!openReplies[index] ? 'hidden' : 'none'}`}>
                                         <div className='flex flex-row w-full mt-2'>
-                                            <div className='h-[2rem] w-[2rem]'>
-                                                <img src='/goku.jpg' className='rounded-full'/>
+                                            <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
+                                            h-[1.9rem] w-[2rem] flex items-center justify-center`}>
+                                                <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
+                                                {/*<img src='/goku.jpg' className='rounded-full'/>
+                                                */}
                                             </div>
                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
                                                 <textarea ref={(element) => refReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
@@ -641,6 +655,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                             tempShowReplies[index] = true
                                                             setShowReplies((showReplies) => tempShowReplies)
                                                         }
+                                                        let tempShowReplies = showReplies
                                                         let tempRepliesShown = repliesShown
                                                         let tempNestedOpenReplies = nestedOpenReplies
                                                         let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
@@ -649,6 +664,14 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                             tempNestedOpenReplies[index].push(false)
                                                             tempNestedReplyCharacterCounts[index].push(0)
                                                         }
+                                                        else {
+
+                                                            tempRepliesShown[index] = repliesArray.length + 1
+                                                            tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
+                                                            tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
+                                                        }
+                                                        tempShowReplies[index] = true
+                                                        setShowReplies((showReplies) => tempShowReplies)
                                                         setRepliesShown((repliesShown) => tempRepliesShown)
                                                         setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
                                                         setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
@@ -679,6 +702,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                 tempNestedOpenReplies[index] = new Array(Math.min(repliesArray.length,minReplies)).fill(false)
                                                 setRepliesShown((repliesShown) => tempRS)
                                                 setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                //refNestedReplyTextarea.current[index] = new Array() 
                                             }
                                             setForceRenderState(!forceRenderState)
                                         }}>
@@ -704,8 +728,11 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                         const timeSinceComment = calculateTimeSinceComment(element.date)
                                         return (
                                             <div key={nestedIndex} className='flex flex-row w-full mb-4'>
-                                                <div className='h-[2rem] w-[2rem]'>
-                                                    <img src='/goku.jpg' className='rounded-full'/>
+                                                <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
+                                                h-[1.9rem] w-[2rem] flex items-center justify-center`}>
+                                                    <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
+                                                    {/*<img src='/goku.jpg' className='rounded-full'/>
+                                                    */}
                                                 </div>
                                                 <div className='flex flex-col w-full ml-4'>
                                                     <div className='flex flex-row items-end'>
@@ -728,18 +755,26 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                             console.log(openReplies)
                                                             console.log(showReplies)
                                                             console.log(nestedOpenReplies)
+                                                            refNestedReplyTextarea.current[index][nestedIndex].value = `@${element.username} `
+                                                            let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                            tempNestedReplyCharacterCounts[index][nestedIndex] = refNestedReplyTextarea.current[index][nestedIndex].value.length
+                                                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                             setForceRenderState(!forceRenderState)
                                                         }}>Reply</button>
                                                     </div>
                                                     <div className={`${!nestedOpenReplies[index][nestedIndex] ? 'hidden' : 'none'}`}>
                                                         <div className='flex flex-row w-full mt-2'>
-                                                            <div className='h-[2rem] w-[2rem]'>
-                                                                <img src='/goku.jpg' className='rounded-full'/>
+                                                            <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
+                                                            h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
+                                                                <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
+                                                                {/*<img src='/goku.jpg' className='rounded-full'/>
+                                                                */}
                                                             </div>
                                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
-                                                                <textarea ref={(element) => refNestedReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                                <textarea ref={(element) => refNestedReplyTextarea.current[index][nestedIndex] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
                                                                 bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
-                                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
+                                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit}
+                                                                onChange={(event) => {
                                                                     event.target.style.height = '33px'
                                                                     event.target.style.height = `${event.target.scrollHeight}px`
                                                                     if (event.target.value.length > characterLimit) {
@@ -762,7 +797,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                                         let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                         tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                         setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                        //handleClickCancel(refNestedReplyTextarea.current[index])
+                                                                        handleClickCancel(refNestedReplyTextarea.current[index][nestedIndex])
                                                                         console.log(repliesShown)
                                                                         console.log(openReplies)
                                                                         console.log(showReplies)
@@ -776,17 +811,23 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                                         let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                         tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                         setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                        //handleClickPostReply(refReplyTextarea.current[index], index)
-                                                                        //if (repliesArray.length < 1) {
-                                                                        //   let tempShowReplies = showReplies
-                                                                        //    tempShowReplies[index] = true
-                                                                        //    setShowReplies((showReplies) => tempShowReplies)
-                                                                        //}
-                                                                        //let tempRepliesShown = repliesShown
-                                                                        //if (tempRepliesShown[index] < minReplies) {
-                                                                        //    tempRepliesShown[index] += 1
-                                                                        //}
-                                                                        //setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                        handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], index)
+                                                                        let tempRepliesShown = repliesShown
+                                                                        tempNestedOpenReplies = nestedOpenReplies
+                                                                        tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                        if (tempRepliesShown[index] < minReplies) {
+                                                                            tempRepliesShown[index] += 1
+                                                                            tempNestedOpenReplies[index].push(false)
+                                                                            tempNestedReplyCharacterCounts[index].push(0)
+                                                                        }
+                                                                        else {
+                                                                            tempRepliesShown[index] = repliesArray.length + 1
+                                                                            tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
+                                                                            tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
+                                                                        }
+                                                                        setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                         console.log(repliesShown)
                                                                         console.log(openReplies)
                                                                         console.log(showReplies)
@@ -866,6 +907,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             }
                             setNestedOpenReplies((nestedOpenReplies) => initNested)
                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
+                            refNestedReplyTextarea.current = [...Array(asyncCommentsShown)].map(e => Array())
                             console.log(repliesShown)
                             console.log(openReplies)
                             console.log(showReplies)
@@ -905,6 +947,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             }
                             setNestedOpenReplies((nestedOpenReplies) => initNested)
                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => initNestedReplyCharacterCounts)
+                            refNestedReplyTextarea.current = [...Array(asyncCommentsShown)].map(e => Array())
                             console.log(repliesShown)
                             console.log(openReplies)
                             console.log(showReplies)
