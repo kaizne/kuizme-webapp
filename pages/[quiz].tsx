@@ -116,7 +116,7 @@ const Quiz = ({ quizData, id, comments }) => {
             return response.json()
         }
         const user = await getUser()
-        const author = { id: user.id, name: user.username, email: user.email, avatar: '' }
+        const author = { id: user.id, name: user.username, email: user.email, avatar: "" }
         let data
         if (threadOf) data = { author: author, content: content, threadOf: threadOf }
         else data = { author: author, content: content }
@@ -124,9 +124,10 @@ const Quiz = ({ quizData, id, comments }) => {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${jwt}`,
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        })
+        }).catch(err => console.log(err))
     }
 
     let infoCopy = []
