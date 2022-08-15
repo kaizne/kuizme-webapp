@@ -98,10 +98,17 @@ const Quiz = ({ quizData, id, comments }) => {
         })
     }
 
-    const updateConclusionStats = async (slug, key) => {
-        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
-            method: 'PATCH'
-        })
+    const updateConclusionStats = async (slug, key, difficulty=null) => {
+        if (difficulty) {
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?difficulty=${difficulty}&key=${key}`, {
+                method: 'PATCH'
+            })
+        } 
+        else {
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
+                method: 'PATCH'
+            })
+        }
     }
 
     const postComment = async (content, threadOf = null) => {
