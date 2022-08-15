@@ -164,6 +164,18 @@ const Quiz = ({ quizData, id, comments }) => {
             })
         }
     }
+
+    const upvoteComment = async (slug, commentId) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        if (jwt) { 
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
+        }
+    }
     
     let infoCopy = []
 
@@ -267,7 +279,7 @@ const Quiz = ({ quizData, id, comments }) => {
                         conclusionCharacters={quizData.info}
                         conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
                         updateConclusionStats={updateConclusionStats}
-                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} /> 
+                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment} /> 
         </div>
         </>
     )
