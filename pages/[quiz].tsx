@@ -128,6 +128,21 @@ const Quiz = ({ quizData, id, comments }) => {
         }
     }
 
+    const updateComment = async (commentId, content) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))    
+        if (jwt) {
+            const data = { content: content }
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        } 
+    }
+
     const deleteComment = async (commentId) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
         const getUser = async () => {
@@ -148,9 +163,8 @@ const Quiz = ({ quizData, id, comments }) => {
                 }
             })
         }
-        
     }
-
+    
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -253,7 +267,7 @@ const Quiz = ({ quizData, id, comments }) => {
                         conclusionCharacters={quizData.info}
                         conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
                         updateConclusionStats={updateConclusionStats}
-                        comments={comments} postComment={postComment} deleteComment={deleteComment} /> 
+                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} /> 
         </div>
         </>
     )

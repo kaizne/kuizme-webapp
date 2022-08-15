@@ -12,7 +12,7 @@ import { RefObject } from 'react'
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', imageUrls,
                     incrementLike, decrementLike, updateLibrary, slug,
-                    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, deleteComment }) => {
+                    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment }) => {
 
     const minComments = 10
     const commentsIncrement = 10
