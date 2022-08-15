@@ -62,7 +62,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     let statsArray = []
     let charactersArray = []
     if (type === 1) {
-        statsArray = Object.values(conclusionStats)
+        statsArray = Object.values(conclusionStats['default'])
         charactersArray = Object.values(conclusionCharacters)
     }
     const keys = Array.from(statsArray.keys()).sort((a, b) => statsArray[b] - statsArray[a])
