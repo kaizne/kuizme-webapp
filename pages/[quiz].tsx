@@ -113,28 +113,19 @@ const Quiz = ({ quizData, id, comments }) => {
 
     const postComment = async (content, threadOf = null) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
-        const getUser = async () => {
-            const response = 
-                await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/me', {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${jwt}`,
-                    }})
-            return response.json()
+        if (jwt) {
+            let data
+            if (threadOf) data = { content: content, threadOf: threadOf }
+            else data = { content: content }
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
         }
-        const user = await getUser()
-        const author = { id: user.id, name: user.username, email: user.email, avatar: "" }
-        let data
-        if (threadOf) data = { author: author, content: content, threadOf: threadOf }
-        else data = { author: author, content: content }
-        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${jwt}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).catch(err => console.log(err))
     }
 
     let infoCopy = []
