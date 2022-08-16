@@ -581,7 +581,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                         <p className='text-[12px] text-gray-600 ml-2'>{ timeSinceComment }</p>
                                     </div>
                                     <div className='flex flex-row mt-1'>
-                                        <p className='text-sm break-all'>{ element.text }</p>
+                                        <p className='text-sm' style={{overflowWrap:'anywhere'}}>{ element.text }</p>
                                     </div>
                                     <div className='flex flex-row mt-2 items-center'>
                                         <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => {}}/>
@@ -743,7 +743,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                         <p className='text-[12px] text-gray-600 ml-2'>{ timeSinceComment }</p>
                                                     </div>
                                                     <div className='flex flex-row mt-1'>
-                                                        <p className='text-sm break-all'>{ element.text }</p>
+                                                        <p className='text-sm' style={{overflowWrap:'anywhere'}}>{ element.text }</p>
                                                     </div>
                                                     <div className='flex flex-row mt-2 items-center'>
                                                         <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => {}}/>
