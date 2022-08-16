@@ -599,12 +599,15 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                 console.log(refReplyTextarea)
                                                 setForceRenderState(!forceRenderState)
                                             }
-                                        }}>Reply</button>
+                                            setTimeout(() => {
+                                                refReplyTextarea.current[index].focus()
+                                            }, 10)
+                                            }}>Reply</button>
                                     </div>
                                     <div className={`${!openReplies[index] ? 'hidden' : 'none'}`}>
                                         <div className='flex flex-row w-full mt-2'>
                                             <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
-                                            h-[1.9rem] w-[2rem] flex items-center justify-center`}>
+                                            h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
                                                 <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                                 {/*<img src='/goku.jpg' className='rounded-full'/>
                                                 */}
@@ -729,7 +732,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                         return (
                                             <div key={nestedIndex} className='flex flex-row w-full mb-4'>
                                                 <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
-                                                h-[1.9rem] w-[2rem] flex items-center justify-center`}>
+                                                h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
                                                     <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                                     */}
@@ -760,6 +763,9 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                             tempNestedReplyCharacterCounts[index][nestedIndex] = refNestedReplyTextarea.current[index][nestedIndex].value.length
                                                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                             setForceRenderState(!forceRenderState)
+                                                            setTimeout(() => {
+                                                                refNestedReplyTextarea.current[index][nestedIndex].focus()
+                                                            }, 10)
                                                         }}>Reply</button>
                                                     </div>
                                                     <div className={`${!nestedOpenReplies[index][nestedIndex] ? 'hidden' : 'none'}`}>
