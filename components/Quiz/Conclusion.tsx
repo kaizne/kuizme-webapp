@@ -395,12 +395,6 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             Browse Anime Quizzes</button>
                         </Link>
                     </div>
-                    <button className='bg-black rounded text-white px-6 py-2' onClick={() => {
-                        console.log(comments)
-                        postComment('Wuck Filliam')
-                    }}>
-                        Test postComment
-                    </button>
                     </div>
                     <div ref={refStats} className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
                         <p className='text-center text-white text-lg w-5/6'>
@@ -439,6 +433,26 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                         <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold hover:bg-indigo-700 py-1' onClick={() => {
                             //commentsArray.splice(0, 0, refTextarea.current.value)
                             handleClickPostComment(refTextarea)
+                            let tempShowReplies = showReplies
+                            let tempOpenReplies = openReplies
+                            let tempRepliesShown = repliesShown
+                            let tempReplyCharacterCounts = replyCharacterCounts
+                            let tempNestedOpenReplies = nestedOpenReplies
+                            let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                            tempShowReplies.unshift(false)
+                            tempOpenReplies.unshift(false)
+                            tempRepliesShown.unshift(0)
+                            tempReplyCharacterCounts.unshift(0)
+                            tempNestedOpenReplies.unshift(new Array())
+                            tempNestedReplyCharacterCounts.unshift(new Array())
+                            setShowReplies((showReplies) => tempShowReplies)
+                            setOpenReplies((openReplies) => tempOpenReplies)
+                            setRepliesShown((repliesShown) => tempRepliesShown)
+                            setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                            setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                            setCommentsShown(commentsShown + 1)
+                            refNestedReplyTextarea.current = [...Array(commentsShown)].map(e => Array())
                         }}>
                             Post
                         </button>
@@ -730,7 +744,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                     }).slice(0,tempRepliesShown).map((element,nestedIndex) => {
                                         const timeSinceComment = calculateTimeSinceComment(element.date)
                                         return (
-                                            <div key={nestedIndex} className='flex flex-row w-full mb-4'>
+                                            <div key={nestedIndex} className='flex flex-row w-full mb-2'>
                                                 <div className={`rounded-full ${profileColours[Math.floor(Math.random()*profileColours.length)]} 
                                                 h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
                                                     <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
