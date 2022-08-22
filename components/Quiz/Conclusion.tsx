@@ -283,14 +283,13 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     }
     const handleClickNestedDelete = (index, nestedIndex) => {
         let asyncCommentsArray = commentsArray
-        delete(asyncCommentsArray[index].replies[nestedIndex])
         let asyncRepliesArray = Object.values(commentsArray[index].replies)
-        // asyncRepliesArray.splice(nestedIndex, 1)
-        // let tempObject = {}
-        // for (let i in asyncRepliesArray) {
-        //     tempObject[i + 1] = asyncRepliesArray[i]
-        // }
-        // asyncCommentsArray[index].replies = tempObject
+        asyncRepliesArray.splice(nestedIndex, 1)
+        let tempObject = {}
+        for (let i in asyncRepliesArray) {
+            tempObject[i + 1] = asyncRepliesArray[i]
+        }
+        asyncCommentsArray[index].replies = tempObject
         setCommentsArray((commentsArray) => asyncCommentsArray)
     }
     
