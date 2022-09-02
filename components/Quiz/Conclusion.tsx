@@ -7,7 +7,6 @@ import { FacebookIcon, TwitterIcon } from '@remixicons/react/fill'
 import { ThumbUpIcon, MenuAlt2Icon, ChevronDownIcon, ChevronUpIcon, 
     ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/outline'
 import { Ref } from 'react'
-import { RefObject } from 'react'
 
 const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', characterImageUrl='',
                     conclusion='', category='', subcategory='', title='', imageUrls,
