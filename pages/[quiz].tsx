@@ -29,6 +29,9 @@ const Quiz = ({ quizData, id, comments }) => {
             setTotal(10)
         }
     }, [])
+    useEffect(() => {
+
+    }, [...comments.map(item => item.name)])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
