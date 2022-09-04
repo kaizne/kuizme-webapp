@@ -5,7 +5,7 @@ import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
 import axios from 'axios'
 
-const Quiz = ({ quizData }) => {
+const Quiz = ({ quizData, id, comments }) => {
     const [score, setScore] = useState(0)
     const [total, setTotal] = useState(0)
     const [start, setStart] = useState(false)
@@ -29,6 +29,9 @@ const Quiz = ({ quizData }) => {
             setTotal(10)
         }
     }, [])
+    useEffect(() => {
+
+    }, [...comments.map(item => item.name)])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
@@ -98,12 +101,85 @@ const Quiz = ({ quizData }) => {
         })
     }
 
-    const updateConclusionStats = async (slug, key) => {
-        fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
-            method: 'PATCH'
-        })
+    const updateConclusionStats = async (slug, key, difficulty = null) => {
+        if (difficulty) {
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?difficulty=${difficulty}&key=${key}`, {
+                method: 'PATCH'
+            })
+        } 
+        else {
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
+                method: 'PATCH'
+            })
+        }
     }
 
+    const postComment = async (content, threadOf = null) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        if (jwt) {
+            let data
+            if (threadOf) data = { content: content, threadOf: threadOf }
+            else data = { content: content }
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        }
+    }
+
+    const updateComment = async (commentId, content) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))    
+        if (jwt) {
+            const data = { content: content }
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        } 
+    }
+
+    const deleteComment = async (commentId) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        const getUser = async () => {
+            const response = 
+                await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/me', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${jwt}`,
+                    }})
+            return response.json()
+        }
+        if (jwt) { 
+            const user = await getUser()
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}?authorId=${user.id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
+        }
+    }
+
+    const upvoteComment = async (slug, commentId) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
+        if (jwt) { 
+            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
+        }
+    }
+    
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -168,7 +244,8 @@ const Quiz = ({ quizData }) => {
                     featured={quizData.featured.data.attributes.url}
                     section={quizData.section}
                     difficulty={difficulty} setDifficulty={setDifficulty}
-                    label={quizData.label}/>
+                    label={quizData.label}
+                    comments={comments} postComment={postComment} />
         </div>
         <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
                         ${start && !finish ? 'none' : 'hidden'}`}>                
@@ -204,7 +281,8 @@ const Quiz = ({ quizData }) => {
                         conclusionStats={quizData.conclusionStats}
                         conclusionCharacters={quizData.info}
                         conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
-                        updateConclusionStats={updateConclusionStats} /> 
+                        updateConclusionStats={updateConclusionStats}
+                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment} /> 
         </div>
         </>
     )
@@ -341,9 +419,17 @@ export async function getStaticProps({ params }) {
     const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.entry`)
     const data = await res.json()
     const quizData = data.data.attributes
+
+    // Comments use the ID of quiz.
+    const id = data.data.id
+    const commentsRes = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`)
+    const comments = await commentsRes.json()
+    
     return {
         props: {
-            quizData
+            quizData,
+            id,
+            comments
         },
         revalidate: 10,
     }
