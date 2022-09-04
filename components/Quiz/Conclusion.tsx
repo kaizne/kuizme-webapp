@@ -77,119 +77,119 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
     const colourArray = ['bg-indigo-900','bg-indigo-800','bg-indigo-700','bg-indigo-600','bg-indigo-500',
     'bg-indigo-400','bg-indigo-300','bg-violet-400','bg-violet-500','bg-violet-600','bg-violet-700',
     'bg-violet-800','bg-violet-900']
-    // const profileColours = ['bg-slate-300','bg-red-300','bg-orange-300','bg-amber-300','bg-lime-300',
-    // 'bg-emerald-300','bg-cyan-300','bg-blue-300','bg-indigo-300','bg-purple-300','bg-fuchsia-300','bg-pink-300']
-    // {/* How to save dates for time zone compatibility?
-    // let commentDate = new Date().toUTCString()
-    // *save commentDate to the comment object in Strapi
-    // *retrive commentDate from comment object in Strapi when displaying
-    // let currentDate = new Date().toUTCString()
-    // let commentDateObj = new Date(commentDate)
-    // let currentDateObj = new Date(currentDate)
-    // const timeElapsed = currentDateObj.valueOf() - commentDateObj.valueOf() * time in milliseconds *
-    // */}
-    // const commentsJson = {'1':{username:'pResmETa',date:`${new Date('Saturday August 6 2022 13:01:54 GMT-0700').toUTCString()}`,likes:10,replies:{'1':{username:'redblueorange',date:`${new Date().toUTCString()}`,likes:5,replies:{},
-    // text:'I am replying to your comment. This is the first reply. I am now writing additional text to test the overflow wrapping on the reply comment.'},
-    // '2':{username:'secondreply',date:`${new Date().toUTCString()}`,likes:2,replies:{},
-    // text:'I am replying to your comment. This is the second reply.'}},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '2':{username:'fRUDIOUS',date:`${new Date('Sunday July 31 2022 21:04:00 GMT+0500').toUTCString()}`,likes:72,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '3':{username:'uncEcApH871',date:`${new Date().toUTCString()}`,likes:14,replies:{'1':{username:'test1',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 1'},'2':{username:'test2',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 2'},'3':{username:'test3',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 3'},'4':{username:'test4',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 4'},'5':{username:'test5',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 5'},'6':{username:'test6',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 6'},'7':{username:'test7',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 7'},'8':{username:'test8',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 8'},'9':{username:'test9',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 9'},'10':{username:'test10',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 10'},'11':{username:'test11',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 11'},'12':{username:'test12',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 12'},'13':{username:'test13',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 13'},'14':{username:'test14',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 14'},'15':{username:'test15',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 15'},'16':{username:'test16',date:`${new Date().toUTCString()}`,likes:4,replies:{},
-    // text:'test comment 16'}},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '4':{username:'mCfresh',date:`${new Date('Friday July 22 2022 13:01:54 GMT+0200').toUTCString()}`,likes:83,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '5':{username:'mjdagoat',date:`${new Date('Sunday July 31 2022 11:59:54 GMT+0600').toUTCString()}`,likes:501,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '6':{username:'yujishuji109481lol',date:`${new Date('Tuesday July 26 2022 13:01:54 GMT+0100').toUTCString()}`,likes:11,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '7':{username:'alex',date:`${new Date('Wednesday July 27 2022 13:01:54 GMT+0700').toUTCString()}`,likes:1,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '8':{username:'k',date:`${new Date('Friday July 28 2022 13:01:54 GMT+0700').toUTCString()}`,likes:2,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '9':{username:'rickross',date:`${new Date('Tuesday March 1 2022 13:01:54 GMT-0600').toUTCString()}`,likes:3,replies:{'1':{username:'pinkpurple',date:`${new Date().toUTCString()}`,likes:1,replies:{},
-    // text:'I am replying to your comment. This is the first reply.'}},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '10':{username:'hehexd',date:`${new Date('Friday May 11 2018 13:01:54 GMT-0500').toUTCString()}`,likes:3,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '11':{username:'beTiCTiV',date:`${new Date('Tuesday January 10 2022 13:01:54 GMT-0600').toUTCString()}`,likes:9,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '12':{username:'randomUsername',date:`${new Date('Monday July 25 2022 13:01:54 GMT+0500').toUTCString()}`,likes:54,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '13':{username:'seanbrawn',date:`${new Date('Saturday April 8 2017 13:01:54 GMT+0200').toUTCString()}`,likes:1,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '14':{username:'bunnyxx',date:`${new Date('Wednesday September 8 2021 13:01:54 GMT+0200').toUTCString()}`,likes:0,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '15':{username:'lavender',date:`${new Date('Monday July 25 2022 13:01:54 GMT-0100').toUTCString()}`,likes:0,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '16':{username:'coral',date:`${new Date('Thursday April 7 2022 13:01:54 GMT-0400').toUTCString()}`,likes:5,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '17':{username:'Kevin Durant',date:`${new Date('Tuesday July 26 2022 13:01:54 GMT-0700').toUTCString()}`,likes:179,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '18':{username:'Lebron James',date:`${new Date('Wednesday October 13 2021 13:01:54 GMT+0800').toUTCString()}`,likes:180,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '19':{username:'cantwinwiththesecats',date:`${new Date('Monday February 1 2021 13:01:54 GMT+0100').toUTCString()}`,likes:1723,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
-    // '20':{username:'chumb',date:`${new Date('Saturday July 2 2022 13:01:54 GMT+0200').toUTCString()}`,likes:10529,replies:{},
-    // text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'}}
-    // const [commentsArray, setCommentsArray] = useState(Object.values(commentsJson))
-    // let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
-    //     if (filter === 'Newest') {
-    //         const dateA = new Date(a.date)
-    //         const dateB = new Date(b.date)
-    //         const timeElapsedA = new Date().valueOf() - dateA.valueOf()
-    //         const timeElapsedB = new Date().valueOf() - dateB.valueOf()
-    //         if (timeElapsedA > timeElapsedB) return (1)
-    //         else return (-1)
-    //     }
-    //     else if (filter === 'Most Popular') {
-    //         const likesA = a.likes
-    //         const likesB = b.likes
-    //         if (likesA > likesB) return (-1)
-    //         else return (1)
-    //     }
-    // }).slice(0,commentsShown)
-    // let init = []
-    // for (let i = 0; i < commentsShown; i++) {
-    //     init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
-    // }
-    // const [repliesShown, setRepliesShown] = useState(init) // array containing number of replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
-    // //let initNested = [...Array(commentsShown)].map(element => Array(commentsShown))
-    // let initNested = []
-    // let initNestedReplyCharacterCounts = []
-    // let initNestedReplyPostText = []
-    // let initNestedOpenDelete = []
-    // for (let i = 0; i < commentsShown; i++) {
-    //     initNested.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
-    //     initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
-    //     initNestedReplyPostText.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill('Post'))
-    //     initNestedOpenDelete.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
-    // }
-    // const [nestedOpenReplies, setNestedOpenReplies] = useState(initNested) // array containing number of nested replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
-    // const [nestedReplyCharacterCounts, setNestedReplyCharacterCounts] = useState(initNestedReplyCharacterCounts)
-    // const [nestedReplyPostText, setNestedReplyPostText] = useState(initNestedReplyPostText)
-    // const [nestedOpenDelete, setNestedOpenDelete] = useState(initNestedOpenDelete)
+    const profileColours = ['bg-slate-300','bg-red-300','bg-orange-300','bg-amber-300','bg-lime-300',
+    'bg-emerald-300','bg-cyan-300','bg-blue-300','bg-indigo-300','bg-purple-300','bg-fuchsia-300','bg-pink-300']
+    {/* How to save dates for time zone compatibility?
+    let commentDate = new Date().toUTCString()
+    *save commentDate to the comment object in Strapi
+    *retrive commentDate from comment object in Strapi when displaying
+    let currentDate = new Date().toUTCString()
+    let commentDateObj = new Date(commentDate)
+    let currentDateObj = new Date(currentDate)
+    const timeElapsed = currentDateObj.valueOf() - commentDateObj.valueOf() * time in milliseconds *
+    */}
+    const commentsJson = {'1':{username:'pResmETa',date:`${new Date('Saturday August 6 2022 13:01:54 GMT-0700').toUTCString()}`,likes:10,replies:{'1':{username:'redblueorange',date:`${new Date().toUTCString()}`,likes:5,replies:{},
+    text:'I am replying to your comment. This is the first reply. I am now writing additional text to test the overflow wrapping on the reply comment.'},
+    '2':{username:'secondreply',date:`${new Date().toUTCString()}`,likes:2,replies:{},
+    text:'I am replying to your comment. This is the second reply.'}},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '2':{username:'fRUDIOUS',date:`${new Date('Sunday July 31 2022 21:04:00 GMT+0500').toUTCString()}`,likes:72,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '3':{username:'uncEcApH871',date:`${new Date().toUTCString()}`,likes:14,replies:{'1':{username:'test1',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 1'},'2':{username:'test2',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 2'},'3':{username:'test3',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 3'},'4':{username:'test4',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 4'},'5':{username:'test5',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 5'},'6':{username:'test6',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 6'},'7':{username:'test7',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 7'},'8':{username:'test8',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 8'},'9':{username:'test9',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 9'},'10':{username:'test10',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 10'},'11':{username:'test11',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 11'},'12':{username:'test12',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 12'},'13':{username:'test13',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 13'},'14':{username:'test14',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 14'},'15':{username:'test15',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 15'},'16':{username:'test16',date:`${new Date().toUTCString()}`,likes:4,replies:{},
+    text:'test comment 16'}},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '4':{username:'mCfresh',date:`${new Date('Friday July 22 2022 13:01:54 GMT+0200').toUTCString()}`,likes:83,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '5':{username:'mjdagoat',date:`${new Date('Sunday July 31 2022 11:59:54 GMT+0600').toUTCString()}`,likes:501,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '6':{username:'yujishuji109481lol',date:`${new Date('Tuesday July 26 2022 13:01:54 GMT+0100').toUTCString()}`,likes:11,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '7':{username:'alex',date:`${new Date('Wednesday July 27 2022 13:01:54 GMT+0700').toUTCString()}`,likes:1,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '8':{username:'k',date:`${new Date('Friday July 28 2022 13:01:54 GMT+0700').toUTCString()}`,likes:2,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '9':{username:'rickross',date:`${new Date('Tuesday March 1 2022 13:01:54 GMT-0600').toUTCString()}`,likes:3,replies:{'1':{username:'pinkpurple',date:`${new Date().toUTCString()}`,likes:1,replies:{},
+    text:'I am replying to your comment. This is the first reply.'}},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '10':{username:'hehexd',date:`${new Date('Friday May 11 2018 13:01:54 GMT-0500').toUTCString()}`,likes:3,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '11':{username:'beTiCTiV',date:`${new Date('Tuesday January 10 2022 13:01:54 GMT-0600').toUTCString()}`,likes:9,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '12':{username:'randomUsername',date:`${new Date('Monday July 25 2022 13:01:54 GMT+0500').toUTCString()}`,likes:54,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '13':{username:'seanbrawn',date:`${new Date('Saturday April 8 2017 13:01:54 GMT+0200').toUTCString()}`,likes:1,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '14':{username:'bunnyxx',date:`${new Date('Wednesday September 8 2021 13:01:54 GMT+0200').toUTCString()}`,likes:0,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '15':{username:'lavender',date:`${new Date('Monday July 25 2022 13:01:54 GMT-0100').toUTCString()}`,likes:0,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '16':{username:'coral',date:`${new Date('Thursday April 7 2022 13:01:54 GMT-0400').toUTCString()}`,likes:5,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '17':{username:'Kevin Durant',date:`${new Date('Tuesday July 26 2022 13:01:54 GMT-0700').toUTCString()}`,likes:179,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '18':{username:'Lebron James',date:`${new Date('Wednesday October 13 2021 13:01:54 GMT+0800').toUTCString()}`,likes:180,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '19':{username:'cantwinwiththesecats',date:`${new Date('Monday February 1 2021 13:01:54 GMT+0100').toUTCString()}`,likes:1723,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'},
+    '20':{username:'chumb',date:`${new Date('Saturday July 2 2022 13:01:54 GMT+0200').toUTCString()}`,likes:10529,replies:{},
+    text:'I think its hilarious u kids talking about chumb. u wouldnt say this stuff to him at lan, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol'}}
+    const [commentsArray, setCommentsArray] = useState(Object.values(commentsJson))
+    let sortedCommmentsArray = commentsArray.slice().sort((a,b) => {
+        if (filter === 'Newest') {
+            const dateA = new Date(a.date)
+            const dateB = new Date(b.date)
+            const timeElapsedA = new Date().valueOf() - dateA.valueOf()
+            const timeElapsedB = new Date().valueOf() - dateB.valueOf()
+            if (timeElapsedA > timeElapsedB) return (1)
+            else return (-1)
+        }
+        else if (filter === 'Most Popular') {
+            const likesA = a.likes
+            const likesB = b.likes
+            if (likesA > likesB) return (-1)
+            else return (1)
+        }
+    }).slice(0,commentsShown)
+    let init = []
+    for (let i = 0; i < commentsShown; i++) {
+        init.push(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies))
+    }
+    const [repliesShown, setRepliesShown] = useState(init) // array containing number of replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
+    //let initNested = [...Array(commentsShown)].map(element => Array(commentsShown))
+    let initNested = []
+    let initNestedReplyCharacterCounts = []
+    let initNestedReplyPostText = []
+    let initNestedOpenDelete = []
+    for (let i = 0; i < commentsShown; i++) {
+        initNested.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+        initNestedReplyCharacterCounts.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(0))
+        initNestedReplyPostText.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill('Post'))
+        initNestedOpenDelete.push(new Array(Math.min(Object.values(sortedCommmentsArray[i].replies).length,minReplies)).fill(false))
+    }
+    const [nestedOpenReplies, setNestedOpenReplies] = useState(initNested) // array containing number of nested replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
+    const [nestedReplyCharacterCounts, setNestedReplyCharacterCounts] = useState(initNestedReplyCharacterCounts)
+    const [nestedReplyPostText, setNestedReplyPostText] = useState(initNestedReplyPostText)
+    const [nestedOpenDelete, setNestedOpenDelete] = useState(initNestedOpenDelete)
 
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
-        // document.addEventListener('click', handleClickOutsideFilter, true)
+        document.addEventListener('click', handleClickOutsideFilter, true)
         if (localStorage.getItem('user')) {
             const library = JSON.parse(localStorage.getItem('user')).library
             if (library && library.includes(slug)) {
@@ -199,100 +199,100 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         }
         updateConclusionStats(slug, conclusionIndex)
     }, [])
-    // useEffect(() => {
-    //     console.log(comments)
-    // }, [...comments.map(item => item.name)])
+    useEffect(() => {
+        console.log(comments)
+    }, [...comments.map(item => item.name)])
 
-    // const handleClickOutsideFilter = (e) => {
-    //     if (refFilter.current && !refFilter.current.contains(e.target))
-    //         setDropDownFilter(false)
-    // }
-    // const handleClickPostComment = (e) => {
-    //     if (e.current) {
-    //         if (e.current.value) {
-    //             setCommentsArray((commentsArray) => [{username:'testName',date:new Date().toUTCString(),likes:0,replies:{},text:e.current.value},...commentsArray])
-    //             e.current.value = ''
-    //             e.current.style.height = '38px'
-    //             e.current.style.height = `${e.current.scrollHeight}px`
-    //             setCharacterCounter(e.current.value.length)
-    //         }
-    //     }
-    // }
-    // const handleClickPostReply = (e, index) => {
-    //     if (e) {
-    //         if (e.value) {
-    //             let asyncCommentsArray = commentsArray
-    //             asyncCommentsArray[index].replies[Object.values(asyncCommentsArray[index].replies).length+1] = {username:'testReply',date:new Date().toUTCString(),likes:3,replies:{},text:e.value}
-    //             setCommentsArray((commentsArray) => asyncCommentsArray)
-    //             e.value = ''
-    //             e.style.height = '33px'
-    //             e.style.height = `${e.scrollHeight}px`
-    //         }
-    //     }
-    // }
-    // const handleClickUpdate = (e, index) => {
-    //     if (e) {
-    //         if (e.value) {
-    //             let asyncCommentsArray = commentsArray
-    //             asyncCommentsArray[index] = {username:asyncCommentsArray[index].username,date:asyncCommentsArray[index].date,
-    //                 likes:asyncCommentsArray[index].likes,replies:asyncCommentsArray[index].replies,text:e.value}
-    //             setCommentsArray((commentsArray) => asyncCommentsArray)
-    //             e.value = ''
-    //             e.style.height = '33px'
-    //             e.style.height = `${e.scrollHeight}px`
-    //         }
-    //     }
-    // }
-    // const handleClickNestedUpdate = (e, index, nestedIndex) => {
-    //     if (e) {
-    //         if (e.value) {
-    //             console.log('test')
-    //             console.log(nestedIndex + 1)
-    //             let asyncCommentsArray = commentsArray
-    //             console.log(asyncCommentsArray[index])
-    //             asyncCommentsArray[index].replies[nestedIndex + 1] = {username:asyncCommentsArray[index].replies[nestedIndex + 1].username,date:asyncCommentsArray[index].replies[nestedIndex + 1].date,
-    //                 likes:asyncCommentsArray[index].replies[nestedIndex + 1].likes,replies:asyncCommentsArray[index].replies[nestedIndex + 1].replies,text:e.value}
-    //             setCommentsArray((commentsArray) => asyncCommentsArray)
-    //             e.value = ''
-    //             e.style.height = '33px'
-    //             e.style.height = `${e.scrollHeight}px`
-    //         }
-    //     }
-    // }
-    // const handleClickCancelUpdate = (e) => {
-    //     if (e) {
-    //         if (e.value) {
-    //             e.value = ''
-    //             e.style.height = '33px'
-    //             e.style.height = `${e.scrollHeight}px`
-    //         }
-    //     }
-    // }
-    // const handleClickCancel = (e) => {
-    //     if (e) {
-    //         if (e.value) {
-    //             e.value = ''
-    //             e.style.height = '33px'
-    //             e.style.height = `${e.scrollHeight}px`
-    //         }
-    //     }
-    // }
-    // const handleClickDelete = (index) => {
-    //     let asyncCommentsArray = commentsArray
-    //     asyncCommentsArray.splice(index, 1)
-    //     setCommentsArray((commentsArray) => asyncCommentsArray)
-    // }
-    // const handleClickNestedDelete = (index, nestedIndex) => {
-    //     let asyncCommentsArray = commentsArray
-    //     let asyncRepliesArray = Object.values(commentsArray[index].replies)
-    //     asyncRepliesArray.splice(nestedIndex, 1)
-    //     let tempObject = {}
-    //     for (let i in asyncRepliesArray) {
-    //         tempObject[i + 1] = asyncRepliesArray[i]
-    //     }
-    //     asyncCommentsArray[index].replies = tempObject
-    //     setCommentsArray((commentsArray) => asyncCommentsArray)
-    // }
+    const handleClickOutsideFilter = (e) => {
+        if (refFilter.current && !refFilter.current.contains(e.target))
+            setDropDownFilter(false)
+    }
+    const handleClickPostComment = (e) => {
+        if (e.current) {
+            if (e.current.value) {
+                setCommentsArray((commentsArray) => [{username:'testName',date:new Date().toUTCString(),likes:0,replies:{},text:e.current.value},...commentsArray])
+                e.current.value = ''
+                e.current.style.height = '38px'
+                e.current.style.height = `${e.current.scrollHeight}px`
+                setCharacterCounter(e.current.value.length)
+            }
+        }
+    }
+    const handleClickPostReply = (e, index) => {
+        if (e) {
+            if (e.value) {
+                let asyncCommentsArray = commentsArray
+                asyncCommentsArray[index].replies[Object.values(asyncCommentsArray[index].replies).length+1] = {username:'testReply',date:new Date().toUTCString(),likes:3,replies:{},text:e.value}
+                setCommentsArray((commentsArray) => asyncCommentsArray)
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickUpdate = (e, index) => {
+        if (e) {
+            if (e.value) {
+                let asyncCommentsArray = commentsArray
+                asyncCommentsArray[index] = {username:asyncCommentsArray[index].username,date:asyncCommentsArray[index].date,
+                    likes:asyncCommentsArray[index].likes,replies:asyncCommentsArray[index].replies,text:e.value}
+                setCommentsArray((commentsArray) => asyncCommentsArray)
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickNestedUpdate = (e, index, nestedIndex) => {
+        if (e) {
+            if (e.value) {
+                console.log('test')
+                console.log(nestedIndex + 1)
+                let asyncCommentsArray = commentsArray
+                console.log(asyncCommentsArray[index])
+                asyncCommentsArray[index].replies[nestedIndex + 1] = {username:asyncCommentsArray[index].replies[nestedIndex + 1].username,date:asyncCommentsArray[index].replies[nestedIndex + 1].date,
+                    likes:asyncCommentsArray[index].replies[nestedIndex + 1].likes,replies:asyncCommentsArray[index].replies[nestedIndex + 1].replies,text:e.value}
+                setCommentsArray((commentsArray) => asyncCommentsArray)
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickCancelUpdate = (e) => {
+        if (e) {
+            if (e.value) {
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickCancel = (e) => {
+        if (e) {
+            if (e.value) {
+                e.value = ''
+                e.style.height = '33px'
+                e.style.height = `${e.scrollHeight}px`
+            }
+        }
+    }
+    const handleClickDelete = (index) => {
+        let asyncCommentsArray = commentsArray
+        asyncCommentsArray.splice(index, 1)
+        setCommentsArray((commentsArray) => asyncCommentsArray)
+    }
+    const handleClickNestedDelete = (index, nestedIndex) => {
+        let asyncCommentsArray = commentsArray
+        let asyncRepliesArray = Object.values(commentsArray[index].replies)
+        asyncRepliesArray.splice(nestedIndex, 1)
+        let tempObject = {}
+        for (let i in asyncRepliesArray) {
+            tempObject[i + 1] = asyncRepliesArray[i]
+        }
+        asyncCommentsArray[index].replies = tempObject
+        setCommentsArray((commentsArray) => asyncCommentsArray)
+    }
     let text = 'Thanks for playing.'
     if (type === 0) { text = calculatePercentageText(score, total) }
     else if (type === 2) { text = calculatePercentageText(triviaScore, total) }
@@ -422,7 +422,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
         case 1:
             return (
                 <>
-                {/* <div className={`fixed w-full h-screen bg-black opacity-70 z-40 ${!deleteOpen ? 'hidden' : 'none'}`}></div>  */}
+                <div className={`fixed w-full h-screen bg-black opacity-70 z-40 ${!deleteOpen ? 'hidden' : 'none'}`}></div>
                 <div className='flex flex-col flex-1 justify-center items-center bg-white'>
                     <div className='mt-3 text-black text-3xl'>{endText}</div>
                     { characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} priority /> }
@@ -520,9 +520,8 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                             </div>    
                         )})}
                     </div>
-                </div>
                 <div className='h-[3rem]'></div>
-                    {/* <textarea ref={refTextarea} placeholder='Leave a comment...' rows={1} spellCheck='false' className='resize-none w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 
+                    <textarea ref={refTextarea} placeholder='Leave a comment...' rows={1} spellCheck='false' className='resize-none w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 
                     bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
                     focus:border-indigo-600 focus:outline-none md:block px-2 py-1 h-38px scrollbar-hide text-[15.4px] md:text-[14.8px]' maxLength={characterLimit} onChange={(event) => {
                         event.target.style.height = '38px'
@@ -817,7 +816,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                     </div>
                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                     */}
-                                {/*</div>
+                                </div>
                                 <div className='flex flex-col w-full ml-4'>
                                     <div className='flex flex-row items-end'>
                                         <p className='text-sm font-semibold'>{ element.username }</p>
@@ -926,7 +925,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                 <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                                 {/*<img src='/goku.jpg' className='rounded-full'/>
                                                 */}
-                                            {/*</div>
+                                            </div>
                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
                                                 <textarea ref={(element) => refReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
                                                 bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
@@ -1128,7 +1127,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                     <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                                     */}
-                                                {/*</div>
+                                                </div>
                                                 <div className='flex flex-col w-full ml-4'>
                                                     <div className='flex flex-row items-end'>
                                                         <p className='text-sm font-semibold'>{ element.username }</p>
@@ -1242,7 +1241,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                                                                 <p className='text-black font-semibold text-center'>{ element.username[0].toUpperCase() }</p>
                                                                 {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                 */}
-                                                            {/*</div>
+                                                            </div>
                                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
                                                                 <textarea ref={(element) => refNestedReplyTextarea.current[index][nestedIndex] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
                                                                 bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
@@ -1455,7 +1454,7 @@ const Conclusion = ({ type=0, score=0, triviaScore=0, total=0, character='', cha
                     }}>{ commentsShown < commentsArray.length ? 'Show More' : 'Hide Comments' }</button>
                     </div>
                 </div>
-                <div className={`${commentsArray.length > minComments ? 'hidden' : 'none'} h-[1.5rem]`}></div> */}
+                <div className={`${commentsArray.length > minComments ? 'hidden' : 'none'} h-[1.5rem]`}></div>
                 </>
             )
         case 2:
