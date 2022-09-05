@@ -136,7 +136,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
         if (jwt) {
             const data = { content: content }
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${jwt}`,
@@ -162,7 +162,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
         }
         if (jwt) {
             const user = await getUser()
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}?authorId=${user.id}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}?authorId=${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${jwt}`
@@ -175,7 +175,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
     const upvoteComment = async (slug, commentId) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
         if (jwt) {
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
                 method: 'PATCH',
                 headers: {
                     Authorization: `Bearer ${jwt}`
