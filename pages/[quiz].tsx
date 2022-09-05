@@ -293,7 +293,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
                     conclusionCharacters={quizData.info}
                     conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
                     updateConclusionStats={updateConclusionStats}
-                    comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment} />
+                    comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
+                    upvotes={quizData.comments} />
             </div>
         </>
     )

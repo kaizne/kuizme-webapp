@@ -14,7 +14,7 @@ import testComments from '../../data/testComments'
 const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character = '', characterImageUrl = '',
     conclusion = '', category = '', subcategory = '', title = '', imageUrls,
     incrementLike, decrementLike, updateLibrary, slug,
-    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment }) => {
+    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes }) => {
 
     const minComments = 10
     const commentsIncrement = 10
@@ -444,6 +444,42 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 </Link>
                             </div>
                         </div>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            postComment(`${comments.length}`)
+                        }}>
+                            postComment
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            postComment(`uh`,35)
+                        }}>
+                            postReply
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            deleteComment('21')
+                        }}>
+                            deleteComment
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            updateComment('46','does this work')
+                        }}>
+                            updateComment
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            upvoteComment(slug,'35')
+                        }}>
+                            upvoteComment
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            console.log(comments)
+                            console.log(commentsArray)
+                        }}>
+                            log comments
+                        </button>
+                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
+                            console.log(upvotes)
+                        }}>
+                            log upvotes
+                        </button>
                         <div ref={refStats} className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
                             <p className='text-center text-white text-lg w-5/6'>
                                 How Do the Results From Other Users Compare to Yours?</p>
