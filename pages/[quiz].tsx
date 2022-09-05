@@ -128,7 +128,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                 },
                 body: JSON.stringify(data)
             })
-            setComments(async () => await getComments())
+            setComments(await getComments())
         }
     }
 
@@ -144,7 +144,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                 },
                 body: JSON.stringify(data)
             })
-            setComments(async () => await getComments())
+            setComments(await getComments())
         }
     }
 
@@ -168,7 +168,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                     Authorization: `Bearer ${jwt}`
                 }
             })
-            setComments(async () => await getComments())
+            setComments(await getComments())
         }
     }
 
@@ -181,7 +181,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                     Authorization: `Bearer ${jwt}`
                 }
             })
-            setComments(async () => await getComments())
+            setComments(await getComments())
         }
     }
 
