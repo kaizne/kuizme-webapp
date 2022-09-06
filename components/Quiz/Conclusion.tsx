@@ -158,32 +158,31 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             }
         }
     }
-    const handleClickPostReply = (e, index) => {
+    const handleClickPostReply = (e, element) => {
         if (e) {
             if (e.value) {
-                postComment()
-                //let asyncCommentsArray = commentsArray
-                //setCommentsArray((commentsArray) => asyncCommentsArray)
+                postComment(e.value, element.id)
+                console.log('hello')
                 e.value = ''
                 e.style.height = '33px'
                 e.style.height = `${e.scrollHeight}px`
             }
         }
     }
-    const handleClickUpdate = (e, index) => {
+    const handleClickUpdate = (e, element) => {
         if (e) {
             if (e.value) {
-                //updateComment(e.)
+                updateComment(element.id, e.value)
                 e.value = ''
                 e.style.height = '33px'
                 e.style.height = `${e.scrollHeight}px`
             }
         }
     }
-    const handleClickNestedUpdate = (e, index, nestedIndex) => {
+    const handleClickNestedUpdate = (e, element) => {
         if (e) {
             if (e.value) {
-                //updateComment(e.)
+                updateComment(element.id, e.value)
                 e.value = ''
                 e.style.height = '33px'
                 e.style.height = `${e.scrollHeight}px`
@@ -208,11 +207,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             }
         }
     }
-    const handleClickDelete = (index) => {
-        //deleteComment()
+    const handleClickDelete = (element) => {
+        deleteComment(element.id)
     }
-    const handleClickNestedDelete = (index, nestedIndex) => {
-        //deleteComment()
+    const handleClickNestedDelete = (element) => {
+        deleteComment(element.id)
     }
     let text = 'Thanks for playing.'
     if (type === 0) { text = calculatePercentageText(score, total) }
@@ -670,7 +669,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                         tempOpenDelete[index] = false
                                                         setOpenDelete((openDelete) => tempOpenDelete)
                                                         setDeleteOpen(false)
-                                                        handleClickDelete(index)
+                                                        handleClickDelete(element)
                                                         setForceRenderState(!forceRenderState)
                                                         let asyncComments = comments.sort((a, b) => {
                                                             if (filter === 'Newest') {
@@ -793,7 +792,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             let tempReplyCharacterCounts = replyCharacterCounts
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
-                                                            handleClickUpdate(refCommentTextarea.current[index], index)
+                                                            handleClickUpdate(refCommentTextarea.current[index], element)
                                                             let tempReplyPostText = replyPostText
                                                             tempReplyPostText[index] = 'Post'
                                                             setReplyPostText((replyPostText) => tempReplyPostText)
@@ -883,7 +882,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         let tempReplyCharacterCounts = replyCharacterCounts
                                                                         tempReplyCharacterCounts[index] = 0
                                                                         setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
-                                                                        handleClickPostReply(refReplyTextarea.current[index], index)
+                                                                        handleClickPostReply(refReplyTextarea.current[index], element)
                                                                         if (repliesArray.length < 1) {
                                                                             let tempShowReplies = showReplies
                                                                             tempShowReplies[index] = true
@@ -959,8 +958,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                     const timeElapsedB = new Date().valueOf() - dateB.valueOf()
                                                     if (timeElapsedA > timeElapsedB) return (1)
                                                     else return (-1)
-                                                }).slice(0, tempRepliesShown).map((element, nestedIndex) => {
-                                                    const timeSinceComment = calculateTimeSinceComment(element.createdAt)
+                                                }).slice(0, tempRepliesShown).map((nestedElement, nestedIndex) => {
+                                                    const timeSinceComment = calculateTimeSinceComment(nestedElement.createdAt)
                                                     return (
                                                         <>
                                                             <div key={nestedIndex + comments.length} className={`${!nestedOpenDelete[index][nestedIndex] ? 'hidden' : 'none'} fixed z-50 flex flex-col
@@ -985,7 +984,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                             setDeleteOpen(false)
                                                                             let flag = false
                                                                             if (repliesShown[index] < comments[index].children.length) flag = true
-                                                                            handleClickNestedDelete(index, nestedIndex)
+                                                                            handleClickNestedDelete(nestedElement)
                                                                             setForceRenderState(!forceRenderState)
                                                                             let tempNestedOpenReplies = nestedOpenReplies
                                                                             let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
@@ -1019,19 +1018,19 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             <div key={nestedIndex} className='flex flex-row w-full mb-2'>
                                                                 <div className={`rounded-full ${profileColour} 
                                                                 h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
-                                                                    <p className='text-black font-semibold text-center'>{element.author.name[0].toUpperCase()}</p>
+                                                                    <p className='text-black font-semibold text-center'>{nestedElement.author.name[0].toUpperCase()}</p>
                                                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                     */}
                                                                 </div>
                                                                 <div className='flex flex-col w-full ml-4'>
                                                                     <div className='flex flex-row items-end'>
-                                                                        <p className='text-sm font-semibold'>{element.author.name}</p>
+                                                                        <p className='text-sm font-semibold'>{nestedElement.author.name}</p>
                                                                         <p className='text-[12px] text-gray-600 ml-2'>{timeSinceComment}</p>
                                                                     </div>
                                                                     <div className={`flex flex-row mt-1 ${nestedReplyPostText[index][nestedIndex] === 'Save' ? 'hidden' : 'none'}`}>
-                                                                        <p className='text-sm' style={{ overflowWrap: 'anywhere' }}>{element.content}</p>
+                                                                        <p className='text-sm' style={{ overflowWrap: 'anywhere' }}>{nestedElement.content}</p>
                                                                     </div>
-                                                                    <textarea ref={(element) => refNestedCommentTextarea.current[index][nestedIndex] = element} rows={1} spellCheck='false' className={`resize-none
+                                                                    <textarea ref={(nestedElement) => refNestedCommentTextarea.current[index][nestedIndex] = nestedElement} rows={1} spellCheck='false' className={`resize-none
                                                                     bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
                                                                     focus:border-indigo-600 focus:outline-none px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px] mt-1
                                                                     ${nestedReplyPostText[index][nestedIndex] === 'Post' ? 'hidden' : 'none'}`} maxLength={characterLimit}
@@ -1066,7 +1065,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], index, nestedIndex)
+                                                                                handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], nestedElement)
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
                                                                                 tempNestedReplyPostText[index][nestedIndex] = 'Post'
                                                                                 setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
@@ -1076,14 +1075,14 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                     </div>
                                                                     <div className={`flex flex-row mt-2 items-center ${nestedReplyPostText[index][nestedIndex] === 'Save' ? 'hidden' : 'none'}`}>
                                                                         <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => { }} />
-                                                                        <p className='text-sm text-gray-600 ml-1'>{ upvotes[element.id] !== undefined ? upvotes[element.id].length : '0' }</p>
+                                                                        <p className='text-sm text-gray-600 ml-1'>{ upvotes[nestedElement.id] !== undefined ? upvotes[nestedElement.id].length : '0' }</p>
                                                                         <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
                                                                             let temp = nestedOpenReplies
                                                                             if (!nestedOpenReplies[index][nestedIndex]) {
                                                                                 temp[index][nestedIndex] = true
                                                                                 setNestedOpenReplies((nestedOpenReplies) => temp)
                                                                             }
-                                                                            refNestedReplyTextarea.current[index][nestedIndex].value = `@${element.author.name} `
+                                                                            refNestedReplyTextarea.current[index][nestedIndex].value = `@${nestedElement.author.name} `
                                                                             let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                             tempNestedReplyCharacterCounts[index][nestedIndex] = refNestedReplyTextarea.current[index][nestedIndex].value.length
                                                                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
@@ -1098,9 +1097,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 tempNestedReplyPostText[index][nestedIndex] = 'Save'
                                                                                 setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
                                                                                 setForceRenderState(!forceRenderState)
-                                                                                refNestedCommentTextarea.current[index][nestedIndex].value = element.content
+                                                                                refNestedCommentTextarea.current[index][nestedIndex].value = nestedElement.content
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                tempNestedReplyCharacterCounts[index][nestedIndex] = element.content.length
+                                                                                tempNestedReplyCharacterCounts[index][nestedIndex] = nestedElement.content.length
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
                                                                                     refNestedCommentTextarea.current[index][nestedIndex].focus()
@@ -1120,12 +1119,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         <div className='flex flex-row w-full mt-2'>
                                                                             <div className={`rounded-full ${profileColour} 
                                                                             h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
-                                                                                <p className='text-black font-semibold text-center'>{element.author.name[0].toUpperCase()}</p>
+                                                                                <p className='text-black font-semibold text-center'>{nestedElement.author.name[0].toUpperCase()}</p>
                                                                                 {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                                 */}
                                                                             </div>
                                                                             <div className='flex flex-col w-full ml-4 gap-y-1'>
-                                                                                <textarea ref={(element) => refNestedReplyTextarea.current[index][nestedIndex] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                                                <textarea ref={(nestedElement) => refNestedReplyTextarea.current[index][nestedIndex] = nestedElement} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
                                                                                 bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
                                                                                 focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit}
                                                                                     onChange={(event) => {
@@ -1161,7 +1160,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                             let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                                             tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                            handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], index)
+                                                                                            handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], element)
                                                                                             let tempRepliesShown = repliesShown
                                                                                             let tempNestedReplyPostText = nestedReplyPostText
                                                                                             tempNestedOpenReplies = nestedOpenReplies
