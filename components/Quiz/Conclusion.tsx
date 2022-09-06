@@ -26,6 +26,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const refStats = useRef(null)
     const refFilter = useRef(null)
     const refTextarea = useRef(null)
+    const refResetFocus = useRef(null)
     const [forceRenderState, setForceRenderState] = useState(false)
     const [dropDownFilter, setDropDownFilter] = useState(false)
     const [filter, setFilter] = useState('Newest')
@@ -84,7 +85,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const profileColours = ['bg-red-300', 'bg-orange-300', 'bg-amber-300', 'bg-lime-300',
         'bg-emerald-300', 'bg-cyan-300', 'bg-blue-300', 'bg-indigo-300', 'bg-purple-300', 'bg-fuchsia-300']
     const profileColour = profileColours[Number(String(id).slice(-1))]
-    const userId = JSON.parse(localStorage.getItem('user')).id
+    let userId = -1
     {/* How to save dates for time zone compatibility?
     let commentDate = new Date().toUTCString()
     *save commentDate to the comment object in Strapi
@@ -133,6 +134,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
+        userId = JSON.parse(localStorage.getItem('user'))?.id
         document.addEventListener('click', handleClickOutsideFilter, true)
         if (localStorage.getItem('user')) {
             const library = JSON.parse(localStorage.getItem('user')).library
@@ -344,6 +346,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             return (
                 <>
                     <div className={`fixed w-full h-screen bg-black opacity-70 z-40 ${!deleteOpen ? 'hidden' : 'none'}`}></div>
+                    <input ref={refResetFocus} className='h-0'></input>
                     <div className='flex flex-col flex-1 justify-center items-center bg-white'>
                         <div className='mt-3 text-black text-3xl'>{endText}</div>
                         {characterImageUrl && <Image className='rounded-lg' src={characterImageUrl} width={200} height={200} priority />}
@@ -785,6 +788,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             let tempReplyCharacterCounts = replyCharacterCounts
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                            setTimeout(() => {
+                                                                console.log('hello')
+                                                                refResetFocus.current.focus()
+                                                            }, 10)
                                                             handleClickCancelUpdate(refCommentTextarea.current[index])
                                                             let tempReplyPostText = replyPostText
                                                             tempReplyPostText[index] = 'Post'
@@ -795,6 +802,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             let tempReplyCharacterCounts = replyCharacterCounts
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                            setTimeout(() => {
+                                                                console.log('hello')
+                                                                refResetFocus.current.focus()
+                                                            }, 10)
                                                             handleClickUpdate(refCommentTextarea.current[index], element)
                                                             let tempReplyPostText = replyPostText
                                                             tempReplyPostText[index] = 'Post'
@@ -1020,7 +1031,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             </div>
                                                             <div key={nestedIndex} className='flex flex-row w-full mb-2'>
                                                                 <div className={`rounded-full ${profileColour} 
-                                                                h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
+                                                                h-[1.9rem] w-[2rem] flex items-center justify-center`}>
                                                                     <p className='text-black font-semibold text-center'>{nestedElement.author.name[0].toUpperCase()}</p>
                                                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                     */}
@@ -1055,9 +1066,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         <div className='relative w-full flex justify-end'>
                                                                             <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                console.log(nestedReplyPostText)
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                setTimeout(() => {
+                                                                                    console.log('hello')
+                                                                                    refResetFocus.current.focus()
+                                                                                }, 10)
                                                                                 handleClickCancelUpdate(refNestedCommentTextarea.current[index][nestedIndex])
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
                                                                                 tempNestedReplyPostText[index][nestedIndex] = 'Post'
@@ -1068,6 +1082,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                setTimeout(() => {
+                                                                                    console.log('hello')
+                                                                                    refResetFocus.current.focus()
+                                                                                }, 10)
                                                                                 handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], nestedElement)
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
                                                                                 tempNestedReplyPostText[index][nestedIndex] = 'Post'
@@ -1154,6 +1172,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                             tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                             handleClickCancel(refNestedReplyTextarea.current[index][nestedIndex])
+                                                                                            refResetFocus.current.focus({
+                                                                                                preventScroll: true
+                                                                                            })
+                                                                                            console.log('test')
                                                                                             setForceRenderState(!forceRenderState)
                                                                                         }}>Cancel</button>
                                                                                         <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
