@@ -84,6 +84,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const profileColours = ['bg-red-300', 'bg-orange-300', 'bg-amber-300', 'bg-lime-300',
         'bg-emerald-300', 'bg-cyan-300', 'bg-blue-300', 'bg-indigo-300', 'bg-purple-300', 'bg-fuchsia-300']
     const profileColour = profileColours[Number(String(id).slice(-1))]
+    const userId = JSON.parse(localStorage.getItem('user')).id
     {/* How to save dates for time zone compatibility?
     let commentDate = new Date().toUTCString()
     *save commentDate to the comment object in Strapi
@@ -444,7 +445,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                             upvoteComment
                         </button>
                         <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            console.log(upvotes[35])
+                            console.log(comments)
+                            console.log(id)
+                            // console.log(JSON.parse(localStorage.getItem('user')))
                         }}>
                             log comments
                         </button>
@@ -814,7 +817,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             refReplyTextarea.current[index].focus()
                                                         }, 10)
                                                     }}>Reply</button>
-                                                    <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
+                                                    <button className={`ml-4 text-sm text-gray-600 hover:text-black ${element.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
                                                         if (replyPostText[index] === 'Post') {
                                                             let tempReplyPostText = replyPostText
                                                             tempReplyPostText[index] = 'Save'
@@ -829,7 +832,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             }, 10)
                                                         }
                                                     }}>Edit</button>
-                                                    <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
+                                                    <button className={`ml-4 text-sm text-gray-600 hover:text-black ${element.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
                                                         if (!openDelete[index]) {
                                                             let tempOpenDelete = openDelete
                                                             tempOpenDelete[index] = true
@@ -1091,7 +1094,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 refNestedReplyTextarea.current[index][nestedIndex].focus()
                                                                             }, 10)
                                                                         }}>Reply</button>
-                                                                        <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
+                                                                        <button className={`ml-4 text-sm text-gray-600 hover:text-black ${nestedElement.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
                                                                             if (nestedReplyPostText[index][nestedIndex] === 'Post') {
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
                                                                                 tempNestedReplyPostText[index][nestedIndex] = 'Save'
@@ -1106,7 +1109,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 }, 10)
                                                                             }
                                                                         }}>Edit</button>
-                                                                        <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
+                                                                        <button className={`ml-4 text-sm text-gray-600 hover:text-black ${nestedElement.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
                                                                             if (!nestedOpenDelete[index][nestedIndex]) {
                                                                                 let tempNestedOpenDelete = nestedOpenDelete
                                                                                 tempNestedOpenDelete[index][nestedIndex] = true

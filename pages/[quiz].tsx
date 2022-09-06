@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
-import axios from 'axios'
 
 const Quiz = ({ quizData, id, commentsData }) => {
     const [score, setScore] = useState(0)
