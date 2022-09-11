@@ -749,15 +749,15 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                             </div>
                                         </div>
                                         <div key={index} className='flex flex-row w-full mb-4'>
-                                            <div className='h-[2.5rem] w-[2.5rem]'>
-                                                <div className={`rounded-full ${profileColour} 
-                                                h-[2.5rem] w-[2.5rem] flex items-center justify-center`}>
-                                                    <p className='text-black font-semibold text-center'>{element.author.name[0].toUpperCase()}</p>
-                                                </div>
-                                                {/*<img src='/goku.jpg' className='rounded-full'/>
-                                                */}
+                                            <div className='w-[15%] md:w-[2.5rem] shrink-0'>
+                                            <div className={`rounded-full ${profileColour}
+                                            h-[2.5rem] aspect-square flex items-center justify-center`}>
+                                                <p className='text-black font-semibold text-center'>{element.author.name[0].toUpperCase()}</p>
                                             </div>
-                                            <div className='flex flex-col w-full ml-4'>
+                                            </div>
+                                            {/*<img src='/goku.jpg' className='rounded-full'/>
+                                            */}
+                                            <div className='flex flex-col w-[85%] md:w-full md:ml-3'>
                                                 <div className='flex flex-row items-end'>
                                                     <p className='text-sm font-semibold'>{element.author.name}</p>
                                                     <p className='text-[12px] text-gray-600 ml-2'>{timeSinceComment}</p>
@@ -852,82 +852,82 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                         }
                                                     }}>Delete</button>
                                                 </div>
-                                                <div className={`${!openReplies[index] ? 'hidden' : 'none'}`}>
-                                                    <div className='flex flex-row w-full mt-2'>
-                                                        <div className={`rounded-full ${profileColour} 
-                                                        h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
-                                                            <p className='text-black font-semibold text-center'>{element.author.name[0].toUpperCase()}</p>
-                                                            {/*<img src='/goku.jpg' className='rounded-full'/>
-                                                            */}
-                                                        </div>
-                                                        <div className='flex flex-col w-full ml-4 gap-y-1'>
-                                                            <textarea ref={(element) => refReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
-                                                bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
-                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
-                                                                    event.target.style.height = '33px'
-                                                                    event.target.style.height = `${event.target.scrollHeight}px`
-                                                                    if (event.target.value.length > characterLimit) {
-                                                                        event.target.value = event.target.value.substring(0, characterLimit)
-                                                                    }
-                                                                    let tempCharacterCount = replyCharacterCounts
-                                                                    tempCharacterCount[index] = event.target.value.length
-                                                                    setReplyCharacterCounts((replyCharacterCounts) => tempCharacterCount)
+                                                <div className={`${!openReplies[index] ? 'hidden' : 'none'} flex flex-row mt-2`}>
+                                                    <div className='w-[13%] shrink-0 md:w-[30px]'>
+                                                    <div className={`flex rounded-full ${profileColour}
+                                                    h-[30px] aspect-square items-center justify-center`}>
+                                                        <p className='text-black font-semibold text-center text-sm'>{element.author.name[0].toUpperCase()}</p>
+                                                        {/*<img src='/goku.jpg' className='rounded-full'/>
+                                                        */}
+                                                    </div>
+                                                    </div>
+                                                    <div className='flex flex-col w-[87%] md:w-full md:ml-3 gap-y-1'>
+                                                        <textarea ref={(element) => refReplyTextarea.current[index] = element} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                        bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700
+                                                        focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit} onChange={(event) => {
+                                                                event.target.style.height = '33px'
+                                                                event.target.style.height = `${event.target.scrollHeight}px`
+                                                                if (event.target.value.length > characterLimit) {
+                                                                    event.target.value = event.target.value.substring(0, characterLimit)
+                                                                }
+                                                                let tempCharacterCount = replyCharacterCounts
+                                                                tempCharacterCount[index] = event.target.value.length
+                                                                setReplyCharacterCounts((replyCharacterCounts) => tempCharacterCount)
+                                                                setForceRenderState(!forceRenderState)
+                                                            }}></textarea>
+                                                        <div className='flex flex-row items-center'>
+                                                            <p className='text-sm text-gray-600'>
+                                                                {replyCharacterCounts[index]}<span className='text-black'>/{characterLimit}</span>
+                                                            </p>
+                                                            <div className='relative w-full flex justify-end'>
+                                                                <button className='px-2 md:px-3 bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
+                                                                    let tempOpenReplies = openReplies
+                                                                    tempOpenReplies[index] = false
+                                                                    setOpenReplies((openReplies) => tempOpenReplies)
+                                                                    let tempReplyCharacterCounts = replyCharacterCounts
+                                                                    tempReplyCharacterCounts[index] = 0
+                                                                    setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                                    handleClickCancel(refReplyTextarea.current[index])
                                                                     setForceRenderState(!forceRenderState)
-                                                                }}></textarea>
-                                                            <div className='flex flex-row items-center'>
-                                                                <p className='text-sm text-gray-600'>
-                                                                    {replyCharacterCounts[index]}<span className='text-black'>/{characterLimit}</span>
-                                                                </p>
-                                                                <div className='relative w-full flex justify-end'>
-                                                                    <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
-                                                                        let tempOpenReplies = openReplies
-                                                                        tempOpenReplies[index] = false
-                                                                        setOpenReplies((openReplies) => tempOpenReplies)
-                                                                        let tempReplyCharacterCounts = replyCharacterCounts
-                                                                        tempReplyCharacterCounts[index] = 0
-                                                                        setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
-                                                                        handleClickCancel(refReplyTextarea.current[index])
-                                                                        setForceRenderState(!forceRenderState)
-                                                                    }}>Cancel</button>
-                                                                    <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
-                                                                        let tempOpenReplies = openReplies
-                                                                        tempOpenReplies[index] = false
-                                                                        setOpenReplies((openReplies) => tempOpenReplies)
-                                                                        let tempReplyCharacterCounts = replyCharacterCounts
-                                                                        tempReplyCharacterCounts[index] = 0
-                                                                        setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
-                                                                        handleClickPostReply(refReplyTextarea.current[index], element)
-                                                                        if (repliesArray.length < 1) {
-                                                                            let tempShowReplies = showReplies
-                                                                            tempShowReplies[index] = true
-                                                                            setShowReplies((showReplies) => tempShowReplies)
-                                                                        }
+                                                                }}>Cancel</button>
+                                                                <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                                    let tempOpenReplies = openReplies
+                                                                    tempOpenReplies[index] = false
+                                                                    setOpenReplies((openReplies) => tempOpenReplies)
+                                                                    let tempReplyCharacterCounts = replyCharacterCounts
+                                                                    tempReplyCharacterCounts[index] = 0
+                                                                    setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                                    handleClickPostReply(refReplyTextarea.current[index], element)
+                                                                    if (repliesArray.length < 1) {
                                                                         let tempShowReplies = showReplies
-                                                                        let tempRepliesShown = repliesShown
-                                                                        let tempNestedOpenReplies = nestedOpenReplies
-                                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                        let tempNestedReplyPostText = nestedReplyPostText
-                                                                        if (tempRepliesShown[index] < minReplies) {
-                                                                            tempRepliesShown[index] += 1
-                                                                            tempNestedOpenReplies[index].push(false)
-                                                                            tempNestedReplyCharacterCounts[index].push(0)
-                                                                            tempNestedReplyPostText[index].push('Post')
-                                                                        }
-                                                                        else {
-                                                                            tempRepliesShown[index] = repliesArray.length + 1
-                                                                            tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
-                                                                            tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
-                                                                            tempNestedReplyPostText[index] = new Array(repliesArray.length + 1).fill('Post')
-                                                                        }
                                                                         tempShowReplies[index] = true
                                                                         setShowReplies((showReplies) => tempShowReplies)
-                                                                        setRepliesShown((repliesShown) => tempRepliesShown)
-                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
-                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                        setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
-                                                                        setForceRenderState(!forceRenderState)
-                                                                    }}>Post</button>
-                                                                </div>
+                                                                    }
+                                                                    let tempShowReplies = showReplies
+                                                                    let tempRepliesShown = repliesShown
+                                                                    let tempNestedOpenReplies = nestedOpenReplies
+                                                                    let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                    let tempNestedReplyPostText = nestedReplyPostText
+                                                                    if (tempRepliesShown[index] < minReplies) {
+                                                                        tempRepliesShown[index] += 1
+                                                                        tempNestedOpenReplies[index].push(false)
+                                                                        tempNestedReplyCharacterCounts[index].push(0)
+                                                                        tempNestedReplyPostText[index].push('Post')
+                                                                    }
+                                                                    else {
+                                                                        tempRepliesShown[index] = repliesArray.length + 1
+                                                                        tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
+                                                                        tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
+                                                                        tempNestedReplyPostText[index] = new Array(repliesArray.length + 1).fill('Post')
+                                                                    }
+                                                                    tempShowReplies[index] = true
+                                                                    setShowReplies((showReplies) => tempShowReplies)
+                                                                    setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                    setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                    setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
+                                                                    setForceRenderState(!forceRenderState)
+                                                                }}>Post</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1029,14 +1029,16 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div key={nestedIndex} className='flex flex-row w-full mb-2'>
-                                                                <div className={`rounded-full ${profileColour} 
-                                                                h-[1.9rem] w-[2rem] flex items-center justify-center`}>
-                                                                    <p className='text-black font-semibold text-center'>{nestedElement.author.name[0].toUpperCase()}</p>
+                                                            <div key={nestedIndex} className='flex flex-row mb-2'>
+                                                                <div className='w-[14%] md:w-[30px]'>
+                                                                <div className={`rounded-full ${profileColour} shrink-0
+                                                                h-[30px] aspect-square flex items-center justify-center`}>
+                                                                    <p className='text-black font-semibold text-center text-sm'>{nestedElement.author.name[0].toUpperCase()}</p>
                                                                     {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                     */}
                                                                 </div>
-                                                                <div className='flex flex-col w-full ml-4'>
+                                                                </div>
+                                                                <div className='flex flex-col w-[86%] md:w-full md:ml-3'>
                                                                     <div className='flex flex-row items-end'>
                                                                         <p className='text-sm font-semibold'>{nestedElement.author.name}</p>
                                                                         <p className='text-[12px] text-gray-600 ml-2'>{timeSinceComment}</p>
@@ -1136,79 +1138,79 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                             }
                                                                         }}>Delete</button>
                                                                     </div>
-                                                                    <div className={`${!nestedOpenReplies[index][nestedIndex] ? 'hidden' : 'none'}`}>
-                                                                        <div className='flex flex-row w-full mt-2'>
-                                                                            <div className={`rounded-full ${profileColour} 
-                                                                            h-[1.9rem] w-[2.1rem] flex items-center justify-center`}>
-                                                                                <p className='text-black font-semibold text-center'>{nestedElement.author.name[0].toUpperCase()}</p>
-                                                                                {/*<img src='/goku.jpg' className='rounded-full'/>
-                                                                                */}
-                                                                            </div>
-                                                                            <div className='flex flex-col w-full ml-4 gap-y-1'>
-                                                                                <textarea ref={(nestedElement) => refNestedReplyTextarea.current[index][nestedIndex] = nestedElement} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
-                                                                                bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
-                                                                                focus:border-indigo-600 focus:outline-none md:block px-2 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit}
-                                                                                    onChange={(event) => {
-                                                                                        event.target.style.height = '33px'
-                                                                                        event.target.style.height = `${event.target.scrollHeight}px`
-                                                                                        if (event.target.value.length > characterLimit) {
-                                                                                            event.target.value = event.target.value.substring(0, characterLimit)
-                                                                                        }
-                                                                                        let tempCharacterCount = nestedReplyCharacterCounts
-                                                                                        tempCharacterCount[index][nestedIndex] = event.target.value.length
-                                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempCharacterCount)
+                                                                    <div className={`${!nestedOpenReplies[index][nestedIndex] ? 'hidden' : 'none'} flex flex-row mt-2`}>
+                                                                        <div className='w-[15%] md:w-[30px] shrink-0'>
+                                                                        <div className={`rounded-full ${profileColour} 
+                                                                        h-[30px] aspect-square flex items-center justify-center`}>
+                                                                            <p className='text-black font-semibold text-center text-sm'>{nestedElement.author.name[0].toUpperCase()}</p>
+                                                                            {/*<img src='/goku.jpg' className='rounded-full'/>
+                                                                            */}
+                                                                        </div>
+                                                                        </div>
+                                                                        <div className='flex flex-col w-[85%] md:w-full md:ml-3 gap-y-1'>
+                                                                            <textarea ref={(nestedElement) => refNestedReplyTextarea.current[index][nestedIndex] = nestedElement} placeholder='Leave a reply...' rows={1} spellCheck='false' className='resize-none
+                                                                            bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
+                                                                            focus:border-indigo-600 focus:outline-none md:block px-1 h-33px scrollbar-hide py-[0.15rem] text-[14px] md:text-[14px]' maxLength={characterLimit}
+                                                                                onChange={(event) => {
+                                                                                    event.target.style.height = '33px'
+                                                                                    event.target.style.height = `${event.target.scrollHeight}px`
+                                                                                    if (event.target.value.length > characterLimit) {
+                                                                                        event.target.value = event.target.value.substring(0, characterLimit)
+                                                                                    }
+                                                                                    let tempCharacterCount = nestedReplyCharacterCounts
+                                                                                    tempCharacterCount[index][nestedIndex] = event.target.value.length
+                                                                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempCharacterCount)
+                                                                                    setForceRenderState(!forceRenderState)
+                                                                                }}></textarea>
+                                                                            <div className='flex flex-row items-center'>
+                                                                                <p className='text-sm text-gray-600'>
+                                                                                    {nestedReplyCharacterCounts[index][nestedIndex]}<span className='text-black'>/{characterLimit}</span>
+                                                                                </p>
+                                                                                <div className='relative w-full flex justify-end'>
+                                                                                    <button className='px-2 md:px-3 bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
+                                                                                        let tempNestedOpenReplies = nestedOpenReplies
+                                                                                        tempNestedOpenReplies[index][nestedIndex] = false
+                                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                                        tempNestedReplyCharacterCounts[index][nestedIndex] = 0
+                                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                        handleClickCancel(refNestedReplyTextarea.current[index][nestedIndex])
+                                                                                        refResetFocus.current.focus({
+                                                                                            preventScroll: true
+                                                                                        })
+                                                                                        console.log('test')
                                                                                         setForceRenderState(!forceRenderState)
-                                                                                    }}></textarea>
-                                                                                <div className='flex flex-row items-center'>
-                                                                                    <p className='text-sm text-gray-600'>
-                                                                                        {nestedReplyCharacterCounts[index][nestedIndex]}<span className='text-black'>/{characterLimit}</span>
-                                                                                    </p>
-                                                                                    <div className='relative w-full flex justify-end'>
-                                                                                        <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
-                                                                                            let tempNestedOpenReplies = nestedOpenReplies
-                                                                                            tempNestedOpenReplies[index][nestedIndex] = false
-                                                                                            setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
-                                                                                            let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                            tempNestedReplyCharacterCounts[index][nestedIndex] = 0
-                                                                                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                            handleClickCancel(refNestedReplyTextarea.current[index][nestedIndex])
-                                                                                            refResetFocus.current.focus({
-                                                                                                preventScroll: true
-                                                                                            })
-                                                                                            console.log('test')
-                                                                                            setForceRenderState(!forceRenderState)
-                                                                                        }}>Cancel</button>
-                                                                                        <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
-                                                                                            let tempNestedOpenReplies = nestedOpenReplies
-                                                                                            tempNestedOpenReplies[index][nestedIndex] = false
-                                                                                            setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
-                                                                                            let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                            tempNestedReplyCharacterCounts[index][nestedIndex] = 0
-                                                                                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                            handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], element)
-                                                                                            let tempRepliesShown = repliesShown
-                                                                                            let tempNestedReplyPostText = nestedReplyPostText
-                                                                                            tempNestedOpenReplies = nestedOpenReplies
-                                                                                            tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                            if (tempRepliesShown[index] < minReplies) {
-                                                                                                tempRepliesShown[index] += 1
-                                                                                                tempNestedOpenReplies[index].push(false)
-                                                                                                tempNestedReplyCharacterCounts[index].push(0)
-                                                                                                tempNestedReplyPostText[index].push('Post')
-                                                                                            }
-                                                                                            else {
-                                                                                                tempRepliesShown[index] = repliesArray.length + 1
-                                                                                                tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
-                                                                                                tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
-                                                                                                tempNestedReplyPostText[index] = new Array(repliesArray.length + 1).fill('Post')
-                                                                                            }
-                                                                                            setRepliesShown((repliesShown) => tempRepliesShown)
-                                                                                            setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
-                                                                                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                            setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
-                                                                                            setForceRenderState(!forceRenderState)
-                                                                                        }}>Post</button>
-                                                                                    </div>
+                                                                                    }}>Cancel</button>
+                                                                                    <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                                                        let tempNestedOpenReplies = nestedOpenReplies
+                                                                                        tempNestedOpenReplies[index][nestedIndex] = false
+                                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                                        let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                                        tempNestedReplyCharacterCounts[index][nestedIndex] = 0
+                                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                        handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], element)
+                                                                                        let tempRepliesShown = repliesShown
+                                                                                        let tempNestedReplyPostText = nestedReplyPostText
+                                                                                        tempNestedOpenReplies = nestedOpenReplies
+                                                                                        tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                                        if (tempRepliesShown[index] < minReplies) {
+                                                                                            tempRepliesShown[index] += 1
+                                                                                            tempNestedOpenReplies[index].push(false)
+                                                                                            tempNestedReplyCharacterCounts[index].push(0)
+                                                                                            tempNestedReplyPostText[index].push('Post')
+                                                                                        }
+                                                                                        else {
+                                                                                            tempRepliesShown[index] = repliesArray.length + 1
+                                                                                            tempNestedOpenReplies[index] = new Array(repliesArray.length + 1).fill(false)
+                                                                                            tempNestedReplyCharacterCounts[index] = new Array(repliesArray.length + 1).fill(0)
+                                                                                            tempNestedReplyPostText[index] = new Array(repliesArray.length + 1).fill('Post')
+                                                                                        }
+                                                                                        setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                                        setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                                        setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                        setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
+                                                                                        setForceRenderState(!forceRenderState)
+                                                                                    }}>Post</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
