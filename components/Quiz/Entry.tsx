@@ -101,7 +101,14 @@ const Entry = ({ answer=null,
         setTally(tally => {
             let selectionArray = selection.split(',')
             for (let value of selectionArray) {
-                tally[value - 1]++
+                if (value[0] < 11 && size < 11) {
+                    if (selectionArray[selectionArray.length - 1] == 11) { 
+                        tally[value - 1] += 100
+                    }
+                    else {
+                        tally[value - 1]++
+                    }
+                }
             }
             return tally
         })
