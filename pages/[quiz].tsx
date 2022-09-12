@@ -6,7 +6,7 @@ import Conclusion from '../components/Quiz/Conclusion'
 
 const Quiz = ({ quizData, id, commentsData }) => {
     const [score, setScore] = useState(0)
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(10)
     const [start, setStart] = useState(false)
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -22,15 +22,6 @@ const Quiz = ({ quizData, id, commentsData }) => {
             imageUrlArray.push(findImage(quizData.info[i + 1], quizData.image, quizData.type))
         }
     }
-
-    useEffect(() => {
-        if (quizData.limit !== null) {
-            setTotal(quizData.limit)
-        }
-        else {
-            setTotal(10)
-        }
-    }, [])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
