@@ -118,12 +118,14 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let initNestedReplyCharacterCounts = []
     let initNestedReplyPostText = []
     let initNestedOpenDelete = []
-    for (let i = 0; i < commentsShown; i++) {
-        init.push(Math.min(sortedCommmentsArray[i].children.length, minReplies))
-        initNested.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(false))
-        initNestedReplyCharacterCounts.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(0))
-        initNestedReplyPostText.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill('Post'))
-        initNestedOpenDelete.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(false))
+    if (type === 1) {
+        for (let i = 0; i < commentsShown; i++) {
+            init.push(Math.min(sortedCommmentsArray[i].children.length, minReplies))
+            initNested.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(false))
+            initNestedReplyCharacterCounts.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(0))
+            initNestedReplyPostText.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill('Post'))
+            initNestedOpenDelete.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(false))
+        }
     }
     const [repliesShown, setRepliesShown] = useState(init) // array containing number of replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
     const [nestedOpenReplies, setNestedOpenReplies] = useState(initNested) // array containing number of nested replies shown (i.e., if comment has 56 replies we might show 5/25/etc depending on state)
