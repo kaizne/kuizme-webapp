@@ -118,7 +118,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let initNestedReplyCharacterCounts = []
     let initNestedReplyPostText = []
     let initNestedOpenDelete = []
-    if (type === 1) {
+    if (type === 1 && comments.length > 0) {
         for (let i = 0; i < commentsShown; i++) {
             init.push(Math.min(sortedCommmentsArray[i].children.length, minReplies))
             initNested.push(new Array(Math.min(sortedCommmentsArray[i].children.length, minReplies)).fill(false))
