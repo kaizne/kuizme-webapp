@@ -48,7 +48,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let refNestedReplyTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     let refNestedCommentTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     const animeTitle = getAnimeTitle(subcategory)
-
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
 
     // variables beginning with character are for type 0 and type 2
@@ -934,7 +933,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className={`flex flex-row my-2 ${repliesArray.length > 0 ? 'none' : 'hidden'}`}>
+                                                <div className={`flex flex-row mt-2 ${repliesArray.length > 0 ? 'none' : 'hidden'}`}>
                                                     <button className='flex flex-row items-center gap-x-2' onClick={() => {
                                                         let tempShowReplies = showReplies
                                                         tempShowReplies[index] = !tempShowReplies[index]
@@ -1031,7 +1030,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div key={nestedIndex} className='flex flex-row mb-2'>
+                                                            <div key={nestedIndex} className='flex flex-row mt-2'>
                                                                 <div className='w-[14%] md:w-[30px]'>
                                                                 <div className={`rounded-full ${profileColour} shrink-0
                                                                 h-[30px] aspect-square flex items-center justify-center`}>
