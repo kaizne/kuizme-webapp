@@ -30,7 +30,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const [forceRenderState, setForceRenderState] = useState(false)
     const [dropDownFilter, setDropDownFilter] = useState(false)
     const [filter, setFilter] = useState('Newest')
-    const [commentsShown, setCommentsShown] = useState(minComments)
+    const [commentsShown, setCommentsShown] = useState(Math.min(comments.length, minComments))
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [profile, setProfile] = useState(false)
     const [like, setLike] = useState(false)
@@ -49,7 +49,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let refNestedCommentTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     const animeTitle = getAnimeTitle(subcategory)
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
-
     // variables beginning with character are for type 0 and type 2
     /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
     const characterTotal = characterStatsArray.reduce((partialSum, a) => partialSum + a, 0)
@@ -817,7 +816,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                 </div>
                                                 <div className={`flex flex-row mt-2 items-center ${replyPostText[index] === 'Save' ? 'hidden' : 'none'}`}>
                                                     <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => { }} />
-                                                    <p className='text-sm text-gray-600 ml-1'>{ upvotes[element.id] !== undefined ? upvotes[element.id].length : '0' }</p>
+                                                    <p className='text-sm text-gray-600 ml-1'>{ upvotes && element.id in upvotes ? upvotes[element.id].length : '0' }</p>
                                                     <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
                                                         let tempOpenReplies = openReplies
                                                         if (!tempOpenReplies[index]) {
