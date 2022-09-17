@@ -28,11 +28,13 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
             sectionEntries.length > 0 ?
             newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value ) 
+            .map(({ value }) => value )
+            .slice(0, 10) 
             :
             newData = entries.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value ) 
+            .map(({ value }) => value )
+            .slice(0, 10) 
         }
         setData(newData)
     }, [difficulty])

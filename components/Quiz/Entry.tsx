@@ -102,7 +102,14 @@ const Entry = ({ answer=null,
         setTally(tally => {
             let selectionArray = selection.split(',')
             for (let value of selectionArray) {
-                tally[value - 1]++
+                if (value[0] != 'x') {
+                    if (selectionArray[selectionArray.length - 1][0] == 'x') {
+                        tally[value - 1] += Number(selectionArray[selectionArray.length - 1].slice(1))
+                    }
+                    else {
+                        tally[value - 1]++
+                    }
+                }
             }
             return tally
         })

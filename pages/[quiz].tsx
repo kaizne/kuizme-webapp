@@ -3,45 +3,35 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
-import axios from 'axios'
 
-const Quiz = ({ quizData, id, comments }) => {
+const Quiz = ({ quizData, id, commentsData }) => {
     const [score, setScore] = useState(0)
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(10)
     const [start, setStart] = useState(false)
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const [difficulty, setDifficulty] = useState(0)
     const conclusionRef = useRef(null)
+
+    const [comments, setComments] = useState(commentsData)
+
     const imageUrlArray = []
-    if (quizData.type === 1) { 
+    if (quizData.type === 1) {
         for (let i = 0; i < quizData.image.data.length; i++) {
-            imageUrlArray.push(findImage(quizData.info[i+1], quizData.image, quizData.type))
+            imageUrlArray.push(findImage(quizData.info[i + 1], quizData.image, quizData.type))
         }
     }
-    
-    useEffect(() => {
-        if (quizData.limit !== null) { 
-            setTotal(quizData.limit) 
-        }
-        else { 
-            setTotal(10)
-        }
-    }, [])
-    useEffect(() => {
-
-    }, [...comments.map(item => item.name)])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
         let animeTitle = ''
         for (let i = 0; i < animeTitleArray.length; i++) {
             if (animeTitleArray[i] === 'on' || animeTitleArray === 'x')
-                animeTitle =  animeTitle + ' ' + animeTitleArray[i]
-            else 
-                animeTitle =  animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1) 
-        } 
+                animeTitle = animeTitle + ' ' + animeTitleArray[i]
+            else
+                animeTitle = animeTitle + ' ' + animeTitleArray[i].charAt(0).toUpperCase() + animeTitleArray[i].slice(1)
+        }
         return animeTitle
     }
     const animeTitle = findAnimeTitle()
@@ -84,7 +74,7 @@ const Quiz = ({ quizData, id, comments }) => {
             },
             body: JSON.stringify({ url: quizData.slug }),
         })
-        
+
     }
 
     const updateUser = () => {
@@ -95,10 +85,10 @@ const Quiz = ({ quizData, id, comments }) => {
                 Authorization: `Bearer ${jwt}`,
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('user', data)
-        })
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('user', data)
+            })
     }
 
     const updateConclusionStats = async (slug, key, difficulty = null) => {
@@ -106,7 +96,7 @@ const Quiz = ({ quizData, id, comments }) => {
             fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?difficulty=${difficulty}&key=${key}`, {
                 method: 'PATCH'
             })
-        } 
+        }
         else {
             fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/conclusion?key=${key}`, {
                 method: 'PATCH'
@@ -120,7 +110,7 @@ const Quiz = ({ quizData, id, comments }) => {
             let data
             if (threadOf) data = { content: content, threadOf: threadOf }
             else data = { content: content }
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${jwt}`,
@@ -128,14 +118,15 @@ const Quiz = ({ quizData, id, comments }) => {
                 },
                 body: JSON.stringify(data)
             })
+            setComments(await getComments())
         }
     }
 
     const updateComment = async (commentId, content) => {
-        const jwt = JSON.parse(localStorage.getItem('jwt'))    
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
         if (jwt) {
             const data = { content: content }
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${jwt}`,
@@ -143,43 +134,53 @@ const Quiz = ({ quizData, id, comments }) => {
                 },
                 body: JSON.stringify(data)
             })
-        } 
+            setComments(await getComments())
+        }
     }
 
     const deleteComment = async (commentId) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
         const getUser = async () => {
-            const response = 
+            const response =
                 await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/users/me', {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${jwt}`,
-                    }})
+                    }
+                })
             return response.json()
         }
-        if (jwt) { 
+        if (jwt) {
             const user = await getUser()
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}?authorId=${user.id}`, {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}/comment/${commentId}?authorId=${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${jwt}`
                 }
             })
+            setComments(await getComments())
         }
     }
 
     const upvoteComment = async (slug, commentId) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
-        if (jwt) { 
-            fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
+        if (jwt) {
+            await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${slug}/upvote?commentId=${commentId}`, {
                 method: 'PATCH',
                 headers: {
                     Authorization: `Bearer ${jwt}`
                 }
             })
+            setComments(await getComments())
         }
     }
-    
+
+    const getComments = async () => {
+        const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`)
+        const data = await res.json()
+        return data
+    }
+
     let infoCopy = []
 
     if (quizData.type === 0) {
@@ -197,7 +198,7 @@ const Quiz = ({ quizData, id, comments }) => {
             else {
                 if (entry[0] > 10) {
                     count++
-                } 
+                }
             }
         })
     }
@@ -223,33 +224,33 @@ const Quiz = ({ quizData, id, comments }) => {
 
     return (
         <>
-        <Head>
-            {titleAndMeta}
-            <meta property='og:description' content={quizData.intro} />
-            <meta property='og:image' content={quizData.featured.data.attributes.url} />
-            <meta property='og:image:width' content='1200' />
-            <meta property='og:image:height' content='630' />
-            <meta property='og:url' content={`https://www.kuizme.com/${quizData.slug}`} />
-        </Head>
-        <div className={`flex flex-col flex-1 bg-white
+            <Head>
+                {titleAndMeta}
+                <meta property='og:description' content={quizData.intro} />
+                <meta property='og:image' content={quizData.featured.data.attributes.url} />
+                <meta property='og:image:width' content='1200' />
+                <meta property='og:image:height' content='630' />
+                <meta property='og:url' content={`https://www.kuizme.com/${quizData.slug}`} />
+            </Head>
+            <div className={`flex flex-col flex-1 bg-white
                         ${!start ? 'none' : 'hidden'}`}>
-            <Intro title={quizData.title} 
+                <Intro title={quizData.title}
                     intro={quizData.intro}
-                    introText={quizData.introText} 
+                    introText={quizData.introText}
                     setStart={setStart}
-                    plays={quizData.plays} 
-                    likes={quizData.likes} 
-                    publishedAt={parseDate(quizData.publishedAt)} 
+                    plays={quizData.plays}
+                    likes={quizData.likes}
+                    publishedAt={parseDate(quizData.publishedAt)}
                     incrementPlay={incrementPlay}
                     featured={quizData.featured.data.attributes.url}
                     section={quizData.section}
                     difficulty={difficulty} setDifficulty={setDifficulty}
                     label={quizData.label}
                     comments={comments} postComment={postComment} />
-        </div>
-        <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
-                        ${start && !finish ? 'none' : 'hidden'}`}>                
-            <Body info={quizData.info} 
+            </div>
+            <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
+                        ${start && !finish ? 'none' : 'hidden'}`}>
+                <Body info={quizData.info}
                     infoCopy={infoCopy}
                     images={quizData.image}
                     size={numQuestions}
@@ -262,28 +263,30 @@ const Quiz = ({ quizData, id, comments }) => {
                     setTally={setTally} scrollConclusion={scrollConclusion}
                     difficulty={difficulty} setDifficulty={setDifficulty}
                     start={start} />
-        </div>
-        <div ref={conclusionRef} className={`flex flex-col flex-1
-                                            ${finish ? 'none' : 'hidden'}`}> 
-            <Conclusion type={quizData.type} score={score} total={total} 
-                        character={calculateTally(tally, quizData.info)} 
-                        characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
-                        conclusion={calculateConclusionTally(tally, quizData.conclusion)}
-                        category={quizData.category}
-                        subcategory={quizData.subcategory}
-                        title={quizData.title}
-                        imageUrls={imageUrlArray}
-                        triviaScore={calculateTriviaTally(tally)}
-                        incrementLike={incrementLike}
-                        decrementLike={decrementLike}
-                        updateLibrary={updateLibrary} 
-                        slug={quizData.slug}
-                        conclusionStats={quizData.conclusionStats}
-                        conclusionCharacters={quizData.info}
-                        conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
-                        updateConclusionStats={updateConclusionStats}
-                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment} /> 
-        </div>
+            </div>
+            <div ref={conclusionRef} className={`flex flex-col flex-1
+                                            ${finish ? 'none' : 'hidden'}`}>
+                <Conclusion type={quizData.type} score={score} total={total}
+                    character={calculateTally(tally, quizData.info)}
+                    characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
+                    conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                    category={quizData.category}
+                    subcategory={quizData.subcategory}
+                    title={quizData.title}
+                    imageUrls={imageUrlArray}
+                    triviaScore={calculateTriviaTally(tally)}
+                    incrementLike={incrementLike}
+                    decrementLike={decrementLike}
+                    updateLibrary={updateLibrary}
+                    slug={quizData.slug}
+                    conclusionStats={quizData.conclusionStats}
+                    conclusionCharacters={quizData.info}
+                    conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
+                    updateConclusionStats={updateConclusionStats}
+                    comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
+                    upvotes={quizData.comments}
+                    id={id} />
+            </div>
         </>
     )
 }
@@ -305,7 +308,7 @@ const calculateConclusionTally = (tally, conclusion) => {
     if (conclusion !== null) {
         const max = Math.max(...tally)
         const index = tally.indexOf(max) + 1
-        return conclusion[index] 
+        return conclusion[index]
     }
     return
 }
@@ -340,64 +343,64 @@ function returnTitleAndMeta(type, title, animeTitle) {
         case 0:
             if (title.includes('Quiz')) {
                 return (
-                <>
-                <title>{title}- Kuizme</title> 
-                <meta name='description' content={`How well do you know the characters from ${animeTitle}? Play the ${title} to find out now!`}></meta>
-                </>
+                    <>
+                        <title>{title}- Kuizme</title>
+                        <meta name='description' content={`How well do you know the characters from ${animeTitle}? Play the ${title} to find out now!`}></meta>
+                    </>
                 )
             }
             return (
-            <>
-            <title>{title} Quiz - Kuizme</title> 
-            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}></meta>
-            </>
+                <>
+                    <title>{title} Quiz - Kuizme</title>
+                    <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}></meta>
+                </>
             )
         case 1:
-            if (title.includes('Character')) { 
+            if (title.includes('Character')) {
                 return (
-                <>
-                <title>{title} - Kuizme</title>
-                <meta name='description' content={`Have you ever wondered which ${animeTitle} character you are? Take the ${title} quiz to find out now!`}></meta> 
-                </>
+                    <>
+                        <title>{title} - Kuizme</title>
+                        <meta name='description' content={`Have you ever wondered which ${animeTitle} character you are? Take the ${title} quiz to find out now!`}></meta>
+                    </>
                 )
             }
             else if (title.includes('Boyfriend')) {
                 return (
-                <>
-                <title>{title} - Kuizme</title>
-                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
-                </>
+                    <>
+                        <title>{title} - Kuizme</title>
+                        <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                    </>
                 )
             }
             else if (title.includes('Boyfriend')) {
                 return (
-                <>
-                <title>{title} - Kuizme</title>
-                <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
-                </>
+                    <>
+                        <title>{title} - Kuizme</title>
+                        <meta name='description' content={`Who would your boyfriend be in ${animeTitle}? Take the ${title} quiz to find out now!`}></meta>
+                    </>
                 )
             }
             else if (title.includes('Breathing')) {
                 return (
-                <>
-                <title>{title} - Kuizme</title>
-                <meta name='description' content={`Have you ever wondered which ${animeTitle} breathing style you would use? Take the ${title} quiz to find out now!`}></meta> 
-                </>
+                    <>
+                        <title>{title} - Kuizme</title>
+                        <meta name='description' content={`Have you ever wondered which ${animeTitle} breathing style you would use? Take the ${title} quiz to find out now!`}></meta>
+                    </>
                 )
             }
             return (
                 <>
-                <title>{title} - Kuizme</title>
-                <meta name='description' content={`Try the ${title} quiz now if you love ${animeTitle}, or visit Kuizme for more quizzes like this one!`}></meta> 
+                    <title>{title} - Kuizme</title>
+                    <meta name='description' content={`Try the ${title} quiz now if you love ${animeTitle}, or visit Kuizme for more quizzes like this one!`}></meta>
                 </>
             )
         case 2:
             return (
-            <>
-            <title>{title} - Kuizme</title> 
-            <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}>
-            </meta>
-            </>
+                <>
+                    <title>{title} - Kuizme</title>
+                    <meta name='description' content={`How well do you know ${animeTitle}? Play the ${title} quiz to find out now!`}>
+                    </meta>
+                </>
             )
     }
 }
@@ -423,13 +426,13 @@ export async function getStaticProps({ params }) {
     // Comments use the ID of quiz.
     const id = data.data.id
     const commentsRes = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/comments/api::quiz.quiz:${id}`)
-    const comments = await commentsRes.json()
-    
+    const commentsData = await commentsRes.json()
+
     return {
         props: {
             quizData,
             id,
-            comments
+            commentsData
         },
         revalidate: 10,
     }
