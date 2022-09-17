@@ -33,6 +33,7 @@ const Entry = ({ answer=null,
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
+        console.log(entry)
         playAudio()
         if (type === 0) setSelection(generateEntries())
         if (type === 2 || type === 3) {
