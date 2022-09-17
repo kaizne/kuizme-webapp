@@ -50,6 +50,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const animeTitle = getAnimeTitle(subcategory)
     const [userId, setUserId] = useState(-1)
     const [profileColour, setProfileColour] = useState('bg-red-300')
+    const [asyncUpvotes, setAsyncUpvotes] = useState(upvotes)
+    console.log(asyncUpvotes)
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
     // variables beginning with character are for type 0 and type 2
     /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
@@ -103,8 +105,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             else return (-1)
         }
         else if (filter === 'Most Popular') {
-            const likesA = upvotes[a.id]?.length
-            const likesB = upvotes[b.id]?.length
+            let likesA = 0
+            let likesB = 0
+            if (asyncUpvotes) {
+                if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+            }
             if (a.author.id == userId && b.author.id == userId) {
                 return compareLikes(likesA, likesB)
             }
@@ -562,8 +568,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                             setFilter('Most Popular')
                                             setDropDownFilter(false)
                                             let sortedCommmentsArray = comments.sort((a, b) => {
-                                                const likesA = upvotes[a.id]?.length
-                                                const likesB = upvotes[b.id]?.length
+                                                let likesA = 0
+                                                let likesB = 0
+                                                if (asyncUpvotes) {
+                                                    if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                                                    if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+                                                }
                                                 if (a.author.id == userId && b.author.id == userId) {
                                                     return compareLikes(likesA, likesB)
                                                 }
@@ -618,8 +628,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                     else return (-1)
                                 }
                                 else if (filter === 'Most Popular') {
-                                    const likesA = upvotes[a.id]?.length
-                                    const likesB = upvotes[b.id]?.length
+                                    let likesA = 0
+                                    let likesB = 0
+                                    if (asyncUpvotes) {
+                                        if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                                        if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+                                    }
                                     if (a.author.id == userId && b.author.id == userId) {
                                         return compareLikes(likesA, likesB)
                                     }
@@ -674,8 +688,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                 else return (-1)
                                                             }
                                                             else if (filter === 'Most Popular') {
-                                                                const likesA = upvotes[a.id]?.length
-                                                                const likesB = upvotes[b.id]?.length
+                                                                let likesA = 0
+                                                                let likesB = 0
+                                                                if (asyncUpvotes) {
+                                                                    if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                                                                    if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+                                                                }
                                                                 if (a.author.id == userId && b.author.id == userId) {
                                                                     return compareLikes(likesA, likesB)
                                                                 }
@@ -779,12 +797,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                         {replyCharacterCounts[index]}<span className='text-black'>/{characterLimit}</span>
                                                     </p>
                                                     <div className='relative w-full flex justify-end'>
-                                                        <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
+                                                        <button className='px-2 md:px-3 bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
                                                             let tempReplyCharacterCounts = replyCharacterCounts
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                             setTimeout(() => {
-                                                                refResetFocus.current.focus()
+                                                                refResetFocus.current.focus({preventScroll:true})
                                                             }, 10)
                                                             handleClickCancelUpdate(refCommentTextarea.current[index])
                                                             let tempReplyPostText = replyPostText
@@ -792,12 +810,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             setReplyPostText((replyPostText) => tempReplyPostText)
                                                             setForceRenderState(!forceRenderState)
                                                         }}>Cancel</button>
-                                                        <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                        <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 mr-1 relative right-0' onClick={() => {
                                                             let tempReplyCharacterCounts = replyCharacterCounts
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                             setTimeout(() => {
-                                                                refResetFocus.current.focus()
+                                                                refResetFocus.current.focus({preventScroll:true})
                                                             }, 10)
                                                             handleClickUpdate(refCommentTextarea.current[index], element)
                                                             let tempReplyPostText = replyPostText
@@ -808,8 +826,26 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                     </div>
                                                 </div>
                                                 <div className={`flex flex-row mt-2 items-center ${replyPostText[index] === 'Save' ? 'hidden' : 'none'}`}>
-                                                    <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => { }} />
-                                                    <p className='text-sm text-gray-600 ml-1'>{ upvotes && element.id in upvotes ? upvotes[element.id].length : '0' }</p>
+                                                    <ThumbUpIcon className={`h-[1.1rem] hover:cursor-pointer 
+                                                    ${asyncUpvotes && element.id in asyncUpvotes ? asyncUpvotes[element.id].includes(userId) ? 'stroke-indigo-600' : 'none' : 'none'}`} onClick={() => {
+                                                        upvoteComment(slug, element.id)
+                                                        let tempAsyncUpvotes = asyncUpvotes
+                                                        if (asyncUpvotes) {
+                                                            if (element.id in asyncUpvotes) {
+                                                                if (asyncUpvotes[element.id].includes(userId)) tempAsyncUpvotes[element.id].splice(tempAsyncUpvotes[element.id].indexOf(userId))
+                                                                else tempAsyncUpvotes[element.id].push(userId)
+                                                            }
+                                                            else {
+                                                                tempAsyncUpvotes[element.id] = [userId]
+                                                            }
+                                                        }
+                                                        else {
+                                                            tempAsyncUpvotes = {}
+                                                            tempAsyncUpvotes[element.id] = [userId]
+                                                        }
+                                                        setAsyncUpvotes((asyncUpvotes) => tempAsyncUpvotes)
+                                                    }} />
+                                                    <p className='text-sm text-gray-600 ml-1'>{ asyncUpvotes && element.id in asyncUpvotes ? asyncUpvotes[element.id].length : '0' }</p>
                                                     <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
                                                         let tempOpenReplies = openReplies
                                                         if (!tempOpenReplies[index]) {
@@ -818,7 +854,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             setForceRenderState(!forceRenderState)
                                                         }
                                                         setTimeout(() => {
-                                                            refReplyTextarea.current[index].focus()
+                                                            refReplyTextarea.current[index].focus({preventScroll:true})
                                                         }, 10)
                                                     }}>Reply</button>
                                                     <button className={`ml-4 text-sm text-gray-600 hover:text-black ${element.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
@@ -832,7 +868,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             tempReplyCharacterCounts[index] = element.content.length
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                             setTimeout(() => {
-                                                                refCommentTextarea.current[index].focus()
+                                                                refCommentTextarea.current[index].focus({preventScroll:true})
                                                             }, 10)
                                                         }
                                                     }}>Edit</button>
@@ -1059,12 +1095,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                             {nestedReplyCharacterCounts[index][nestedIndex]}<span className='text-black'>/{characterLimit}</span>
                                                                         </p>
                                                                         <div className='relative w-full flex justify-end'>
-                                                                            <button className='w-[15%] bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
+                                                                            <button className='px-2 md:px-3 bg-gray-200 rounded text-black text-center font-semibold text-sm hover:bg-gray-300 py-1 mr-1 relative right-0' onClick={() => {
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
-                                                                                    refResetFocus.current.focus()
+                                                                                    refResetFocus.current.focus({preventScroll:true})
                                                                                 }, 10)
                                                                                 handleClickCancelUpdate(refNestedCommentTextarea.current[index][nestedIndex])
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
@@ -1072,12 +1108,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
                                                                                 setForceRenderState(!forceRenderState)
                                                                             }}>Cancel</button>
-                                                                            <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
+                                                                            <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 mr-1 relative right-0' onClick={() => {
                                                                                 let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
-                                                                                    refResetFocus.current.focus()
+                                                                                    refResetFocus.current.focus({preventScroll:true})
                                                                                 }, 10)
                                                                                 handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], nestedElement)
                                                                                 let tempNestedReplyPostText = nestedReplyPostText
@@ -1088,8 +1124,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         </div>
                                                                     </div>
                                                                     <div className={`flex flex-row mt-2 items-center ${nestedReplyPostText[index][nestedIndex] === 'Save' ? 'hidden' : 'none'}`}>
-                                                                        <ThumbUpIcon className='h-[1.1rem] hover:cursor-pointer hover:stroke-indigo-600' onClick={() => { }} />
-                                                                        <p className='text-sm text-gray-600 ml-1'>{ upvotes[nestedElement.id] !== undefined ? upvotes[nestedElement.id].length : '0' }</p>
+                                                                        <ThumbUpIcon className={`h-[1.1rem] hover:cursor-pointer 
+                                                                        ${upvotes && nestedElement.id in upvotes ? upvotes[nestedElement.id].includes(userId) ? 'stroke-indigo-600' : 'none' : 'none'}`} onClick={() => { 
+                                                                            upvoteComment(slug, nestedElement.id)
+                                                                        }} />
+                                                                        <p className='text-sm text-gray-600 ml-1'>{ upvotes && nestedElement.id in upvotes ? upvotes[nestedElement.id].length : '0' }</p>
                                                                         <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
                                                                             let temp = nestedOpenReplies
                                                                             if (!nestedOpenReplies[index][nestedIndex]) {
@@ -1102,7 +1141,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                             setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                             setForceRenderState(!forceRenderState)
                                                                             setTimeout(() => {
-                                                                                refNestedReplyTextarea.current[index][nestedIndex].focus()
+                                                                                refNestedReplyTextarea.current[index][nestedIndex].focus({preventScroll:true})
                                                                             }, 10)
                                                                         }}>Reply</button>
                                                                         <button className={`ml-4 text-sm text-gray-600 hover:text-black ${nestedElement.author.id == userId ? 'none' : 'hidden'}`} onClick={() => {
@@ -1116,7 +1155,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = nestedElement.content.length
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
-                                                                                    refNestedCommentTextarea.current[index][nestedIndex].focus()
+                                                                                    refNestedCommentTextarea.current[index][nestedIndex].focus({preventScroll:true})
                                                                                 }, 10)
                                                                             }
                                                                         }}>Edit</button>
@@ -1166,9 +1205,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                         tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                         setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                         handleClickCancel(refNestedReplyTextarea.current[index][nestedIndex])
-                                                                                        refResetFocus.current.focus({
-                                                                                            preventScroll: true
-                                                                                        })
+                                                                                        setTimeout(() => {
+                                                                                            refResetFocus.current.focus({preventScroll:true})
+                                                                                        }, 10)
                                                                                         setForceRenderState(!forceRenderState)
                                                                                     }}>Cancel</button>
                                                                                     <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
@@ -1255,8 +1294,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                 else return (-1)
                                             }
                                             else if (filter === 'Most Popular') {
-                                                const likesA = upvotes[a.id]?.length
-                                                const likesB = upvotes[b.id]?.length
+                                                let likesA = 0
+                                                let likesB = 0
+                                                if (asyncUpvotes) {
+                                                    if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                                                    if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+                                                }
                                                 if (a.author.id == userId && b.author.id == userId) {
                                                     return compareLikes(likesA, likesB)
                                                 }
@@ -1307,8 +1350,12 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                 else return (-1)
                                             }
                                             else if (filter === 'Most Popular') {
-                                                const likesA = upvotes[a.id]?.length
-                                                const likesB = upvotes[b.id]?.length
+                                                let likesA = 0
+                                                let likesB = 0
+                                                if (asyncUpvotes) {
+                                                    if (asyncUpvotes[a.id]) likesA = asyncUpvotes[a.id].length
+                                                    if (asyncUpvotes[b.id]) likesB = asyncUpvotes[b.id].length
+                                                }
                                                 if (a.author.id == userId && b.author.id == userId) {
                                                     return compareLikes(likesA, likesB)
                                                 }
