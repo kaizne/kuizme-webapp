@@ -970,8 +970,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                     const dateB = new Date(b.createdAt)
                                                     const timeElapsedA = new Date().valueOf() - dateA.valueOf()
                                                     const timeElapsedB = new Date().valueOf() - dateB.valueOf()
-                                                    if (timeElapsedA > timeElapsedB) return (1)
-                                                    else return (-1)
+                                                    if (timeElapsedA > timeElapsedB) return (-1)
+                                                    else return (1)
                                                 }).slice(0, tempRepliesShown).map((nestedElement, nestedIndex) => {
                                                     const timeSinceComment = calculateTimeSinceComment(nestedElement.createdAt)
                                                     return (
