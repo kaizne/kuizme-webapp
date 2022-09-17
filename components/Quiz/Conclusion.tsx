@@ -14,14 +14,14 @@ import testComments from '../../data/testComments'
 const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character = '', characterImageUrl = '',
     conclusion = '', category = '', subcategory = '', title = '', imageUrls,
     incrementLike, decrementLike, updateLibrary, slug,
-    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes, id }) => {
+    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes }) => {
 
     const minComments = 10
     const commentsIncrement = 10
     const characterLimit = 400
     const minReplies = 5
     const repliesIncrement = 5
-
+    console.log(comments)
     const refComment = useRef(null)
     const refStats = useRef(null)
     const refFilter = useRef(null)
@@ -48,6 +48,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let refNestedReplyTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     let refNestedCommentTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     const animeTitle = getAnimeTitle(subcategory)
+    const [userId, setUserId] = useState(-1)
+    const [profileColour, setProfileColour] = useState('bg-red-300')
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
     // variables beginning with character are for type 0 and type 2
     /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
@@ -82,8 +84,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         'bg-violet-800', 'bg-violet-900']
     const profileColours = ['bg-red-300', 'bg-orange-300', 'bg-amber-300', 'bg-lime-300',
         'bg-emerald-300', 'bg-cyan-300', 'bg-blue-300', 'bg-indigo-300', 'bg-purple-300', 'bg-fuchsia-300']
-    const profileColour = profileColours[Number(String(id).slice(-1))]
-    let userId = -1
     {/* How to save dates for time zone compatibility?
     let commentDate = new Date().toUTCString()
     *save commentDate to the comment object in Strapi
@@ -134,9 +134,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
-        userId = JSON.parse(localStorage.getItem('user'))?.id
         document.addEventListener('click', handleClickOutsideFilter, true)
         if (localStorage.getItem('user')) {
+            setUserId(JSON.parse(localStorage.getItem('user')).id)
+            setProfileColour(profileColours[Number(String(userId).slice(-1))])
             const library = JSON.parse(localStorage.getItem('user')).library
             if (library && library.includes(slug)) {
                 setLikeText('Remove from library')
@@ -165,7 +166,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         if (e) {
             if (e.value) {
                 postComment(e.value, element.id)
-                console.log('hello')
                 e.value = ''
                 e.style.height = '33px'
                 e.style.height = `${e.scrollHeight}px`
@@ -422,43 +422,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 </Link>
                             </div>
                         </div>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            postComment(`${comments.length}`)
-                        }}>
-                            postComment
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            postComment(`uh`,35)
-                        }}>
-                            postReply
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            deleteComment('21')
-                        }}>
-                            deleteComment
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            updateComment('46','does this work')
-                        }}>
-                            updateComment
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            upvoteComment(slug,'35')
-                        }}>
-                            upvoteComment
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            console.log(comments)
-                            console.log(id)
-                            // console.log(JSON.parse(localStorage.getItem('user')))
-                        }}>
-                            log comments
-                        </button>
-                        <button className='w-[10rem] py-1 bg-black rounded text-white mt-2' onClick={() => {
-                            console.log(upvotes)
-                        }}>
-                            log upvotes
-                        </button>
                         <div ref={refStats} className='flex flex-row w-full md:w-3/5 xl:w-2/5 3xl:w-[30%] md:rounded justify-center bg-pink-700 mt-6 py-2 font-semibold'>
                             <p className='text-center text-white text-lg w-5/6'>
                                 How Do the Results From Other Users Compare to Yours?</p>
@@ -641,10 +604,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 else if (filter === 'Most Popular') {
                                     const likesA = upvotes[a.id]?.length
                                     const likesB = upvotes[b.id]?.length
-                                    if (likesA === undefined && likesB === undefined) return (-1)
-                                    else if (likesA === undefined && likesB !== undefined) return (1)
-                                    else if (likesA !== undefined && likesB === undefined) return (-1)
-                                    else { if (likesA > likesB) { return (-1) } }
+                                    if (a.author.id == userId && b.author.id == userId) {
+                                        return compareLikes(likesA, likesB)
+                                    }
+                                    else if (a.author.id == userId && b.author.id != userId) {
+                                        return (-1)
+                                    }
+                                    else if (a.author.id != userId && b.author.id == userId) {
+                                        return (1)
+                                    }
+                                    else {
+                                        return compareLikes(likesA, likesB)
+                                    }
                                 }
                             }).slice(0, commentsShown).map((element, index) => {
                                 const timeSinceComment = calculateTimeSinceComment(element.createdAt)
@@ -789,7 +760,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                             setTimeout(() => {
-                                                                console.log('hello')
                                                                 refResetFocus.current.focus()
                                                             }, 10)
                                                             handleClickCancelUpdate(refCommentTextarea.current[index])
@@ -803,7 +773,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             tempReplyCharacterCounts[index] = 0
                                                             setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                             setTimeout(() => {
-                                                                console.log('hello')
                                                                 refResetFocus.current.focus()
                                                             }, 10)
                                                             handleClickUpdate(refCommentTextarea.current[index], element)
@@ -1071,7 +1040,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
-                                                                                    console.log('hello')
                                                                                     refResetFocus.current.focus()
                                                                                 }, 10)
                                                                                 handleClickCancelUpdate(refNestedCommentTextarea.current[index][nestedIndex])
@@ -1085,7 +1053,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                 setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                 setTimeout(() => {
-                                                                                    console.log('hello')
                                                                                     refResetFocus.current.focus()
                                                                                 }, 10)
                                                                                 handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], nestedElement)
@@ -1178,7 +1145,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                         refResetFocus.current.focus({
                                                                                             preventScroll: true
                                                                                         })
-                                                                                        console.log('test')
                                                                                         setForceRenderState(!forceRenderState)
                                                                                     }}>Cancel</button>
                                                                                     <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 relative right-0' onClick={() => {
@@ -1540,6 +1506,13 @@ function calculateTimeSinceComment(tempCommentDate = '') {
     else {
         return `${(timeElapsed / 31536000).toFixed(0)} years ago`
     }
+}
+
+function compareLikes(likesA, likesB) {
+    if (likesA === undefined && likesB === undefined) return (-1)
+    else if (likesA === undefined && likesB !== undefined) return (1)
+    else if (likesA !== undefined && likesB === undefined) return (-1)
+    else { if (likesA > likesB) { return (-1) } }
 }
 
 export default Conclusion
