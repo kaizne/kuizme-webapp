@@ -1222,7 +1222,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                 })
                                                     :
                                                     <></>}
-                                                <div className={`flex flex-row w-full hover:cursor-pointer items-center ${(showReplies[index]) && (tempRepliesShown < repliesArray.length) ? 'none' : 'hidden'}`} onClick={() => {
+                                                <div className={`flex flex-row w-full mt-2 hover:cursor-pointer items-center ${(showReplies[index]) && (tempRepliesShown < repliesArray.length) ? 'none' : 'hidden'}`} onClick={() => {
                                                     let temp = repliesShown
                                                     let tempNestedOpenReplies = nestedOpenReplies
                                                     let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
