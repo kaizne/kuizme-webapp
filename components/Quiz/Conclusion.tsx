@@ -105,10 +105,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         else if (filter === 'Most Popular') {
             const likesA = upvotes[a.id]?.length
             const likesB = upvotes[b.id]?.length
-            if (likesA === undefined && likesB === undefined) return (-1)
-            else if (likesA === undefined && likesB !== undefined) return (1)
-            else if (likesA !== undefined && likesB === undefined) return (-1)
-            else { if (likesA > likesB) { return (-1) } }
+            if (a.author.id == userId && b.author.id == userId) {
+                return compareLikes(likesA, likesB)
+            }
+            else if (a.author.id == userId && b.author.id != userId) {
+                return (-1)
+            }
+            else if (a.author.id != userId && b.author.id == userId) {
+                return (1)
+            }
+            else {
+                return compareLikes(likesA, likesB)
+            }
         }
     }).slice(0, commentsShown)
     let init = []
@@ -556,10 +564,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                             let sortedCommmentsArray = comments.sort((a, b) => {
                                                 const likesA = upvotes[a.id]?.length
                                                 const likesB = upvotes[b.id]?.length
-                                                if (likesA === undefined && likesB === undefined) return (-1)
-                                                else if (likesA === undefined && likesB !== undefined) return (1)
-                                                else if (likesA !== undefined && likesB === undefined) return (-1)
-                                                else { if (likesA > likesB) { return (-1) } }
+                                                if (a.author.id == userId && b.author.id == userId) {
+                                                    return compareLikes(likesA, likesB)
+                                                }
+                                                else if (a.author.id == userId && b.author.id != userId) {
+                                                    return (-1)
+                                                }
+                                                else if (a.author.id != userId && b.author.id == userId) {
+                                                    return (1)
+                                                }
+                                                else {
+                                                    return compareLikes(likesA, likesB)
+                                                }
                                             }).slice(0, commentsShown)
                                             let init = []
                                             let initNestedOpenReplies = []
@@ -660,10 +676,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             else if (filter === 'Most Popular') {
                                                                 const likesA = upvotes[a.id]?.length
                                                                 const likesB = upvotes[b.id]?.length
-                                                                if (likesA === undefined && likesB === undefined) return (-1)
-                                                                else if (likesA === undefined && likesB !== undefined) return (1)
-                                                                else if (likesA !== undefined && likesB === undefined) return (-1)
-                                                                else { if (likesA > likesB) { return (-1) } }
+                                                                if (a.author.id == userId && b.author.id == userId) {
+                                                                    return compareLikes(likesA, likesB)
+                                                                }
+                                                                else if (a.author.id == userId && b.author.id != userId) {
+                                                                    return (-1)
+                                                                }
+                                                                else if (a.author.id != userId && b.author.id == userId) {
+                                                                    return (1)
+                                                                }
+                                                                else {
+                                                                    return compareLikes(likesA, likesB)
+                                                                }
                                                             }
                                                         }).slice(0, commentsShown)
                                                         let tempShowReplies = showReplies
@@ -1233,10 +1257,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                             else if (filter === 'Most Popular') {
                                                 const likesA = upvotes[a.id]?.length
                                                 const likesB = upvotes[b.id]?.length
-                                                if (likesA === undefined && likesB === undefined) return (-1)
-                                                else if (likesA === undefined && likesB !== undefined) return (1)
-                                                else if (likesA !== undefined && likesB === undefined) return (-1)
-                                                else { if (likesA > likesB) { return (-1) } }
+                                                if (a.author.id == userId && b.author.id == userId) {
+                                                    return compareLikes(likesA, likesB)
+                                                }
+                                                else if (a.author.id == userId && b.author.id != userId) {
+                                                    return (-1)
+                                                }
+                                                else if (a.author.id != userId && b.author.id == userId) {
+                                                    return (1)
+                                                }
+                                                else {
+                                                    return compareLikes(likesA, likesB)
+                                                }
                                             }
                                         }).slice(0, asyncCommentsShown)
                                         let init = []
@@ -1277,10 +1309,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                             else if (filter === 'Most Popular') {
                                                 const likesA = upvotes[a.id]?.length
                                                 const likesB = upvotes[b.id]?.length
-                                                if (likesA === undefined && likesB === undefined) return (-1)
-                                                else if (likesA === undefined && likesB !== undefined) return (1)
-                                                else if (likesA !== undefined && likesB === undefined) return (-1)
-                                                else { if (likesA > likesB) { return (-1) } }
+                                                if (a.author.id == userId && b.author.id == userId) {
+                                                    return compareLikes(likesA, likesB)
+                                                }
+                                                else if (a.author.id == userId && b.author.id != userId) {
+                                                    return (-1)
+                                                }
+                                                else if (a.author.id != userId && b.author.id == userId) {
+                                                    return (1)
+                                                }
+                                                else {
+                                                    return compareLikes(likesA, likesB)
+                                                }
                                             }
                                         }).slice(0, minComments)
                                         let init = []
