@@ -215,7 +215,7 @@ const Entry = ({ answer=null,
                 <span className='font-normal'> / </span> 
                 {size}
             </p>
-            { type === 0 ? 
+            { type === 0 && 
                 <>
                 { imageUrl && <Image className='rounded' src={imageUrl} priority
                                      width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
@@ -232,12 +232,12 @@ const Entry = ({ answer=null,
                         )}
                     </div>
                 </div>
-                </>
-            : <></> }
-            { type === 1 ? 
+                </> 
+            }
+            { type === 1 &&
                 <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} priority 
+                { entry.media && <Image className='rounded' src={entry.media.data[0].attributes.url} priority 
                                               width={150} height={150} /> }
                 <div className='flex flex-col w-96 justify-center items-center'>
                     <div className='grid grid-cols-1 gap-y-2 mt-4'>
@@ -254,12 +254,12 @@ const Entry = ({ answer=null,
                     </div>
                 </div>
                 </>
-            : <></> }
-            { type === 2 ? 
+            }
+            { type === 2 &&
                 <>
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
                 <div className='relative w-80 h-44'>
-                { entry.mediaUrl[1] && <Image className='rounded' src={entry.mediaUrl[1]} 
+                { entry.media && <Image className='rounded' src={entry.media.data[0].attributes.url} 
                                               layout='fill' priority /> }
                 </div>
                 <div className='flex flex-col w-96 justify-center items-center'>
@@ -276,8 +276,8 @@ const Entry = ({ answer=null,
                     </div>
                 </div>
                 </>
-            : <></> }
-            { type === 3 ? 
+            }
+            { type === 3 && 
                 <>
                 {currentQuestion === question && start ? playAudio() : ''}
                 <p className='w-80 text-center font-semibold text-lg mb-1'>{entry.question}</p>
@@ -295,7 +295,7 @@ const Entry = ({ answer=null,
                             )}
                         </div>
                 </> 
-            : <></> }
+            }
             </div>
         </>
     )
@@ -303,10 +303,10 @@ const Entry = ({ answer=null,
 
 function shuffleArray (array) {
     for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        var j = Math.floor(Math.random() * (i + 1))
+        var temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
     }
     return array
 }
