@@ -10,30 +10,27 @@ import {
 const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
                  difficulty, setDifficulty, label, commentsNum=0, shares=0, comments, postComment }) => {
 
+    const colourListThree = ['bg-green-500', 'bg-red-500', 'bg-slate-800']
+    const colourListFour = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-slate-800']
     const [difficultyList, setDifficultyList] = useState([])
+    const [colourList, setColourList] = useState([])
     useEffect(() => {
-        likes += 25
-        if (label === 'popular') {
-            plays += 30
-        }
-        else if (label === 'trending') {
-            plays += 10
-        }
-        for (let idx in section)
-            if (!difficultyList.includes(section[idx].difficulty)) {
-                setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
+        if (introText.difficulties) {
+            const tempDifficultyList = introText.difficulties.split('-')
+            setDifficultyList((difficultyList) => tempDifficultyList)
+            let tempColourList = []
+            switch (tempDifficultyList.length) {
+                case 3:
+                    tempColourList = colourListThree
+                    break
+                case 4:
+                    tempColourList = colourListFour
+                    break
             }
-    }, [])
-    const difficultyTypes = ['easy', 'medium', 'hard', 'advanced', 'expert', 'master']
-    const colourTypes = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-cyan-500', 'bg-violet-800', 'bg-slate-800']
-
-    let colourList = []
-    for (let idx in difficultyTypes) {
-        if (difficultyList.indexOf(difficultyTypes[idx]) > -1) {
-            colourList.push(colourTypes[idx])
+            setColourList((colourList) => tempColourList)
         }
-    }
-    
+    }, [])
+
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center md:rounded-lg bg-indigo-600'>
@@ -55,9 +52,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                         className={`w-[21.3rem] md:w-[37.5rem] h-12 pt-1 pb-1 text-xl font-bold text-white rounded
                                     ${colourList[difficulty]}`}>
                                     <div className='animate-fade'>
-                                        {difficultyList[difficulty] ? difficultyList[difficulty][0].toUpperCase() 
-                                                                            + difficultyList[difficulty].substring(1) 
-                                        : <></>}
+                                        {difficultyList[difficulty] ? difficultyList[difficulty] : <></>}
                                     </div>
                 </button>
         </div> : <></> }
