@@ -225,7 +225,9 @@ const Quiz = ({ quizData, id, commentsData }) => {
     return (
         <>
             <Head>
-                {titleAndMeta}
+                {quizData.meta ? 
+                <><title>{quizData.meta.title}</title><meta name='description' content={quizData.meta.description}></meta></> 
+                : titleAndMeta}
                 <meta property='og:description' content={quizData.intro} />
                 <meta property='og:image' content={quizData.featured.data.attributes.url} />
                 <meta property='og:image:width' content='1200' />
