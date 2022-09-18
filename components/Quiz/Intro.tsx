@@ -101,32 +101,40 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.description }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded 
+                        ${introText.instructions ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>How to Play</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.instructions ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.instructions }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded 
+                        ${introText.anime ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>{ introText.anime }</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded 
+                        ${introText.anime ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.title }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded
+                        ${introText.background ? 'none': 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>Background</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none': 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.background }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>Our Goal</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>What matters most to us at Kuizme is 
             making sure our users have the best experience possible. We try our best to provide 
             you with interesting and thought-provoking questions, which means carefully considering 
@@ -135,11 +143,13 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
             We strive to ask you questions that are challenging but not impossibly so to test your 
             knowledge. We hope everyone who visits our site has fun and wants to come back.</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>We Care About Your Feedback</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>Although we wish we could provide our users 
             with endless content, we are only human. With such a small cast, it can be a struggle at 
             times to keep up with the ever-expanding world of anime. If you ever find that Kuizme is 
