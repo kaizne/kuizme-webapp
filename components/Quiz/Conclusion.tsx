@@ -21,7 +21,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const characterLimit = 400
     const minReplies = 5
     const repliesIncrement = 5
-    console.log(comments)
+    
     const refComment = useRef(null)
     const refStats = useRef(null)
     const refFilter = useRef(null)
@@ -51,7 +51,6 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const [userId, setUserId] = useState(-1)
     const [profileColour, setProfileColour] = useState('bg-red-300')
     const [asyncUpvotes, setAsyncUpvotes] = useState(upvotes)
-    console.log(asyncUpvotes)
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
     // variables beginning with character are for type 0 and type 2
     /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
