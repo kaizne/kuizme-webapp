@@ -10,30 +10,27 @@ import {
 const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
                  difficulty, setDifficulty, label, commentsNum=0, shares=0, comments, postComment }) => {
 
+    const colourListThree = ['bg-green-500', 'bg-red-500', 'bg-slate-800']
+    const colourListFour = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-slate-800']
     const [difficultyList, setDifficultyList] = useState([])
+    const [colourList, setColourList] = useState([])
     useEffect(() => {
-        likes += 25
-        if (label === 'popular') {
-            plays += 30
-        }
-        else if (label === 'trending') {
-            plays += 10
-        }
-        for (let idx in section)
-            if (!difficultyList.includes(section[idx].difficulty)) {
-                setDifficultyList(difficultyList => [...difficultyList, section[idx].difficulty])
+        if (introText.difficulties) {
+            const tempDifficultyList = introText.difficulties.split('-')
+            setDifficultyList((difficultyList) => tempDifficultyList)
+            let tempColourList = []
+            switch (tempDifficultyList.length) {
+                case 3:
+                    tempColourList = colourListThree
+                    break
+                case 4:
+                    tempColourList = colourListFour
+                    break
             }
-    }, [])
-    const difficultyTypes = ['easy', 'medium', 'hard', 'advanced', 'expert', 'master']
-    const colourTypes = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-cyan-500', 'bg-violet-800', 'bg-slate-800']
-
-    let colourList = []
-    for (let idx in difficultyTypes) {
-        if (difficultyList.indexOf(difficultyTypes[idx]) > -1) {
-            colourList.push(colourTypes[idx])
+            setColourList((colourList) => tempColourList)
         }
-    }
-    
+    }, [])
+
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
         <div className='flex flex-col items-center md:rounded-lg bg-indigo-600'>
@@ -55,9 +52,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                         className={`w-[21.3rem] md:w-[37.5rem] h-12 pt-1 pb-1 text-xl font-bold text-white rounded
                                     ${colourList[difficulty]}`}>
                                     <div className='animate-fade'>
-                                        {difficultyList[difficulty] ? difficultyList[difficulty][0].toUpperCase() 
-                                                                            + difficultyList[difficulty].substring(1) 
-                                        : <></>}
+                                        {difficultyList[difficulty] ? difficultyList[difficulty] : <></>}
                                     </div>
                 </button>
         </div> : <></> }
@@ -101,32 +96,40 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.description }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded 
+                        ${introText.instructions ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>How to Play</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.instructions ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.instructions }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded 
+                        ${introText.anime ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>{ introText.anime }</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded 
+                        ${introText.anime ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.title }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-violet-600 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-violet-600 mt-2 text-center md:rounded
+                        ${introText.background ? 'none': 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>Background</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none': 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>{ introText.background }</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>Our Goal</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>What matters most to us at Kuizme is 
             making sure our users have the best experience possible. We try our best to provide 
             you with interesting and thought-provoking questions, which means carefully considering 
@@ -135,11 +138,13 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
             We strive to ask you questions that are challenging but not impossibly so to test your 
             knowledge. We hope everyone who visits our site has fun and wants to come back.</p>
         </div>
-        <div className='w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
-                        py-2 bg-pink-700 mt-2 text-center md:rounded'>
+        <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
+                        py-2 bg-pink-700 mt-2 text-center md:rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-white font-semibold text-lg md:text-xl'>We Care About Your Feedback</p>
         </div>
-        <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
+        <div className={`w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded
+                        ${introText.background ? 'none' : 'hidden'}`}>
             <p className='text-black text-sm md:text-base'>Although we wish we could provide our users 
             with endless content, we are only human. With such a small cast, it can be a struggle at 
             times to keep up with the ever-expanding world of anime. If you ever find that Kuizme is 

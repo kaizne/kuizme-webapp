@@ -225,7 +225,9 @@ const Quiz = ({ quizData, id, commentsData }) => {
     return (
         <>
             <Head>
-                {titleAndMeta}
+                {quizData.meta ? 
+                <><title>{quizData.meta.title}</title><meta name='description' content={quizData.meta.description}></meta></> 
+                : titleAndMeta}
                 <meta property='og:description' content={quizData.intro} />
                 <meta property='og:image' content={quizData.featured.data.attributes.url} />
                 <meta property='og:image:width' content='1200' />
@@ -284,8 +286,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                     conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
                     updateConclusionStats={updateConclusionStats}
                     comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
-                    upvotes={quizData.comments}
-                    id={id} />
+                    upvotes={quizData.comments} />
             </div>
         </>
     )
