@@ -37,6 +37,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const [error, setError] = useState(false)
     const [likeText, setLikeText] = useState('Add to library')
     const [likeButton, setLikeButton] = useState(false)
+    const [disablePointerEvents, setDisablePointerEvents] = useState(false)
     const [characterCounter, setCharacterCounter] = useState(0)
     const [showReplies, setShowReplies] = useState(new Array(commentsShown).fill(false)) // array containing state of replies (shown/hidden)
     const [openReplies, setOpenReplies] = useState(new Array(commentsShown).fill(false)) // array containing state of reply textareas (open/closed)
@@ -191,9 +192,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         if (e) {
             if (e.value) {
                 updateComment(element.id, e.value)
-                e.value = ''
-                e.style.height = '33px'
-                e.style.height = `${e.scrollHeight}px`
+                setTimeout(() => {
+                    e.value = ''
+                    e.style.height = '33px'
+                    e.style.height = `${e.scrollHeight}px`
+                }, 1000)
             }
         }
     }
@@ -201,9 +204,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         if (e) {
             if (e.value) {
                 updateComment(element.id, e.value)
-                e.value = ''
-                e.style.height = '33px'
-                e.style.height = `${e.scrollHeight}px`
+                setTimeout(() => {
+                    e.value = ''
+                    e.style.height = '33px'
+                    e.style.height = `${e.scrollHeight}px`
+                }, 1000)
             }
         }
     }
@@ -460,9 +465,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 )
                             })}
                         </div>
-                        <textarea ref={refTextarea} placeholder='Leave a comment...' rows={1} spellCheck='false' className='resize-none w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 
+                        <textarea ref={refTextarea} placeholder='Leave a comment...' rows={1} spellCheck='false' className={`resize-none w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 
                         bg-gray-200 border-2 border-gray-200 rounded hover:border-gray-300 focus:bg-white placeholder:text-gray-700 
-                        focus:border-indigo-600 focus:outline-none md:block px-2 py-1 h-38px scrollbar-hide text-[15.4px] md:text-[14.8px]' maxLength={characterLimit} onChange={(event) => {
+                        focus:border-indigo-600 focus:outline-none md:block px-2 py-1 h-38px scrollbar-hide text-[15.4px] md:text-[14.8px]
+                        ${disablePointerEvents ? 'pointer-events-none' : 'none'}`} maxLength={characterLimit} onChange={(event) => {
                                 event.target.style.height = '38px'
                                 event.target.style.height = `${event.target.scrollHeight}px`
                                 if (event.target.value.length > characterLimit) {
@@ -470,11 +476,16 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 }
                                 setCharacterCounter(event.target.value.length)
                                 //scrollToComment()
-                            }}></textarea>
-                        <div className='w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-1 h-[2rem] items-center gap-x-4'>
+                        }}></textarea>
+                        <div className={`w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-1 h-[2rem] items-center gap-x-4
+                                        ${disablePointerEvents ? 'pointer-events-none' : 'none'}`}>
                             <button className='w-[15%] bg-indigo-600 rounded text-white text-center font-semibold hover:bg-indigo-700 py-1'
                                 onClick={(e) => {
                                     handleClickPostComment(refTextarea)
+                                    setDisablePointerEvents(true)
+                                    setTimeout(() => {
+                                        setDisablePointerEvents(false)
+                                    }, 1000)
                                     let tempShowReplies = showReplies
                                     let tempOpenReplies = openReplies
                                     let tempRepliesShown = repliesShown
@@ -515,7 +526,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 {characterCounter}<span className='text-black'>/{characterLimit}</span>
                             </p>
                         </div>
-                        <div className='w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 h-[2rem] items-center'>
+                        <div className={`w-11/12 flex flex-row justify-start md:w-3/5 xl:w-2/5 3xl:w-[30%] mt-4 h-[2rem] items-center
+                                        ${disablePointerEvents ? 'pointer-events-none' : 'none'}`}>
                             <p className='text-gray-700'>
                                 {comments.length === 1 ? `${comments.length} Comment` : `${comments.length} Comments`}
                             </p>
@@ -617,7 +629,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                             </div>
                         </div>
                         <div ref={refComment} className='h-2'></div>
-                        <div className='flex flex-col w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%]'>
+                        <div className={`flex flex-col w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%]
+                                        ${disablePointerEvents ? 'pointer-events-none' : 'none'}`}>
                             {comments.sort((a, b) => {
                                 if (forceRenderState) { }
                                 if (filter === 'Newest') {
@@ -657,7 +670,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 else tempRepliesShown = repliesShown[index]
                                 return (
                                     <>
-                                        <div key={index + comments.length} className={`${!openDelete[index] ? 'hidden' : 'none'} fixed z-50 flex flex-col
+                                        <div key={element.id} className={`${!openDelete[index] ? 'hidden' : 'none'} fixed z-50 flex flex-col
                                         bg-gray-500 w-[20rem] top-[45%] left-1/2 -translate-x-1/2 rounded p-4 gap-y-6`}>
                                             <p className='text-white font-semibold'>Delete your comment permanently?</p>
                                             <div className='flex flex-row justify-end gap-x-2'>
@@ -678,6 +691,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                         setOpenDelete((openDelete) => tempOpenDelete)
                                                         setDeleteOpen(false)
                                                         handleClickDelete(element)
+                                                        setDisablePointerEvents(true)
+                                                        setTimeout(() => {
+                                                            setDisablePointerEvents(false)
+                                                        }, 1000)
                                                         setForceRenderState(!forceRenderState)
                                                         let asyncComments = comments.sort((a, b) => {
                                                             if (filter === 'Newest') {
@@ -762,7 +779,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                 </button>
                                             </div>
                                         </div>
-                                        <div key={index} className='flex flex-row w-full mb-4'>
+                                        <div key={element.id - 0.1} className='flex flex-row w-full mb-4'>
                                             <div className='w-[15%] md:w-[2.5rem] shrink-0'>
                                             <div className={`rounded-full ${profileColour}
                                             h-[2.5rem] aspect-square flex items-center justify-center`}>
@@ -812,17 +829,21 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                             setForceRenderState(!forceRenderState)
                                                         }}>Cancel</button>
                                                         <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 mr-1 relative right-0' onClick={() => {
-                                                            let tempReplyCharacterCounts = replyCharacterCounts
-                                                            tempReplyCharacterCounts[index] = 0
-                                                            setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
-                                                            setTimeout(() => {
-                                                                refResetFocus.current.focus({preventScroll:true})
-                                                            }, 10)
                                                             handleClickUpdate(refCommentTextarea.current[index], element)
-                                                            let tempReplyPostText = replyPostText
-                                                            tempReplyPostText[index] = 'Post'
-                                                            setReplyPostText((replyPostText) => tempReplyPostText)
-                                                            setForceRenderState(!forceRenderState)
+                                                            setDisablePointerEvents(true)
+                                                            setTimeout(() => {
+                                                                let tempReplyCharacterCounts = replyCharacterCounts
+                                                                tempReplyCharacterCounts[index] = 0
+                                                                setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
+                                                                setTimeout(() => {
+                                                                    refResetFocus.current.focus({preventScroll:true})
+                                                                }, 10)
+                                                                let tempReplyPostText = replyPostText
+                                                                tempReplyPostText[index] = 'Post'
+                                                                setReplyPostText((replyPostText) => tempReplyPostText)
+                                                                setForceRenderState(!forceRenderState)
+                                                                setDisablePointerEvents(false)
+                                                            }, 1000)
                                                         }}>Save</button>
                                                     </div>
                                                 </div>
@@ -928,6 +949,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                     tempReplyCharacterCounts[index] = 0
                                                                     setReplyCharacterCounts((replyCharacterCounts) => tempReplyCharacterCounts)
                                                                     handleClickPostReply(refReplyTextarea.current[index], element)
+                                                                    setDisablePointerEvents(true)
+                                                                    setTimeout(() => {
+                                                                        setDisablePointerEvents(false)
+                                                                    }, 1000)
                                                                     if (repliesArray.length < 1) {
                                                                         let tempShowReplies = showReplies
                                                                         tempShowReplies[index] = true
@@ -1006,7 +1031,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                     const timeSinceComment = calculateTimeSinceComment(nestedElement.createdAt)
                                                     return (
                                                         <>
-                                                            <div key={nestedIndex + comments.length} className={`${!nestedOpenDelete[index][nestedIndex] ? 'hidden' : 'none'} fixed z-50 flex flex-col
+                                                            <div key={nestedElement.id} className={`${!nestedOpenDelete[index][nestedIndex] ? 'hidden' : 'none'} fixed z-50 flex flex-col
                                                             bg-gray-500 w-[20rem] top-[45%] left-1/2 -translate-x-1/2 rounded p-4 gap-y-6`}>
                                                                 <p className='text-white font-semibold'>Delete your comment permanently?</p>
                                                                 <div className='flex flex-row justify-end gap-x-2'>
@@ -1029,37 +1054,41 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                             let flag = false
                                                                             if (repliesShown[index] < comments[index].children.length) flag = true
                                                                             handleClickNestedDelete(nestedElement)
-                                                                            setForceRenderState(!forceRenderState)
-                                                                            let tempNestedOpenReplies = nestedOpenReplies
-                                                                            let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                            let tempNestedReplyPostText = nestedReplyPostText
-                                                                            tempNestedOpenDelete = nestedOpenDelete
-                                                                            tempNestedOpenReplies[index].splice(nestedIndex, 1)
-                                                                            tempNestedReplyCharacterCounts[index].splice(nestedIndex, 1)
-                                                                            tempNestedReplyPostText[index].splice(nestedIndex, 1)
-                                                                            tempNestedOpenDelete[index].splice(nestedIndex, 1)
-                                                                            if (flag) {
-                                                                                tempNestedOpenDelete[index].push(false)
-                                                                                tempNestedOpenReplies[index].push(false)
-                                                                                tempNestedReplyCharacterCounts[index].push(0)
-                                                                                tempNestedReplyPostText[index].push('Post')
-                                                                            }
-                                                                            else {
-                                                                                let tempRepliesShown = repliesShown
-                                                                                tempRepliesShown[index] -= 1
-                                                                                setRepliesShown((repliesShown) => tempRepliesShown)
-                                                                            }
-                                                                            setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
-                                                                            setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                            setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
-                                                                            setNestedOpenDelete((nestedOpenDelete) => tempNestedOpenDelete)
-                                                                            setForceRenderState(!forceRenderState)
+                                                                            setDisablePointerEvents(true)
+                                                                            setTimeout(() => {
+                                                                                setForceRenderState(!forceRenderState)
+                                                                                let tempNestedOpenReplies = nestedOpenReplies
+                                                                                let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                                let tempNestedReplyPostText = nestedReplyPostText
+                                                                                tempNestedOpenDelete = nestedOpenDelete
+                                                                                tempNestedOpenReplies[index].splice(nestedIndex, 1)
+                                                                                tempNestedReplyCharacterCounts[index].splice(nestedIndex, 1)
+                                                                                tempNestedReplyPostText[index].splice(nestedIndex, 1)
+                                                                                tempNestedOpenDelete[index].splice(nestedIndex, 1)
+                                                                                if (flag) {
+                                                                                    tempNestedOpenDelete[index].push(false)
+                                                                                    tempNestedOpenReplies[index].push(false)
+                                                                                    tempNestedReplyCharacterCounts[index].push(0)
+                                                                                    tempNestedReplyPostText[index].push('Post')
+                                                                                }
+                                                                                else {
+                                                                                    let tempRepliesShown = repliesShown
+                                                                                    tempRepliesShown[index] -= 1
+                                                                                    setRepliesShown((repliesShown) => tempRepliesShown)
+                                                                                }
+                                                                                setNestedOpenReplies((nestedOpenReplies) => tempNestedOpenReplies)
+                                                                                setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
+                                                                                setNestedOpenDelete((nestedOpenDelete) => tempNestedOpenDelete)
+                                                                                setForceRenderState(!forceRenderState)
+                                                                                setDisablePointerEvents(false)
+                                                                            }, 1000)
                                                                         }}>
                                                                         Delete
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div key={nestedIndex} className='flex flex-row mt-2'>
+                                                            <div key={nestedElement.id - 0.1} className='flex flex-row mt-2'>
                                                                 <div className='w-[14%] md:w-[30px]'>
                                                                 <div className={`rounded-full ${profileColour} shrink-0
                                                                 h-[30px] aspect-square flex items-center justify-center`}>
@@ -1110,17 +1139,21 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                 setForceRenderState(!forceRenderState)
                                                                             }}>Cancel</button>
                                                                             <button className='px-2 md:px-3 bg-indigo-600 rounded text-white text-center font-semibold text-sm hover:bg-indigo-700 py-1 mr-1 relative right-0' onClick={() => {
-                                                                                let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
-                                                                                tempNestedReplyCharacterCounts[index][nestedIndex] = 0
-                                                                                setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
-                                                                                setTimeout(() => {
-                                                                                    refResetFocus.current.focus({preventScroll:true})
-                                                                                }, 10)
                                                                                 handleClickNestedUpdate(refNestedCommentTextarea.current[index][nestedIndex], nestedElement)
-                                                                                let tempNestedReplyPostText = nestedReplyPostText
-                                                                                tempNestedReplyPostText[index][nestedIndex] = 'Post'
-                                                                                setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
-                                                                                setForceRenderState(!forceRenderState)
+                                                                                setDisablePointerEvents(true)
+                                                                                setTimeout(() => {
+                                                                                    let tempNestedReplyCharacterCounts = nestedReplyCharacterCounts
+                                                                                    tempNestedReplyCharacterCounts[index][nestedIndex] = 0
+                                                                                    setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
+                                                                                    setTimeout(() => {
+                                                                                        refResetFocus.current.focus({preventScroll:true})
+                                                                                    }, 10)
+                                                                                    let tempNestedReplyPostText = nestedReplyPostText
+                                                                                    tempNestedReplyPostText[index][nestedIndex] = 'Post'
+                                                                                    setNestedReplyPostText((nestedReplyPostText) => tempNestedReplyPostText)
+                                                                                    setForceRenderState(!forceRenderState)
+                                                                                    setDisablePointerEvents(false)
+                                                                                }, 1000)
                                                                             }}>Save</button>
                                                                         </div>
                                                                     </div>
@@ -1219,6 +1252,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                         tempNestedReplyCharacterCounts[index][nestedIndex] = 0
                                                                                         setNestedReplyCharacterCounts((nestedReplyCharacterCounts) => tempNestedReplyCharacterCounts)
                                                                                         handleClickPostReply(refNestedReplyTextarea.current[index][nestedIndex], element)
+                                                                                        setDisablePointerEvents(true)
+                                                                                        setTimeout(() => {
+                                                                                            setDisablePointerEvents(false)
+                                                                                        }, 1000)
                                                                                         let tempRepliesShown = repliesShown
                                                                                         let tempNestedReplyPostText = nestedReplyPostText
                                                                                         tempNestedOpenReplies = nestedOpenReplies
@@ -1278,7 +1315,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 )
                             })}
                             <button className={`w-full py-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold text-center rounded mb-8
-                            ${comments.length > minComments ? 'none' : 'hidden'}`} onClick={() => {
+                            ${comments.length > minComments ? 'none' : 'hidden'} ${disablePointerEvents ? 'pointer-events-none' : 'none'}`} onClick={() => {
                                     let asyncCommentsShown = commentsShown + Math.min(commentsIncrement, comments.length - commentsShown)
                                     if (commentsShown < comments.length) {
                                         setShowReplies((showReplies) => new Array(asyncCommentsShown).fill(false))
