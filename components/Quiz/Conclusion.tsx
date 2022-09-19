@@ -50,7 +50,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     let refNestedCommentTextarea = useRef([...Array(commentsShown)].map(e => Array()))
     const animeTitle = getAnimeTitle(subcategory)
     const [userId, setUserId] = useState(-1)
-    const [username, setUsername] = useState('a')
+    const [username, setUsername] = useState('')
     const [profileColour, setProfileColour] = useState('bg-red-300')
     const [asyncUpvotes, setAsyncUpvotes] = useState(upvotes)
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
@@ -907,7 +907,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                     <div className='w-[13%] shrink-0 md:w-[30px]'>
                                                     <div className={`flex rounded-full ${profileColour}
                                                     h-[30px] aspect-square items-center justify-center`}>
-                                                        <p className='text-black font-semibold text-center text-sm'>{username[0].toUpperCase()}</p>
+                                                        <p className='text-black font-semibold text-center text-sm'>{username ? username[0].toUpperCase() : ''}</p>
                                                         {/*<img src='/goku.jpg' className='rounded-full'/>
                                                         */}
                                                     </div>
@@ -1206,7 +1206,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         <div className='w-[15%] md:w-[30px] shrink-0'>
                                                                         <div className={`rounded-full ${profileColour} 
                                                                         h-[30px] aspect-square flex items-center justify-center`}>
-                                                                            <p className='text-black font-semibold text-center text-sm'>{username[0].toUpperCase()}</p>
+                                                                            <p className='text-black font-semibold text-center text-sm'>{username ? username[0].toUpperCase() : ''}</p>
                                                                             {/*<img src='/goku.jpg' className='rounded-full'/>
                                                                             */}
                                                                         </div>
