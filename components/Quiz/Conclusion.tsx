@@ -1186,6 +1186,21 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                         <ThumbUpIcon className={`h-[1.1rem] hover:cursor-pointer 
                                                                         ${upvotes && nestedElement.id in upvotes ? upvotes[nestedElement.id].includes(userId) ? 'stroke-indigo-600' : 'none' : 'none'}`} onClick={() => { 
                                                                             upvoteComment(slug, nestedElement.id)
+                                                                            let tempAsyncUpvotes = asyncUpvotes
+                                                                            if (asyncUpvotes) {
+                                                                                if (nestedElement.id in asyncUpvotes) {
+                                                                                    if (asyncUpvotes[nestedElement.id].includes(userId)) tempAsyncUpvotes[nestedElement.id].splice(tempAsyncUpvotes[nestedElement.id].indexOf(userId))
+                                                                                    else tempAsyncUpvotes[nestedElement.id].push(userId)
+                                                                                }
+                                                                                else {
+                                                                                    tempAsyncUpvotes[nestedElement.id] = [userId]
+                                                                                }
+                                                                            }
+                                                                            else {
+                                                                                tempAsyncUpvotes = {}
+                                                                                tempAsyncUpvotes[nestedElement.id] = [userId]
+                                                                            }
+                                                                            setAsyncUpvotes((asyncUpvotes) => tempAsyncUpvotes)
                                                                         }} />
                                                                         <p className='text-sm text-gray-600 ml-1'>{ upvotes && nestedElement.id in upvotes ? upvotes[nestedElement.id].length : '0' }</p>
                                                                         <button className='ml-4 text-sm text-gray-600 hover:text-black' onClick={() => {
