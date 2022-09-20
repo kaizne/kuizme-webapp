@@ -24,17 +24,21 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
             let sectionEntries = []
             if (sections.length > 0) {
                 sectionEntries = sections[difficulty].entry
+                newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value )
+                .slice(0, 10); 
+                for (let index in newData) {
+                    let shuffledArray = shuffleArray(Object.entries(newData[index].content)).slice(0)
+                    newData[index].content = Object.fromEntries(shuffledArray)
+                }
             }
-            sectionEntries.length > 0 ?
-            newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value )
-            .slice(0, 10) 
-            :
-            newData = entries.map(value => ({ value, sort: Math.random() }))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value )
-            .slice(0, 10) 
+            else {
+                newData = entries.map(value => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value )
+                .slice(0, 10)
+            } 
         }
         setData(newData)
     }, [difficulty])
@@ -129,6 +133,16 @@ const findSize= (name: string, type, images) => {
         if (searchName === imageName)
             return [image.attributes.width,image.attributes.height]
     }
+}
+
+function shuffleArray (array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1))
+        var temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
+    return array
 }
 
 export default Body
