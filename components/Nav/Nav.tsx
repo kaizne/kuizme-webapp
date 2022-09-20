@@ -67,10 +67,13 @@ const Nav = ({ setOverlay }) => {
             setSearch(false)
     }
     const signOut = () => {
-        localStorage.clear()
+        //localStorage.clear()
+        localStorage.removeItem('jwt')
+        localStorage.removeItem('user')
         setProfile(false)
         setDropDownProfile(false)
-        router.push('/')
+        //router.push('/')
+        router.reload()
     }
     const size = 43
     return (
