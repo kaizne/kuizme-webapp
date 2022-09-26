@@ -1,5 +1,4 @@
-import PreviewTwo from '../PreviewTwo'
-import PreviewThree from '../PreviewThree'
+import Preview from '../Preview'
 
 const Trending = ({ title, quizData }) => {
     return (
@@ -10,10 +9,10 @@ const Trending = ({ title, quizData }) => {
                 <div className='grid md:grid-cols-4 md:grid-rows-2
                                 md:gap-x-1 gap-y-1'>
                 { quizData.slice(4, 12).map((elem, index) => 
-                    <PreviewTwo key={index} 
-                                slug={elem.attributes.slug}
-                                title={elem.attributes.title} 
-                                thumbnail={elem.attributes.featured.data.attributes.url} />) }
+                    <Preview key={index} 
+                            slug={elem.attributes.slug}
+                            title={elem.attributes.title} 
+                            thumbnail={elem.attributes.featured.data.attributes.url} />) }
                 </div>
                 </div>
             </div>
