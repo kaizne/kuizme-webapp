@@ -46,7 +46,8 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                              hover:bg-indigo-800'>
                                 Play</button>
         </div>
-        {section.length > 0 ? <div className='text-center relative z-10 mt-2'>
+        { section.length > 0 && 
+            <div className='text-center relative z-10 mt-2'>
                 <button onClick={() => {if (difficulty >= difficultyList.length - 1) setDifficulty(0)
                                         else setDifficulty(difficulty + 1)}}
                         className={`w-[21.3rem] md:w-[37.5rem] h-12 pt-1 pb-1 text-xl font-bold text-white rounded
@@ -55,7 +56,8 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                                         {difficultyList[difficulty] ? difficultyList[difficulty] : <></>}
                                     </div>
                 </button>
-        </div> : <></> }
+            </div>
+        }
         <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3'> 
             <div className='flex flex-row gap-x-4'>
                 <div className='flex flex-row text-base'>

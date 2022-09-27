@@ -16,6 +16,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
 
     const [comments, setComments] = useState(commentsData)
 
+    useEffect(() => { console.log(start )}, [start])
+
     const imageUrlArray = []
     if (quizData.type === 1) {
         for (let i = 0; i < quizData.image.data.length; i++) {
@@ -234,24 +236,25 @@ const Quiz = ({ quizData, id, commentsData }) => {
                 <meta property='og:image:height' content='630' />
                 <meta property='og:url' content={`https://www.kuizme.com/${quizData.slug}`} />
             </Head>
-            <div className={`flex flex-col flex-1 bg-white
-                        ${!start ? 'none' : 'hidden'}`}>
-                <Intro title={quizData.title}
-                    intro={quizData.intro}
-                    introText={quizData.introText}
-                    setStart={setStart}
-                    plays={quizData.plays}
-                    likes={quizData.likes}
-                    publishedAt={parseDate(quizData.publishedAt)}
-                    incrementPlay={incrementPlay}
-                    featured={quizData.featured.data.attributes.url}
-                    section={quizData.section}
-                    difficulty={difficulty} setDifficulty={setDifficulty}
-                    label={quizData.label}
-                    comments={comments} postComment={postComment} />
-            </div>
-            <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
-                        ${start && !finish ? 'none' : 'hidden'}`}>
+            { !start && 
+                <div className='flex flex-col flex-1 bg-white'>
+                    <Intro title={quizData.title}
+                        intro={quizData.intro}
+                        introText={quizData.introText}
+                        setStart={setStart}
+                        plays={quizData.plays}
+                        likes={quizData.likes}
+                        publishedAt={parseDate(quizData.publishedAt)}
+                        incrementPlay={incrementPlay}
+                        featured={quizData.featured.data.attributes.url}
+                        section={quizData.section}
+                        difficulty={difficulty} setDifficulty={setDifficulty}
+                        label={quizData.label}
+                        comments={comments} postComment={postComment} />
+                </div>
+            }
+            { start && !finish &&
+                <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
                 <Body info={quizData.info}
                     infoCopy={infoCopy}
                     images={quizData.image}
@@ -265,29 +268,31 @@ const Quiz = ({ quizData, id, commentsData }) => {
                     setTally={setTally} scrollConclusion={scrollConclusion}
                     difficulty={difficulty} setDifficulty={setDifficulty}
                     start={start} />
-            </div>
-            <div ref={conclusionRef} className={`flex flex-col flex-1
-                                            ${finish ? 'none' : 'hidden'}`}>
-                <Conclusion type={quizData.type} score={score} total={total}
-                    character={calculateTally(tally, quizData.info)}
-                    characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
-                    conclusion={calculateConclusionTally(tally, quizData.conclusion)}
-                    category={quizData.category}
-                    subcategory={quizData.subcategory}
-                    title={quizData.title}
-                    imageUrls={imageUrlArray}
-                    triviaScore={calculateTriviaTally(tally)}
-                    incrementLike={incrementLike}
-                    decrementLike={decrementLike}
-                    updateLibrary={updateLibrary}
-                    slug={quizData.slug}
-                    conclusionStats={quizData.conclusionStats}
-                    conclusionCharacters={quizData.info}
-                    conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
-                    updateConclusionStats={updateConclusionStats}
-                    comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
-                    upvotes={quizData.comments} />
-            </div>
+                </div>
+            }
+            { finish && 
+                <div ref={conclusionRef} className='flex flex-col flex-1'>
+                    <Conclusion type={quizData.type} score={score} total={total}
+                        character={calculateTally(tally, quizData.info)}
+                        characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
+                        conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                        category={quizData.category}
+                        subcategory={quizData.subcategory}
+                        title={quizData.title}
+                        imageUrls={imageUrlArray}
+                        triviaScore={calculateTriviaTally(tally)}
+                        incrementLike={incrementLike}
+                        decrementLike={decrementLike}
+                        updateLibrary={updateLibrary}
+                        slug={quizData.slug}
+                        conclusionStats={quizData.conclusionStats}
+                        conclusionCharacters={quizData.info}
+                        conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
+                        updateConclusionStats={updateConclusionStats}
+                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
+                        upvotes={quizData.comments} />
+                </div>
+            }
         </>
     )
 }

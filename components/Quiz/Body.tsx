@@ -59,7 +59,8 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                            setCurrentQuestion={setCurrentQuestion}
                            type={type}
                            scroll={scroll}
-                           scrollConclusion={scrollConclusion} />
+                           scrollConclusion={scrollConclusion}
+                           start={start} />
                 </div>) :
                 type === 1 ? 
                 data.map((entry, index) => 

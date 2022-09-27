@@ -289,7 +289,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     switch (type) {
         case 0:
             return (
-                <div className='flex flex-col flex-1 justify-center items-center'>
+                <div className='flex flex-col flex-1 justify-center items-center mt-6 md:mt-0'>
                     <div className='text-3xl text-center'>
                         You scored {score}/{total}.
                     </div>
