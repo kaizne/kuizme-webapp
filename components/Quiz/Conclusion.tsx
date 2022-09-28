@@ -14,7 +14,8 @@ import testComments from '../../data/testComments'
 const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character = '', characterImageUrl = '',
     conclusion = '', category = '', subcategory = '', title = '', imageUrls,
     incrementLike, decrementLike, updateLibrary, slug,
-    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes }) => {
+    conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes,
+    difficulty, setDifficulty, setStart, setTransition, setCurrentQuestion, setScore, setFinish }) => {
 
     const minComments = 10
     const commentsIncrement = 10
@@ -286,76 +287,118 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         }
     }
 
+    const mode = (difficulty) => {
+        switch (difficulty) {
+            case 0: return 'Easy'
+            case 1: return 'Medium'
+            case 2: return 'Hard'
+            case 3: return 'Expert'
+            default: return 'Easy'
+        }
+    }
+
     switch (type) {
         case 0:
             return (
-                <div className='flex flex-col flex-1 justify-center items-center mt-6 md:mt-0'>
-                    <div className='text-3xl text-center'>
+                <div className='flex flex-col flex-1 justify-center items-center'>
+                    <div className='font-semibold'>{title}</div>
+                    <div className='font-bold text-violet-600'>{mode(difficulty)}</div>
+                    <div className='text-3xl text-center font-semibold'>
                         You scored {score}/{total}.
                     </div>
-                    <div className='text-2xl text-violet-600 w-[90%] text-center'>{text}</div>
-                    <div className='mt-4 text-lg'>Share Your Result</div>
-                    <div className='flex flex-row w-[21rem] h-[2rem] justify-center gap-x-1'>
+                    <div className='text-xl text-violet-600 w-80 text-center'>{text}</div>
+                    <div className='mt-2 text-lg'>Share Your Result</div>
+                    <div className='flex flex-row w-80 h-8 justify-center gap-x-2 mb-2'>
                         <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
                             className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
-                            {/*<img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
-                            */}
+                            { /* <img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/> */ }
                             <FacebookIcon className='h-[1.3rem] w-[1.3rem] fill-white' />
                             <p className='text-white'>Facebook</p>
                         </a>
                         <a href={`https://twitter.com/share?url=https://www.kuizme.com${postUrl}&text=${postTitle}`} target='_blank'
                             className='flex flex-row basis-[47.5%] bg-[#1DA1F2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
-                            {/*<img src='/twitter.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/>
-                            */}
+                            { /* <img src='/twitter.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/> */ }
                             <TwitterIcon className='h-[1.5rem] w-[1.5rem] fill-white' />
                             <p className='text-white'>Twitter</p>
                         </a>
                     </div>
-                    <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('test'); console.log(comments) }}>
-                        Post
-                    </button>
-                    <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('Testing postComment'); console.log(comments) }}>
-                        Update
-                    </button>
-                    <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('Testing postComment'); console.log(comments) }}>
-                        Reply
-                    </button>
-                    <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { deleteComment(comments[0].id); console.log(comments) }}>
-                        Delete
-                    </button>
-                    <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { console.log(comments) }}>
-                        Log
-                    </button>
-                    <div className='flex flex-col gap-y-3 w-full mt-6 items-center'>
-                        <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600 
-                    hover:cursor-pointer hover:bg-indigo-700'>
-                            <button onClick={() => router.reload()}
+                    { score < 10 && difficulty < 3 && 
+                        <div className='mt-2 w-80 text-center text-sm text-green-600 font-semibold'>
+                            Achieve a perfect score to unlock {mode(difficulty + 1)}!
+                        </div>
+                    }
+                    {   /*
+                        <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('test'); console.log(comments) }}>
+                            Post
+                        </button>
+                        <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('Testing postComment'); console.log(comments) }}>
+                            Update
+                        </button>
+                        <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { postComment('Testing postComment'); console.log(comments) }}>
+                            Reply
+                        </button>
+                        <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { deleteComment(comments[0].id); console.log(comments) }}>
+                            Delete
+                        </button>
+                        <button className='mt-2 bg-green-300 rounded py-2 px-4' onClick={() => { console.log(comments) }}>
+                            Log
+                        </button> 
+                        */ 
+                    }
+                    <div className='flex flex-col gap-y-3 w-full mt-2 items-center'>
+                        {difficulty < 3 && 
+                            <div className={`flex flex-row w-80 rounded justify-center py-2 hover:cursor-pointer
+                                            ${score === 10 ? 'bg-green-500' : 'bg-gray-300'}`}>
+                                { score < 10 && <Image src='/lock.svg' width='30' height='30' className='hover:cursor-default' /> }
+                                <button onClick={() => { setStart(false) 
+                                                         setTransition(true) 
+                                                         setFinish(false)
+                                                         setCurrentQuestion(0)
+                                                         setScore(0)
+                                                         setDifficulty(difficulty + 1) 
+                                                        }}
+                                        disabled={score <  10}
+                                    className='text-xl text-white font-bold w-40'>
+                                    Next Difficulty
+                                </button>
+                            </div>
+                        }
+                        <div className='flex flex-row w-80 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
+                            <button onClick={() => { setStart(false) 
+                                                     setTransition(true)
+                                                     setFinish(false) 
+                                                     setCurrentQuestion(0)
+                                                     setScore(0)
+                                                    }}
                                 className='text-xl text-white font-bold w-full'>
-                                Play Again
+                                Try Again
                             </button>
-                            {/*<div className='flex flex-row mt-2'>
+                        </div>
+                    {   /*
+                        <div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
                             <button onClick={() => likeQuiz()} disabled={likeButton}
                                     className='ml-1 text-xl font-semibold md:hover:text-red-600'>
                                 {likeText}
                             </button>
                         </div>
-                        */}
-                            {/*<div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
+                        */
+                    }
+                    {   /*
+                        <div className={`${error ? 'none' : 'invisible' } mt-1 text-red-500`}>
                             Please sign in to add to library.
-                        </div>
-                        */}
-                        </div>
-                        <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-rose-500
-                    hover:cursor-pointer hover:bg-rose-600'>
+                        </div> 
+                        */
+                    }
+                        
+                        <div className='flex flex-row w-80 rounded justify-center py-2 bg-rose-600 hover:cursor-pointer'>
                             <Link href={`/anime/${subcategory}`}>
                                 <button className='w-full text-xl text-white font-bold px-2 md:px-4 2xl:px-8'>
                                     Try Other {animeTitle} Quizzes</button>
                             </Link>
                         </div>
-                        <div className='flex flex-row w-11/12 md:w-3/5 xl:w-2/5 3xl:w-[30%] rounded justify-center py-2 bg-indigo-600
-                    hover:cursor-pointer hover:bg-indigo-700'>
-                            <Link href={`/anime`}>
+                        <div className='flex flex-row w-80 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
+                            <Link href='/anime'>
                                 <button className='text-xl text-white font-bold w-full'>
                                     Browse Anime Quizzes</button>
                             </Link>

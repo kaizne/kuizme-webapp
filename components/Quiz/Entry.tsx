@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const Entry = ({ answer=null, 
+                 setScore=null, 
+                 setFinish=null, 
                  imageUrl=null, 
                  imageSize=null,
                  info=null, 
-                 setScore=null, 
-                 setFinish=null, 
                  question=null, 
                  size=null,
                  currentQuestion=null, 
@@ -14,8 +14,6 @@ const Entry = ({ answer=null,
                  type=0,
                  entry=null,
                  setTally=null,
-                 scroll=null,
-                 scrollConclusion=null,
                  start=false,
                 }) => {  
 
@@ -30,12 +28,18 @@ const Entry = ({ answer=null,
     const [muted, setMuted] = useState(false)
     const [autoPlay, setAutoPlay] = useState(false)
 
+    const [typeZeroImgWidth, setTypeZeroImgWidth] = useState(150) 
+    const [typeZeroImgHeight, setTypeZeroImgHeight] = useState(150)
+
     const [countdown, setCountdown] = useState(100)
     
     // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
+        if (type === 0) {
+            if (imageSize[0]/imageSize[1] > 1.5) setTypeZeroImgWidth(typeZeroImgHeight * 16 / 9)
+        }
         playAudio()
         if (type === 0) setSelection(generateEntries())
         if (type === 2 || type === 3) {
@@ -62,6 +66,10 @@ const Entry = ({ answer=null,
 
         if (countdown <= 0) {
             setDisable(true)
+            setColors(colors => {
+                colors[correct] = 'bg-emerald-400'
+                return [...colors]
+            })
             setTimeout(() => setAnimation(true), 500)
             setTimeout(() => {
                 setAnimation(false)
@@ -175,12 +183,7 @@ const Entry = ({ answer=null,
             setAnimation(false)
             setHide(true)
             setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true)
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }  
+            if (currentQuestion + 1 === size) setFinish(true)
         }, 900)
     }
 
@@ -211,20 +214,8 @@ const Entry = ({ answer=null,
             setAnimation(false)
             setHide(true)
             setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true)
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }  
+            if (currentQuestion + 1 === size) setFinish(true)
         }, 900)
-    }
-
-    let typeZeroImgWidth = 150
-    let typeZeroImgHeight = 150
-
-    if (type === 0) {
-        if (imageSize[0]/imageSize[1] > 1.5) typeZeroImgWidth = typeZeroImgHeight * 16 / 9
     }
 
     const playAudio = () => {
