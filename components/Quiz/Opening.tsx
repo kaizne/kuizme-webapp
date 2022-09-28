@@ -18,7 +18,7 @@ const Opening = ({ title, difficulty }) => {
     }
 
     return (
-        <div className='flex flex-col items-center z-100 md:mt-6'>
+        <div className='flex flex-col items-center md:mt-6'>
             <div className='w-80 text-center text-lg font-semibold'>{title}</div>
             <div className='text-xl font-bold text-violet-600'>{mode(difficulty)}</div>
             <div className='mt-4'>Loading...</div>

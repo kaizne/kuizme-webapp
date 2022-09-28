@@ -347,9 +347,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                     }
                     <div className='flex flex-col gap-y-3 w-full mt-2 items-center'>
                         {difficulty < 3 && 
-                            <div className={`flex flex-row w-80 rounded justify-center py-2 hover:cursor-pointer
-                                            ${score === 10 ? 'bg-green-500' : 'bg-gray-300'}`}>
-                                { score < 10 && <Image src='/lock.svg' width='30' height='30' className='hover:cursor-default' /> }
+                            <div className={`flex flex-row w-80 rounded justify-center py-2
+                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>
+                                { score < 10 && <Image src='/lock.svg' width='30' height='30' /> }
                                 <button onClick={() => { setStart(false) 
                                                          setTransition(true) 
                                                          setFinish(false)
@@ -358,8 +358,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                          setDifficulty(difficulty + 1) 
                                                         }}
                                         disabled={score <  10}
-                                    className='text-xl text-white font-bold w-40'>
-                                    Next Difficulty
+                                        className='text-xl text-white font-semibold w-24'>
+                                    {mode(difficulty + 1)}
                                 </button>
                             </div>
                         }
@@ -370,7 +370,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                      setCurrentQuestion(0)
                                                      setScore(0)
                                                     }}
-                                className='text-xl text-white font-bold w-full'>
+                                className='text-xl text-white font-semibold w-full'>
                                 Try Again
                             </button>
                         </div>
@@ -393,13 +393,13 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         
                         <div className='flex flex-row w-80 rounded justify-center py-2 bg-rose-600 hover:cursor-pointer'>
                             <Link href={`/anime/${subcategory}`}>
-                                <button className='w-full text-xl text-white font-bold px-2 md:px-4 2xl:px-8'>
+                                <button className='w-full text-xl text-white font-semibold px-2 md:px-4 2xl:px-8'>
                                     Try Other {animeTitle} Quizzes</button>
                             </Link>
                         </div>
                         <div className='flex flex-row w-80 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
                             <Link href='/anime'>
-                                <button className='text-xl text-white font-bold w-full'>
+                                <button className='text-xl text-white font-semibold w-full'>
                                     Browse Anime Quizzes</button>
                             </Link>
                         </div>

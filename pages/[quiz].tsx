@@ -25,7 +25,10 @@ const Quiz = ({ quizData, id, commentsData }) => {
     }
 
     useEffect(() => {
-        if (transition) setTimeout(() => { setStart(true) }, 2000)
+        if (transition) {
+            if (quizData.type === 0) setTimeout(() => { setStart(true) }, 2000)
+            else setStart(true)
+        }
     }, [start, transition])
 
     const findAnimeTitle = () => {
@@ -255,7 +258,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                         setTransition={setTransition} />
                 </div>
             }
-            { !start && transition &&
+            { !start && transition && quizData.type === 0 && 
                 <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
                     <Opening title={quizData.title} difficulty={difficulty} /> 
                 </div> 

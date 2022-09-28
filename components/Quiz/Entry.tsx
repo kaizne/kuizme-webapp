@@ -38,7 +38,7 @@ const Entry = ({ answer=null,
 
     useEffect(() => {
         if (type === 0) {
-            if (imageSize[0]/imageSize[1] > 1.5) setTypeZeroImgWidth(typeZeroImgHeight * 16 / 9)
+            if (imageSize[0] / imageSize[1] > 1.5) setTypeZeroImgWidth(typeZeroImgHeight * 16 / 9)
         }
         playAudio()
         if (type === 0) setSelection(generateEntries())
@@ -226,23 +226,26 @@ const Entry = ({ answer=null,
 
     return (
         <>
-        <div className={`flex flex-col items-center scroll-smooth
+        <div className={`flex flex-col items-center
             ${currentQuestion >= question ? 'none' : 'hidden'} 
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
             ${animation ? 'animate-fadeOut' : 'none'}
             ${hide ? 'hidden' : 'none'}`}>
-            <p className='w-20 text-center font-medium text-xl mb-2'>
+            <p className={`w-20 text-center font-medium text-xl mb-2 ${type !== 0 && 'border-b-2'}`}>
                 <span className='text-indigo-600'>{question + 1}</span>
                 <span className='font-normal'> / </span> 
                 {size}
             </p>
-            <div className='w-64 bg-indigo-200 mb-2 rounded'>
-                <div style={{ width: `${countdown}%`, transition: '0.1s linear' }} className='h-2 bg-indigo-500 rounded'></div>
-            </div>
             { type === 0 && 
                 <>
-                { imageUrl && <Image className='rounded' src={imageUrl} priority
-                                     width={typeZeroImgWidth} height={typeZeroImgHeight} /> }
+                <div className='w-64 bg-indigo-200 mb-2 rounded'>
+                    <div style={{ width: `${countdown}%`, transition: '0.1s linear' }} className='h-2 bg-indigo-500 rounded'></div>
+                </div>
+                { imageUrl && 
+                    <div className='relative w-72 h-40'>
+                            <Image className='rounded' src={imageUrl} layout='fill' priority/>
+                    </div>
+                }
                 <div className='flex flex-col justify-center items-center'>
                     <div className='grid grid-cols-2 gap-2 mt-4'>
                         { selection.map((elem, index) =>
