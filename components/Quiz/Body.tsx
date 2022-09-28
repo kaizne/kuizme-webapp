@@ -1,21 +1,36 @@
 import Entry from './Entry'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
-                type, entries, sections, setTally=null, scrollConclusion,
+                type, entries, sections, setTally=null,
                 difficulty, setDifficulty, start }) => {
 
     const [data, setData] = useState([])
-    const questionsRef = useRef([])
-    const scroll = (index) => questionsRef.current[index]?.scrollIntoView({behavior: 'smooth'})
+    const [media, setMedia] = useState([])
 
     useEffect(() => {
         let newData
         if (type === 0) {
-            newData = infoCopy
-                        .map(value => ({ value, sort: Math.random() }))
-                        .sort((a, b) => a.sort - b.sort)
-                        .map(({ value }) => value )
+            if (sections.length > 0) {
+                const section = sections[difficulty]
+                setMedia(section.media)
+                const info = Object.entries(section.info)
+                let count = 0
+                if (info.length === Object.entries(info).length) {
+                    info.forEach(entry => {
+                        if (Number(entry[0]) > 10) count++
+                    })
+                }
+                info.splice(10, count)
+                newData = info.map(value => ({ value, sort: Math.random() }))
+                            .sort((a, b) => a.sort - b.sort)
+                            .map(({ value }) => value )
+            } else {
+                setMedia(images)
+                newData = infoCopy.map(value => ({ value, sort: Math.random() }))
+                            .sort((a, b) => a.sort - b.sort)
+                            .map(({ value }) => value )
+            }
         } else if (type === 1 || type === 3) {
             newData = entries.map(value => ({ value, sort: Math.random() }))
                              .sort((a, b) => a.sort - b.sort)
@@ -25,9 +40,9 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
             if (sections.length > 0) {
                 sectionEntries = sections[difficulty].entry
                 newData = sectionEntries.map(value => ({ value, sort: Math.random() }))
-                .sort((a, b) => a.sort - b.sort)
-                .map(({ value }) => value )
-                .slice(0, 10); 
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value )
+                    .slice(0, 10); 
                 for (let index in newData) {
                     let shuffledArray = shuffleArray(Object.entries(newData[index].content)).slice(0)
                     newData[index].content = Object.fromEntries(shuffledArray)
@@ -35,35 +50,35 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
             }
             else {
                 newData = entries.map(value => ({ value, sort: Math.random() }))
-                .sort((a, b) => a.sort - b.sort)
-                .map(({ value }) => value )
-                .slice(0, 10)
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value )
+                    .slice(0, 10)
             } 
         }
         setData(newData)
     }, [difficulty])
 
     return (
-        <div className=''>
-            {type === 0 ? 
+        <>
+            { type === 0 &&
                 data.map(([key, value], index) =>
-                <div key={index} ref={el => questionsRef.current[index] = el}>
-                    <Entry key={key}
-                           answer={value} setScore={setScore} setFinish={setFinish}
-                           imageUrl={findImage(String(value), type, images)} 
-                           imageSize={findSize(String(value), type, images)}
-                           info={info} 
-                           question={index}
-                           size={size}
-                           currentQuestion={currentQuestion}
-                           setCurrentQuestion={setCurrentQuestion}
-                           type={type}
-                           scroll={scroll}
-                           scrollConclusion={scrollConclusion} />
-                </div>) :
-                type === 1 ? 
+                    <div key={index}>
+                        <Entry key={key}
+                            answer={value} setScore={setScore} setFinish={setFinish}
+                            imageUrl={findImage(String(value), type, media)} 
+                            imageSize={findSize(String(value), type, media)}
+                            info={info} 
+                            question={index}
+                            size={size}
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion}
+                            type={type}
+                            start={start} />
+                    </div>
+            )}
+            { type === 1 && 
                 data.map((entry, index) => 
-                    <div key={index} ref={el => questionsRef.current[index] = el}>
+                    <div key={index}>
                         <Entry key={index} 
                             entry={entry} 
                             question={index}
@@ -72,44 +87,39 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                             setCurrentQuestion={setCurrentQuestion}
                             size={data.length}
                             setFinish={setFinish}
-                            setTally={setTally}
-                            scroll={scroll}
-                            scrollConclusion={scrollConclusion} />
+                            setTally={setTally} />
                     </div>
-                ) :
-                type === 2 ? 
+            )} 
+            { type === 2 && 
                 data.map((entry, index) => 
-                <div key={index} ref={el => questionsRef.current[index] = el}>
-                    <Entry key={index} 
-                        entry={entry} 
-                        question={index} 
-                        type={type}
-                        currentQuestion={currentQuestion}
-                        setCurrentQuestion={setCurrentQuestion}
-                        size={data.length}
-                        setFinish={setFinish}
-                        setTally={setTally}
-                        scroll={scroll}
-                        scrollConclusion={scrollConclusion} />
-                </div>
-                ) :
-                data.map((entry, index) => <div key={index} ref={el => questionsRef.current[index] = el}>
-                <Entry key={index} 
+                    <div key={index}>
+                        <Entry key={index} 
                             entry={entry} 
-                            question={index}
-                            type={type} 
+                            question={index} 
+                            type={type}
                             currentQuestion={currentQuestion}
                             setCurrentQuestion={setCurrentQuestion}
                             size={data.length}
                             setFinish={setFinish}
-                            setTally={setTally}
-                            scroll={scroll}
-                            scrollConclusion={scrollConclusion}
-                            start={start} />
-            </div>
-            )
-            }
-        </div>
+                            setTally={setTally} />
+                    </div>
+            )}
+            { type === 3 && 
+                data.map((entry, index) => 
+                    <div key={index}>
+                        <Entry key={index} 
+                                entry={entry} 
+                                question={index}
+                                type={type} 
+                                currentQuestion={currentQuestion}
+                                setCurrentQuestion={setCurrentQuestion}
+                                size={data.length}
+                                setFinish={setFinish}
+                                setTally={setTally}
+                                start={start} />
+                    </div>
+            )}
+        </>
     )
 }
 
@@ -126,7 +136,7 @@ const findImage = (name: string, type, images) => {
     }
 }
 
-const findSize= (name: string, type, images) => {
+const findSize = (name: string, type, images) => {
     const searchName = name.toLowerCase().replace(/ /g, '-')
     for (let image of images.data) {
         const imageName = image.attributes.name.split('.', 1)[0]

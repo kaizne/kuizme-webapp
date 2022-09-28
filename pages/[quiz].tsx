@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
+import Opening from '../components/Quiz/Opening'
 
 const Quiz = ({ quizData, id, commentsData }) => {
     const [score, setScore] = useState(0)
@@ -12,8 +13,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
     const [difficulty, setDifficulty] = useState(0)
-    const conclusionRef = useRef(null)
 
+    const [transition, setTransition] = useState(false)
     const [comments, setComments] = useState(commentsData)
 
     const imageUrlArray = []
@@ -22,6 +23,10 @@ const Quiz = ({ quizData, id, commentsData }) => {
             imageUrlArray.push(findImage(quizData.info[i + 1], quizData.image, quizData.type))
         }
     }
+
+    useEffect(() => {
+        if (transition) setTimeout(() => { setStart(true) }, 2000)
+    }, [start, transition])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
@@ -35,8 +40,6 @@ const Quiz = ({ quizData, id, commentsData }) => {
         return animeTitle
     }
     const animeTitle = findAnimeTitle()
-
-    const scrollConclusion = () => conclusionRef.current?.scrollIntoView({ behavior: 'smooth' })
 
     const incrementPlay = () => {
         fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${quizData.slug}/play`, {
@@ -234,60 +237,76 @@ const Quiz = ({ quizData, id, commentsData }) => {
                 <meta property='og:image:height' content='630' />
                 <meta property='og:url' content={`https://www.kuizme.com/${quizData.slug}`} />
             </Head>
-            <div className={`flex flex-col flex-1 bg-white
-                        ${!start ? 'none' : 'hidden'}`}>
-                <Intro title={quizData.title}
-                    intro={quizData.intro}
-                    introText={quizData.introText}
-                    setStart={setStart}
-                    plays={quizData.plays}
-                    likes={quizData.likes}
-                    publishedAt={parseDate(quizData.publishedAt)}
-                    incrementPlay={incrementPlay}
-                    featured={quizData.featured.data.attributes.url}
-                    section={quizData.section}
-                    difficulty={difficulty} setDifficulty={setDifficulty}
-                    label={quizData.label}
-                    comments={comments} postComment={postComment} />
-            </div>
-            <div className={`flex flex-col flex-1 pt-10 bg-slate-50 
-                        ${start && !finish ? 'none' : 'hidden'}`}>
-                <Body info={quizData.info}
-                    infoCopy={infoCopy}
-                    images={quizData.image}
-                    size={numQuestions}
-                    setScore={setScore}
-                    setFinish={setFinish}
-                    currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
-                    type={quizData.type}
-                    entries={quizData.entry}
-                    sections={quizData.section}
-                    setTally={setTally} scrollConclusion={scrollConclusion}
-                    difficulty={difficulty} setDifficulty={setDifficulty}
-                    start={start} />
-            </div>
-            <div ref={conclusionRef} className={`flex flex-col flex-1
-                                            ${finish ? 'none' : 'hidden'}`}>
-                <Conclusion type={quizData.type} score={score} total={total}
-                    character={calculateTally(tally, quizData.info)}
-                    characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
-                    conclusion={calculateConclusionTally(tally, quizData.conclusion)}
-                    category={quizData.category}
-                    subcategory={quizData.subcategory}
-                    title={quizData.title}
-                    imageUrls={imageUrlArray}
-                    triviaScore={calculateTriviaTally(tally)}
-                    incrementLike={incrementLike}
-                    decrementLike={decrementLike}
-                    updateLibrary={updateLibrary}
-                    slug={quizData.slug}
-                    conclusionStats={quizData.conclusionStats}
-                    conclusionCharacters={quizData.info}
-                    conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
-                    updateConclusionStats={updateConclusionStats}
-                    comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
-                    upvotes={quizData.comments} />
-            </div>
+            { !start && !transition &&
+                <div className='flex flex-col flex-1 bg-white'>
+                    <Intro title={quizData.title}
+                        intro={quizData.intro}
+                        introText={quizData.introText}
+                        setStart={setStart}
+                        plays={quizData.plays}
+                        likes={quizData.likes}
+                        publishedAt={parseDate(quizData.publishedAt)}
+                        incrementPlay={incrementPlay}
+                        featured={quizData.featured.data.attributes.url}
+                        section={quizData.section}
+                        difficulty={difficulty} setDifficulty={setDifficulty}
+                        label={quizData.label}
+                        comments={comments} postComment={postComment}
+                        setTransition={setTransition} />
+                </div>
+            }
+            { !start && transition &&
+                <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
+                    <Opening title={quizData.title} difficulty={difficulty} /> 
+                </div> 
+            }
+            { start && !finish &&
+                <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
+                    <Body info={quizData.info}
+                        infoCopy={infoCopy}
+                        images={quizData.image}
+                        size={numQuestions}
+                        setScore={setScore}
+                        setFinish={setFinish}
+                        currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
+                        type={quizData.type}
+                        entries={quizData.entry}
+                        sections={quizData.section}
+                        setTally={setTally}
+                        difficulty={difficulty} setDifficulty={setDifficulty}
+                        start={start} />
+                </div>
+            }
+            { finish && 
+                <div className='flex flex-col flex-1'>
+                    <Conclusion type={quizData.type} score={score} total={total}
+                        character={calculateTally(tally, quizData.info)}
+                        characterImageUrl={findImage(calculateTally(tally, quizData.info), quizData.image, quizData.type)}
+                        conclusion={calculateConclusionTally(tally, quizData.conclusion)}
+                        category={quizData.category}
+                        subcategory={quizData.subcategory}
+                        title={quizData.title}
+                        imageUrls={imageUrlArray}
+                        triviaScore={calculateTriviaTally(tally)}
+                        incrementLike={incrementLike}
+                        decrementLike={decrementLike}
+                        updateLibrary={updateLibrary}
+                        slug={quizData.slug}
+                        conclusionStats={quizData.conclusionStats}
+                        conclusionCharacters={quizData.info}
+                        conclusionIndex={calculateConclusionTallyIndex(tally, quizData.conclusion)}
+                        updateConclusionStats={updateConclusionStats}
+                        comments={comments} postComment={postComment} updateComment={updateComment} deleteComment={deleteComment} upvoteComment={upvoteComment}
+                        upvotes={quizData.comments}
+                        difficulty={difficulty}
+                        setDifficulty={setDifficulty}
+                        setStart={setStart}
+                        setTransition={setTransition}
+                        setCurrentQuestion={setCurrentQuestion}
+                        setScore={setScore}
+                        setFinish={setFinish} />
+                </div>
+            }
         </>
     )
 }
@@ -420,7 +439,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.entry.media`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.media,section.entry.media`)
     const data = await res.json()
     const quizData = data.data.attributes
 

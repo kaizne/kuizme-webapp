@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline'
 
 const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, incrementPlay, featured, section,
-                 difficulty, setDifficulty, label, commentsNum=0, shares=0, comments, postComment }) => {
+                 difficulty, setDifficulty, label, commentsNum=0, shares=0, comments, postComment, setTransition }) => {
 
     const colourListThree = ['bg-green-500', 'bg-red-500', 'bg-slate-800']
     const colourListFour = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-slate-800']
@@ -40,13 +40,14 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                             md:max-w-2xl md:w-[37.5rem] md:h-[21.1rem]'>
                 { featured && <Image src={featured} layout='fill' priority /> }
             </div>
-            <button onClick={() => {setDifficulty(difficulty), setStart(true), incrementPlay()}}
+            <button onClick={() => { setDifficulty(difficulty), setTransition(true), incrementPlay() }}
                     className='w-screen max-w-sm h-12 md:w-[37.5rem] md:max-w-none pt-1 pb-1
                                text-xl font-bold text-white md:rounded-b bg-indigo-600 hover:cursor-pointer
                              hover:bg-indigo-800'>
                                 Play</button>
         </div>
-        {section.length > 0 ? <div className='text-center relative z-10 mt-2'>
+        { /* section.length > 0 && 
+            <div className='text-center relative z-10 mt-2'>
                 <button onClick={() => {if (difficulty >= difficultyList.length - 1) setDifficulty(0)
                                         else setDifficulty(difficulty + 1)}}
                         className={`w-[21.3rem] md:w-[37.5rem] h-12 pt-1 pb-1 text-xl font-bold text-white rounded
@@ -55,7 +56,8 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                                         {difficultyList[difficulty] ? difficultyList[difficulty] : <></>}
                                     </div>
                 </button>
-        </div> : <></> }
+            </div> */
+        }
         <div className='flex flex-col items-center gap-x-3 md:gap-x-4 mt-3'> 
             <div className='flex flex-row gap-x-4'>
                 <div className='flex flex-row text-base'>

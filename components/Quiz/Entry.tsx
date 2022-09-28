@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const Entry = ({ answer=null, 
+                 setScore=null, 
+                 setFinish=null, 
                  imageUrl=null, 
                  imageSize=null,
                  info=null, 
-                 setScore=null, 
-                 setFinish=null, 
                  question=null, 
                  size=null,
                  currentQuestion=null, 
@@ -14,13 +14,12 @@ const Entry = ({ answer=null,
                  type=0,
                  entry=null,
                  setTally=null,
-                 scroll=null,
-                 scrollConclusion=null,
-                 start=true
+                 start=false,
                 }) => {  
 
     const [selection, setSelection] = useState([])
     const [colors, setColors] = useState([])
+    const [text, setText] = useState([])
     const [disable, setDisable] = useState(false)
     const [correct, setCorrect] = useState(0)
     const [shuffled, setShuffled] = useState(false)
@@ -28,19 +27,29 @@ const Entry = ({ answer=null,
     const [animation, setAnimation] = useState(false)
     const [muted, setMuted] = useState(false)
     const [autoPlay, setAutoPlay] = useState(false)
+
+    const [typeZeroImgWidth, setTypeZeroImgWidth] = useState(150) 
+    const [typeZeroImgHeight, setTypeZeroImgHeight] = useState(150)
+
+    const [countdown, setCountdown] = useState(100)
     
     // Type 1
     const [choice, setChoice] = useState(0)
 
     useEffect(() => {
-        console.log(entry)
+        if (type === 0) {
+            if (imageSize[0]/imageSize[1] > 1.5) setTypeZeroImgWidth(typeZeroImgHeight * 16 / 9)
+        }
         playAudio()
         if (type === 0) setSelection(generateEntries())
         if (type === 2 || type === 3) {
             for (let i = 0; i < Object.keys(entry.content).length; i++)
                 setColors(colors => [...colors, 'bg-white'])
         }
-        else setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
+        else {
+            setText(['text-black', 'text-black', 'text-black', 'text-black'])
+            setColors(['bg-white', 'bg-white', 'bg-white', 'bg-white'])
+        }
         if (!shuffled && (type === 2 || type === 3)) {
             entry.content = Object.entries(entry.content)
             entry.content = shuffleArray(entry.content)
@@ -50,6 +59,25 @@ const Entry = ({ answer=null,
     }, [])
 
     useEffect(() => {}, [colors, animation])
+
+    useEffect(() => {
+        if (start && !disable && currentQuestion === question && countdown > 0) 
+            setTimeout(() => setCountdown(countdown - 1), 100)
+
+        if (countdown <= 0) {
+            setDisable(true)
+            setColors(colors => {
+                colors[correct] = 'bg-emerald-400'
+                return [...colors]
+            })
+            setTimeout(() => setAnimation(true), 500)
+            setTimeout(() => {
+                setAnimation(false)
+                setHide(true)
+                setFinish(true)
+            }, 900)
+        }
+    }, [currentQuestion, question, countdown])
 
     const generateEntries = () => {
         const entries = []
@@ -68,31 +96,38 @@ const Entry = ({ answer=null,
     const selectCharacter = (choice, button) => {
         setDisable(true)
         setTimeout(() => setAnimation(true), 500)
-
         if (choice === answer) {
             setColors(colors => {
                 colors[button] = 'bg-emerald-400'
                 return [...colors]
             })
+            setText(text => {
+                text[button] = 'text-white'
+                return [...text]
+            })
             setScore(score => score + 1)
+            setTimeout(() => {
+                setAnimation(false)
+                setHide(true)
+                setCurrentQuestion(currentQuestion + 1)
+                if (currentQuestion + 1 === size) setFinish(true) 
+            }, 900)  
         } else {
             setColors(colors => {
                 colors[button] = 'bg-red-400'
                 colors[correct] = 'bg-emerald-400'
                 return [...colors]
             })
-        }
-        setTimeout(() => {
-            setAnimation(false)
-            setHide(true)
-            setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true) 
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }     
-        }, 900)          
+            setText(text => {
+                text[button] = 'text-white'
+                return [...text]
+            })
+            setTimeout(() => {
+                setAnimation(false)
+                setHide(true)
+                setFinish(true)
+            }, 900)
+        }         
     }
 
     const selectPersonality = (selection, index) => {
@@ -118,12 +153,7 @@ const Entry = ({ answer=null,
             setAnimation(false)
             setHide(true)
             setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true)
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }  
+            if (currentQuestion + 1 === size) setFinish(true)
         }, 900)
     }
 
@@ -153,12 +183,7 @@ const Entry = ({ answer=null,
             setAnimation(false)
             setHide(true)
             setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true)
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }  
+            if (currentQuestion + 1 === size) setFinish(true)
         }, 900)
     }
 
@@ -189,24 +214,12 @@ const Entry = ({ answer=null,
             setAnimation(false)
             setHide(true)
             setCurrentQuestion(currentQuestion + 1)
-            if (currentQuestion + 1 === size) {
-                setFinish(true)
-                // scrollConclusion()
-            } else {
-                // scroll(currentQuestion + 1)
-            }  
+            if (currentQuestion + 1 === size) setFinish(true)
         }, 900)
     }
 
-    let typeZeroImgWidth = 150
-    let typeZeroImgHeight = 150
-
-    if (type === 0) {
-        if (imageSize[0]/imageSize[1] > 1.5) typeZeroImgWidth = typeZeroImgHeight * 16 / 9
-    }
-
     const playAudio = () => {
-        if (currentQuestion === question && start) {
+        if (start && currentQuestion === question) {
             setTimeout(() => setAutoPlay(true), 500)
         }
     }
@@ -218,11 +231,14 @@ const Entry = ({ answer=null,
             ${currentQuestion === question ? 'animate-fadeIn' : 'none'}
             ${animation ? 'animate-fadeOut' : 'none'}
             ${hide ? 'hidden' : 'none'}`}>
-            <p className='w-20 text-center font-medium text-xl mb-2 border-b-2 border-gray-300'>
+            <p className='w-20 text-center font-medium text-xl mb-2'>
                 <span className='text-indigo-600'>{question + 1}</span>
                 <span className='font-normal'> / </span> 
                 {size}
             </p>
+            <div className='w-64 bg-indigo-200 mb-2 rounded'>
+                <div style={{ width: `${countdown}%`, transition: '0.1s linear' }} className='h-2 bg-indigo-500 rounded'></div>
+            </div>
             { type === 0 && 
                 <>
                 { imageUrl && <Image className='rounded' src={imageUrl} priority
@@ -233,8 +249,8 @@ const Entry = ({ answer=null,
                             <button key={index}
                                     onClick={(val) => selectCharacter((val.target as HTMLElement).innerHTML, index)}
                                     disabled={disable}
-                                    className={`w-40 h-16 p-1
-                                                text-lg font-medium rounded shadow-sm ${colors[index]}`}>
+                                    className={`w-40 h-16 p-1 rounded text-lg font-semibold shadow-sm 
+                                        ${colors[index]} ${text[index]}`}>
                                     {elem}
                             </button>
                         )}
