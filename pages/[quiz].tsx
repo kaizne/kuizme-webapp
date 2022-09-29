@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Intro from '../components/Quiz/Intro'
 import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
-import Opening from '../components/Quiz/Opening'
+import Transition from '../components/Quiz/Transition'
 
 const Quiz = ({ quizData, id, commentsData }) => {
     const [score, setScore] = useState(0)
@@ -17,6 +17,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
     const [transition, setTransition] = useState(false)
     const [comments, setComments] = useState(commentsData)
 
+    const [opening, setOpening] = useState()
+
     const imageUrlArray = []
     if (quizData.type === 1) {
         for (let i = 0; i < quizData.image.data.length; i++) {
@@ -26,10 +28,19 @@ const Quiz = ({ quizData, id, commentsData }) => {
 
     useEffect(() => {
         if (transition) {
-            if (quizData.type === 0) setTimeout(() => { setStart(true) }, 2000)
+            if (quizData.type === 0 && quizData.section.length > 0) setTimeout(() => { setStart(true) }, 2000)
             else setStart(true)
         }
     }, [start, transition])
+
+
+    useEffect(() => {
+        if (quizData.type === 0 && quizData.section.length > 0) {
+            const section = quizData.section[difficulty]
+            const opening = section.opening
+            setOpening(opening)
+        }
+    }, [difficulty])
 
     const findAnimeTitle = () => {
         const animeTitleArray = quizData.subcategory.split('-')
@@ -258,9 +269,9 @@ const Quiz = ({ quizData, id, commentsData }) => {
                         setTransition={setTransition} />
                 </div>
             }
-            { !start && transition && quizData.type === 0 && 
+            { !start && transition && quizData.type === 0 && opening && quizData.section.length > 0 &&
                 <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
-                    <Opening title={quizData.title} difficulty={difficulty} /> 
+                    <Transition title={quizData.title} difficulty={difficulty} opening={opening} /> 
                 </div> 
             }
             { start && !finish &&
@@ -442,7 +453,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.media,section.entry.media`)
+    const res = await fetch(`https://kuizme-strapi-ao8qx.ondigitalocean.app/api/quizzes/${params.quiz}?populate=featured,image,entry.media,section.media,section.entry.media,section.opening`)
     const data = await res.json()
     const quizData = data.data.attributes
 

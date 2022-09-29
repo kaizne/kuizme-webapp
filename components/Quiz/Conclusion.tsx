@@ -348,8 +348,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                     <div className='flex flex-col gap-y-3 w-full mt-2 items-center'>
                         {difficulty < 3 && 
                             <div className={`flex flex-row w-80 rounded justify-center py-2
-                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>
-                                { score < 10 && <Image src='/lock.svg' width='30' height='30' /> }
+                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>    
                                 <button onClick={() => { setStart(false) 
                                                          setTransition(true) 
                                                          setFinish(false)
@@ -358,7 +357,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                          setDifficulty(difficulty + 1) 
                                                         }}
                                         disabled={score <  10}
-                                        className='text-xl text-white font-semibold w-24'>
+                                        className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
+                                            { score < 10 && 
+                                        <div className='relative w-7 h-7'>
+                                            <Image src='/lock.svg' layout='fill' />
+                                        </div> }
                                     {mode(difficulty + 1)}
                                 </button>
                             </div>
