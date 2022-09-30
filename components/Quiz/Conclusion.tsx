@@ -292,10 +292,17 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             case 0: return 'Easy'
             case 1: return 'Medium'
             case 2: return 'Hard'
-            case 3: return 'Expert'
             default: return 'Easy'
         }
     }
+    const modeColour = (difficulty) => {
+        switch (difficulty) {
+            case 0: return 'bg-green-500'
+            case 1: return 'bg-amber-400'
+            case 2: return 'bg-red-500'
+            default: return 'bg-green-500'
+        }
+    } 
 
     switch (type) {
         case 0:
@@ -322,7 +329,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                             <p className='text-white'>Twitter</p>
                         </a>
                     </div>
-                    { score < 10 && difficulty < 3 && 
+                    { score < 10 && difficulty < 2 && 
                         <div className='mt-2 mb-2 w-80 text-center text-sm text-green-600 font-semibold'>
                             Achieve a perfect score to unlock {mode(difficulty + 1)}!
                         </div>
@@ -348,7 +355,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                     <div className='flex flex-col gap-y-4 w-full items-center'>
                         {difficulty < 3 && 
                             <div className={`flex flex-row w-72 rounded justify-center py-2 mt-2
-                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>    
+                                            ${score === 10 ? `${modeColour(difficulty + 1)} cursor-pointer` : 'bg-gray-300 cursor-default'}`}>    
                                 <button onClick={() => { setStart(false) 
                                                          setTransition(true) 
                                                          setFinish(false)
