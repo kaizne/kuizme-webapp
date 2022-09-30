@@ -198,38 +198,6 @@ const Quiz = ({ quizData, id, commentsData }) => {
         return data
     }
 
-    let infoCopy = []
-
-    if (quizData.type === 0) {
-        infoCopy = JSON.parse(JSON.stringify(Object.entries(quizData.info)))
-    }
-
-    let count = 0
-    if (infoCopy.length === Object.entries(quizData.info).length) {
-        infoCopy.forEach(entry => {
-            if (quizData.limit !== null) {
-                if (entry[0] > quizData.limit) {
-                    count++
-                }
-            }
-            else {
-                if (entry[0] > 10) {
-                    count++
-                }
-            }
-        })
-    }
-
-    let numQuestions = 10
-
-    if (quizData.limit !== null) {
-        infoCopy.splice(quizData.limit, count)
-        numQuestions = quizData.limit
-    }
-    else {
-        infoCopy.splice(10, count)
-    }
-
     const titleAndMeta = returnTitleAndMeta(quizData.type, quizData.title, animeTitle)
 
     const parseDate = (d: string) => {
@@ -277,9 +245,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
             { start && !finish &&
                 <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
                     <Body info={quizData.info}
-                        infoCopy={infoCopy}
                         images={quizData.image}
-                        size={numQuestions}
+                        size={10}
                         setScore={setScore}
                         setFinish={setFinish}
                         currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}

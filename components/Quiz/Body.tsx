@@ -1,7 +1,7 @@
 import Entry from './Entry'
 import { useEffect, useState } from 'react'
 
-const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
+const Body = ({ images, info, setScore, setFinish, size, currentQuestion, setCurrentQuestion, 
                 type, entries, sections, setTally=null,
                 difficulty, setDifficulty, start }) => {
 
@@ -15,19 +15,15 @@ const Body = ({ images, info, infoCopy, setScore, setFinish, size, currentQuesti
                 const section = sections[difficulty]
                 setMedia(section.media)
                 const info = Object.entries(section.info)
-                let count = 0
-                if (info.length === Object.entries(info).length) {
-                    info.forEach(entry => {
-                        if (Number(entry[0]) > 10) count++
-                    })
-                }
-                info.splice(10, count)
-                newData = info.map(value => ({ value, sort: Math.random() }))
+                newData = info.slice(0,10)
+                            .map(value => ({ value, sort: Math.random() }))
                             .sort((a, b) => a.sort - b.sort)
                             .map(({ value }) => value )
             } else {
                 setMedia(images)
-                newData = infoCopy.map(value => ({ value, sort: Math.random() }))
+                info = Object.entries(info)
+                newData = info.slice(0,10)
+                            .map(value => ({ value, sort: Math.random() }))
                             .sort((a, b) => a.sort - b.sort)
                             .map(({ value }) => value )
             }
