@@ -42,6 +42,7 @@ const Entry = ({ answer=null,
     
 
     useEffect(() => {
+        /*
         const script1 = document.createElement('script')
         script1.type = 'text/javascript'
         script1.innerHTML = `atOptions = {
@@ -61,6 +62,7 @@ const Entry = ({ answer=null,
             ad.current.appendChild(script1)
             ad.current.appendChild(script2)
         }
+        */
     })
 
 
