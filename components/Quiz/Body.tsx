@@ -141,7 +141,7 @@ const findSize = (name: string, type, images) => {
     for (let image of images.data) {
         const imageName = image.attributes.name.split('.', 1)[0]
         if (searchName === imageName)
-            return [image.attributes.width,image.attributes.height]
+            return [image.attributes.width, image.attributes.height]
     }
 }
 

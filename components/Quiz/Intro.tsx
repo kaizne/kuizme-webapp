@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import {
     ChatIcon,
@@ -14,6 +14,9 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
     const colourListFour = ['bg-green-500', 'bg-orange-500', 'bg-red-500', 'bg-slate-800']
     const [difficultyList, setDifficultyList] = useState([])
     const [colourList, setColourList] = useState([])
+
+    const ad = useRef(null)
+    
     useEffect(() => {
         if (introText.difficulties) {
             const tempDifficultyList = introText.difficulties.split('-')
@@ -30,6 +33,25 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
             setColourList((colourList) => tempColourList)
         }
     }, [])
+
+    useEffect(() => {
+        const script1 = document.createElement('script')
+        script1.type = 'text/javascript'
+        script1.innerHTML = `atOptions = {
+            'key' : 'ec312eeb9e5de0487dec06ffc5328d5d',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+        };`
+
+        const script2 = document.createElement('script')
+        script2.type = 'text/javascript'
+        script2.src = '//www.highperformancedisplayformat.com/ec312eeb9e5de0487dec06ffc5328d5d/invoke.js'
+        
+        ad.current.appendChild(script1)
+        ad.current.appendChild(script2)
+    }, [ad])
 
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>
@@ -90,6 +112,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
                 */ }
             </div>
         </div>
+        <div ref={ad} className='mt-4'></div>
         { /* <div className='w-80 md:w-96 text-justify mt-4'>{intro}</div> */ }
         <div className='w-screen max-w-sm md:w-[37.5rem] md:max-w-2xl
                         py-2 bg-violet-600 mt-3 text-center md:rounded'>

@@ -301,14 +301,14 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         case 0:
             return (
                 <div className='flex flex-col flex-1 justify-center items-center'>
-                    <div className='font-semibold'>{title}</div>
+                    <div className='w-72 text-center text-sm md:text-lg font-semibold'>{title}</div>
                     <div className='font-bold text-violet-600'>{mode(difficulty)}</div>
                     <div className='text-3xl text-center font-semibold'>
                         You scored {score}/{total}.
                     </div>
-                    <div className='text-xl text-violet-600 w-80 text-center'>{text}</div>
+                    <div className='text-xl text-violet-600 w-72 text-center'>{text}</div>
                     <div className='mt-2 text-lg'>Share Your Result</div>
-                    <div className='flex flex-row w-80 h-8 justify-center gap-x-2 mb-2'>
+                    <div className='flex flex-row w-72 h-8 justify-center gap-x-2 mb-2'>
                         <a href={`https://facebook.com/sharer.php?u=https://kuizme.com${postUrl}`} target='_blank'
                             className='flex flex-row basis-[47.5%] bg-[#4267B2] rounded justify-center items-center gap-x-2 hover:cursor-pointer'>
                             { /* <img src='/facebook.svg' className='hover:cursor-pointer h-[1.8rem] w-[1.8rem]'/> */ }
@@ -323,7 +323,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         </a>
                     </div>
                     { score < 10 && difficulty < 3 && 
-                        <div className='mt-2 w-80 text-center text-sm text-green-600 font-semibold'>
+                        <div className='mt-2 mb-2 w-80 text-center text-sm text-green-600 font-semibold'>
                             Achieve a perfect score to unlock {mode(difficulty + 1)}!
                         </div>
                     }
@@ -345,11 +345,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         </button> 
                         */ 
                     }
-                    <div className='flex flex-col gap-y-3 w-full mt-2 items-center'>
+                    <div className='flex flex-col gap-y-4 w-full items-center'>
                         {difficulty < 3 && 
-                            <div className={`flex flex-row w-80 rounded justify-center py-2 hover:cursor-pointer
-                                            ${score === 10 ? 'bg-green-500' : 'bg-gray-300'}`}>
-                                { score < 10 && <Image src='/lock.svg' width='30' height='30' className='hover:cursor-default' /> }
+                            <div className={`flex flex-row w-72 rounded justify-center py-2
+                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>    
                                 <button onClick={() => { setStart(false) 
                                                          setTransition(true) 
                                                          setFinish(false)
@@ -358,19 +357,23 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                          setDifficulty(difficulty + 1) 
                                                         }}
                                         disabled={score <  10}
-                                    className='text-xl text-white font-bold w-40'>
-                                    Next Difficulty
+                                        className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
+                                            { score < 10 && 
+                                        <div className='relative w-7 h-7'>
+                                            <Image src='/lock.svg' layout='fill' />
+                                        </div> }
+                                    Play {mode(difficulty + 1)}
                                 </button>
                             </div>
                         }
-                        <div className='flex flex-row w-80 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
+                        <div className='flex flex-row w-72 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
                             <button onClick={() => { setStart(false) 
                                                      setTransition(true)
                                                      setFinish(false) 
                                                      setCurrentQuestion(0)
                                                      setScore(0)
                                                     }}
-                                className='text-xl text-white font-bold w-full'>
+                                className='text-xl text-white font-semibold w-full'>
                                 Try Again
                             </button>
                         </div>
@@ -390,19 +393,21 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         </div> 
                         */
                     }
-                        
+                    {   /*
                         <div className='flex flex-row w-80 rounded justify-center py-2 bg-rose-600 hover:cursor-pointer'>
                             <Link href={`/anime/${subcategory}`}>
-                                <button className='w-full text-xl text-white font-bold px-2 md:px-4 2xl:px-8'>
+                                <button className='w-full text-xl text-white font-semibold px-2 md:px-4 2xl:px-8'>
                                     Try Other {animeTitle} Quizzes</button>
                             </Link>
                         </div>
                         <div className='flex flex-row w-80 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
                             <Link href='/anime'>
-                                <button className='text-xl text-white font-bold w-full'>
+                                <button className='text-xl text-white font-semibold w-full'>
                                     Browse Anime Quizzes</button>
                             </Link>
                         </div>
+                        */
+                    }   
                     </div>
                 </div>
             )
