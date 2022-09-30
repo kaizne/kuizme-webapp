@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 const Entry = ({ answer=null, 
@@ -35,6 +35,34 @@ const Entry = ({ answer=null,
     
     // Type 1
     const [choice, setChoice] = useState(0)
+
+    const ad = useRef(null)
+    const [adPlaced, setAdPlaced] = useState(false)
+
+    
+
+    useEffect(() => {
+        const script1 = document.createElement('script')
+        script1.type = 'text/javascript'
+        script1.innerHTML = `atOptions = {
+            'key' : 'ec312eeb9e5de0487dec06ffc5328d5d',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+        };`
+
+        const script2 = document.createElement('script')
+        script2.type = 'text/javascript'
+        script2.src = '//www.highperformancedisplayformat.com/ec312eeb9e5de0487dec06ffc5328d5d/invoke.js'
+
+        if (!adPlaced && currentQuestion === question) {
+            setAdPlaced(true)
+            ad.current.appendChild(script1)
+            ad.current.appendChild(script2)
+        }
+    })
+
 
     useEffect(() => {
         if (type === 0) {
@@ -323,6 +351,7 @@ const Entry = ({ answer=null,
                         </div>
                 </> 
             }
+            <div ref={ad} className='mt-4'></div>
             </div>
         </>
     )

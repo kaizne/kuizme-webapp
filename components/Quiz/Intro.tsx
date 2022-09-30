@@ -51,7 +51,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         
         ad.current.appendChild(script1)
         ad.current.appendChild(script2)
-    }, [ad])
+    }, [])
 
     return (
     <div className='flex flex-col items-center z-100 md:mt-6'>

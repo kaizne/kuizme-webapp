@@ -347,7 +347,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                     }
                     <div className='flex flex-col gap-y-4 w-full items-center'>
                         {difficulty < 3 && 
-                            <div className={`flex flex-row w-72 rounded justify-center py-2
+                            <div className={`flex flex-row w-72 rounded justify-center py-2 mt-2
                                             ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>    
                                 <button onClick={() => { setStart(false) 
                                                          setTransition(true) 
