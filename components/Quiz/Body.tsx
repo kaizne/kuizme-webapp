@@ -63,7 +63,7 @@ const Body = ({ images, info, setScore, setFinish, size, currentQuestion, setCur
                             answer={value} setScore={setScore} setFinish={setFinish}
                             imageUrl={findImage(String(value), type, media)} 
                             imageSize={findSize(String(value), type, media)}
-                            info={info} 
+                            info={sections[difficulty].info} 
                             question={index}
                             size={size}
                             currentQuestion={currentQuestion}

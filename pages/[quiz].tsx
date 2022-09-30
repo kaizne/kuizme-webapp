@@ -11,7 +11,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
     const [start, setStart] = useState(false)
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    const [tally, setTally] = useState([])
+    if (quizData.info) setTally(createTally(Object.entries(quizData.info).length))
     const [difficulty, setDifficulty] = useState(0)
 
     const [transition, setTransition] = useState(false)
@@ -302,7 +303,8 @@ const createTally = (size) => {
 const calculateTally = (tally, info) => {
     const max = Math.max(...tally)
     const index = tally.indexOf(max) + 1
-    return info[index]
+    if (info) return info[index]
+    else return ''
 }
 
 const calculateConclusionTally = (tally, conclusion) => {
