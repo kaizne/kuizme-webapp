@@ -12,7 +12,7 @@ const Quiz = ({ quizData, id, commentsData, setOverlay }) => {
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [tally, setTally] = useState([])
-    if (quizData.info) setTally(createTally(Object.entries(quizData.info).length))
+    
     const [difficulty, setDifficulty] = useState(0)
 
     const [transition, setTransition] = useState(false)
@@ -26,6 +26,10 @@ const Quiz = ({ quizData, id, commentsData, setOverlay }) => {
             imageUrlArray.push(findImage(quizData.info[i + 1], quizData.image, quizData.type))
         }
     }
+
+    useEffect(() => {
+        if (quizData.info) setTally(createTally(Object.entries(quizData.info).length))
+    }, [])
 
     useEffect(() => {
         if (transition) {
