@@ -25,7 +25,6 @@ const SignUp = ({ setOverlay }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-
         /*
         const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', { 
             headers: {
@@ -46,7 +45,7 @@ const SignUp = ({ setOverlay }) => {
             username: formValues.username,
             library: []
         })
-        .then(() => setOverlay('logIn'))
+        .then(() => setIsSubmit(true))
         .catch(error => {
             console.error('An error occured:', error.response)
         })
@@ -130,21 +129,22 @@ const SignUp = ({ setOverlay }) => {
             </form>
         </div>
         : 
-        <div className='w-96 h-72 -ml-48 -mt-64 rounded bg-white'>
-            <div>
-                <div className='text-center'>
-                    <Link href='/'>
-                        <button className='mt-8 md:mt-12
-                                        text-2xl font-semibold text-indigo-600'>Kuizme</button>
-                    </Link>
-                </div>
-                <h1 className='mt-2 text-center
-                                text-xl font-semibold'>Sign Up</h1>
-                <div className='mt-4 ml-2 mr-2 text-center'>
-                     We have sent a verification email to <span className='font-semibold'>{formValues.email}</span>.
-                </div>
-                <p className='mt-4 ml-2 mr-2 text-center'>Please click it to activate your account.</p>
+        <div className='w-96 h-auto -ml-48 -mt-64 rounded bg-white flex flex-col items-center'>
+            <div className='text-center'>
+                <Link href='/'>
+                    <button className='mt-8 md:mt-12
+                                    text-2xl font-semibold text-indigo-600'>Kuizme</button>
+                </Link>
             </div>
+            <h1 className='mt-2 text-center
+                            text-xl font-semibold'>Sign Up</h1>
+            <div className='w-96 mt-4 ml-2 mr-2 text-center'>
+                    We have sent a verification email to <span className='font-semibold'>{formValues.email}</span>.
+            </div>
+            <div className='w-80 mt-4 ml-2 mr-2 text-center'>Please click the link in it to activate your account.</div>
+            <div className='w-80 mt-4 ml-2 mr-2 text-center'>After you click the link, click the button below to sign in.</div>
+            <button className='w-80 h-10 mt-8 mb-12 rounded text-white bg-indigo-600 hover:bg-indigo-400 hover:cursor-pointer' 
+                    onClick={() => setOverlay('logIn')}>Sign in</button>
         </div>
         }
         </>
