@@ -353,7 +353,7 @@ const Entry = ({ answer=null,
                         </div>
                 </> 
             }
-            <div ref={ad} className='mt-4'></div>
+            { /* <div ref={ad} className='mt-4'></div> */ }
             </div>
         </>
     )

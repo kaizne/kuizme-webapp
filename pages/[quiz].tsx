@@ -5,7 +5,7 @@ import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
 import Transition from '../components/Quiz/Transition'
 
-const Quiz = ({ quizData, id, commentsData }) => {
+const Quiz = ({ quizData, id, commentsData, setOverlay }) => {
     const [score, setScore] = useState(0)
     const [total, setTotal] = useState(10)
     const [start, setStart] = useState(false)
@@ -286,7 +286,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                         setTransition={setTransition}
                         setCurrentQuestion={setCurrentQuestion}
                         setScore={setScore}
-                        setFinish={setFinish} />
+                        setFinish={setFinish} setOverlay={setOverlay} />
                 </div>
             }
         </>

@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className={`flex flex-col min-w-screen font-Poppins
                     ${overlay !== '' ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
         <Nav setOverlay={setOverlay} />
-        <Component {...pageProps} />
+        <Component {...pageProps} setOverlay={setOverlay} />
         <Overlay overlay={overlay} setOverlay={setOverlay} />
         <div className={`flex flex-row items-center justify-center sticky bottom-0 w-full bg-indigo-600 gap-x-2 
         sm:gap-x-4 md:gap-x-6 lg:gap-x-8 py-3 ${showConsent ? 'none' : 'hidden'}`}>
