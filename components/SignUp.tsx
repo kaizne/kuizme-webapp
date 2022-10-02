@@ -24,7 +24,7 @@ const SignUp = ({ setOverlay }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setIsSubmit(true)
+        
 
         /*
         const response = await fetch('https://kuizme-strapi-ao8qx.ondigitalocean.app/api/auth/local/register', { 
@@ -45,7 +45,9 @@ const SignUp = ({ setOverlay }) => {
             password: formValues.password,
             username: formValues.username,
             library: []
-        }).catch(error => {
+        })
+        .then(() => setOverlay('logIn'))
+        .catch(error => {
             console.error('An error occured:', error.response)
         })
     }

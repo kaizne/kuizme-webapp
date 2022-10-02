@@ -7,11 +7,13 @@ const Body = ({ images, info, setScore, setFinish, size, currentQuestion, setCur
 
     const [data, setData] = useState([])
     const [media, setMedia] = useState([])
+    const [quizInfo, setQuizInfo] = useState([])
 
     useEffect(() => {
         let newData
         if (type === 0) {
             if (sections.length > 0) {
+                setQuizInfo(sections[difficulty].info)
                 const section = sections[difficulty]
                 setMedia(section.media)
                 const info = Object.entries(section.info)
@@ -20,6 +22,7 @@ const Body = ({ images, info, setScore, setFinish, size, currentQuestion, setCur
                             .sort((a, b) => a.sort - b.sort)
                             .map(({ value }) => value )
             } else {
+                setQuizInfo(info)
                 setMedia(images)
                 info = Object.entries(info)
                 newData = info.slice(0,10)
@@ -63,7 +66,7 @@ const Body = ({ images, info, setScore, setFinish, size, currentQuestion, setCur
                             answer={value} setScore={setScore} setFinish={setFinish}
                             imageUrl={findImage(String(value), type, media)} 
                             imageSize={findSize(String(value), type, media)}
-                            info={sections[difficulty].info} 
+                            info={quizInfo} 
                             question={index}
                             size={size}
                             currentQuestion={currentQuestion}

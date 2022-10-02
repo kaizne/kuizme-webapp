@@ -21,16 +21,19 @@ const ConvinceSignUp = ({ setOverlay }) => {
                 </div>
                 <h2 className='w-80 mt-4 text-left text-xl font-semibold'>Join the Kuizme community</h2>
                 <div className='w-80 mt-1 text-left text-gray-700'>🤓 Play every quiz and difficulty </div>
-                <div className='w-80 mt-1 text-left text-gray-700'>✍️ Ability to post comments</div>
+                <div className='w-80 mt-1 text-left text-gray-700'>✍️ Be able to post comments</div>
                 <div className='w-80 mt-1 text-left text-gray-700'>✉️ Be invited to the Discord server</div>
                 <div className='w-80 mt-1 text-left text-gray-700'>🧠 Save your progress on each quiz</div>
                 <div className='w-80 mt-1 text-left text-gray-700 font-medium'>+ many other features</div>
                 <button className={`w-80 h-10 mt-20 md:mt-8 rounded text-white 
-                                   bg-indigo-600 hover:bg-indigo-400 hover:cursor-pointer`}>
-                                Sign up</button>
-                                <button className={`w-80 h-10 mt-4 mb-10 rounded text-indigo-600
-                                   border-2 border-indigo-600 hover:bg-indigo-200 hover:cursor-pointer`}>
-                                Log in</button>
+                    bg-indigo-600 hover:bg-indigo-400 hover:cursor-pointer`}
+                    onClick={() => setOverlay('signUp')}>
+                    Sign up
+                </button>
+                <button className={`w-80 h-10 mt-4 mb-10 rounded text-indigo-600
+                    border-2 border-indigo-600 hover:bg-indigo-200 hover:cursor-pointer`}
+                    onClick={() => setOverlay('logIn')}>
+                Log in</button>
             </div>
         </div>
         </>

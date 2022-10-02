@@ -72,8 +72,8 @@ const Nav = ({ setOverlay }) => {
         localStorage.removeItem('user')
         setProfile(false)
         setDropDownProfile(false)
-        //router.push('/')
-        router.reload()
+        // router.push('/')
+        // router.reload()
     }
     const size = 43
     return (

@@ -10,7 +10,10 @@ const Transition = ({ title, difficulty, opening }) => {
     }, [opening])
 
     useEffect(() => {
-        if (countdown < 100) setTimeout(() => setCountdown(countdown + 5), 100)
+        const timer = () => setTimeout(() => setCountdown(countdown + 5), 100) 
+        let timerId
+        if (countdown < 100) timerId = timer()
+        return () => clearTimeout(timerId)
     }, [countdown])
 
     const mode = (difficulty) => {

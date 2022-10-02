@@ -311,13 +311,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
         }
     } 
 
-    const checkUserLoggedIn = () => {
-
+    const handleNextDifficulty = () => {
+        if (!localStorage.getItem('jwt') && type === 0 && difficulty === 1 && score === 10)  {
+            setOverlay('convinceSignUp')
+        } else {
+            setStart(false) 
+            setTransition(true) 
+            setFinish(false)
+            setCurrentQuestion(0)
+            setScore(0)
+            setDifficulty(difficulty + 1)
+        }
     }
-
-    const setPopup = () => {
-        if (type === 0 && difficulty === 1 && score === 10) setOverlay('convinceSignUp')
-    }   
 
     switch (type) {
         case 0:
@@ -367,42 +372,42 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         </button> 
                         */ 
                     }
-                    <div className='flex flex-col gap-y-4 w-full items-center'>
-                        {difficulty < 3 && 
-                            <div className={`flex flex-row w-72 rounded justify-center py-2 mt-2
-                                            ${score === 10 ? `${modeColour(difficulty + 1)} cursor-pointer` : 'bg-gray-300 cursor-default'}`}>    
-                                <button onClick={() => { if (!loggedIn && difficulty === 1) { 
-                                                            setPopup()
-                                                        } else {
-                                                            setStart(false) 
-                                                            setTransition(true) 
-                                                            setFinish(false)
-                                                            setCurrentQuestion(0)
-                                                            setScore(0)
-                                                            setDifficulty(difficulty + 1)
-                                                        }
-                                                }}
-                                        disabled={score <  10}
-                                        className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
-                                            { score < 10 && 
+                    <div className='flex flex-col gap-y-2 w-full items-center'>
+                        {difficulty < 2 && 
+                            <button className={`flex flex-row w-72 rounded justify-center py-2 mt-2
+                                            ${score === 10 ? `${modeColour(difficulty + 1)} cursor-pointer` : 'bg-gray-300 cursor-default'}`}
+                                onClick={ () => handleNextDifficulty() }
+                                disabled={ score <  10 }>    
+                                <div className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
+                                    { score < 10 && 
                                         <div className='relative w-7 h-7'>
                                             <Image src='/lock.svg' layout='fill' />
                                         </div> }
                                     Play {mode(difficulty + 1)}
-                                </button>
+                                </div>
+                            </button>
+                        }
+                        {difficulty === 2 && score === 10 && 
+                            <div className='w-72 mt-2 text-center'>
+                                <div className='font-bold'>
+                                    Congratulations!
+                                </div>
+                                <div className='w-72'>
+                                You have mastered this quiz!
+                                </div>
                             </div>
                         }
-                        <div className='flex flex-row w-72 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'>
-                            <button onClick={() => { setStart(false) 
-                                                     setTransition(true)
-                                                     setFinish(false) 
-                                                     setCurrentQuestion(0)
-                                                     setScore(0)
-                                                    }}
-                                className='text-xl text-white font-semibold w-full'>
+                        <button className='flex flex-row w-72 mt-2 rounded justify-center py-2 bg-indigo-600 hover:cursor-pointer'
+                                onClick={() => { setStart(false) 
+                                    setTransition(true)
+                                    setFinish(false) 
+                                    setCurrentQuestion(0)
+                                    setScore(0)
+                                }}>
+                            <div className='text-xl text-white font-semibold w-full'>
                                 Try Again
-                            </button>
-                        </div>
+                            </div>
+                        </button>
                     {   /*
                         <div className='flex flex-row mt-2'>
                             <Image src={`${like ? '/red-heart.svg' : '/heart.svg'}`} width={20} height={20} />
