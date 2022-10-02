@@ -5,13 +5,14 @@ import Body from '../components/Quiz/Body'
 import Conclusion from '../components/Quiz/Conclusion'
 import Transition from '../components/Quiz/Transition'
 
-const Quiz = ({ quizData, id, commentsData }) => {
+const Quiz = ({ quizData, id, commentsData, setOverlay }) => {
     const [score, setScore] = useState(0)
     const [total, setTotal] = useState(10)
     const [start, setStart] = useState(false)
     const [finish, setFinish] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [tally, setTally] = useState(createTally(Object.entries(quizData.info).length))
+    const [tally, setTally] = useState([])
+    
     const [difficulty, setDifficulty] = useState(0)
 
     const [transition, setTransition] = useState(false)
@@ -25,6 +26,10 @@ const Quiz = ({ quizData, id, commentsData }) => {
             imageUrlArray.push(findImage(quizData.info[i + 1], quizData.image, quizData.type))
         }
     }
+
+    useEffect(() => {
+        if (quizData.info) setTally(createTally(Object.entries(quizData.info).length))
+    }, [])
 
     useEffect(() => {
         if (transition) {
@@ -198,38 +203,6 @@ const Quiz = ({ quizData, id, commentsData }) => {
         return data
     }
 
-    let infoCopy = []
-
-    if (quizData.type === 0) {
-        infoCopy = JSON.parse(JSON.stringify(Object.entries(quizData.info)))
-    }
-
-    let count = 0
-    if (infoCopy.length === Object.entries(quizData.info).length) {
-        infoCopy.forEach(entry => {
-            if (quizData.limit !== null) {
-                if (entry[0] > quizData.limit) {
-                    count++
-                }
-            }
-            else {
-                if (entry[0] > 10) {
-                    count++
-                }
-            }
-        })
-    }
-
-    let numQuestions = 10
-
-    if (quizData.limit !== null) {
-        infoCopy.splice(quizData.limit, count)
-        numQuestions = quizData.limit
-    }
-    else {
-        infoCopy.splice(10, count)
-    }
-
     const titleAndMeta = returnTitleAndMeta(quizData.type, quizData.title, animeTitle)
 
     const parseDate = (d: string) => {
@@ -277,9 +250,8 @@ const Quiz = ({ quizData, id, commentsData }) => {
             { start && !finish &&
                 <div className='flex flex-col flex-1 pt-10 bg-slate-50'>
                     <Body info={quizData.info}
-                        infoCopy={infoCopy}
                         images={quizData.image}
-                        size={numQuestions}
+                        size={10}
                         setScore={setScore}
                         setFinish={setFinish}
                         currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion}
@@ -318,7 +290,7 @@ const Quiz = ({ quizData, id, commentsData }) => {
                         setTransition={setTransition}
                         setCurrentQuestion={setCurrentQuestion}
                         setScore={setScore}
-                        setFinish={setFinish} />
+                        setFinish={setFinish} setOverlay={setOverlay} />
                 </div>
             }
         </>
@@ -335,7 +307,8 @@ const createTally = (size) => {
 const calculateTally = (tally, info) => {
     const max = Math.max(...tally)
     const index = tally.indexOf(max) + 1
-    return info[index]
+    if (info) return info[index]
+    else return ''
 }
 
 const calculateConclusionTally = (tally, conclusion) => {

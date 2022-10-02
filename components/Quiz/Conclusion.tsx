@@ -9,13 +9,15 @@ import {
     ChevronDoubleRightIcon, ChevronDoubleLeftIcon
 } from '@heroicons/react/outline'
 
+import Overlay from '../Overlay'
+
 import testComments from '../../data/testComments'
 
 const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character = '', characterImageUrl = '',
     conclusion = '', category = '', subcategory = '', title = '', imageUrls,
     incrementLike, decrementLike, updateLibrary, slug,
     conclusionStats, conclusionCharacters, conclusionIndex, updateConclusionStats, comments, postComment, updateComment, deleteComment, upvoteComment, upvotes,
-    difficulty, setDifficulty, setStart, setTransition, setCurrentQuestion, setScore, setFinish }) => {
+    difficulty, setDifficulty, setStart, setTransition, setCurrentQuestion, setScore, setFinish, setOverlay }) => {
 
     const minComments = 10
     const commentsIncrement = 10
@@ -54,7 +56,10 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     const [username, setUsername] = useState('')
     const [profileColour, setProfileColour] = useState('bg-gray-300')
     const [asyncUpvotes, setAsyncUpvotes] = useState(upvotes)
-    const [overlay, setOverlay] = useState(false)
+    const [commentsOverlay, setCommentsOverlay] = useState(false)
+
+    const [loggedIn, setLoggedIn] = useState(false)
+
     // const jsonCharacterStatsPh = {'0':15,'1':20,'2':5,'3':12,'4':11,'5':5,'6':31,'7':3,'8':9,'9':15,'10':18}
     // variables beginning with character are for type 0 and type 2
     /*const characterStatsArray = Object.values(jsonCharacterStatsPh)
@@ -151,6 +156,8 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
     useEffect(() => {
         if (localStorage.getItem('jwt')) setProfile(true)
         else setProfile(false)
+        if (localStorage.getItem('jwt')) setLoggedIn(true)
+        else setLoggedIn(false)
         document.addEventListener('click', handleClickOutsideFilter, true)
         if (localStorage.getItem('user')) {
             setUserId(JSON.parse(localStorage.getItem('user')).id)
@@ -292,14 +299,29 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             case 0: return 'Easy'
             case 1: return 'Medium'
             case 2: return 'Hard'
-            case 3: return 'Expert'
             default: return 'Easy'
         }
     }
+    const modeColour = (difficulty) => {
+        switch (difficulty) {
+            case 0: return 'bg-green-500'
+            case 1: return 'bg-amber-400'
+            case 2: return 'bg-red-500'
+            default: return 'bg-green-500'
+        }
+    } 
+
+    const checkUserLoggedIn = () => {
+
+    }
+
+    const setPopup = () => {
+        if (type === 0 && difficulty === 1 && score === 10) setOverlay('convinceSignUp')
+    }   
 
     switch (type) {
         case 0:
-            return (
+            return (                
                 <div className='flex flex-col flex-1 justify-center items-center'>
                     <div className='w-72 text-center text-sm md:text-lg font-semibold'>{title}</div>
                     <div className='font-bold text-violet-600'>{mode(difficulty)}</div>
@@ -322,7 +344,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                             <p className='text-white'>Twitter</p>
                         </a>
                     </div>
-                    { score < 10 && difficulty < 3 && 
+                    { score < 10 && difficulty < 2 && 
                         <div className='mt-2 mb-2 w-80 text-center text-sm text-green-600 font-semibold'>
                             Achieve a perfect score to unlock {mode(difficulty + 1)}!
                         </div>
@@ -348,14 +370,18 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                     <div className='flex flex-col gap-y-4 w-full items-center'>
                         {difficulty < 3 && 
                             <div className={`flex flex-row w-72 rounded justify-center py-2 mt-2
-                                            ${score === 10 ? 'bg-green-500 cursor-pointer' : 'bg-gray-300 cursor-default'}`}>    
-                                <button onClick={() => { setStart(false) 
-                                                         setTransition(true) 
-                                                         setFinish(false)
-                                                         setCurrentQuestion(0)
-                                                         setScore(0)
-                                                         setDifficulty(difficulty + 1) 
-                                                        }}
+                                            ${score === 10 ? `${modeColour(difficulty + 1)} cursor-pointer` : 'bg-gray-300 cursor-default'}`}>    
+                                <button onClick={() => { if (!loggedIn && difficulty === 1) { 
+                                                            setPopup()
+                                                        } else {
+                                                            setStart(false) 
+                                                            setTransition(true) 
+                                                            setFinish(false)
+                                                            setCurrentQuestion(0)
+                                                            setScore(0)
+                                                            setDifficulty(difficulty + 1)
+                                                        }
+                                                }}
                                         disabled={score <  10}
                                         className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
                                             { score < 10 && 
@@ -416,7 +442,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                 <>
                     <div className='fixed h-screen pointer-events-none w-full z-40'>
                         <div className={`flex items-center justify-center top-full sticky bg-indigo-600 
-                        py-3 -translate-y-full ${overlay ? 'none' : 'hidden'}`}>
+                        py-3 -translate-y-full ${commentsOverlay ? 'none' : 'hidden'}`}>
                             <p className='text-sm md:text-base text-white w-5/6 text-center'>
                                 Please sign in or sign up for an account to access user features.
                             </p>
@@ -579,9 +605,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                     refNestedCommentTextarea.current = [...Array(commentsShown)].map(e => Array())
                                     }
                                     else { 
-                                        setOverlay(true)
+                                        setCommentsOverlay(true)
                                         setTimeout(() => {
-                                            setOverlay(false)
+                                            setCommentsOverlay(false)
                                         }, 2000)
                                     }
                                 }}>
@@ -1050,9 +1076,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                     setForceRenderState(!forceRenderState)
                                                                     }
                                                                     else { 
-                                                                        setOverlay(true)
+                                                                        setCommentsOverlay(true)
                                                                         setTimeout(() => {
-                                                                            setOverlay(false)
+                                                                            setCommentsOverlay(false)
                                                                         }, 2000)
                                                                     }
                                                                 }}>Post</button>
@@ -1368,9 +1394,9 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                                                                         setForceRenderState(!forceRenderState)
                                                                                         }
                                                                                         else { 
-                                                                                            setOverlay(true)
+                                                                                            setCommentsOverlay(true)
                                                                                             setTimeout(() => {
-                                                                                                setOverlay(false)
+                                                                                                setCommentsOverlay(false)
                                                                                             }, 2000)
                                                                                         }
                                                                                     }}>Post</button>
