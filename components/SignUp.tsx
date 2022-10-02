@@ -142,7 +142,7 @@ const SignUp = ({ setOverlay }) => {
                     We have sent a verification email to <span className='font-semibold'>{formValues.email}</span>.
             </div>
             <div className='w-80 mt-4 ml-2 mr-2 text-center'>Please click the link in it to activate your account.</div>
-            <div className='w-80 mt-4 ml-2 mr-2 text-center'>After you click the link, click the button below to sign in.</div>
+            <div className='w-80 mt-4 ml-2 mr-2 text-center'>After you click the link, click the button below to log in.</div>
             <button className='w-80 h-10 mt-8 mb-12 rounded text-white bg-indigo-600 hover:bg-indigo-400 hover:cursor-pointer' 
                     onClick={() => setOverlay('logIn')}>Sign in</button>
         </div>
