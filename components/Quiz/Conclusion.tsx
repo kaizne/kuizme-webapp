@@ -299,6 +299,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             case 0: return 'Easy'
             case 1: return 'Medium'
             case 2: return 'Hard'
+            case 3: return 'Expert'
             default: return 'Easy'
         }
     }
@@ -307,6 +308,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
             case 0: return 'bg-green-500'
             case 1: return 'bg-amber-400'
             case 2: return 'bg-red-500'
+            case 3: return 'bg-ingigo-800'
             default: return 'bg-green-500'
         }
     } 
