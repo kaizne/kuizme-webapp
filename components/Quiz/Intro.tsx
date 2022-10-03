@@ -121,6 +121,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
         <div className='w-[21.3rem] md:w-[37.5rem] py-2 text-justify rounded'>
             <p className='text-black text-sm md:text-base'>{ introText.description }</p>
         </div>
+        { /*
         <div className={`w-screen max-w-sm md:max-w-2xl md:w-[37.5rem] 
                         py-2 bg-violet-600 mt-2 text-center md:rounded 
                         ${introText.instructions ? 'none' : 'hidden'}`}>
@@ -181,6 +182,7 @@ const Intro = ({ title, intro, introText, setStart, plays, publishedAt, likes, i
             we are not perfect. If you notice inaccuracies in this quiz or any others, please reach out 
             to us so that we can fix them as soon as possible.</p>
         </div>
+        */ }
         <div className='h-[2rem]'></div>
     </div>
 )}
