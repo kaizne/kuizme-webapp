@@ -155,7 +155,8 @@ const Entry = ({ answer=null,
             setTimeout(() => {
                 setAnimation(false)
                 setHide(true)
-                setFinish(true)
+                setCurrentQuestion(currentQuestion + 1)
+                if (currentQuestion + 1 === size) setFinish(true) 
             }, 900)
         }         
     }
