@@ -349,7 +349,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                             <p className='text-white'>Twitter</p>
                         </a>
                     </div>
-                    { score < 10 && difficulty < 2 && 
+                    { score < 10 && difficulty < 3 && 
                         <div className='mt-2 mb-2 w-80 text-center text-sm text-green-600 font-semibold'>
                             Achieve a perfect score to unlock {mode(difficulty + 1)}!
                         </div>
@@ -373,11 +373,11 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                         */ 
                     }
                     <div className='flex flex-col gap-y-2 w-full items-center'>
-                        {difficulty < 2 && 
+                        {difficulty < 3 && 
                             <button className={`flex flex-row w-72 rounded justify-center py-2 mt-2
                                             ${score === 10 ? `${modeColour(difficulty + 1)} cursor-pointer` : 'bg-gray-300 cursor-default'}`}
                                 onClick={ () => handleNextDifficulty() }
-                                disabled={ score <  10 }>    
+                                disabled={ score < 10 }>    
                                 <div className='flex flex-row justify-center w-full text-xl text-white font-semibold'>
                                     { score < 10 && 
                                         <div className='relative w-7 h-7'>
@@ -387,7 +387,7 @@ const Conclusion = ({ type = 0, score = 0, triviaScore = 0, total = 0, character
                                 </div>
                             </button>
                         }
-                        {difficulty === 2 && score === 10 && 
+                        {difficulty === 3 && score === 10 && 
                             <div className='w-72 mt-2 text-center'>
                                 <div className='font-bold'>
                                     Congratulations!
